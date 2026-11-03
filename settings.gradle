@@ -1,0 +1,23 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+
+	// 把 gradle.properties 里的 Loom 版本注入到 build.gradle 的 plugins {} 块
+	// plugins {} 块属于早期求值阶段，读不到 project 属性，必须在这里声明版本
+	plugins {
+		def props = new Properties()
+		def propsFile = new File(settingsDir, 'gradle.properties')
+		if (propsFile.exists()) {
+			propsFile.withInputStream { props.load(it) }
+		}
+		id 'net.fabricmc.fabric-loom' version props.getProperty('loom.version', '1.15.5')
+	}
+}
+
+rootProject.name = 'project-mc-mod-mushoku-tensei'

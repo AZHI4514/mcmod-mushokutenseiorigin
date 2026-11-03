@@ -1,0 +1,72 @@
+plugins {
+    id 'net.fabricmc.fabric-loom'
+    id 'maven-publish'
+}
+
+def propMinecraft   = project.property("minecraft.version")   as String
+def propLoader      = project.property("loader.version")      as String
+def propFabricApi   = project.property("fabric_api.version")  as String
+def propModVersion  = project.property("mod.version")         as String
+def propModId       = project.property("mod.id")              as String
+def propModName     = project.property("mod.name")            as String
+def propModAuthor   = project.property("mod.author")          as String
+def propModDesc     = project.property("mod.description")     as String
+def propModLicense  = project.property("mod.license")         as String
+def propJavaVersion = project.property("java.version")        as Integer
+def propJavaLevel   = project.property("java.language.level") as String
+
+version = "${propModVersion}+${propMinecraft}"
+group = project.property("maven_group") as String
+
+base {
+    archivesName = project.property("archives_base_name") as String
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "${propModId}" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+fabricApi {
+    configureDataGeneration {
+        client = true
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${propMinecraft}"
+    implementation "net.fabricmc:fabric-loader:${propLoader}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${propFabricApi}"
+}
+
+processResources {
+    def expandProps = [
+            "id"          : propModId,
+            "name"        : propModName,
+            "version"     : propModVersion,
+            "author"      : propModAuthor,
+            "description" : propModDesc,
+            "license"     : propModLicense,
+            "loader"      : propLoader,
+            "minecraft"   : propMinecraft
+    ]
+    inputs.properties(expandProps)
+    filesMatching("fabric.mod.json") { expand(expandProps) }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = propJavaVersion
+    it.options.encoding = "UTF-8"
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(propJavaLevel)
+    targetCompatibility = JavaVersion.toVersion(propJavaLevel)
+}

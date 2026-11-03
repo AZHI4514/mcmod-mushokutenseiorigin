@@ -1,0 +1,6 @@
+{
+	"model": {
+		"type": "minecraft:model",
+		"model": "mushokutenseiorigin:item/example_item"
+	}
+}
