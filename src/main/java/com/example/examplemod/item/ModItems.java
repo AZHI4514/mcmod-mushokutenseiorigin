@@ -31,6 +31,13 @@ public class ModItems {
 			new Item.Properties().stacksTo(16)
 	);
 
+	/** 洛琪希的圣遗物：属性与行为由所属物品类负责。 */
+	public static final Item ROXY_PANTSU = register(
+			"roxy_pantsu",
+			RoxyPantsuItem::new,
+			RoxyPantsuItem.createProperties()
+	);
+
 	/**
 	 * 通用注册方法。
 	 *
@@ -63,6 +70,9 @@ public class ModItems {
 		// 注意：26.1 起 ItemGroupEvents 已重命名为 CreativeModeTabEvents
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS)
 				.register(entries -> entries.accept(EXAMPLE_ITEM));
+
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
+				.register(entries -> entries.accept(ROXY_PANTSU));
 	}
 
 	// 私有构造，防止实例化

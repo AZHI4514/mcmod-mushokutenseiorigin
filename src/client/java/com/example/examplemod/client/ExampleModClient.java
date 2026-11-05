@@ -3,6 +3,7 @@ package com.example.examplemod.client;
 import net.fabricmc.api.ClientModInitializer;
 
 import com.example.examplemod.ExampleMod;
+import com.example.examplemod.client.render.ModArmorRenderers;
 
 /**
  * 客户端入口点。
@@ -19,6 +20,8 @@ public class ExampleModClient implements ClientModInitializer {
 		//   - 按键绑定
 		//   - 物品/方块着色
 		//   - 渲染层（26.1 起大多数情况会自动推导，无需手动注册）
+
+		ModArmorRenderers.initialize();
 
 		ExampleMod.LOGGER.info("[{}] Client initialization complete.", ExampleMod.MOD_ID);
 	}

@@ -47,3 +47,7 @@ bin/
 run/
 remappedSrc/
 .fabric/
+
+# Python tooling cache
+__pycache__/
+*.pyc
