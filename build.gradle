@@ -70,3 +70,13 @@ java {
     sourceCompatibility = JavaVersion.toVersion(propJavaLevel)
     targetCompatibility = JavaVersion.toVersion(propJavaLevel)
 }
+// Headless magic-state behavior checks; does not launch Minecraft.
+tasks.register('verifyMagic', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.examplemod.magic.MagicStateTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyMagic') }
+
+// Behavior tests use verifyMagic rather than a JUnit engine.
+tasks.named('test') { failOnNoDiscoveredTests = false }

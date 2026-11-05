@@ -38,6 +38,13 @@ public class ModItems {
 			RoxyPantsuItem.createProperties()
 	);
 
+	/** 塞妮丝的魔法书，学习咏唱的入口。 */
+	public static final Item ZENITH_GREYRAT_MAGIC_BOOK = register(
+			"zenith_greyrat_magic_book",
+			ZenithGreyratMagicBookItem::new,
+			ZenithGreyratMagicBookItem.createProperties()
+	);
+
 	/**
 	 * 通用注册方法。
 	 *
@@ -73,6 +80,9 @@ public class ModItems {
 
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
 				.register(entries -> entries.accept(ROXY_PANTSU));
+
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)
+				.register(entries -> entries.accept(ZENITH_GREYRAT_MAGIC_BOOK));
 	}
 
 	// 私有构造，防止实例化

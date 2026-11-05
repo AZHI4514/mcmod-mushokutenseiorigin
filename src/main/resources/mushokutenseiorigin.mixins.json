@@ -4,9 +4,14 @@
 	"package": "com.example.examplemod.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"MagicSleepMixin"
 	],
 	"client": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"MagicRenderStateMixin",
+		"MagicExtractPoseMixin",
+		"MagicHumanoidMixin",
+		"MagicFirstPersonMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

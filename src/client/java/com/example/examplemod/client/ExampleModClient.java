@@ -22,6 +22,7 @@ public class ExampleModClient implements ClientModInitializer {
 		//   - 渲染层（26.1 起大多数情况会自动推导，无需手动注册）
 
 		ModArmorRenderers.initialize();
+		com.example.examplemod.client.magic.MagicClient.initialize();
 
 		ExampleMod.LOGGER.info("[{}] Client initialization complete.", ExampleMod.MOD_ID);
 	}

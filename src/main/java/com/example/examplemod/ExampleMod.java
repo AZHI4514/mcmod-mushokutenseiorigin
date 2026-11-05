@@ -33,6 +33,7 @@ public class ExampleMod implements ModInitializer {
 
 		// 触发 ModItems 的静态初始化，完成物品注册
 		ModItems.initialize();
+		com.example.examplemod.magic.MagicSystem.initialize();
 
 		LOGGER.info("[{}] Common initialization complete.", MOD_ID);
 	}

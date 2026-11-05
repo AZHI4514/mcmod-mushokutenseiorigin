@@ -12,3 +12,4 @@
 - Blockbench 源文件放 `model-source/<id>/`，用 `tools/export_blockbench_equipment.py` 导出，不在运行时代码里引用本机绝对路径。
 - 编写后运行 `gradlew.bat build`，说明实际验证范围。未经用户要求不自动启动 Minecraft、不提交 Git。
 - 保留用户已有改动，禁止为了添加一件物品重构或删除其他物品。
+- 新增或修改法术前阅读 `docs/MAGIC_DEVELOPMENT.md`，复用其中服务端校验、状态持久化、输入打断与验收模板；运行 `gradlew.bat build`（包含 `verifyMagic`）。

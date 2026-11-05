@@ -1,0 +1,67 @@
+package com.example.examplemod.magic;
+
+import java.util.List;
+import com.mojang.serialization.JsonOps;
+
+/** 无需启动游戏的行为测试，由 verifyMagic 运行并纳入 check/build。 */
+public final class MagicStateTest {
+	private static int assertions;
+	private static void check(boolean condition, String message) {
+		assertions++;
+		if (!condition) throw new AssertionError(message);
+	}
+
+	public static void main(String[] args) {
+		var spell = SpellDefinition.WATER_BALL;
+		var state = MagicState.initial(100);
+		check(!state.canCast(spell), "Unknown spell cannot cast");
+		state = state.learn(spell.id());
+		check(state.canCast(spell), "First learning loads and selects spell");
+		check(state.learn(spell.id()).equals(state), "Learning is idempotent");
+		var paid = state.cast(spell);
+		check(paid.mana() == 99 && paid.cooldown() == 2, "One successful cast debits exactly once");
+		check(!paid.canCast(spell), "Immediate second cast denied");
+		check(!paid.tick().canCast(spell), "One tick is insufficient");
+		check(paid.tick().tick().canCast(spell), "Two tick cooldown");
+		try { paid.cast(spell); throw new AssertionError("Cooldown bypass"); }
+		catch (IllegalStateException expected) { assertions++; }
+		var zero = new MagicState(0, 100, 0, 0, state.learned(), state.loaded(), state.selected());
+		check(!zero.canCast(spell), "Insufficient mana denied");
+		check(!state.select("").selected().isEmpty(), "Blank selection keeps previous");
+		var removed = state.toggle(spell.id());
+		check(removed.selected().isEmpty() && removed.loaded().isEmpty() && removed.learned().size() == 1, "Unload does not forget");
+		check(removed.toggle(spell.id()).canCast(spell), "Known spell can be loaded again");
+		check(paid.withMaximum(200).mana() == 99, "Increasing maximum does not refill");
+		check(paid.withMaximum(50).mana() == 50, "Decreasing maximum clamps mana");
+		check(paid.withMaximum(200).maximum() == 200, "Maximum editable");
+		var countdown = new MagicState(3, 100, 23998, 2, state.learned(), state.loaded(), state.selected());
+		check(countdown.tick().mana() == 3, "No early daily recovery");
+		var recovered = countdown.tick().tick();
+		check(recovered.mana() == 100 && recovered.onlineTicks() == 0 && recovered.cooldown() == 0, "Daily recovery at exactly 24000 ticks");
+		check(paid.refill().learned().equals(paid.learned()) && paid.refill().loaded().equals(paid.loaded())
+				&& paid.refill().selected().equals(paid.selected()), "Recovery preserves knowledge and selection");
+		var dirty = new MagicState(-5, -1, -10, -2, List.of("unknown", spell.id(), spell.id()), List.of("unknown", spell.id(), spell.id()), "unknown");
+		check(dirty.mana() == 0 && dirty.maximum() == 1 && dirty.onlineTicks() == 0 && dirty.cooldown() == 0, "Invalid numeric data sanitized");
+		check(dirty.learned().size() == 1 && dirty.loaded().size() == 1 && dirty.selected().equals(spell.id()), "Invalid and duplicate spells sanitized");
+		var json = MagicState.CODEC.encodeStart(JsonOps.INSTANCE, paid).getOrThrow();
+		check(MagicState.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow().equals(paid), "Persistent codec round trip");
+		var day = zero;
+		for (int i = 0; i < 23999; i++) day = day.tick();
+		check(day.mana() == 0, "No premature full day recovery");
+		check(day.tick().mana() == 100, "Full online day refills");
+		var continuous = state;
+		int successes = 0;
+		for (int tick = 0; tick < 200; tick++) {
+			if (continuous.canCast(spell)) { continuous = continuous.cast(spell); successes++; }
+			continuous = continuous.tick();
+		}
+		check(successes == 100 && continuous.mana() == 0, "100 casts consume 100 mana without overspending");
+		check(zero.restoreMana(30).mana() == 30, "Cheat restores requested amount");
+		check(paid.restoreMana(30).mana() == 100, "Cheat recovery clamps to maximum");
+		check(zero.restoreMana(Integer.MAX_VALUE).mana() == 100, "Full restore cannot overflow");
+		check(paid.restoreMana(1).cooldown() == paid.cooldown() && paid.restoreMana(1).onlineTicks() == paid.onlineTicks(), "Cheat preserves timers");
+		check(paid.restoreMana(-1).equals(paid), "Negative recovery never removes mana");
+		check(paid.restoreMana(1).learned().equals(paid.learned()) && paid.restoreMana(1).selected().equals(paid.selected()), "Cheat preserves spell state");
+		System.out.println("MagicState: " + assertions + " behavior assertions passed.");
+	}
+}
