@@ -110,9 +110,9 @@ public final class MagicScreens {
 				g.text(font, name(selected), x + 120, y + 36, 0xFF164880, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cost", spell.manaCost()), x + 120, y + 56, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cooldown", spell.cooldownTicks() / 20.0), x + 120, y + 72, 0xFF303030, false);
-				g.text(font, text("water"), x + 120, y + 88, 0xFF164880, false);
+				g.text(font, Component.translatable("magic.mushokutenseiorigin.element." + spell.element()), x + 120, y + 88, 0xFF164880, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.damage", spell.damage()), x + 120, y + 104, 0xFF303030, false);
-				g.text(font, text("chant"), x + 120, y + 122, 0xFF505050, false);
+				if (spell.knockback() > 0) g.text(font, text("effect_knockback"), x + 120, y + 122, 0xFF505050, false);
 			} else g.text(font, text("empty"), x + 12, y + 60, 0xFF505050, false);
 			g.text(font, Component.translatable("magic.mushokutenseiorigin.loaded", state.loaded().size()), x + 10, y + 183, 0xFF303030, false);
 			String loaded = String.join(", ", state.loaded().stream().map(id -> name(id).getString()).toList());
@@ -125,49 +125,91 @@ public final class MagicScreens {
 	}
 
 	public static final class Wheel extends Screen {
-		private String hover = "";
 		public Wheel() { super(text("wheel")); }
-		private String hitSlot(int mx, int my) {
-			var slots = MagicClient.state().loaded();
-			int radius = Math.max(35, Math.min(76, Math.min(width, height) / 2 - 30));
-			for (int i = 0; i < slots.size(); i++) {
-				double angle = -Math.PI / 2 + i * Math.PI * 2 / slots.size();
-				int x = width / 2 + (int) (Math.cos(angle) * radius) - 22;
-				int y = height / 2 + (int) (Math.sin(angle) * radius) - 13;
-				if (mx >= x && mx < x + 44 && my >= y && my < y + 26) return slots.get(i);
+
+		/** 圆盘面积约为窗口的九分之一，超宽窗口以短边限制。 */
+		private int radius() {
+			return Math.max(1, (int) Math.min(Math.sqrt((double) width * height / (9 * Math.PI)), Math.min(width, height) / 2.0 - 4));
+		}
+
+		private int hitSlot(double mx, double my) {
+			int count = MagicClient.state().loaded().size();
+			double dx = mx - width / 2, dy = my - height / 2;
+			double distance = dx * dx + dy * dy;
+			if (count == 0 || distance < 100 || distance > (double) radius() * radius()) return -1;
+			double step = Math.PI * 2 / count;
+			double angle = (Math.atan2(dy, dx) + Math.PI / 2 + step / 2 + Math.PI * 2) % (Math.PI * 2);
+			return Math.min(count - 1, (int) (angle / step));
+		}
+
+		@Override
+		public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
+			if (event.button() == 0 || event.button() == 1) {
+				int slot = hitSlot(event.x(), event.y());
+				if (slot >= 0) {
+					MagicClient.send("select", MagicClient.state().loaded().get(slot));
+				}
+				return true;
 			}
-			return "";
+			return super.mouseClicked(event, doubleClick);
 		}
 
 		@Override
 		public void tick() {
-			if (!MagicClient.physicallyDown(MagicClient.WHEEL)) {
-				var client = Minecraft.getInstance();
-				hover = hitSlot((int) client.mouseHandler.getScaledXPos(client.getWindow()), (int) client.mouseHandler.getScaledYPos(client.getWindow()));
-				if (!hover.isEmpty()) MagicClient.send("select", hover);
-				onClose();
-			}
+			var client = Minecraft.getInstance();
+			if (!MagicClient.physicallyDown(MagicClient.WHEEL) || !client.isWindowActive()
+					|| client.player == null || !client.player.isAlive()) onClose();
+		}
+
+		@Override
+		public void removed() {
+			var client = Minecraft.getInstance();
+			for (var key : MagicClient.movementKeys(client))
+				key.setDown(client.isWindowActive() && MagicClient.physicallyDown(key));
+			super.removed();
+		}
+
+		@Override
+		public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
+			// 只绘制圆盘，不添加原版全屏背景或模糊。
 		}
 
 		@Override
 		public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
-			g.fill(0, 0, width, height, 0x80000000);
-			int cx = width / 2, cy = height / 2;
+			int cx = width / 2, cy = height / 2, r = radius();
 			var slots = MagicClient.state().loaded();
-			int radius = Math.max(35, Math.min(76, Math.min(width, height) / 2 - 30));
-			hover = "";
+			int hover = hitSlot(mx, my);
+			// 像素扫描线构成真正的圆形，扇区命中与高亮共用同一角度计算。
+			for (int y = -r; y <= r; y++) {
+				int half = (int) Math.sqrt((double) r * r - (double) y * y);
+				g.fill(cx - half, cy + y, cx + half + 1, cy + y + 1, 0x80505050);
+				g.fill(cx - half, cy + y, cx - half + 1, cy + y + 1, 0xFFAAAAAA);
+				g.fill(cx + half, cy + y, cx + half + 1, cy + y + 1, 0xFFAAAAAA);
+				if (hover >= 0) {
+					int start = -1;
+					for (int x = -half; x <= half + 1; x++) {
+						boolean selected = x <= half && hitSlot(cx + x, cy + y) == hover;
+						if (selected && start == -1) start = x + r;
+						if (!selected && start != -1) {
+							g.fill(cx + start - r, cy + y, cx + x, cy + y + 1, 0x806C78A0);
+							start = -1;
+						}
+					}
+				}
+			}
 			for (int i = 0; i < slots.size(); i++) {
 				double angle = -Math.PI / 2 + i * Math.PI * 2 / slots.size();
-				int x = cx + (int) (Math.cos(angle) * radius) - 22;
-				int y = cy + (int) (Math.sin(angle) * radius) - 13;
-				boolean hit = mx >= x && mx < x + 44 && my >= y && my < y + 26;
-				if (hit) hover = slots.get(i);
-				g.fill(x, y, x + 44, y + 26, hit ? 0xFF606080 : 0xFF555555);
-				g.outline(x, y, 44, 26, hit ? 0xFFFFFFFF : 0xFFAAAAAA);
-				g.centeredText(font, name(slots.get(i)), x + 22, y + 9, 0xFFFFFFFF);
+				int x = cx + (int) (Math.cos(angle) * r * 0.62);
+				int y = cy + (int) (Math.sin(angle) * r * 0.62);
+				int available = Math.max(12, (int) (r * 0.85));
+				float scale = Math.min(1, available / (float) Math.max(1, font.width(name(slots.get(i)))));
+				g.pose().pushMatrix();
+				g.pose().translate(x, y);
+				g.pose().scale(scale, scale);
+				g.centeredText(font, name(slots.get(i)), 0, -4, i == hover ? 0xFFFFFF80 : 0xFFFFFFFF);
+				g.pose().popMatrix();
 			}
-			g.centeredText(font, text(slots.isEmpty() ? "empty" : "release_select"), cx, cy, 0xFFFFFFFF);
-			if (!hover.isEmpty()) g.centeredText(font, name(hover), cx, cy + 14, 0xFF79BEFF);
+			if (slots.isEmpty()) g.centeredText(font, text("empty"), cx, cy - 4, 0xFFFFFFFF);
 		}
 
 		@Override

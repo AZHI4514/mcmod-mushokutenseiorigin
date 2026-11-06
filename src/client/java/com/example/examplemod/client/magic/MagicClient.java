@@ -26,6 +26,9 @@ public final class MagicClient {
 	public static final KeyMapping CAST = key("cast", GLFW.GLFW_KEY_V);
 	private static boolean mustRelease = true;
 	private static boolean armed;
+	private static boolean wheelMustRelease;
+	private static boolean suppressAttack;
+	private static boolean suppressUse;
 	private static int sequence;
 	private static int localDelay;
 	private static net.minecraft.client.player.LocalPlayer lastPlayer;
@@ -36,17 +39,21 @@ public final class MagicClient {
 	}
 
 	public static void initialize() {
-		EntityRendererRegistry.register(MagicSystem.WATER_BALL, WaterBallRenderer::new);
+		EntityRendererRegistry.register(MagicSystem.WATER_BALL, context -> new WaterBallRenderer(context, "water_ball"));
+		EntityRendererRegistry.register(MagicSystem.FIREBALL, context -> new WaterBallRenderer(context, "fireball"));
+		EntityRendererRegistry.register(MagicSystem.WIND_BALL, context -> new WaterBallRenderer(context, "wind_ball"));
+		EntityRendererRegistry.register(MagicSystem.ROCK_BULLET, context -> new WaterBallRenderer(context, "rock_bullet"));
 		HudElementRegistry.addLast(ExampleMod.id("magic_hud"), (graphics, delta) -> MagicScreens.drawHud(graphics));
 		UseItemCallback.EVENT.register((player, level, hand) -> {
 			if (level.isClientSide() && player == Minecraft.getInstance().player
-					&& player.getItemInHand(hand).is(ModItems.ZENITH_GREYRAT_MAGIC_BOOK)) {
+					&& com.example.examplemod.magic.MagicBooks.isTextbook(player.getItemInHand(hand))) {
 				interrupt();
 				Minecraft.getInstance().setScreen(new MagicBookScreen());
 				return InteractionResult.SUCCESS;
 			}
 			return InteractionResult.PASS;
 		});
+		ClientTickEvents.START_CLIENT_TICK.register(MagicClient::updateWheelInput);
 		ClientTickEvents.END_CLIENT_TICK.register(MagicClient::tick);
 	}
 
@@ -82,12 +89,38 @@ public final class MagicClient {
 		return InputConstants.isKeyDown(window, key.getValue());
 	}
 
+	/** 只透传移动键；鼠标按键保持隔离，直到关闭后物理松开，防止误攻击。 */
+	private static void updateWheelInput(Minecraft client) {
+		boolean wheel = client.screen instanceof MagicScreens.Wheel;
+		if (wheel) {
+			for (var key : movementKeys(client)) key.setDown(client.isWindowActive() && physicallyDown(key));
+			suppressAttack = true;
+			suppressUse = true;
+		}
+		if (suppressAttack) suppressAttack = suppressMouse(client.options.keyAttack, wheel);
+		if (suppressUse) suppressUse = suppressMouse(client.options.keyUse, wheel);
+	}
+
+	private static boolean suppressMouse(KeyMapping key, boolean wheel) {
+		key.setDown(false);
+		while (key.consumeClick()) { }
+		return wheel || physicallyDown(key);
+	}
+
+	static KeyMapping[] movementKeys(Minecraft client) {
+		var options = client.options;
+		return new KeyMapping[]{options.keyUp, options.keyDown, options.keyLeft, options.keyRight,
+				options.keyJump, options.keyShift, options.keySprint};
+	}
+
 	private static void tick(Minecraft client) {
 		if (client.player != lastPlayer) { interrupt(); lastPlayer = client.player; }
 		if (client.player == null || client.level == null) { armed = false; mustRelease = true; return; }
+		if (!physicallyDown(WHEEL)) wheelMustRelease = false;
 		if (!client.isWindowActive() || client.screen != null || client.player.isUsingItem()
 				|| !client.player.isAlive() || client.player.isSpectator()) {
 			interrupt();
+			if (!(client.screen instanceof MagicScreens.Wheel) && physicallyDown(WHEEL)) wheelMustRelease = true;
 			while (KNOWLEDGE.consumeClick()) { }
 			while (WHEEL.consumeClick()) { }
 			return;
@@ -97,7 +130,7 @@ public final class MagicClient {
 			client.setScreen(new MagicScreens.Knowledge(false));
 			return;
 		}
-		if (WHEEL.consumeClick()) {
+		if (WHEEL.consumeClick() && !wheelMustRelease && physicallyDown(WHEEL)) {
 			interrupt();
 			client.setScreen(new MagicScreens.Wheel());
 			return;

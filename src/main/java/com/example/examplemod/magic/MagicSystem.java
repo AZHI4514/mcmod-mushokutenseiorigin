@@ -23,11 +23,27 @@ import com.example.examplemod.item.ModItems;
 /** 所有状态变化发生在服务端线程；一次请求最多执行一次成功施法。 */
 public final class MagicSystem {
 	private static final Map<UUID, Session> SESSIONS = new HashMap<>();
-	public static final EntityType<WaterBallEntity> WATER_BALL = Registry.register(
-			BuiltInRegistries.ENTITY_TYPE, ExampleMod.id("water_ball"),
-			EntityType.Builder.<WaterBallEntity>of(WaterBallEntity::new, MobCategory.MISC)
-					.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(1)
-					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("water_ball"))));
+	public static final EntityType<WaterBallEntity> WATER_BALL = registerProjectile("water_ball");
+	public static final EntityType<WaterBallEntity> FIREBALL = registerProjectile("fireball");
+	public static final EntityType<WaterBallEntity> WIND_BALL = registerProjectile("wind_ball");
+	public static final EntityType<WaterBallEntity> ROCK_BULLET = registerProjectile("rock_bullet");
+
+	private static EntityType<WaterBallEntity> registerProjectile(String id) {
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, ExampleMod.id(id),
+				EntityType.Builder.<WaterBallEntity>of(WaterBallEntity::new, MobCategory.MISC)
+						.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(1)
+						.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id(id))));
+	}
+
+	private static EntityType<WaterBallEntity> projectileType(SpellDefinition spell) {
+		return switch (spell.id()) {
+			case "water_ball" -> WATER_BALL;
+			case "fireball" -> FIREBALL;
+			case "wind_ball" -> WIND_BALL;
+			case "rock_bullet" -> ROCK_BULLET;
+			default -> throw new IllegalArgumentException("No spell executor: " + spell.id());
+		};
+	}
 
 	public static void initialize() {
 		MagicConfig.load();
@@ -94,8 +110,8 @@ public final class MagicSystem {
 		MagicState before = state(player);
 		switch (packet.action()) {
 			case "learn" -> {
-				if (player.getMainHandItem().is(ModItems.ZENITH_GREYRAT_MAGIC_BOOK)
-						|| player.getOffhandItem().is(ModItems.ZENITH_GREYRAT_MAGIC_BOOK))
+				if (MagicBooks.teaches(player.getMainHandItem(), packet.spell())
+						|| MagicBooks.teaches(player.getOffhandItem(), packet.spell()))
 					player.setAttached(MagicAttachments.STATE, before.learn(packet.spell()));
 			}
 			case "toggle" -> player.setAttached(MagicAttachments.STATE, before.toggle(packet.spell()));
@@ -108,24 +124,24 @@ public final class MagicSystem {
 				}
 				if (session.blocked) return;
 				SpellDefinition spell = SpellDefinition.find(packet.spell());
-				if (!before.canCast(spell)) {
+				if (!before.canCast(spell) || !SpellHooks.canUse(player, spell, SpellHooks.CastSource.KEYBOARD)) {
 					if (before.cooldown() == 0 && session.age - session.lastHint >= 20) {
 						player.sendOverlayMessage(Component.translatable("magic.mushokutenseiorigin.cannot_cast"));
 						session.lastHint = session.age;
 					}
 					return;
 				}
-				WaterBallEntity ball = new WaterBallEntity(WATER_BALL, player.level());
+				WaterBallEntity ball = new WaterBallEntity(projectileType(spell), player.level());
 				ball.setOwner(player);
 				ball.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
-				ball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 1.5F, 1.0F);
+				ball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, spell.speed(), 1.0F);
 				MagicState paid = before.cast(spell);
 				player.setAttached(MagicAttachments.STATE, paid);
 				if (!player.level().addFreshEntity(ball)) {
 					player.setAttached(MagicAttachments.STATE, before);
 					return;
 				}
-				player.setAttached(MagicAttachments.CAST_TICKS, spell.cooldownTicks());
+				player.setAttached(MagicAttachments.CAST_TICKS, 2);
 				MagicSounds.listener.accept(player, MagicSounds.Phase.RELEASE);
 			}
 			default -> { }

@@ -18,10 +18,22 @@ import com.example.examplemod.magic.WaterBallEntity;
 /** 使用原版方块图集的动画水纹理，不复制整张动画帧条带。 */
 public final class WaterBallRenderer extends EntityRenderer<WaterBallEntity, EntityRenderState> {
 	private final TextureAtlasSprite water;
-	public WaterBallRenderer(EntityRendererProvider.Context context) {
+	private final int color;
+	public WaterBallRenderer(EntityRendererProvider.Context context, String spell) {
 		super(context);
 		// 26.1 查询使用逻辑图集 ID；渲染绑定仍使用下方的纹理路径。
-		water = context.getAtlas(AtlasIds.BLOCKS).getSprite(Identifier.withDefaultNamespace("block/water_still"));
+		String texture = switch (spell) {
+			case "fireball" -> "block/fire_0";
+			case "wind_ball" -> "block/white_stained_glass";
+			case "rock_bullet" -> "block/stone";
+			default -> "block/water_still";
+		};
+		color = switch (spell) {
+			case "fireball", "rock_bullet" -> 0xFFFFFFFF;
+			case "wind_ball" -> 0xA0DEFFFF;
+			default -> 0xB33F76E4;
+		};
+		water = context.getAtlas(AtlasIds.BLOCKS).getSprite(Identifier.withDefaultNamespace(texture));
 	}
 	@Override
 	public EntityRenderState createRenderState() { return new EntityRenderState(); }
@@ -42,7 +54,7 @@ public final class WaterBallRenderer extends EntityRenderer<WaterBallEntity, Ent
 		for (int i = 0; i < 4; i++) {
 			float[] p = points[i];
 			out.addVertex(pose, (p[0] - 0.5F) * 0.25F, p[1] * 0.25F, (p[2] - 0.5F) * 0.25F)
-					.setColor(0xB33F76E4).setUv(i < 2 ? water.getU0() : water.getU1(), i == 0 || i == 3 ? water.getV1() : water.getV0())
+					.setColor(color).setUv(i < 2 ? water.getU0() : water.getU1(), i == 0 || i == 3 ? water.getV1() : water.getV0())
 					.setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, nx, ny, nz);
 		}
 	}

@@ -160,3 +160,7 @@ python tools/export_blockbench_equipment.py model-source/roxy_pantsu/pantsu.bbmo
 - 联机查看需要相关客户端均安装模组，服务器安装对应模组。游戏内视觉与联机效果由实际客户端测试确认。
 
 代码编译和资源检查通过不等于已经完成游戏内视觉测试。此功能不添加新 Mixin，不启动游戏、不提交 Git。
+
+## 模组创造模式分类
+
+ModItems.MUSHOKUTENSEIORIGIN_TAB 注册 ID 为 mushokutenseiorigin:mushokutenseiorigin，中文名称「无职转生」。新增物品在统一注册后，同时加入该分类 displayItems 列表；正式物品只加入本分类，不再加入原版分页；示例物品不展示。

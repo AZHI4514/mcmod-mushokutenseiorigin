@@ -6,19 +6,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 
 import com.example.examplemod.ExampleMod;
 
-/**
- * 示例物品注册。
- *
- * <p>用于验证 Fabric 注册流程是否正常工作：
- * 启动客户端后可在「原材料 / Ingredients」创造模式分页中找到该物品。
- */
+/** 模组物品统一注册，仅在「无职转生」创造分类展示正式物品。 */
 public class ModItems {
 	/**
 	 * 示例物品。
@@ -43,6 +40,28 @@ public class ModItems {
 			"zenith_greyrat_magic_book",
 			ZenithGreyratMagicBookItem::new,
 			ZenithGreyratMagicBookItem.createProperties()
+	);
+
+	/** 与塞妮丝的魔法书共用四元素初级教材。 */
+	public static final Item BASIC_ATTACK_MAGIC_PRIMER = register(
+			"basic_attack_magic_primer",
+			BasicAttackMagicPrimerItem::new,
+			BasicAttackMagicPrimerItem.createProperties()
+	);
+
+	/** 本模组统一创造模式分类；新增物品同时加入这里的展示列表。 */
+	public static final CreativeModeTab MUSHOKUTENSEIORIGIN_TAB = Registry.register(
+			BuiltInRegistries.CREATIVE_MODE_TAB,
+			ExampleMod.id("mushokutenseiorigin"),
+			FabricCreativeModeTab.builder()
+					.title(Component.translatable("itemGroup.mushokutenseiorigin"))
+					.icon(() -> new ItemStack(ZENITH_GREYRAT_MAGIC_BOOK))
+					.displayItems((parameters, output) -> {
+						output.accept(ROXY_PANTSU);
+						output.accept(ZENITH_GREYRAT_MAGIC_BOOK);
+						output.accept(BASIC_ATTACK_MAGIC_PRIMER);
+					})
+					.build()
 	);
 
 	/**
@@ -73,16 +92,6 @@ public class ModItems {
 	public static void initialize() {
 		ExampleMod.LOGGER.info("Registering items for {}", ExampleMod.MOD_ID);
 
-		// 把示例物品加入「原材料」创造模式分页
-		// 注意：26.1 起 ItemGroupEvents 已重命名为 CreativeModeTabEvents
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS)
-				.register(entries -> entries.accept(EXAMPLE_ITEM));
-
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
-				.register(entries -> entries.accept(ROXY_PANTSU));
-
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)
-				.register(entries -> entries.accept(ZENITH_GREYRAT_MAGIC_BOOK));
 	}
 
 	// 私有构造，防止实例化

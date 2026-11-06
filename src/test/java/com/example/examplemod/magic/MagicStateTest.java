@@ -62,6 +62,34 @@ public final class MagicStateTest {
 		check(paid.restoreMana(1).cooldown() == paid.cooldown() && paid.restoreMana(1).onlineTicks() == paid.onlineTicks(), "Cheat preserves timers");
 		check(paid.restoreMana(-1).equals(paid), "Negative recovery never removes mana");
 		check(paid.restoreMana(1).learned().equals(paid.learned()) && paid.restoreMana(1).selected().equals(paid.selected()), "Cheat preserves spell state");
+
+		var four = MagicState.initial(100);
+		for (var definition : SpellDefinition.ALL) four = four.learn(definition.id());
+		check(four.learned().size() == 4 && four.loaded().size() == 4, "Four lessons load distinct slots");
+		check(four.selected().equals(spell.id()), "Later lessons preserve selection");
+		for (var definition : SpellDefinition.ALL) {
+			var ready = four.select(definition.id());
+			var spent = ready.cast(definition);
+			check(spent.mana() == 100 - definition.manaCost(), "Exact cost: " + definition.id());
+			for (int i = 1; i < definition.cooldownTicks(); i++) {
+				spent = spent.tick();
+				check(!spent.canCast(definition), "No early cooldown: " + definition.id());
+			}
+			check(spent.tick().canCast(definition), "Cooldown ends exactly: " + definition.id());
+			var poor = new MagicState(definition.manaCost() - 1, 100, 0, 0, four.learned(), four.loaded(), definition.id());
+			check(!poor.canCast(definition), "Reject insufficient mana: " + definition.id());
+			check(ready.learn(definition.id()).equals(ready), "No duplicate lesson: " + definition.id());
+			check(definition.prerequisitesMet(id -> false), "Basic spell has no external dependency");
+		}
+		var firePaid = four.select("fireball").cast(SpellDefinition.FIREBALL).select("water_ball");
+		check(!firePaid.canCast(spell), "Switching cannot bypass global cooldown");
+		var fourJson = MagicState.CODEC.encodeStart(JsonOps.INSTANCE, firePaid).getOrThrow();
+		check(MagicState.CODEC.parse(JsonOps.INSTANCE, fourJson).getOrThrow().equals(firePaid), "Four spells persist with cooldown");
+		check(four.toggle("water_ball").selected().equals("fireball"), "Removing selection falls back to first remaining");
+		var gated = new SpellDefinition("future", 1, 1, 2, 100, "water", 1.5F, 0.03, 0,
+				SpellDefinition.CastMode.CHANT, List.of("disease_system"));
+		check(!gated.prerequisitesMet(id -> false), "Missing future dependency denies availability");
+		check(gated.prerequisitesMet(id -> id.equals("disease_system")), "Known dependency can be supplied later");
 		System.out.println("MagicState: " + assertions + " behavior assertions passed.");
 	}
 }
