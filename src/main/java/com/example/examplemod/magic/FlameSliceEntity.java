@@ -1,0 +1,109 @@
+package com.example.examplemod.magic;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
+import java.util.ArrayList;
+
+/** 3×1×1火断体沿准星方向扫掠；仅完整截面遮挡时停，首次遇生物则区域结算后消失。 */
+public final class FlameSliceEntity extends Projectile {
+	private FlameSliceFlight flight = new FlameSliceFlight(0);
+	private int age;
+
+	public FlameSliceEntity(EntityType<? extends FlameSliceEntity> type, Level level) { super(type, level); }
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) { }
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (level().isClientSide()) { setPos(position().add(getDeltaMovement())); return; }
+		if (++age > SpellDefinition.FLAME_SLICE.lifetimeTicks() || flight.exhausted() || getDeltaMovement().lengthSqr() < 1.0E-8) {
+			discard(); return;
+		}
+		var level = (ServerLevel) level();
+		var from = position();
+		var direction = getDeltaMovement().normalize();
+		double distance = Math.min(getDeltaMovement().length(), flight.remaining());
+		var to = from.add(direction.scale(distance));
+		var volume = new FlameSliceVolume(direction, getYRot());
+		var bounds = volume.bounds(from).minmax(volume.bounds(to)).inflate(1.0E-5);
+		for (int x = (int) Math.floor(bounds.minX) >> 4; x <= (int) Math.floor(bounds.maxX) >> 4; x++) {
+			for (int z = (int) Math.floor(bounds.minZ) >> 4; z <= (int) Math.floor(bounds.maxZ) >> 4; z++) {
+				if (!level.hasChunkAt(new BlockPos(x << 4, getBlockY(), z << 4))) { discard(); return; }
+			}
+		}
+		var obstacles = new ArrayList<AABB>();
+		for (var shape : level.getBlockCollisions(this, bounds)) obstacles.addAll(shape.toAabbs());
+		double wall = volume.blockingDistance(from, distance, obstacles);
+		// 不用原版细射线/墙体视线判定，宽体从边缘擦过生物同样命中。
+		var targets = level.getEntities(this, bounds, entity -> entity instanceof LivingEntity
+				&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());
+		double firstHit = Double.POSITIVE_INFINITY;
+		LivingEntity hitTarget = null;
+		for (var target : targets) {
+			double contact = volume.contact(target.getBoundingBox(), from, distance);
+			if (contact < firstHit) {
+				firstHit = contact;
+				hitTarget = (LivingEntity) target;
+			}
+		}
+		if (wall <= firstHit && wall <= distance) { discard(); return; }
+		if (hitTarget != null && firstHit <= distance) {
+			var center = from.add(direction.scale(Math.min(distance, firstHit + 1.0E-5)));
+			setPos(center);
+			// 以首个命中生物为中心，水平3×3格；高度沿用其身体范围。
+			var body = hitTarget.getBoundingBox();
+			var impactArea = new AABB(hitTarget.getX() - 1.5, body.minY, hitTarget.getZ() - 1.5,
+					hitTarget.getX() + 1.5, body.maxY, hitTarget.getZ() + 1.5);
+			var affected = level.getEntities(this, impactArea, entity -> entity instanceof LivingEntity
+					&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());
+			for (var target : affected) {
+				if (getOwner() instanceof Player owner && target instanceof Player player && !owner.canHarmPlayer(player)) continue;
+				if (target.hurtServer(level, MagicDamage.source(this, SpellDefinition.FLAME_SLICE), SpellDefinition.FLAME_SLICE.damage()))
+					SpellHooks.afterHit.accept(this, target);
+			}
+			for (int i = -6; i <= 6; i++) {
+				var at = center.add(volume.side.scale(i * 0.25));
+				level.sendParticles(ParticleTypes.FLAME, at.x, at.y, at.z, 2, 0.04, 0.3, 0.04, 0.01);
+			}
+			impactSound();
+			discard();
+			return;
+		}
+		setPos(to);
+		flight = flight.advance(distance);
+		level.sendParticles(ParticleTypes.FLAME, getX(), getY(), getZ(), 2, 0.3, 0.1, 0.3, 0);
+		if (flight.exhausted()) discard();
+	}
+
+	private void impactSound() {
+		if (getOwner() instanceof net.minecraft.server.level.ServerPlayer player)
+			MagicSounds.listener.accept(player, MagicSounds.Phase.IMPACT);
+	}
+
+
+	@Override
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("MagicAge", age);
+		output.store("FlameFlight", FlameSliceFlight.CODEC, flight);
+	}
+	@Override
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		age = Math.max(0, input.getIntOr("MagicAge", 0));
+		flight = input.read("FlameFlight", FlameSliceFlight.CODEC)
+				.orElse(new FlameSliceFlight(SpellDefinition.FLAME_SLICE.range()));
+	}
+}

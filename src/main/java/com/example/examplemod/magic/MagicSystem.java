@@ -18,7 +18,6 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import com.example.examplemod.ExampleMod;
-import com.example.examplemod.item.ModItems;
 
 /** 所有状态变化发生在服务端线程；一次请求最多执行一次成功施法。 */
 public final class MagicSystem {
@@ -27,6 +26,12 @@ public final class MagicSystem {
 	public static final EntityType<WaterBallEntity> FIREBALL = registerProjectile("fireball");
 	public static final EntityType<WaterBallEntity> WIND_BALL = registerProjectile("wind_ball");
 	public static final EntityType<WaterBallEntity> ROCK_BULLET = registerProjectile("rock_bullet");
+	public static final EntityType<WaterBallEntity> WATER_ARROW = registerProjectile("water_arrow");
+	public static final EntityType<WaterBallEntity> ICE_SMASH = registerProjectile("ice_smash");
+	public static final EntityType<FlameSliceEntity> FLAME_SLICE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
+			ExampleMod.id("flame_slice"), EntityType.Builder.<FlameSliceEntity>of(FlameSliceEntity::new, MobCategory.MISC)
+					.sized(1.5F, 0.25F).clientTrackingRange(4).updateInterval(1)
+					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("flame_slice"))));
 
 	private static EntityType<WaterBallEntity> registerProjectile(String id) {
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE, ExampleMod.id(id),
@@ -35,12 +40,14 @@ public final class MagicSystem {
 						.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id(id))));
 	}
 
-	private static EntityType<WaterBallEntity> projectileType(SpellDefinition spell) {
+	static EntityType<WaterBallEntity> projectileType(SpellDefinition spell) {
 		return switch (spell.id()) {
 			case "water_ball" -> WATER_BALL;
 			case "fireball" -> FIREBALL;
 			case "wind_ball" -> WIND_BALL;
 			case "rock_bullet" -> ROCK_BULLET;
+			case "water_arrow" -> WATER_ARROW;
+			case "ice_smash" -> ICE_SMASH;
 			default -> throw new IllegalArgumentException("No spell executor: " + spell.id());
 		};
 	}
@@ -131,13 +138,12 @@ public final class MagicSystem {
 					}
 					return;
 				}
-				WaterBallEntity ball = new WaterBallEntity(projectileType(spell), player.level());
-				ball.setOwner(player);
-				ball.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
-				ball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, spell.speed(), 1.0F);
+				var aim = new MagicAim(packet.yaw(), packet.pitch());
+				if (spell.execution() == SpellDefinition.Execution.FLAME_SLICE && !aim.valid()) return;
+				if (!SpellExecutors.canExecute(player, spell)) return;
 				MagicState paid = before.cast(spell);
 				player.setAttached(MagicAttachments.STATE, paid);
-				if (!player.level().addFreshEntity(ball)) {
+				if (!SpellExecutors.execute(player, spell, aim)) {
 					player.setAttached(MagicAttachments.STATE, before);
 					return;
 				}

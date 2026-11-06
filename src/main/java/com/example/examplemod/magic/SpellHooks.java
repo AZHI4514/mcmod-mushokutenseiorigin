@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 public final class SpellHooks {
 	public enum CastSource { KEYBOARD, WAND }
 	public static BiPredicate<ServerPlayer, String> requirement = (player, id) -> false;
-	public static BiConsumer<WaterBallEntity, Entity> afterHit = (projectile, target) -> { };
+	public static BiConsumer<net.minecraft.world.entity.projectile.Projectile, Entity> afterHit = (projectile, target) -> { };
 
 	public static boolean canUse(ServerPlayer player, SpellDefinition spell, CastSource source) {
 		return source == CastSource.KEYBOARD && spell.castMode() == SpellDefinition.CastMode.INSTANT

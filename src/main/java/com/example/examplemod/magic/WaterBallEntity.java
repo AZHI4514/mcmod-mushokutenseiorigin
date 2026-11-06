@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-/** 四种基础无穿透弹体的共用行为；类型决定定义，保留旧 water_ball 存档。原版伤害与 PVP 判定保持有效，不清空无敌帧。 */
+/** 六种无穿透弹体的共用行为；类型决定定义，保留旧 water_ball 存档。原版伤害与 PVP 判定保持有效，不清空无敌帧。 */
 public final class WaterBallEntity extends ThrowableProjectile {
 	private int age;
 
@@ -17,6 +17,8 @@ public final class WaterBallEntity extends ThrowableProjectile {
 		if (getType() == MagicSystem.FIREBALL) return SpellDefinition.FIREBALL;
 		if (getType() == MagicSystem.WIND_BALL) return SpellDefinition.WIND_BALL;
 		if (getType() == MagicSystem.ROCK_BULLET) return SpellDefinition.ROCK_BULLET;
+		if (getType() == MagicSystem.WATER_ARROW) return SpellDefinition.WATER_ARROW;
+		if (getType() == MagicSystem.ICE_SMASH) return SpellDefinition.ICE_SMASH;
 		return SpellDefinition.WATER_BALL;
 	}
 
@@ -60,12 +62,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 			if (getOwner() instanceof net.minecraft.server.level.ServerPlayer owner
 					&& hit.getEntity() instanceof net.minecraft.world.entity.player.Player target
 					&& !owner.canHarmPlayer(target)) return;
-			var damage = spell() == SpellDefinition.FIREBALL
-					? new net.minecraft.world.damagesource.DamageSource(level.registryAccess().lookupOrThrow(
-							net.minecraft.core.registries.Registries.DAMAGE_TYPE).getOrThrow(
-							net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,
-								com.example.examplemod.ExampleMod.id("basic_fireball"))), this, getOwner())
-					: damageSources().thrown(this, getOwner());
+			var damage = MagicDamage.source(this, spell());
 			boolean damaged = hit.getEntity().hurtServer(level, damage, spell().damage());
 			if (damaged && spell().knockback() > 0 && hit.getEntity() instanceof net.minecraft.world.entity.LivingEntity target) {
 				var direction = getDeltaMovement();
@@ -84,7 +81,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 	protected void onHit(HitResult hit) {
 		super.onHit(hit);
 		if (level() instanceof ServerLevel level) {
-			var particles = switch (spell().element()) {
+			var particles = spell() == SpellDefinition.ICE_SMASH ? ParticleTypes.SNOWFLAKE : switch (spell().element()) {
 				case "fire" -> ParticleTypes.FLAME;
 				case "wind" -> ParticleTypes.CLOUD;
 				case "earth" -> ParticleTypes.CRIT;

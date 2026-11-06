@@ -7,6 +7,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.network.chat.Component;
 import com.example.examplemod.magic.MagicBooks;
+import com.example.examplemod.magic.SpellDefinition;
 
 /** 两本书使用同一教材；原版翻页、页码与纸张，法术页提供对应学习按钮。 */
 public final class MagicBookScreen extends BookViewScreen {
@@ -53,8 +54,10 @@ public final class MagicBookScreen extends BookViewScreen {
 		String id = pageSpells.get(shownPage);
 		boolean learned = MagicClient.state().learned().contains(id);
 		learn.visible = !id.isEmpty();
-		learn.active = !learned && !id.isEmpty();
-		learn.setMessage(learned ? MagicScreens.text("already_learned") : Component.translatable(
+		var spell = SpellDefinition.find(id);
+		boolean allowed = spell != null && spell.learningRequirementsMet(MagicClient.state().learned());
+		learn.active = !learned && allowed;
+		learn.setMessage(learned ? MagicScreens.text("already_learned") : !allowed ? MagicScreens.text("missing_knowledge") : Component.translatable(
 				"magic.mushokutenseiorigin.learn_spell", MagicScreens.name(id)));
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 	}

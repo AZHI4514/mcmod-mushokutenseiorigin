@@ -43,6 +43,9 @@ public final class MagicClient {
 		EntityRendererRegistry.register(MagicSystem.FIREBALL, context -> new WaterBallRenderer(context, "fireball"));
 		EntityRendererRegistry.register(MagicSystem.WIND_BALL, context -> new WaterBallRenderer(context, "wind_ball"));
 		EntityRendererRegistry.register(MagicSystem.ROCK_BULLET, context -> new WaterBallRenderer(context, "rock_bullet"));
+		EntityRendererRegistry.register(MagicSystem.WATER_ARROW, context -> new WaterBallRenderer(context, "water_arrow"));
+		EntityRendererRegistry.register(MagicSystem.ICE_SMASH, context -> new WaterBallRenderer(context, "ice_smash"));
+		EntityRendererRegistry.register(MagicSystem.FLAME_SLICE, FlameSliceRenderer::new);
 		HudElementRegistry.addLast(ExampleMod.id("magic_hud"), (graphics, delta) -> MagicScreens.drawHud(graphics));
 		UseItemCallback.EVENT.register((player, level, hand) -> {
 			if (level.isClientSide() && player == Minecraft.getInstance().player
@@ -63,8 +66,9 @@ public final class MagicClient {
 	}
 
 	public static void send(String action, String spell) {
-		if (ClientPlayNetworking.canSend(MagicActionPayload.TYPE))
-			ClientPlayNetworking.send(new MagicActionPayload(action, spell, ++sequence));
+		var player = Minecraft.getInstance().player;
+		if (player != null && ClientPlayNetworking.canSend(MagicActionPayload.TYPE))
+			ClientPlayNetworking.send(new MagicActionPayload(action, spell, ++sequence, player.getYRot(), player.getXRot()));
 	}
 
 	public static void interrupt() {

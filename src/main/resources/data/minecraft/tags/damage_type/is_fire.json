@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"mushokutenseiorigin:basic_fireball"
+		"mushokutenseiorigin:basic_fireball",
+		"mushokutenseiorigin:flame_slice"
 	]
 }

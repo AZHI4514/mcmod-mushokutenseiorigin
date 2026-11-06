@@ -67,7 +67,8 @@ public record MagicState(int mana, int maximum, int onlineTicks, int cooldown,
 	}
 
 	public MagicState learn(String id) {
-		if (SpellDefinition.find(id) == null || learned.contains(id)) return this;
+		var spell = SpellDefinition.find(id);
+		if (spell == null || learned.contains(id) || !spell.learningRequirementsMet(learned)) return this;
 		List<String> next = new ArrayList<>(learned);
 		next.add(id);
 		List<String> slots = new ArrayList<>(loaded);

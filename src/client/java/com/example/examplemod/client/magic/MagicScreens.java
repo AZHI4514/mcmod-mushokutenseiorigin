@@ -111,8 +111,10 @@ public final class MagicScreens {
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cost", spell.manaCost()), x + 120, y + 56, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cooldown", spell.cooldownTicks() / 20.0), x + 120, y + 72, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.element." + spell.element()), x + 120, y + 88, 0xFF164880, false);
-				g.text(font, Component.translatable("magic.mushokutenseiorigin.damage", spell.damage()), x + 120, y + 104, 0xFF303030, false);
+				g.text(font, Component.translatable("magic.mushokutenseiorigin." + (spell.healing() > 0 ? "healing" : "damage"), spell.healing() > 0 ? spell.healing() : spell.damage()), x + 120, y + 104, 0xFF303030, false);
 				if (spell.knockback() > 0) g.text(font, text("effect_knockback"), x + 120, y + 122, 0xFF505050, false);
+				else if (spell.execution() == SpellDefinition.Execution.FLAME_SLICE)
+					g.text(font, text("effect_flame_slice"), x + 120, y + 122, 0xFF505050, false);
 			} else g.text(font, text("empty"), x + 12, y + 60, 0xFF505050, false);
 			g.text(font, Component.translatable("magic.mushokutenseiorigin.loaded", state.loaded().size()), x + 10, y + 183, 0xFF303030, false);
 			String loaded = String.join(", ", state.loaded().stream().map(id -> name(id).getString()).toList());
