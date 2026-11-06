@@ -12,12 +12,14 @@ import net.minecraft.world.phys.HitResult;
 /** 六种无穿透弹体的共用行为；类型决定定义，保留旧 water_ball 存档。原版伤害与 PVP 判定保持有效，不清空无敌帧。 */
 public final class WaterBallEntity extends ThrowableProjectile {
 	private int age;
+	private double distance;
 
 	public SpellDefinition spell() {
 		if (getType() == MagicSystem.FIREBALL) return SpellDefinition.FIREBALL;
 		if (getType() == MagicSystem.WIND_BALL) return SpellDefinition.WIND_BALL;
 		if (getType() == MagicSystem.ROCK_BULLET) return SpellDefinition.ROCK_BULLET;
 		if (getType() == MagicSystem.WATER_ARROW) return SpellDefinition.WATER_ARROW;
+		if (getType() == MagicSystem.ICE_BLADE) return SpellDefinition.ICE_BLADE;
 		if (getType() == MagicSystem.ICE_SMASH) return SpellDefinition.ICE_SMASH;
 		return SpellDefinition.WATER_BALL;
 	}
@@ -41,18 +43,26 @@ public final class WaterBallEntity extends ThrowableProjectile {
 				return;
 			}
 		}
+		if (spell() == SpellDefinition.ICE_BLADE) {
+			setDeltaMovement(getDeltaMovement().normalize().scale(Math.min(spell().speed(), Math.max(0, spell().range()-distance))));
+			distance += getDeltaMovement().length();
+		}
 		super.tick();
+		if (spell() == SpellDefinition.ICE_BLADE && distance >= spell().range() && !level().isClientSide()) discard();
 	}
 
 	@Override
 	protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.putInt("MagicAge", age);
+		output.putDouble("MagicDistance", distance);
 	}
 	@Override
 	protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
 		super.readAdditionalSaveData(input);
 		age = Math.max(0, input.getIntOr("MagicAge", 0));
+		distance = Math.clamp(input.getDoubleOr("MagicDistance", 0), 0, spell().range());
+		if (!Double.isFinite(distance)) distance = spell().range();
 	}
 
 	@Override
@@ -68,7 +78,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 				var direction = getDeltaMovement();
 				target.knockback(spell().knockback(), -direction.x, -direction.z);
 			}
-			if (damaged) SpellHooks.afterHit.accept(this, hit.getEntity());
+			if (damaged) { MagicEffects.apply(getOwner(), hit.getEntity(), spell()); SpellHooks.afterHit.accept(this, hit.getEntity()); }
 		}
 	}
 
@@ -81,7 +91,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 	protected void onHit(HitResult hit) {
 		super.onHit(hit);
 		if (level() instanceof ServerLevel level) {
-			var particles = spell() == SpellDefinition.ICE_SMASH ? ParticleTypes.SNOWFLAKE : switch (spell().element()) {
+			var particles = spell().icy() ? ParticleTypes.SNOWFLAKE : switch (spell().element()) {
 				case "fire" -> ParticleTypes.FLAME;
 				case "wind" -> ParticleTypes.CLOUD;
 				case "earth" -> ParticleTypes.CRIT;

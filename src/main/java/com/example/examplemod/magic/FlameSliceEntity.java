@@ -27,6 +27,7 @@ public final class FlameSliceEntity extends Projectile {
 	@Override
 	public void tick() {
 		super.tick();
+		if (isRemoved()) return;
 		if (level().isClientSide()) { setPos(position().add(getDeltaMovement())); return; }
 		if (++age > SpellDefinition.FLAME_SLICE.lifetimeTicks() || flight.exhausted() || getDeltaMovement().lengthSqr() < 1.0E-8) {
 			discard(); return;
@@ -70,8 +71,10 @@ public final class FlameSliceEntity extends Projectile {
 					&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());
 			for (var target : affected) {
 				if (getOwner() instanceof Player owner && target instanceof Player player && !owner.canHarmPlayer(player)) continue;
-				if (target.hurtServer(level, MagicDamage.source(this, SpellDefinition.FLAME_SLICE), SpellDefinition.FLAME_SLICE.damage()))
+				if (target.hurtServer(level, MagicDamage.source(this, SpellDefinition.FLAME_SLICE), SpellDefinition.FLAME_SLICE.damage())) {
+					MagicEffects.apply(getOwner(), target, SpellDefinition.FLAME_SLICE);
 					SpellHooks.afterHit.accept(this, target);
+				}
 			}
 			for (int i = -6; i <= 6; i++) {
 				var at = center.add(volume.side.scale(i * 0.25));

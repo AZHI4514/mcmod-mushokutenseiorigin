@@ -15,17 +15,30 @@ public final class MagicBookScreen extends BookViewScreen {
 	private final List<String> pageSpells = new ArrayList<>();
 	private int shownPage;
 
-	public MagicBookScreen() {
-		super(new BookAccess(pages()));
-		for (int i = 0; i < MagicBooks.INTRO_PAGES.size(); i++) pageSpells.add("");
-		pageSpells.addAll(MagicBooks.LESSONS);
+	public MagicBookScreen() { this(contents()); }
+	private MagicBookScreen(Contents contents) {
+		super(new BookAccess(contents.pages()));
+		pageSpells.addAll(contents.spells());
 	}
-
-	private static List<Component> pages() {
-		List<Component> pages = new ArrayList<>();
-		for (String id : MagicBooks.INTRO_PAGES) pages.add(Component.translatable("magic.mushokutenseiorigin.textbook." + id));
-		for (String id : MagicBooks.LESSONS) pages.add(Component.translatable("magic.mushokutenseiorigin.textbook." + id));
-		return pages;
+	private record Contents(List<Component> pages, List<String> spells) { }
+	private static Contents contents() {
+		var pages = new ArrayList<Component>(); var spells = new ArrayList<String>();
+		for (String id : MagicBooks.INTRO_PAGES) appendPages(pages, spells, id, "");
+		for (String id : MagicBooks.LESSONS) appendPages(pages, spells, id, id);
+		return new Contents(pages, spells);
+	}
+	private static void appendPages(List<Component> pages, List<String> spells, String key, String spell) {
+		var font = net.minecraft.client.Minecraft.getInstance().font;
+		var lines = font.split(Component.translatable("magic.mushokutenseiorigin.textbook." + key), 114);
+		int perPage = Math.max(1, 128 / font.lineHeight);
+		for (int first=0; first<lines.size(); first+=perPage) {
+			var text = new StringBuilder();
+			for (int line=first; line<Math.min(first+perPage,lines.size()); line++) {
+				if (line>first) text.append('\n');
+				lines.get(line).accept((index, style, codePoint) -> { text.appendCodePoint(codePoint); return true; });
+			}
+			pages.add(Component.literal(text.toString())); spells.add(spell);
+		}
 	}
 
 	@Override
@@ -45,7 +58,7 @@ public final class MagicBookScreen extends BookViewScreen {
 	@Override
 	public boolean setPage(int page) {
 		boolean changed = super.setPage(page);
-		if (changed) shownPage = Math.clamp(page, 0, MagicBooks.INTRO_PAGES.size() + MagicBooks.LESSONS.size() - 1);
+		if (changed) shownPage = Math.clamp(page, 0, pageSpells.size() - 1);
 		return changed;
 	}
 

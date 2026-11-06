@@ -111,7 +111,12 @@ public final class MagicScreens {
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cost", spell.manaCost()), x + 120, y + 56, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cooldown", spell.cooldownTicks() / 20.0), x + 120, y + 72, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.element." + spell.element()), x + 120, y + 88, 0xFF164880, false);
-				g.text(font, Component.translatable("magic.mushokutenseiorigin." + (spell.healing() > 0 ? "healing" : "damage"), spell.healing() > 0 ? spell.healing() : spell.damage()), x + 120, y + 104, 0xFF303030, false);
+				if (spell.damage() > 0 || spell.healing() > 0) g.text(font, Component.translatable("magic.mushokutenseiorigin." + (spell.healing() > 0 ? "healing" : "damage"), spell.healing() > 0 ? spell.healing() : spell.damage()), x + 120, y + 104, 0xFF303030, false);
+				if (spell.execution() == SpellDefinition.Execution.AREA || spell.execution() == SpellDefinition.Execution.HEAT_HAND
+						|| spell.execution() == SpellDefinition.Execution.DETOX || spell == SpellDefinition.ICE_BLADE) {
+					var lines = font.split(text("summary_" + spell.id()), 146);
+					for (int i=0; i<Math.min(3,lines.size()); i++) g.text(font, lines.get(i), x+120, y+115+i*9, 0xFF505050, false);
+				}
 				if (spell.knockback() > 0) g.text(font, text("effect_knockback"), x + 120, y + 122, 0xFF505050, false);
 				else if (spell.execution() == SpellDefinition.Execution.FLAME_SLICE)
 					g.text(font, text("effect_flame_slice"), x + 120, y + 122, 0xFF505050, false);

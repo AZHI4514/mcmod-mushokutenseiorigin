@@ -28,6 +28,11 @@ public final class MagicSystem {
 	public static final EntityType<WaterBallEntity> ROCK_BULLET = registerProjectile("rock_bullet");
 	public static final EntityType<WaterBallEntity> WATER_ARROW = registerProjectile("water_arrow");
 	public static final EntityType<WaterBallEntity> ICE_SMASH = registerProjectile("ice_smash");
+	public static final EntityType<WaterBallEntity> ICE_BLADE = registerProjectile("ice_blade");
+	public static final EntityType<MagicAreaEntity> MAGIC_AREA = Registry.register(BuiltInRegistries.ENTITY_TYPE,
+			ExampleMod.id("magic_area"), EntityType.Builder.<MagicAreaEntity>of(MagicAreaEntity::new, MobCategory.MISC)
+					.sized(0.1F, 0.1F).clientTrackingRange(6).updateInterval(1)
+					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("magic_area"))));
 	public static final EntityType<FlameSliceEntity> FLAME_SLICE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 			ExampleMod.id("flame_slice"), EntityType.Builder.<FlameSliceEntity>of(FlameSliceEntity::new, MobCategory.MISC)
 					.sized(1.5F, 0.25F).clientTrackingRange(4).updateInterval(1)
@@ -48,12 +53,15 @@ public final class MagicSystem {
 			case "rock_bullet" -> ROCK_BULLET;
 			case "water_arrow" -> WATER_ARROW;
 			case "ice_smash" -> ICE_SMASH;
+			case "ice_blade" -> ICE_BLADE;
 			default -> throw new IllegalArgumentException("No spell executor: " + spell.id());
 		};
 	}
 
 	public static void initialize() {
 		MagicConfig.load();
+		MagicEffects.initialize();
+		MagicAreas.initialize();
 		MagicAttachments.initialize();
 		MagicCommands.initialize();
 		PayloadTypeRegistry.serverboundPlay().register(MagicActionPayload.TYPE, MagicActionPayload.CODEC);
@@ -63,10 +71,11 @@ public final class MagicSystem {
 			SESSIONS.put(player.getUUID(), new Session());
 			player.setAttached(MagicAttachments.STATE, state(player));
 		});
-		ServerPlayerEvents.LEAVE.register(player -> SESSIONS.remove(player.getUUID()));
-		ServerLifecycleEvents.SERVER_STOPPED.register(server -> SESSIONS.clear());
+		ServerPlayerEvents.LEAVE.register(player -> { SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
+		ServerLifecycleEvents.SERVER_STOPPED.register(server -> { SESSIONS.clear(); MagicAreas.clearAll(); });
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, player, alive) -> {
 			SESSIONS.put(player.getUUID(), new Session());
+			MagicAreas.clear(player.getUUID());
 			if (!alive) player.setAttached(MagicAttachments.STATE, state(player).refill());
 			player.setAttached(MagicAttachments.CAST_TICKS, 0);
 		});
@@ -74,8 +83,11 @@ public final class MagicSystem {
 			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 				Session session = SESSIONS.computeIfAbsent(player.getUUID(), id -> new Session());
 				session.age++;
+				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) MagicAreas.clear(player.getUUID());
+				session.dimension = player.level().dimension();
 				if (player.isAlive()) player.setAttached(MagicAttachments.STATE, state(player).tick());
-				if (player.isUsingItem() || !player.isAlive()) session.blocked = true;
+				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicAreas.breakMaintenance(player); }
+				if (!player.isAlive()) MagicAreas.clear(player.getUUID());
 				int pose = player.getAttachedOrElse(MagicAttachments.CAST_TICKS, 0);
 				if (pose > 0) player.setAttached(MagicAttachments.CAST_TICKS,
 						player.isUsingItem() ? 0 : pose - 1);
@@ -107,8 +119,8 @@ public final class MagicSystem {
 		// Bound UI/network actions per tick, independently of the spell cooldown.
 		if (session.requestTick != session.age) { session.requestTick = session.age; session.requests = 0; }
 		if (++session.requests > 8) return;
-		if (packet.action().equals("release")) { session.blocked = true; return; }
-		if (packet.action().equals("stop")) { session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
+		if (packet.action().equals("release")) { MagicAreas.breakMaintenance(player); session.blocked = true; return; }
+		if (packet.action().equals("stop")) { MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
 		if (packet.action().equals("arm")) {
 			if (!player.isUsingItem() && player.isAlive() && !player.isSpectator()) session.blocked = false;
 			return;
@@ -139,8 +151,8 @@ public final class MagicSystem {
 					return;
 				}
 				var aim = new MagicAim(packet.yaw(), packet.pitch());
-				if (spell.execution() == SpellDefinition.Execution.FLAME_SLICE && !aim.valid()) return;
-				if (!SpellExecutors.canExecute(player, spell)) return;
+				if (!aim.valid()) return;
+				if (!SpellExecutors.canExecute(player, spell, aim)) return;
 				MagicState paid = before.cast(spell);
 				player.setAttached(MagicAttachments.STATE, paid);
 				if (!SpellExecutors.execute(player, spell, aim)) {
@@ -155,6 +167,7 @@ public final class MagicSystem {
 	}
 
 	private static final class Session {
+		net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
 		int lastSequence = -1;
 		int age;
 		int lastHint = -20;

@@ -7,7 +7,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.projectile.Projectile;
 import com.example.examplemod.ExampleMod;
 
-/** 火焰伤害复用原版标签与抗火，绝不附加燃烧时间。 */
+/** 火焰伤害复用原版标签与抗火，附加状态统一由MagicEffects在成功伤害后处理。 */
 public final class MagicDamage {
 	public static DamageSource source(Projectile projectile, SpellDefinition spell) {
 		if (!spell.element().equals("fire")) return projectile.damageSources().thrown(projectile, projectile.getOwner());

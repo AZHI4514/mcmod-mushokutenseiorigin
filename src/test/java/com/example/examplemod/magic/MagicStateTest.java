@@ -65,10 +65,10 @@ public final class MagicStateTest {
 
 		var four = MagicState.initial(100);
 		for (var definition : SpellDefinition.ALL) four = four.learn(definition.id());
-		check(four.learned().size() == 8 && four.loaded().size() == 8, "Eight lessons load distinct slots");
+		check(four.learned().size() == 15 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
 		check(four.selected().equals(spell.id()), "Later lessons preserve selection");
 		for (var definition : SpellDefinition.ALL) {
-			var ready = four.select(definition.id());
+			var ready = new MagicState(100, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
 			var spent = ready.cast(definition);
 			check(spent.mana() == 100 - definition.manaCost(), "Exact cost: " + definition.id());
 			for (int i = 1; i < definition.cooldownTicks(); i++) {
@@ -76,10 +76,41 @@ public final class MagicStateTest {
 				check(!spent.canCast(definition), "No early cooldown: " + definition.id());
 			}
 			check(spent.tick().canCast(definition), "Cooldown ends exactly: " + definition.id());
-			var poor = new MagicState(definition.manaCost() - 1, 100, 0, 0, four.learned(), four.loaded(), definition.id());
+			var poor = new MagicState(definition.manaCost() - 1, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
 			check(!poor.canCast(definition), "Reject insufficient mana: " + definition.id());
 			check(ready.learn(definition.id()).equals(ready), "No duplicate lesson: " + definition.id());
 			check(definition.prerequisitesMet(id -> false), "Basic spell has no external dependency");
+		}
+		check(SpellDefinition.ICE_BLADE.range() == 15, "Ice Blade travels straight for fifteen blocks");
+		check(SpellDefinition.ICE_BLADE.speed() == 1.125F, "Ice blade speed multiplied by 1.5");
+		var ringCenter = net.minecraft.world.phys.Vec3.ZERO;
+		check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(1.6,0,-0.3,2.2,1.8,0.3),ringCenter,2), "Body overlapping fire ring is hit");
+		check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(-3,0,-3,3,4,3),ringCenter,2), "Large body surrounding ring is hit");
+		check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(-0.3,0,-0.3,0.3,1.8,0.3),ringCenter,2), "Center without ring contact is safe");
+		check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(2.4,0,-0.3,3,1.8,0.3),ringCenter,2), "Outside ring is safe");
+		check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(1.8,1,-0.2,2.2,2,0.2),ringCenter,2), "Above fire ring is safe");
+		check(MagicRules.statusTicks(1) == 100 && MagicRules.statusTicks(7) == 700, "Rank-based status duration");
+		check(MagicRules.extend(20,80) == 100, "Maintenance adds remaining time");
+		check(MagicRules.extend(Integer.MAX_VALUE-1,80) == Integer.MAX_VALUE, "Maintenance cannot overflow");
+		check(MagicRules.shieldAfter(8,4) == 4 && MagicRules.shieldAfter(4,20) == 0, "Shield capacity clamps on oversized hit");
+		check(SpellDefinition.WATER_SHIELD.cooldownTicks() == 60 && SpellDefinition.BURNING_PLACE.cooldownTicks() == 60
+				&& SpellDefinition.MAGIC_SHIELD.cooldownTicks() == 80, "Confirmed cooldowns leave no maintenance gaps");
+		check(MagicState.initial(100).learn("water_shield").learned().isEmpty(), "Water Shield requires Water Ball");
+		check(MagicState.initial(100).learn("ice_blade").learned().isEmpty(), "Ice Blade requires Ice Smash");
+		check(MagicState.initial(100).learn("heat_island").learned().isEmpty(), "Heat Island requires Heat Hand");
+		check(SpellDefinition.ICE_BLADE.icy() && !SpellDefinition.WATER_ARROW.icy(), "Ice status separate from water status");
+		var wallGeometry = new MagicWallVolume(new net.minecraft.world.phys.Vec3(0,0,1),0);
+		var arrowBox = new net.minecraft.world.phys.AABB(-0.1,0.9,2,0.1,1.1,2.2);
+		check(Double.isFinite(wallGeometry.contact(arrowBox,new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),3)), "Water wall sweeps fast projectile");
+		check(!wallGeometry.intersects(new net.minecraft.world.phys.AABB(1.6,0.9,-0.1,1.8,1.1,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), "Outside water wall width does not block");
+		check(wallGeometry.intersects(new net.minecraft.world.phys.AABB(-0.1,1.8,-0.1,0.1,1.9,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), "Upper half of two-block water wall contacts");
+		for (int yaw=-180; yaw<180; yaw+=45) {
+			var normal = net.minecraft.world.phys.Vec3.directionFromRotation(0,yaw);
+			var rotated = new MagicWallVolume(normal,yaw);
+			check(Math.abs(rotated.side.dot(normal)) < 1.0E-6 && rotated.up.y > 0.99, "Water wall orthonormal at yaw " + yaw);
+			var hitCenter = normal.scale(2).add(0,1,0);
+			var hitBox = new net.minecraft.world.phys.AABB(hitCenter.x-0.1,0.9,hitCenter.z-0.1,hitCenter.x+0.1,1.1,hitCenter.z+0.1);
+			check(Double.isFinite(rotated.contact(hitBox,new net.minecraft.world.phys.Vec3(0,1,0),normal,3)), "Water wall rotated sweep " + yaw);
 		}
 		var firePaid = four.select("fireball").cast(SpellDefinition.FIREBALL).select("water_ball");
 		check(!firePaid.canCast(spell), "Switching cannot bypass global cooldown");

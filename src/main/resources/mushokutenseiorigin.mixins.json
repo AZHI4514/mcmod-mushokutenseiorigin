@@ -4,7 +4,10 @@
 	"package": "com.example.examplemod.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"MagicSleepMixin"
+		"MagicSleepMixin",
+		"MagicFreezeMixin",
+		"MagicProjectileMixin",
+		"MagicArrowAccessor"
 	],
 	"client": [
 		"ExampleMixin",

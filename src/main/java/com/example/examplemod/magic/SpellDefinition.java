@@ -7,7 +7,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 		int lifetimeTicks, String element, float speed, double gravity, double knockback,
 		CastMode castMode, List<String> requirements, Execution execution, float healing,
 		double range, int maxTargets, List<String> learningRequirements) {
-	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL }
+	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL, AREA, HEAT_HAND, DETOX }
 	public enum CastMode { INSTANT, CHANT, CHARGE, CHANNEL }
 	public static final SpellDefinition WATER_BALL = projectile("water_ball", 1, 1, 2, "water", 0.03, 0);
 	public static final SpellDefinition FIREBALL = projectile("fireball", 3, 3, 12, "fire", 0.03, 0);
@@ -21,8 +21,26 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 			0.75F, 0, 0, CastMode.INSTANT, List.of(), Execution.FLAME_SLICE, 0, 10, Integer.MAX_VALUE, List.of("fireball"));
 	public static final SpellDefinition HEALING = new SpellDefinition("healing", 8, 0, 60, 1, "healing",
 			0, 0, 0, CastMode.INSTANT, List.of(), Execution.SELF_HEAL, 4, 0, 1, List.of());
+	public static final SpellDefinition WATER_SHIELD = utility("water_shield", 6, 60, 80, "water", Execution.AREA, "water_ball");
+	public static final SpellDefinition ICE_BLADE = new SpellDefinition("ice_blade", 5, 5, 20, 21, "water",
+			1.125F, 0, 0, CastMode.INSTANT, List.of(), Execution.PROJECTILE, 0, 15, 1, List.of("ice_smash"));
+	public static final SpellDefinition HEAT_HAND = utility("heat_hand", 2, 10, 200, "fire", Execution.HEAT_HAND, "fireball");
+	public static final SpellDefinition HEAT_ISLAND = utility("heat_island", 6, 160, 200, "fire", Execution.AREA, "heat_hand");
+	public static final SpellDefinition BURNING_PLACE = new SpellDefinition("burning_place", 10, 2, 60, 80, "fire",
+			0, 0, 0, CastMode.INSTANT, List.of(), Execution.AREA, 0, 2, Integer.MAX_VALUE, List.of("fireball"));
+	public static final SpellDefinition DETOXIFICATION = utility("detoxification", 6, 60, 1, "healing", Execution.DETOX);
+	public static final SpellDefinition MAGIC_SHIELD = utility("magic_shield", 8, 80, 100, "magic", Execution.AREA);
 	public static final List<SpellDefinition> ALL = List.of(WATER_BALL, FIREBALL, WIND_BALL, ROCK_BULLET,
-			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING);
+			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING, WATER_SHIELD, ICE_BLADE, HEAT_HAND, HEAT_ISLAND, BURNING_PLACE, DETOXIFICATION, MAGIC_SHIELD);
+
+	private static SpellDefinition utility(String id, int mana, int cooldown, int duration, String element, Execution execution, String... prerequisites) {
+		return new SpellDefinition(id, mana, 0, cooldown, duration, element, 0, 0, 0,
+				CastMode.INSTANT, List.of(), execution, 0, 0, 1, List.of(prerequisites));
+	}
+
+	public int rank() { return 1; }
+	public int statusTicks() { return MagicRules.statusTicks(rank()); }
+	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade"); }
 
 	/** 原有基础弹体定义保持相同参数与 ID。 */
 	public SpellDefinition(String id, int manaCost, float damage, int cooldownTicks, int lifetimeTicks,
