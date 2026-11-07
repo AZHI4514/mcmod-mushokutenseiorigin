@@ -17,6 +17,12 @@ public final class MagicAttachments {
 			ExampleMod.id("cast_ticks"), builder -> builder.initializer(() -> 0)
 					.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));
 
+	public static final AttachmentType<Integer> CHARGE_MANA = AttachmentRegistry.create(
+			ExampleMod.id("charge_mana"), builder -> builder.initializer(() -> 0).persistent(Codec.INT).copyOnDeath()
+					.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.targetOnly()));
+	public static final AttachmentType<Integer> CHARGE_BUDGET = AttachmentRegistry.create(
+			ExampleMod.id("charge_budget"), builder -> builder.initializer(() -> 0)
+					.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.targetOnly()));
 	/** 在模组初始化阶段注册附件，不能等首个玩家加入后才注册。 */
 	public static void initialize() {
 	}

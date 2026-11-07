@@ -28,7 +28,7 @@ public final class MagicAreas {
 		});
 	}
 	public static boolean isMagic(Projectile projectile) {
-		return projectile instanceof WaterBallEntity || projectile instanceof FlameSliceEntity || projectile instanceof MagicAreaEntity;
+		return projectile instanceof WaterBallEntity || projectile instanceof FlameSliceEntity || projectile instanceof MagicAreaEntity || projectile instanceof IntermediateProjectile;
 	}
 	public static boolean cast(ServerPlayer owner, SpellDefinition spell, MagicAim aim) {
 		var entries = ACTIVE.computeIfAbsent(owner.getUUID(), id -> new HashMap<>());

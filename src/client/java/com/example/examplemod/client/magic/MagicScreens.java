@@ -43,6 +43,10 @@ public final class MagicScreens {
 		g.fill(1, -6, 1 + filled, -5, 0xFF78BDFF);
 		g.centeredText(client.font, state.mana() + " / " + state.maximum(), barWidth / 2, -18, 0xFF75BFFF);
 		g.pose().popMatrix();
+		int reserved=client.player.getAttachedOrElse(com.example.examplemod.magic.MagicAttachments.CHARGE_MANA,0);
+		if (reserved>0) {
+			g.centeredText(client.font,Integer.toString(com.example.examplemod.magic.IntermediateRules.chargeDisplay(reserved)),g.guiWidth()/2,g.guiHeight()/2+17,0xFFFFA090);
+		}
 		if (state.selected().isEmpty()) return;
 		// 使用原版药水 HUD 的背景精灵和 24 像素行高，仅显示名字。
 		int hudWidth = Math.max(24, client.font.width(name(state.selected())) + 12);
@@ -113,7 +117,7 @@ public final class MagicScreens {
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.element." + spell.element()), x + 120, y + 88, 0xFF164880, false);
 				if (spell.damage() > 0 || spell.healing() > 0) g.text(font, Component.translatable("magic.mushokutenseiorigin." + (spell.healing() > 0 ? "healing" : "damage"), spell.healing() > 0 ? spell.healing() : spell.damage()), x + 120, y + 104, 0xFF303030, false);
 				if (spell.execution() == SpellDefinition.Execution.AREA || spell.execution() == SpellDefinition.Execution.HEAT_HAND
-						|| spell.execution() == SpellDefinition.Execution.DETOX || spell == SpellDefinition.ICE_BLADE) {
+						|| spell.execution() == SpellDefinition.Execution.DETOX || spell == SpellDefinition.ICE_BLADE || spell.rank()==2) {
 					var lines = font.split(text("summary_" + spell.id()), 146);
 					for (int i=0; i<Math.min(3,lines.size()); i++) g.text(font, lines.get(i), x+120, y+115+i*9, 0xFF505050, false);
 				}

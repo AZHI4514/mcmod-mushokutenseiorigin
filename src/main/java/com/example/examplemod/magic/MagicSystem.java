@@ -38,6 +38,23 @@ public final class MagicSystem {
 					.sized(1.5F, 0.25F).clientTrackingRange(4).updateInterval(1)
 					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("flame_slice"))));
 
+	public static final EntityType<IntermediateProjectile> WATER_CANNON=registerIntermediate("water_cannon",0.25F);
+	public static final EntityType<IntermediateProjectile> WATER_SPLASH=registerIntermediate("water_splash",0.1F);
+	public static final EntityType<IntermediateProjectile> ICICLE_FIELD=registerIntermediate("icicle_field",0.1F);
+	public static final EntityType<IntermediateProjectile> EX_FLAME=registerIntermediate("ex_flame",2F);
+	public static final EntityType<IntermediateProjectile> SONIC_BOOM=registerIntermediate("sonic_boom",1F);
+	public static final EntityType<IntermediateProjectile> STONE_CANNON=registerIntermediate("stone_cannon",0.25F);
+	private static EntityType<IntermediateProjectile> registerIntermediate(String id,float size) {
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE,ExampleMod.id(id),EntityType.Builder.<IntermediateProjectile>of(IntermediateProjectile::new,MobCategory.MISC)
+				.sized(size,size).clientTrackingRange(8).updateInterval(1).build(ResourceKey.create(Registries.ENTITY_TYPE,ExampleMod.id(id))));
+	}
+	static EntityType<IntermediateProjectile> intermediateType(SpellDefinition spell) {
+		return switch(spell.id()) {
+			case "water_cannon"->WATER_CANNON; case "water_splash"->WATER_SPLASH; case "icicle_field"->ICICLE_FIELD;
+			case "ex_flame"->EX_FLAME; case "sonic_boom"->SONIC_BOOM; case "stone_cannon"->STONE_CANNON;
+			default->throw new IllegalArgumentException("Unknown intermediate spell");
+		};
+	}
 	private static EntityType<WaterBallEntity> registerProjectile(String id) {
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE, ExampleMod.id(id),
 				EntityType.Builder.<WaterBallEntity>of(WaterBallEntity::new, MobCategory.MISC)
@@ -60,6 +77,7 @@ public final class MagicSystem {
 
 	public static void initialize() {
 		MagicConfig.load();
+		MagicTerrain.initialize();
 		MagicEffects.initialize();
 		MagicAreas.initialize();
 		MagicAttachments.initialize();
@@ -69,13 +87,15 @@ public final class MagicSystem {
 				(packet, context) -> handle(context.player(), packet));
 		ServerPlayerEvents.JOIN.register(player -> {
 			SESSIONS.put(player.getUUID(), new Session());
+			StoneCharge.cancel(player);
 			player.setAttached(MagicAttachments.STATE, state(player));
 		});
-		ServerPlayerEvents.LEAVE.register(player -> { SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
-		ServerLifecycleEvents.SERVER_STOPPED.register(server -> { SESSIONS.clear(); MagicAreas.clearAll(); });
+		ServerPlayerEvents.LEAVE.register(player -> { StoneCharge.cancel(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(StoneCharge::cancel); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, player, alive) -> {
 			SESSIONS.put(player.getUUID(), new Session());
 			MagicAreas.clear(player.getUUID());
+			StoneCharge.cancel(player);
 			if (!alive) player.setAttached(MagicAttachments.STATE, state(player).refill());
 			player.setAttached(MagicAttachments.CAST_TICKS, 0);
 		});
@@ -88,6 +108,7 @@ public final class MagicSystem {
 				if (player.isAlive()) player.setAttached(MagicAttachments.STATE, state(player).tick());
 				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicAreas.breakMaintenance(player); }
 				if (!player.isAlive()) MagicAreas.clear(player.getUUID());
+				if (StoneCharge.tick(player)) session.blocked=true;
 				int pose = player.getAttachedOrElse(MagicAttachments.CAST_TICKS, 0);
 				if (pose > 0) player.setAttached(MagicAttachments.CAST_TICKS,
 						player.isUsingItem() ? 0 : pose - 1);
@@ -119,8 +140,8 @@ public final class MagicSystem {
 		// Bound UI/network actions per tick, independently of the spell cooldown.
 		if (session.requestTick != session.age) { session.requestTick = session.age; session.requests = 0; }
 		if (++session.requests > 8) return;
-		if (packet.action().equals("release")) { MagicAreas.breakMaintenance(player); session.blocked = true; return; }
-		if (packet.action().equals("stop")) { MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
+		if (packet.action().equals("release")) { StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
+		if (packet.action().equals("stop")) { StoneCharge.cancel(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
 		if (packet.action().equals("arm")) {
 			if (!player.isUsingItem() && player.isAlive() && !player.isSpectator()) session.blocked = false;
 			return;
@@ -133,16 +154,20 @@ public final class MagicSystem {
 						|| MagicBooks.teaches(player.getOffhandItem(), packet.spell()))
 					player.setAttached(MagicAttachments.STATE, before.learn(packet.spell()));
 			}
-			case "toggle" -> player.setAttached(MagicAttachments.STATE, before.toggle(packet.spell()));
-			case "select" -> player.setAttached(MagicAttachments.STATE, before.select(packet.spell()));
+			case "toggle" -> { StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
+			case "select" -> { StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
 			case "cast" -> {
 				if (player.isUsingItem() || player.containerMenu != player.inventoryMenu || player.isSleeping()) {
+					StoneCharge.cancel(player);
 					session.blocked = true;
 					player.setAttached(MagicAttachments.CAST_TICKS, 0);
 					return;
 				}
 				if (session.blocked) return;
 				SpellDefinition spell = SpellDefinition.find(packet.spell());
+				if (spell == SpellDefinition.STONE_CANNON) {
+					StoneCharge.begin(player,new MagicAim(packet.yaw(),packet.pitch())); return;
+				}
 				if (!before.canCast(spell) || !SpellHooks.canUse(player, spell, SpellHooks.CastSource.KEYBOARD)) {
 					if (before.cooldown() == 0 && session.age - session.lastHint >= 20) {
 						player.sendOverlayMessage(Component.translatable("magic.mushokutenseiorigin.cannot_cast"));

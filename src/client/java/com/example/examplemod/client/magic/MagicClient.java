@@ -47,6 +47,12 @@ public final class MagicClient {
 		EntityRendererRegistry.register(MagicSystem.ICE_SMASH, context -> new WaterBallRenderer(context, "ice_smash"));
 		EntityRendererRegistry.register(MagicSystem.ICE_BLADE, context -> new WaterBallRenderer(context, "ice_blade"));
 		EntityRendererRegistry.register(MagicSystem.MAGIC_AREA, MagicAreaRenderer::new);
+		EntityRendererRegistry.register(MagicSystem.WATER_CANNON,context->new IntermediateRenderer(context,"water_cannon"));
+		EntityRendererRegistry.register(MagicSystem.WATER_SPLASH,context->new IntermediateRenderer(context,"water_splash"));
+		EntityRendererRegistry.register(MagicSystem.ICICLE_FIELD,context->new IntermediateRenderer(context,"icicle_field"));
+		EntityRendererRegistry.register(MagicSystem.EX_FLAME,context->new IntermediateRenderer(context,"ex_flame"));
+		EntityRendererRegistry.register(MagicSystem.SONIC_BOOM,context->new IntermediateRenderer(context,"sonic_boom"));
+		EntityRendererRegistry.register(MagicSystem.STONE_CANNON,context->new IntermediateRenderer(context,"stone_cannon"));
 		EntityRendererRegistry.register(MagicSystem.FLAME_SLICE, FlameSliceRenderer::new);
 		HudElementRegistry.addLast(ExampleMod.id("magic_hud"), (graphics, delta) -> MagicScreens.drawHud(graphics));
 		UseItemCallback.EVENT.register((player, level, hand) -> {

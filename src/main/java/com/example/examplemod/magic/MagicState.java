@@ -60,6 +60,13 @@ public record MagicState(int mana, int maximum, int onlineTicks, int cooldown,
 				&& learned.contains(spell.id()) && cooldown == 0 && mana >= spell.manaCost();
 	}
 
+	public MagicState spendMana(int amount) {
+		if (amount < 0 || amount > mana) throw new IllegalArgumentException("Invalid mana debit");
+		return new MagicState(mana-amount,maximum,onlineTicks,cooldown,learned,loaded,selected);
+	}
+	public MagicState withCooldown(int ticks) {
+		return new MagicState(mana,maximum,onlineTicks,ticks,learned,loaded,selected);
+	}
 	public MagicState cast(SpellDefinition spell) {
 		if (!canCast(spell)) throw new IllegalStateException("Invalid cast");
 		return new MagicState(mana - spell.manaCost(), maximum, onlineTicks,

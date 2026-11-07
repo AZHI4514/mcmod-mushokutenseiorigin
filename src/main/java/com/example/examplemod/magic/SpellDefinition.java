@@ -7,7 +7,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 		int lifetimeTicks, String element, float speed, double gravity, double knockback,
 		CastMode castMode, List<String> requirements, Execution execution, float healing,
 		double range, int maxTargets, List<String> learningRequirements) {
-	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL, AREA, HEAT_HAND, DETOX }
+	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL, AREA, HEAT_HAND, DETOX, ADVANCED_PROJECTILE, TARGET_AREA }
 	public enum CastMode { INSTANT, CHANT, CHARGE, CHANNEL }
 	public static final SpellDefinition WATER_BALL = projectile("water_ball", 1, 1, 2, "water", 0.03, 0);
 	public static final SpellDefinition FIREBALL = projectile("fireball", 3, 3, 12, "fire", 0.03, 0);
@@ -30,17 +30,27 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 			0, 0, 0, CastMode.INSTANT, List.of(), Execution.AREA, 0, 2, Integer.MAX_VALUE, List.of("fireball"));
 	public static final SpellDefinition DETOXIFICATION = utility("detoxification", 6, 60, 1, "healing", Execution.DETOX);
 	public static final SpellDefinition MAGIC_SHIELD = utility("magic_shield", 8, 80, 100, "magic", Execution.AREA);
+	public static final SpellDefinition WATER_CANNON = intermediate("water_cannon",8,7,30,"water",1.5F,18,0.8,Execution.ADVANCED_PROJECTILE,"water_arrow");
+	public static final SpellDefinition WATER_SPLASH = intermediate("water_splash",8,1,60,"water",0,12,0,Execution.TARGET_AREA,"water_ball");
+	public static final SpellDefinition ICICLE_FIELD = intermediate("icicle_field",14,5,120,"water",0,12,0,Execution.TARGET_AREA,"ice_smash","heat_island");
+	public static final SpellDefinition EX_FLAME = intermediate("ex_flame",12,8,40,"fire",1F,20,0,Execution.ADVANCED_PROJECTILE,"fireball");
+	public static final SpellDefinition SONIC_BOOM = intermediate("sonic_boom",8,5,30,"wind",1.5F,15,1,Execution.ADVANCED_PROJECTILE,"wind_ball");
+	public static final SpellDefinition STONE_CANNON = intermediate("stone_cannon",10,10,40,"earth",2F,24,0,Execution.ADVANCED_PROJECTILE,"rock_bullet");
+	private static SpellDefinition intermediate(String id,int mana,float damage,int cooldown,String element,float speed,double range,double knockback,Execution execution,String... prerequisites) {
+		return new SpellDefinition(id,mana,damage,cooldown,100,element,speed,0,knockback,
+				CastMode.INSTANT,List.of(),execution,0,range,Integer.MAX_VALUE,List.of(prerequisites));
+	}
 	public static final List<SpellDefinition> ALL = List.of(WATER_BALL, FIREBALL, WIND_BALL, ROCK_BULLET,
-			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING, WATER_SHIELD, ICE_BLADE, HEAT_HAND, HEAT_ISLAND, BURNING_PLACE, DETOXIFICATION, MAGIC_SHIELD);
+			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING, WATER_SHIELD, ICE_BLADE, HEAT_HAND, HEAT_ISLAND, BURNING_PLACE, DETOXIFICATION, MAGIC_SHIELD, WATER_CANNON, WATER_SPLASH, ICICLE_FIELD, EX_FLAME, SONIC_BOOM, STONE_CANNON);
 
 	private static SpellDefinition utility(String id, int mana, int cooldown, int duration, String element, Execution execution, String... prerequisites) {
 		return new SpellDefinition(id, mana, 0, cooldown, duration, element, 0, 0, 0,
 				CastMode.INSTANT, List.of(), execution, 0, 0, 1, List.of(prerequisites));
 	}
 
-	public int rank() { return 1; }
-	public int statusTicks() { return MagicRules.statusTicks(rank()); }
-	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade"); }
+	public int rank() { return execution == Execution.ADVANCED_PROJECTILE || execution == Execution.TARGET_AREA ? 2 : 1; }
+	public int statusTicks() { return id.equals("water_splash") ? 2000 : MagicRules.statusTicks(rank()); }
+	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade") || id.equals("icicle_field"); }
 
 	/** 原有基础弹体定义保持相同参数与 ID。 */
 	public SpellDefinition(String id, int manaCost, float damage, int cooldownTicks, int lifetimeTicks,

@@ -10,6 +10,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 /** 水幕以命中盾主时的原始伤害扣盾，不套用护甲减伤。 */
 public final class MagicProjectileDamage {
 	public static float incoming(Projectile projectile, MagicAreaEntity area) {
+		if (projectile instanceof IntermediateProjectile advanced) return advanced.damage();
 		if (projectile instanceof WaterBallEntity ball) return ball.spell().damage();
 		if (projectile instanceof FlameSliceEntity) return SpellDefinition.FLAME_SLICE.damage();
 		if (projectile instanceof AbstractArrow arrow) {

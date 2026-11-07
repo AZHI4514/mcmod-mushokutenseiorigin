@@ -15,6 +15,8 @@ public final class SpellExecutors {
 	}
 
 	public static boolean execute(ServerPlayer player, SpellDefinition spell, MagicAim castingAim) {
+		if (spell.execution() == SpellDefinition.Execution.ADVANCED_PROJECTILE || spell.execution() == SpellDefinition.Execution.TARGET_AREA)
+			return IntermediateSpells.execute(player,spell,castingAim,10);
 		if (spell.execution() == SpellDefinition.Execution.AREA) return MagicAreas.cast(player, spell, castingAim);
 		if (spell.execution() == SpellDefinition.Execution.HEAT_HAND) return HeatHand.execute(player, castingAim);
 		if (spell.execution() == SpellDefinition.Execution.DETOX) return player.removeEffect(net.minecraft.world.effect.MobEffects.POISON);

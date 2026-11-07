@@ -65,7 +65,7 @@ public final class MagicStateTest {
 
 		var four = MagicState.initial(100);
 		for (var definition : SpellDefinition.ALL) four = four.learn(definition.id());
-		check(four.learned().size() == 15 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
+		check(four.learned().size() == 21 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
 		check(four.selected().equals(spell.id()), "Later lessons preserve selection");
 		for (var definition : SpellDefinition.ALL) {
 			var ready = new MagicState(100, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
@@ -112,6 +112,41 @@ public final class MagicStateTest {
 			var hitBox = new net.minecraft.world.phys.AABB(hitCenter.x-0.1,0.9,hitCenter.z-0.1,hitCenter.x+0.1,1.1,hitCenter.z+0.1);
 			check(Double.isFinite(rotated.contact(hitBox,new net.minecraft.world.phys.Vec3(0,1,0),normal,3)), "Water wall rotated sweep " + yaw);
 		}
+		check(SpellDefinition.WATER_CANNON.rank()==2 && SpellDefinition.EX_FLAME.statusTicks()==200,"Intermediate rank and status duration");
+		check(IntermediateRules.chargeDisplay(10)==10 && IntermediateRules.chargeDisplay(19)==19 && IntermediateRules.chargeDisplay(20)==20,"Charge UI displays actual paid mana");
+		check(SpellDefinition.WATER_SPLASH.statusTicks()==2000,"Water Splash wetness lasts 100 seconds");
+		check(SpellDefinition.ICICLE_FIELD.damage()==5,"Icicle Field deals five damage");
+		check(IntermediateRules.chargeExtraAfterTicks(0)==0 && IntermediateRules.chargeExtraAfterTicks(20)==15 && IntermediateRules.chargeExtraAfterTicks(40)==40 && IntermediateRules.chargeExtraAfterTicks(60)==75,"Linear rate acceleration integrates to increasing per-second costs");
+		long injected=0;
+		for(int t=1;t<=100;t++) {
+			long debit=IntermediateRules.chargeExtraAfterTicks(t)-IntermediateRules.chargeExtraAfterTicks(t-1);
+			check(debit>=0,"Injection never refunds mana during charging");
+			injected+=debit;
+		}
+		check(injected==175,"Fractional tick amounts carry forward without lost mana");
+		check(IntermediateRules.chargeExtraAfterTicks(Integer.MAX_VALUE)>Integer.MAX_VALUE,"Large charge duration uses safe long arithmetic");
+		check(IntermediateRules.stoneDamage(10)==10 && IntermediateRules.stoneDamage(19)==10 && IntermediateRules.stoneDamage(20)==11,"Stone damage counts full extra tens");
+		check(IntermediateRules.stoneDamage(1000000)==100009,"No arbitrary stone damage cap");
+		var debited=four.spendMana(13);
+		check(debited.mana()==87&&debited.cooldown()==0,"Charge prepayment does not start cooldown");
+		check(debited.restoreMana(13).equals(four),"Charge refund preserves live state");
+		try { four.spendMana(101); throw new AssertionError("Charge overspend"); } catch(IllegalArgumentException expected) { assertions++; }
+		var anchor=new net.minecraft.core.BlockPos(5,5,5); var hitPoint=new net.minecraft.world.phys.Vec3(5,5,5);
+		check(IntermediateRules.blastBlocks(anchor,1,hitPoint).equals(List.of(anchor)),"Water blast exactly one block");
+		check(IntermediateRules.blastBlocks(anchor,2,hitPoint).size()==8&&IntermediateRules.blastBlocks(anchor,2,hitPoint).stream().distinct().count()==8,"Fire blast exactly eight distinct positions");
+		check(IntermediateRules.impactBounds(hitPoint).getXsize()==3&&IntermediateRules.impactBounds(hitPoint).getYsize()==3,"Blast damage volume side length three");
+		var wide=new SpellSweep(new net.minecraft.world.phys.Vec3(0,0,1),3,1,0.25);
+		check(Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(1.3,0,3,1.7,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),"Wide sonic sweep catches side target");
+		check(!Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(2,0,3,2.5,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),"Sonic sweep excludes outside width");
+		var fastRock=new SpellSweep(new net.minecraft.world.phys.Vec3(0,0,1),0.25,0.25,0.25);
+		check(Double.isFinite(fastRock.contact(new net.minecraft.world.phys.AABB(-0.1,0.9,0.8,0.1,1.1,1),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),2)),"Fast stone cannot skip a thin creature between endpoints");
+		check(!Double.isFinite(fastRock.contact(new net.minecraft.world.phys.AABB(-0.1,0.9,2.2,0.1,1.1,2.3),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),2)),"Swept body cannot hit beyond current travel");
+		var verticalSweep=new SpellSweep(new net.minecraft.world.phys.Vec3(0,1,0),3,1,0.25);
+		check(Double.isFinite(verticalSweep.contact(new net.minecraft.world.phys.AABB(-0.1,3,-0.1,0.1,3.2,0.1),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,1,0),3)),"Vertical aim retains finite collision basis");
+		check(!MagicState.initial(100).learn("icicle_field").learned().contains("icicle_field"),"Cannot forge ice field prerequisites");
+		var iceStudent=MagicState.initial(100).learn("water_ball").learn("ice_smash");
+		check(!iceStudent.learn("icicle_field").learned().contains("icicle_field"),"Ice field requires Heat Island too");
+		check(iceStudent.learn("fireball").learn("heat_hand").learn("heat_island").learn("icicle_field").learned().contains("icicle_field"),"Both prerequisites unlock ice field");
 		var firePaid = four.select("fireball").cast(SpellDefinition.FIREBALL).select("water_ball");
 		check(!firePaid.canCast(spell), "Switching cannot bypass global cooldown");
 		var fourJson = MagicState.CODEC.encodeStart(JsonOps.INSTANCE, firePaid).getOrThrow();
