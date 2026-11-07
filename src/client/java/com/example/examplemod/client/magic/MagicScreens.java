@@ -28,6 +28,14 @@ public final class MagicScreens {
 		Minecraft client = Minecraft.getInstance();
 		if (client.player == null || client.options.hideGui || client.player.isSpectator()) return;
 		MagicState state = MagicClient.state();
+		int preparing = client.player.getAttachedOrElse(com.example.examplemod.magic.MagicAttachments.PREPARE_LEFT, 0);
+		int total = client.player.getAttachedOrElse(com.example.examplemod.magic.MagicAttachments.PREPARE_TOTAL, 0);
+		if (preparing > 0 && total > 0) {
+			int bx = g.guiWidth() / 2 - 10, by = g.guiHeight() - 65;
+			g.fill(bx, by, bx + 20, by + 5, 0xFF191919);
+			g.fill(bx + 1, by + 1, bx + 1 + (int)(18L * (total - preparing) / total), by + 4, 0xFFCEB170);
+			g.centeredText(client.font, String.format(java.util.Locale.ROOT, "%.1f", preparing / 20.0), bx + 10, by - 2, 0xFFFFFFFF);
+		}
 		// 原版一行 10 颗心：9 像素心形以 8 像素间距排列，总宽 81。
 		// 九格栏宽 182、高 22；魔力槽在右侧，底边同为屏幕底边。
 		int x = g.guiWidth() / 2 + 97;
@@ -59,6 +67,11 @@ public final class MagicScreens {
 		int left = g.guiWidth() - hudWidth - 1;
 		g.blitSprite(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED,
 				net.minecraft.resources.Identifier.withDefaultNamespace("hud/effect_background"), left, top, hudWidth, 24);
+		int recovery = client.player.getAttachedOrElse(com.example.examplemod.magic.MagicAttachments.RECOVERY_TOTAL, 0);
+		if (state.cooldown() > 0 && recovery > 0) {
+			int height = Math.clamp((int)(24L * state.cooldown() / recovery), 0, 24);
+			g.fill(left, top + 24 - height, left + hudWidth, top + 24, 0x80000000);
+		}
 		g.centeredText(client.font, name(state.selected()), left + hudWidth / 2, top + 8, 0xFFFFFFFF);
 	}
 
@@ -113,7 +126,7 @@ public final class MagicScreens {
 			if (visible) {
 				g.text(font, name(selected), x + 120, y + 36, 0xFF164880, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.cost", spell.manaCost()), x + 120, y + 56, 0xFF303030, false);
-				g.text(font, Component.translatable("magic.mushokutenseiorigin.cooldown", spell.cooldownTicks() / 20.0), x + 120, y + 72, 0xFF303030, false);
+				g.text(font, Component.translatable("magic.mushokutenseiorigin.cast_timing", spell.castingProfile().preparationTicks() / 20.0, spell.cooldownTicks() / 20.0), x + 120, y + 72, 0xFF303030, false);
 				g.text(font, Component.translatable("magic.mushokutenseiorigin.element." + spell.element()), x + 120, y + 88, 0xFF164880, false);
 				if (spell.damage() > 0 || spell.healing() > 0) g.text(font, Component.translatable("magic.mushokutenseiorigin." + (spell.healing() > 0 ? "healing" : "damage"), spell.healing() > 0 ? spell.healing() : spell.damage()), x + 120, y + 104, 0xFF303030, false);
 				if (spell.execution() == SpellDefinition.Execution.AREA || spell.execution() == SpellDefinition.Execution.HEAT_HAND

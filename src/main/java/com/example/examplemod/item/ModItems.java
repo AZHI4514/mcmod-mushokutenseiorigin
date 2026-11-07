@@ -49,6 +49,90 @@ public class ModItems {
 			BasicAttackMagicPrimerItem.createProperties()
 	);
 
+	public static final Item BEGINNER_FIRE_MAGIC_TEXTBOOK = register(
+			"beginner_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_WATER_MAGIC_TEXTBOOK = register(
+			"beginner_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_WIND_MAGIC_TEXTBOOK = register(
+			"beginner_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_EARTH_MAGIC_TEXTBOOK = register(
+			"beginner_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_HEALING_MAGIC_TEXTBOOK = register(
+			"beginner_healing_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HEALING, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_DETOX_MAGIC_TEXTBOOK = register(
+			"beginner_detox_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.DETOX, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item BEGINNER_BARRIER_MAGIC_TEXTBOOK = register(
+			"beginner_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 1),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_FIRE_MAGIC_TEXTBOOK = register(
+			"intermediate_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_WATER_MAGIC_TEXTBOOK = register(
+			"intermediate_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_WIND_MAGIC_TEXTBOOK = register(
+			"intermediate_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_EARTH_MAGIC_TEXTBOOK = register(
+			"intermediate_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_HEALING_MAGIC_TEXTBOOK = register(
+			"intermediate_healing_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HEALING, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_DETOX_MAGIC_TEXTBOOK = register(
+			"intermediate_detox_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.DETOX, 2),
+			MagicTextbookItem.createProperties()
+	);
+
+	public static final Item INTERMEDIATE_BARRIER_MAGIC_TEXTBOOK = register(
+			"intermediate_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 2),
+			MagicTextbookItem.createProperties()
+	);
+
 	/** 本模组统一创造模式分类；新增物品同时加入这里的展示列表。 */
 	public static final CreativeModeTab MUSHOKUTENSEIORIGIN_TAB = Registry.register(
 			BuiltInRegistries.CREATIVE_MODE_TAB,
@@ -60,6 +144,20 @@ public class ModItems {
 						output.accept(ROXY_PANTSU);
 						output.accept(ZENITH_GREYRAT_MAGIC_BOOK);
 						output.accept(BASIC_ATTACK_MAGIC_PRIMER);
+						output.accept(BEGINNER_FIRE_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_WATER_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_WIND_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_EARTH_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_HEALING_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_DETOX_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_FIRE_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_WATER_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_WIND_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_EARTH_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_HEALING_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_DETOX_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_BARRIER_MAGIC_TEXTBOOK);
 					})
 					.build()
 	);

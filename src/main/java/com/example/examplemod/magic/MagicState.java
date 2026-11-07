@@ -83,6 +83,17 @@ public record MagicState(int mana, int maximum, int onlineTicks, int cooldown,
 		return new MagicState(mana, maximum, onlineTicks, cooldown, next, slots, selected);
 	}
 
+	/** Compatibility books can teach every implemented spell without prerequisite checks. */
+	public MagicState learnWithoutRequirements(String id) {
+		var spell = SpellDefinition.find(id);
+		if (spell == null || learned.contains(id)) return this;
+		List<String> next = new ArrayList<>(learned);
+		next.add(id);
+		List<String> slots = new ArrayList<>(loaded);
+		if (slots.size() < MAX_SLOTS) slots.add(id);
+		return new MagicState(mana, maximum, onlineTicks, cooldown, next, slots, selected);
+	}
+
 	public MagicState toggle(String id) {
 		if (!learned.contains(id)) return this;
 		List<String> slots = new ArrayList<>(loaded);

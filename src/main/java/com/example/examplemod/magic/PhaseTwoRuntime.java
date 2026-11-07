@@ -52,6 +52,7 @@ public final class PhaseTwoRuntime {
 				&&state.selected().equals(channel.spell.id())&&state.loaded().contains(channel.spell.id())&&state.learned().contains(channel.spell.id())
 				&&SpellHooks.canUse(player,channel.spell,SpellHooks.CastSource.KEYBOARD);
 	}
+	public static boolean channelActive(ServerPlayer player) { return CHANNELS.containsKey(player.getUUID()); }
 	public static void channel(ServerPlayer player,SpellDefinition spell,MagicAim aim) {
 		if(!aim.valid()) return;
 		var old=CHANNELS.get(player.getUUID());
@@ -73,7 +74,8 @@ public final class PhaseTwoRuntime {
 	public static void stop(ServerPlayer player) {
 		var channel=CHANNELS.remove(player.getUUID()); if(channel==null) return;
 		// Waterfall sources remain as permanent vanilla water.
-		var state=MagicSystem.state(player); player.setAttached(MagicAttachments.STATE,state.withCooldown(Math.max(state.cooldown(),20)));
+		player.setAttached(MagicAttachments.RECOVERY_TOTAL,channel.spell.cooldownTicks());
+		var state=MagicSystem.state(player); player.setAttached(MagicAttachments.STATE,state.withCooldown(Math.max(state.cooldown(),channel.spell.cooldownTicks())));
 	}
 	public static boolean shield(ServerPlayer player,MagicAim aim) {
 		var previous=SHIELDS.get(player.getUUID()); if(previous!=null&&previous.renew(player)) return true;

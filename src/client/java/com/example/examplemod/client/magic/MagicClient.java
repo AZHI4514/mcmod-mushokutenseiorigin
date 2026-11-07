@@ -24,6 +24,7 @@ public final class MagicClient {
 	public static final KeyMapping KNOWLEDGE = key("knowledge", GLFW.GLFW_KEY_G);
 	public static final KeyMapping WHEEL = key("wheel", GLFW.GLFW_KEY_R);
 	public static final KeyMapping CAST = key("cast", GLFW.GLFW_KEY_V);
+	public static final KeyMapping[] CHANT_KEYS = {key("chant_1", GLFW.GLFW_KEY_UP), key("chant_2", GLFW.GLFW_KEY_DOWN), key("chant_3", GLFW.GLFW_KEY_LEFT), key("chant_4", GLFW.GLFW_KEY_RIGHT)};
 	private static boolean mustRelease = true;
 	private static boolean armed;
 	private static boolean wheelMustRelease;
@@ -39,6 +40,9 @@ public final class MagicClient {
 	}
 
 	public static void initialize() {
+		ClientPlayNetworking.registerGlobalReceiver(com.example.examplemod.magic.ChantPayload.TYPE, (packet, context) -> {
+			if (Minecraft.getInstance().screen instanceof MagicBookScreen book) book.receive(packet);
+		});
 		EntityRendererRegistry.register(MagicSystem.WATER_BALL, context -> new WaterBallRenderer(context, "water_ball"));
 		EntityRendererRegistry.register(MagicSystem.FIREBALL, context -> new WaterBallRenderer(context, "fireball"));
 		EntityRendererRegistry.register(MagicSystem.WIND_BALL, context -> new WaterBallRenderer(context, "wind_ball"));
@@ -60,7 +64,7 @@ public final class MagicClient {
 			if (level.isClientSide() && player == Minecraft.getInstance().player
 					&& com.example.examplemod.magic.MagicBooks.isTextbook(player.getItemInHand(hand))) {
 				interrupt();
-				Minecraft.getInstance().setScreen(new MagicBookScreen());
+				Minecraft.getInstance().setScreen(new MagicBookScreen(player.getItemInHand(hand)));
 				return InteractionResult.SUCCESS;
 			}
 			return InteractionResult.PASS;

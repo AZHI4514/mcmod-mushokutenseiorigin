@@ -84,21 +84,24 @@ public final class MagicSystem {
 		PhaseTwoRuntime.initialize();
 		MagicAttachments.initialize();
 		MagicCommands.initialize();
+		PayloadTypeRegistry.serverboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
+		ServerPlayNetworking.registerGlobalReceiver(ChantPayload.TYPE, (packet, context) -> ChantLessons.handle(context.player(), packet));
 		PayloadTypeRegistry.serverboundPlay().register(MagicActionPayload.TYPE, MagicActionPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(MagicActionPayload.TYPE,
 				(packet, context) -> handle(context.player(), packet));
 		ServerPlayerEvents.JOIN.register(player -> {
 			SESSIONS.put(player.getUUID(), new Session());
-			StoneCharge.cancel(player);
+			ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
 			player.setAttached(MagicAttachments.STATE, state(player));
 		});
-		ServerPlayerEvents.LEAVE.register(player -> { StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(player -> { StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); }); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
+		ServerPlayerEvents.LEAVE.register(player -> { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(player -> { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); }); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, player, alive) -> {
 			SESSIONS.put(player.getUUID(), new Session());
 			MagicAreas.clear(player.getUUID());
 			PhaseTwoRuntime.clear(oldPlayer);
-			StoneCharge.cancel(player);
+			ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
 			if (!alive) player.setAttached(MagicAttachments.STATE, state(player).refill());
 			player.setAttached(MagicAttachments.CAST_TICKS, 0);
 		});
@@ -106,11 +109,13 @@ public final class MagicSystem {
 			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 				Session session = SESSIONS.computeIfAbsent(player.getUUID(), id -> new Session());
 				session.age++;
-				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) { MagicAreas.clear(player.getUUID()); PhaseTwoRuntime.clear(player); session.blocked=true; }
+				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) { MagicAreas.clear(player.getUUID()); PhaseTwoRuntime.clear(player); MagicPreparation.cancel(player); session.blocked=true; }
 				session.dimension = player.level().dimension();
 				if (player.isAlive()) player.setAttached(MagicAttachments.STATE, state(player).tick());
-				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicAreas.breakMaintenance(player); PhaseTwoRuntime.breakMaintenance(player); }
+				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicPreparation.cancel(player); MagicAreas.breakMaintenance(player); PhaseTwoRuntime.breakMaintenance(player); }
 				if (!player.isAlive()) MagicAreas.clear(player.getUUID());
+				ChantLessons.tick(player);
+				MagicPreparation.tick(player);
 				if (StoneCharge.tick(player)) session.blocked=true;
 				if (PhaseTwoRuntime.tick(player)) session.blocked=true;
 				int pose = player.getAttachedOrElse(MagicAttachments.CAST_TICKS, 0);
@@ -144,8 +149,8 @@ public final class MagicSystem {
 		// Bound UI/network actions per tick, independently of the spell cooldown.
 		if (session.requestTick != session.age) { session.requestTick = session.age; session.requests = 0; }
 		if (++session.requests > 8) return;
-		if (packet.action().equals("release")) { StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
-		if (packet.action().equals("stop")) { StoneCharge.cancel(player); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
+		if (packet.action().equals("release")) { MagicPreparation.cancel(player); StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
+		if (packet.action().equals("stop")) { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
 		if (packet.action().equals("arm")) {
 			if (!player.isUsingItem() && player.isAlive() && !player.isSpectator()) session.blocked = false;
 			return;
@@ -153,16 +158,12 @@ public final class MagicSystem {
 		if (!player.isAlive() || player.isSpectator()) return;
 		MagicState before = state(player);
 		switch (packet.action()) {
-			case "learn" -> {
-				if (MagicBooks.teaches(player.getMainHandItem(), packet.spell())
-						|| MagicBooks.teaches(player.getOffhandItem(), packet.spell()))
-					player.setAttached(MagicAttachments.STATE, before.learn(packet.spell()));
-			}
-			case "toggle" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
-			case "select" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
+			case "learn" -> { /* Requires validated rhythm challenge. */ }
+			case "toggle" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
+			case "select" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
 			case "cast" -> {
 				if (player.isUsingItem() || player.containerMenu != player.inventoryMenu || player.isSleeping()) {
-					StoneCharge.cancel(player);
+					ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
 					PhaseTwoRuntime.stop(player);
 					session.blocked = true;
 					player.setAttached(MagicAttachments.CAST_TICKS, 0);
@@ -170,28 +171,7 @@ public final class MagicSystem {
 				}
 				if (session.blocked) return;
 				SpellDefinition spell = SpellDefinition.find(packet.spell());
-				if (PhaseTwoSpells.isChannel(spell)) { PhaseTwoRuntime.channel(player,spell,new MagicAim(packet.yaw(),packet.pitch())); return; }
-				if (spell == SpellDefinition.STONE_CANNON) {
-					StoneCharge.begin(player,new MagicAim(packet.yaw(),packet.pitch())); return;
-				}
-				if (!before.canCast(spell) || !SpellHooks.canUse(player, spell, SpellHooks.CastSource.KEYBOARD)) {
-					if (before.cooldown() == 0 && session.age - session.lastHint >= 20) {
-						player.sendOverlayMessage(Component.translatable("magic.mushokutenseiorigin.cannot_cast"));
-						session.lastHint = session.age;
-					}
-					return;
-				}
-				var aim = new MagicAim(packet.yaw(), packet.pitch());
-				if (!aim.valid()) return;
-				if (!SpellExecutors.canExecute(player, spell, aim)) return;
-				MagicState paid = before.cast(spell);
-				player.setAttached(MagicAttachments.STATE, paid);
-				if (!SpellExecutors.execute(player, spell, aim)) {
-					player.setAttached(MagicAttachments.STATE, before);
-					return;
-				}
-				MagicGlow.success(player,spell);
-				MagicSounds.listener.accept(player, MagicSounds.Phase.RELEASE);
+				MagicPreparation.request(player, spell, new MagicAim(packet.yaw(), packet.pitch()));
 			}
 			default -> { }
 		}

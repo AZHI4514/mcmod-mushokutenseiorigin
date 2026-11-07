@@ -18,13 +18,11 @@ public final class MagicStateTest {
 		state = state.learn(spell.id());
 		check(state.canCast(spell), "First learning loads and selects spell");
 		check(state.learn(spell.id()).equals(state), "Learning is idempotent");
+		check(MagicState.initial(100).learn("water_shield").learned().isEmpty(), "Normal learning still requires prerequisites");
+		check(MagicState.initial(100).learnWithoutRequirements("water_shield").learned().contains("water_shield"), "Legacy learning bypasses prerequisites");
 		var paid = state.cast(spell);
-		check(paid.mana() == 99 && paid.cooldown() == 2, "One successful cast debits exactly once");
-		check(!paid.canCast(spell), "Immediate second cast denied");
-		check(!paid.tick().canCast(spell), "One tick is insufficient");
-		check(paid.tick().tick().canCast(spell), "Two tick cooldown");
-		try { paid.cast(spell); throw new AssertionError("Cooldown bypass"); }
-		catch (IllegalStateException expected) { assertions++; }
+		check(paid.mana() == 99 && paid.cooldown() == 0, "Beginner releases have no recovery after preparation");
+		check(spell.castingProfile().preparationTicks() == 100, "Beginner requires five seconds preparation");
 		var zero = new MagicState(0, 100, 0, 0, state.learned(), state.loaded(), state.selected());
 		check(!zero.canCast(spell), "Insufficient mana denied");
 		check(!state.select("").selected().isEmpty(), "Blank selection keeps previous");
@@ -109,9 +107,10 @@ public final class MagicStateTest {
 		check(MagicRules.extend(20,80) == 100, "Maintenance adds remaining time");
 		check(MagicRules.extend(Integer.MAX_VALUE-1,80) == Integer.MAX_VALUE, "Maintenance cannot overflow");
 		check(MagicRules.shieldAfter(8,4) == 4 && MagicRules.shieldAfter(4,20) == 0, "Shield capacity clamps on oversized hit");
-		check(SpellDefinition.WATER_SHIELD.cooldownTicks() == 60 && SpellDefinition.BURNING_PLACE.cooldownTicks() == 60
-				&& SpellDefinition.MAGIC_SHIELD.cooldownTicks() == 80, "Confirmed cooldowns leave no maintenance gaps");
+		check(SpellDefinition.WATER_SHIELD.cooldownTicks() == 0 && SpellDefinition.MAGIC_SHIELD.cooldownTicks() == 0, "Beginner utility uses shared recovery");
 		check(MagicState.initial(100).learn("water_shield").learned().isEmpty(), "Water Shield requires Water Ball");
+		var legacyLearning = MagicState.initial(100).learnWithoutRequirements("physical_shield");
+		check(legacyLearning.learned().contains("physical_shield") && legacyLearning.loaded().contains("physical_shield"), "Legacy book directly teaches spells with prerequisites");
 		check(MagicState.initial(100).learn("ice_blade").learned().isEmpty(), "Ice Blade requires Ice Smash");
 		check(MagicState.initial(100).learn("heat_island").learned().isEmpty(), "Heat Island requires Heat Hand");
 		check(SpellDefinition.ICE_BLADE.icy() && !SpellDefinition.WATER_ARROW.icy(), "Ice status separate from water status");
@@ -132,6 +131,7 @@ public final class MagicStateTest {
 		check(IntermediateRules.chargeDisplay(10)==10 && IntermediateRules.chargeDisplay(19)==19 && IntermediateRules.chargeDisplay(20)==20,"Charge UI displays actual paid mana");
 		check(SpellDefinition.WATER_SPLASH.statusTicks()==2000,"Water Splash wetness lasts 100 seconds");
 		check(SpellDefinition.ICICLE_FIELD.damage()==5,"Icicle Field deals five damage");
+
 		check(IntermediateRules.chargeExtraAfterTicks(0)==0 && IntermediateRules.chargeExtraAfterTicks(20)==15 && IntermediateRules.chargeExtraAfterTicks(40)==40 && IntermediateRules.chargeExtraAfterTicks(60)==75,"Linear rate acceleration integrates to increasing per-second costs");
 		long injected=0;
 		for(int t=1;t<=100;t++) {
@@ -164,7 +164,7 @@ public final class MagicStateTest {
 		check(!iceStudent.learn("icicle_field").learned().contains("icicle_field"),"Ice field requires Heat Island too");
 		check(iceStudent.learn("fireball").learn("heat_hand").learn("heat_island").learn("icicle_field").learned().contains("icicle_field"),"Both prerequisites unlock ice field");
 		var firePaid = four.select("fireball").cast(SpellDefinition.FIREBALL).select("water_ball");
-		check(!firePaid.canCast(spell), "Switching cannot bypass global cooldown");
+		check(firePaid.canCast(spell), "Beginner has no post-release cooldown; server preparation controls cadence");
 		var fourJson = MagicState.CODEC.encodeStart(JsonOps.INSTANCE, firePaid).getOrThrow();
 		check(MagicState.CODEC.parse(JsonOps.INSTANCE, fourJson).getOrThrow().equals(firePaid), "Four spells persist with cooldown");
 		check(four.toggle("water_ball").selected().equals("fireball"), "Removing selection falls back to first remaining");
@@ -295,7 +295,7 @@ public final class MagicStateTest {
 		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,0.5),plane,-0.2).lengthSqr()==0,"Shield blocks crossing from either side");
 		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,0.5),plane,0.2).z==0.5,"Overlapping creature can escape away from shield");
 		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,-0.5),plane,0.2).x==0.2,"Shield retains tangent movement");
-		check(SpellDefinition.WIND_BLAST.cooldownTicks()==4,"Wind blast cooldown is 0.2 seconds");
+		check(SpellDefinition.WIND_BLAST.cooldownTicks()==10,"Intermediate recovery is 0.5 seconds");
 		check(SpellDefinition.EARTH_LANCE.cooldownTicks()==10&&SpellDefinition.ICICLE_BREAK.cooldownTicks()==10,"Earth lance and ice shot cooldowns are 0.5 seconds");
 
 		var casterFeet=new net.minecraft.core.BlockPos(5,64,-3);
@@ -303,6 +303,32 @@ public final class MagicStateTest {
 		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(6,63,-3),casterFeet),"Earth lance does not build dirt on nearby terrain");
 		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,60,-3),casterFeet),"Earth lance does not build dirt far below caster");
 		check(PhaseTwoRules.TNT_POWER==4F,"Explosion uses the vanilla single-TNT power");
+
+		int taught = 0;
+		for (var category : MagicCategory.values()) for (int rank = 1; rank <= 2; rank++) {
+			for (String id : MagicBooks.lessons(category, rank)) {
+				taught++; var definition = SpellDefinition.find(id);
+				check(definition.rank() == rank && MagicCategory.of(definition) == category, "Each course has the correct category and rank");
+			}
+		}
+		check(taught == 39, "Fourteen textbook catalogs partition all existing spells");
+		for (int rank = 1; rank <= 7; rank++) check(CastingProfile.of(rank, CastingProfile.Mode.FULL).preparationTicks() > 0, "All full-chant tiers configured");
+		check(!CastingProfile.unlocked(CastingProfile.Mode.SILENT) && !CastingProfile.unlocked(CastingProfile.Mode.SHORTENED), "Future modes remain locked");
+		check(CastingProfile.of(7, CastingProfile.Mode.FULL).requiresCircle(), "Divine tier requires circle");
+		for (int count = 4; count <= 12; count++) {
+			int[] letters = new int[count];
+			for (int i = 0; i < count; i++) letters[i] = (i * 7) % 26;
+			var lesson = new ChantScore(letters);
+			for (int i = 0; i < count; i++) {
+				for (int j = 0; j < 26; j++) if (j != letters[i]) lesson.press(j);
+				check(lesson.index() == i && !lesson.finished(), "Wrong guesses preserve progress and never end the lesson");
+				lesson.press(letters[i]);
+				check(lesson.index() == i + 1, "Correct next letter lights exactly one symbol");
+			}
+			check(lesson.passed(), "All letters in sequence complete learning");
+			lesson.press(letters[0]);
+			check(lesson.index() == count, "Completed lesson is stable");
+		}
 		System.out.println("MagicState: " + assertions + " behavior assertions passed.");
 	}
 }

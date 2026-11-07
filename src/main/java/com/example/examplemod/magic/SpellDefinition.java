@@ -83,6 +83,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 		if(id.equals("physical_shield")) return 0xBA70FF;
 		return switch(element) { case "fire" -> 0xFF5030; case "wind" -> 0xFFFFFF; case "earth" -> 0xA87946; case "healing" -> 0x55FF77; default -> 0x43BFFF; };
 	}
+	public CastingProfile castingProfile() { return CastingProfile.of(rank(), CastingProfile.Mode.FULL); }
 	public int rank() { return execution == Execution.ADVANCED_PROJECTILE || execution == Execution.TARGET_AREA || execution == Execution.PHASE_TWO ? 2 : 1; }
 	public int statusTicks() { return id.equals("water_splash") ? 2000 : MagicRules.statusTicks(rank()); }
 	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade") || id.equals("icicle_field") || id.equals("ice_pillar") || id.equals("ice_lance") || id.equals("icicle_break") || id.equals("icicle_edge") || id.equals("ice_fortress"); }
@@ -97,7 +98,10 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 	public SpellDefinition {
 		requirements = List.copyOf(requirements);
 		learningRequirements = List.copyOf(learningRequirements);
-		if (manaCost < 0 || damage < 0 || healing < 0 || range < 0 || maxTargets < 1 || cooldownTicks < 1 || lifetimeTicks < 1)
+		// Legacy call-site cooldown arguments are superseded by the shared full-chant profile.
+		int spellRank = execution == Execution.ADVANCED_PROJECTILE || execution == Execution.TARGET_AREA || execution == Execution.PHASE_TWO ? 2 : 1;
+		cooldownTicks = CastingProfile.of(spellRank, CastingProfile.Mode.FULL).recoveryTicks();
+		if (manaCost < 0 || damage < 0 || healing < 0 || range < 0 || maxTargets < 1 || cooldownTicks < 0 || lifetimeTicks < 1)
 			throw new IllegalArgumentException("Invalid spell parameters: " + id);
 	}
 

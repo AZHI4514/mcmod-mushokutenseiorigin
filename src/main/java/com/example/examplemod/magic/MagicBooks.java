@@ -12,11 +12,20 @@ public final class MagicBooks {
 	public static final List<String> INTRO_PAGES = List.of("nature", "elements", "ranks", "methods", "practice", "safety", "status_rules", "maintenance");
 
 	public static boolean isTextbook(ItemStack stack) {
+		return stack.getItem() instanceof com.example.examplemod.item.MagicTextbookItem || isLegacy(stack);
+	}
+	public static boolean isLegacy(ItemStack stack) {
 		return stack.is(ModItems.ZENITH_GREYRAT_MAGIC_BOOK) || stack.is(ModItems.BASIC_ATTACK_MAGIC_PRIMER);
+	}
+	public static List<String> lessons(MagicCategory category, int rank) {
+		return SpellDefinition.ALL.stream().filter(s -> s.rank() == rank && MagicCategory.of(s) == category).map(SpellDefinition::id).toList();
+	}
+	public static List<String> lessons(ItemStack stack) {
+		return stack.getItem() instanceof com.example.examplemod.item.MagicTextbookItem book ? lessons(book.category(), book.rank()) : LESSONS;
 	}
 
 	public static boolean teaches(ItemStack stack, String spell) {
-		return isTextbook(stack) && LESSONS.contains(spell) && SpellDefinition.find(spell) != null;
+		return (stack.getItem() instanceof com.example.examplemod.item.MagicTextbookItem || isLegacy(stack)) && lessons(stack).contains(spell);
 	}
 
 	private MagicBooks() {

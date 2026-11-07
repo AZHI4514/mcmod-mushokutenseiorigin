@@ -45,11 +45,18 @@ public abstract class MagicFirstPersonMixin {
 	@Inject(method = "renderArmWithItem", at = @At("RETURN"))
 	private void mushoku$restore(AbstractClientPlayer player, float delta, float pitch, InteractionHand hand, float swing, ItemStack stack,
 			float equip, PoseStack poses, SubmitNodeCollector collector, int light, CallbackInfo ci) {
-		if (casting(player, hand)) poses.popPose();
+		if (casting(player, hand) && !(hand == InteractionHand.OFF_HAND && stack.isEmpty())) poses.popPose();
 	}
 
 	@Inject(method = "renderHandsWithItems", at = @At("RETURN"))
 	private void mushoku$emptyRightHand(float delta, PoseStack poses, SubmitNodeCollector collector, LocalPlayer player, int light, CallbackInfo ci) {
+		if (!player.isUsingItem() && !player.isInvisible() && player.getAttachedOrElse(MagicAttachments.PREPARE_LEFT, 0) > 0 && player.getItemInHand(player.getMainArm() == HumanoidArm.LEFT ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND).isEmpty()) {
+			poses.pushPose();
+			poses.translate(0.25, 0.15, -0.2);
+			poses.mulPose(Axis.ZP.rotationDegrees(-32));
+			renderPlayerArm(poses, collector, light, 0, 0, HumanoidArm.LEFT);
+			poses.popPose();
+		}
 		if (player.getMainArm() == HumanoidArm.LEFT && player.getOffhandItem().isEmpty()
 				&& !player.isInvisible() && casting(player, InteractionHand.OFF_HAND)) {
 			poses.pushPose();

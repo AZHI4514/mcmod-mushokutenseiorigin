@@ -24,6 +24,10 @@ public final class MagicAttachments {
 	public static final AttachmentType<Integer> CHARGE_BUDGET = AttachmentRegistry.create(
 			ExampleMod.id("charge_budget"), builder -> builder.initializer(() -> 0)
 					.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.targetOnly()));
+
+	public static final AttachmentType<Integer> PREPARE_LEFT = AttachmentRegistry.create(ExampleMod.id("prepare_left"), builder -> builder.initializer(() -> 0).syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));
+	public static final AttachmentType<Integer> PREPARE_TOTAL = AttachmentRegistry.create(ExampleMod.id("prepare_total"), builder -> builder.initializer(() -> 0).syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));
+	public static final AttachmentType<Integer> RECOVERY_TOTAL = AttachmentRegistry.create(ExampleMod.id("recovery_total"), builder -> builder.initializer(() -> 0).syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));
 	/** 在模组初始化阶段注册附件，不能等首个玩家加入后才注册。 */
 	public static void initialize() {
 	}
