@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-/** 中级飞行体统一连续扫掠，穿透每生物每发一次；短命实体不跨卸载复活。 */
+/** 中级飞行体统一连续扫掠，穿透每生物每发一次；卸载保存命中集合、注魔和已飞行时间。 */
 public final class IntermediateProjectile extends Projectile {
 	private final HashSet<UUID> hit=new HashSet<>();
 	private double traveled;
@@ -34,21 +34,22 @@ public final class IntermediateProjectile extends Projectile {
 	public void paidMana(int value) { paid=Math.max(10,value); }
 	public float damage() { return spell()==SpellDefinition.STONE_CANNON ? IntermediateRules.stoneDamage(paid) : spell().damage(); }
 	@Override protected void defineSynchedData(SynchedEntityData.Builder builder) { }
-	@Override public boolean shouldBeSaved() { return false; }
-	@Override protected void addAdditionalSaveData(ValueOutput output) { super.addAdditionalSaveData(output); }
-	@Override protected void readAdditionalSaveData(ValueInput input) { super.readAdditionalSaveData(input); age=100; }
+	@Override public boolean shouldBeSaved() { return true; }
+	@Override protected void addAdditionalSaveData(ValueOutput output) { super.addAdditionalSaveData(output); output.putInt("MagicAge",age);output.putInt("PaidMana",paid);MagicFlight.saveHits(output,hit); }
+	@Override protected void readAdditionalSaveData(ValueInput input) { super.readAdditionalSaveData(input); age=Math.max(0,input.getIntOr("MagicAge",0));paid=Math.max(10,input.getIntOr("PaidMana",10));MagicFlight.loadHits(input,hit); }
 	@Override public void tick() {
 		super.tick(); if(isRemoved()) return;
 		if(!(level() instanceof ServerLevel level)) { setPos(position().add(getDeltaMovement())); return; }
-		if(++age>spell().lifetimeTicks()||traveled>=spell().range()||getDeltaMovement().lengthSqr()<1.0E-8) { discard(); return; }
+		if(getY()<level.getMinY()||age>=spell().flightTicks()||getDeltaMovement().lengthSqr()<1.0E-8) { discard(); return; }
 		var from=position(); var direction=getDeltaMovement().normalize();
-		double distance=Math.min(spell().speed(),spell().range()-traveled);
+		double distance=spell().speed();
 		var body=spell()==SpellDefinition.EX_FLAME?new SpellSweep(direction,2,2,2)
 				:spell()==SpellDefinition.SONIC_BOOM?new SpellSweep(direction,3,1,0.25):new SpellSweep(direction,0.25,0.25,0.25);
 		var to=from.add(direction.scale(distance)); var bounds=body.bounds(from).minmax(body.bounds(to)).inflate(1.0E-5);
 		for(int x=(int)Math.floor(bounds.minX)>>4;x<=((int)Math.floor(bounds.maxX)>>4);x++)
 			for(int z=(int)Math.floor(bounds.minZ)>>4;z<=((int)Math.floor(bounds.maxZ)>>4);z++)
-				if(!level.hasChunkAt(new BlockPos(x<<4,getBlockY(),z<<4))) { discard(); return; }
+				if(!level.hasChunkAt(new BlockPos(x<<4,getBlockY(),z<<4))) { return; }
+		++age;
 		double wall=Double.POSITIVE_INFINITY; BlockPos block=null; Vec3 impact=null;
 		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
 			for(var local:level.getBlockState(pos).getCollisionShape(level,pos).toAabbs()) {
@@ -60,9 +61,10 @@ public final class IntermediateProjectile extends Projectile {
 				}
 			}
 		}
+		double fluid=MagicFlight.fluidHit(this,body,from,direction.scale(distance));
 		var targets=new ArrayList<LivingEntity>();
 		for(var entity:level.getEntities(this,bounds,e->e instanceof LivingEntity && MagicEffects.allowed(getOwner(),(LivingEntity)e))) {
-			if(!hit.contains(entity.getUUID())&&body.contact(entity.getBoundingBox(),from,direction,distance)<wall) targets.add((LivingEntity)entity);
+			if(!hit.contains(entity.getUUID())&&body.contact(entity.getBoundingBox(),from,direction,distance)<Math.min(wall,fluid)) targets.add((LivingEntity)entity);
 		}
 		targets.sort(Comparator.comparingDouble(t->body.contact(t.getBoundingBox(),from,direction,distance)));
 		boolean piercing=spell()==SpellDefinition.SONIC_BOOM||spell()==SpellDefinition.STONE_CANNON;
@@ -73,12 +75,13 @@ public final class IntermediateProjectile extends Projectile {
 			IntermediateSpells.hurt(this,target,spell(),damage());
 			if(!piercing) { setPos(from.add(direction.scale(contact))); IntermediateSpells.impactParticles(this); discard(); return; }
 		}
+		if(fluid<=distance&&fluid<=wall) {setPos(from.add(direction.scale(fluid)));IntermediateSpells.impactParticles(this);discard();return;}
 		if(wall<=distance&&block!=null) {
 			setPos(from.add(direction.scale(wall)));
 			if(getOwner() instanceof ServerPlayer owner&&(spell()==SpellDefinition.WATER_CANNON||spell()==SpellDefinition.EX_FLAME))
 				IntermediateSpells.blockImpact(this,owner,block,impact);
 			IntermediateSpells.impactParticles(this); discard(); return;
 		}
-		setPos(to); traveled+=distance; if(traveled>=spell().range()) discard();
+		setPos(to); traveled+=distance;
 	}
 }

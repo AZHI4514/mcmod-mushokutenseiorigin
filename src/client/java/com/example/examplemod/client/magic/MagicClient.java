@@ -127,6 +127,7 @@ public final class MagicClient {
 	}
 
 	private static void tick(Minecraft client) {
+		MagicHandGlow.tick(client);
 		if (client.player != lastPlayer) { interrupt(); lastPlayer = client.player; }
 		if (client.player == null || client.level == null) { armed = false; mustRelease = true; return; }
 		if (!physicallyDown(WHEEL)) wheelMustRelease = false;

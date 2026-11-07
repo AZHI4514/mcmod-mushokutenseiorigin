@@ -190,7 +190,7 @@ public final class MagicSystem {
 					player.setAttached(MagicAttachments.STATE, before);
 					return;
 				}
-				player.setAttached(MagicAttachments.CAST_TICKS, 2);
+				MagicGlow.success(player,spell);
 				MagicSounds.listener.accept(player, MagicSounds.Phase.RELEASE);
 			}
 			default -> { }

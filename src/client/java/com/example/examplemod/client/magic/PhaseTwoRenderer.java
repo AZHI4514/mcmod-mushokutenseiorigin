@@ -27,7 +27,7 @@ public final class PhaseTwoRenderer extends EntityRenderer<PhaseTwoEntity,PhaseT
 	@Override protected net.minecraft.world.phys.AABB getBoundingBoxForCulling(PhaseTwoEntity entity) { return entity.getBoundingBox().inflate(2); }
 	@Override public void extractRenderState(PhaseTwoEntity entity,State state,float delta) {
 		super.extractRenderState(entity,state,delta);state.ray=entity.ray(); var motion=entity.direction();
-		state.yaw=(float)Math.toDegrees(Math.atan2(motion.x,motion.z)); state.pitch=entity.stationary()&&!entity.shield()?0:(float)Math.toDegrees(Math.atan2(motion.y,motion.horizontalDistance()));
+		state.yaw=(float)Math.toDegrees(Math.atan2(motion.x,motion.z)); state.pitch=entity.fallingRock()||entity.stationary()&&!entity.shield()?0:(float)Math.toDegrees(Math.atan2(motion.y,motion.horizontalDistance()));
 		state.width=(float)entity.width(); state.height=(float)entity.height(); state.depth=(float)entity.depth();
 		state.offset=(entity.stationary()&&!entity.shield())||entity.spell()==com.example.examplemod.magic.SpellDefinition.EARTH_PILLAR?state.height/2:0;
 		if(state.ray){state.width=state.height=state.depth=0.12F;state.offset=0;}

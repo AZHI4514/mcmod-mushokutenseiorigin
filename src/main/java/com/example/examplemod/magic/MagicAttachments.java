@@ -13,6 +13,7 @@ public final class MagicAttachments {
 					.initializer(() -> MagicState.initial(MagicConfig.maximumMana()))
 					.persistent(MagicState.CODEC).copyOnDeath()
 					.syncWith(ByteBufCodecs.fromCodecWithRegistries(MagicState.CODEC), AttachmentSyncPredicate.targetOnly()));
+	public static final AttachmentType<Integer> CAST_COLOR = AttachmentRegistry.create(ExampleMod.id("cast_color"), builder -> builder.initializer(() -> 0).syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));
 	public static final AttachmentType<Integer> CAST_TICKS = AttachmentRegistry.create(
 			ExampleMod.id("cast_ticks"), builder -> builder.initializer(() -> 0)
 					.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all()));

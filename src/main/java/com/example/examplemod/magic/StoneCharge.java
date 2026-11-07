@@ -56,7 +56,7 @@ public final class StoneCharge {
 		if(!IntermediateSpells.execute(player,SpellDefinition.STONE_CANNON,aim,paid)) { cancel(player); return; }
 		ACTIVE.remove(player.getUUID()); player.setAttached(MagicAttachments.CHARGE_MANA,0); player.setAttached(MagicAttachments.CHARGE_BUDGET,0);
 		player.setAttached(MagicAttachments.STATE,MagicSystem.state(player).withCooldown(SpellDefinition.STONE_CANNON.cooldownTicks()));
-		player.setAttached(MagicAttachments.CAST_TICKS,2); MagicSounds.listener.accept(player,MagicSounds.Phase.RELEASE);
+		MagicGlow.success(player,SpellDefinition.STONE_CANNON); MagicSounds.listener.accept(player,MagicSounds.Phase.RELEASE);
 	}
 	public static void cancel(ServerPlayer player) {
 		ACTIVE.remove(player.getUUID()); int paid=player.getAttachedOrElse(MagicAttachments.CHARGE_MANA,0);

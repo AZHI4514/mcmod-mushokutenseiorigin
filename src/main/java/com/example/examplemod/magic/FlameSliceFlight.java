@@ -10,14 +10,14 @@ public record FlameSliceFlight(double travelled) {
 	).apply(instance, FlameSliceFlight::new));
 
 	public FlameSliceFlight {
-		travelled = Double.isFinite(travelled) ? Math.max(0, travelled) : SpellDefinition.FLAME_SLICE.range();
+		travelled = Double.isFinite(travelled) ? Math.max(0, travelled) : SpellDefinition.FLAME_SLICE.flightRange();
 	}
 
 	public FlameSliceFlight advance(double distance) {
 		return new FlameSliceFlight(travelled + Math.max(0, distance));
 	}
 
-	public double remaining() { return Math.max(0, SpellDefinition.FLAME_SLICE.range() - travelled); }
+	public double remaining() { return Math.max(0, SpellDefinition.FLAME_SLICE.flightRange() - travelled); }
 	public boolean exhausted() { return remaining() <= 1.0E-6; }
 
 }

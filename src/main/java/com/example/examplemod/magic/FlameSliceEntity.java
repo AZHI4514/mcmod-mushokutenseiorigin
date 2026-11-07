@@ -29,7 +29,7 @@ public final class FlameSliceEntity extends Projectile {
 		super.tick();
 		if (isRemoved()) return;
 		if (level().isClientSide()) { setPos(position().add(getDeltaMovement())); return; }
-		if (++age > SpellDefinition.FLAME_SLICE.lifetimeTicks() || flight.exhausted() || getDeltaMovement().lengthSqr() < 1.0E-8) {
+		if (age >= SpellDefinition.FLAME_SLICE.flightTicks() || flight.exhausted() || getDeltaMovement().lengthSqr() < 1.0E-8) {
 			discard(); return;
 		}
 		var level = (ServerLevel) level();
@@ -41,12 +41,14 @@ public final class FlameSliceEntity extends Projectile {
 		var bounds = volume.bounds(from).minmax(volume.bounds(to)).inflate(1.0E-5);
 		for (int x = (int) Math.floor(bounds.minX) >> 4; x <= (int) Math.floor(bounds.maxX) >> 4; x++) {
 			for (int z = (int) Math.floor(bounds.minZ) >> 4; z <= (int) Math.floor(bounds.maxZ) >> 4; z++) {
-				if (!level.hasChunkAt(new BlockPos(x << 4, getBlockY(), z << 4))) { discard(); return; }
+				if (!level.hasChunkAt(new BlockPos(x << 4, getBlockY(), z << 4))) { return; }
 			}
 		}
+		++age;
+		if(getY()<level.getMinY()) {discard();return;}
 		var obstacles = new ArrayList<AABB>();
 		for (var shape : level.getBlockCollisions(this, bounds)) obstacles.addAll(shape.toAabbs());
-		double wall = volume.blockingDistance(from, distance, obstacles);
+		double wall = Math.min(volume.blockingDistance(from, distance, obstacles), MagicFlight.fluidHit(this,new SpellSweep(direction,3,1,1),from,direction.scale(distance)));
 		// 不用原版细射线/墙体视线判定，宽体从边缘擦过生物同样命中。
 		var targets = level.getEntities(this, bounds, entity -> entity instanceof LivingEntity
 				&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());

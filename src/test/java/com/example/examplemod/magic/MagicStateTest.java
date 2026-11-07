@@ -81,8 +81,24 @@ public final class MagicStateTest {
 			check(ready.learn(definition.id()).equals(ready), "No duplicate lesson: " + definition.id());
 			check(definition.prerequisitesMet(id -> false), "Basic spell has no external dependency");
 		}
-		check(SpellDefinition.ICE_BLADE.range() == 15, "Ice Blade travels straight for fifteen blocks");
-		check(SpellDefinition.ICE_BLADE.speed() == 1.125F, "Ice blade speed multiplied by 1.5");
+		check(Double.isInfinite(SpellDefinition.ICE_BLADE.flightRange()), "Ballistic Ice Blade has no distance cap");
+		check(SpellDefinition.ICE_BLADE.speed() == 2.5F && SpellDefinition.ICE_BLADE.gravity() == 0.02, "Ice Blade uses initial speed and ice gravity");
+		for(int rank=1;rank<=7;rank++) check(MagicRules.flightTicks(rank)==rank*60, "Three seconds per rank");
+		for(var definition:SpellDefinition.ALL) {
+			if(definition.motion()==SpellDefinition.Motion.CONSTANT) {
+				check(definition.gravity()==0, "Constant flight has no gravity: "+definition.id());
+				check(definition.flightRange()==definition.speed()*definition.flightTicks(), "Time determines flight range: "+definition.id());
+			}
+			if(definition.motion()==SpellDefinition.Motion.BALLISTIC) check(definition.flightTicks()==0&&Double.isInfinite(definition.flightRange()), "Ballistic flight has no expiry: "+definition.id());
+		}
+		check(SpellDefinition.FLAME_SLICE.flightTicks()==60&&SpellDefinition.FLAME_SLICE.speed()==2, "Beginner constant flight lasts three seconds");
+		check(SpellDefinition.STONE_CANNON.flightTicks()==120&&SpellDefinition.STONE_CANNON.flightRange()==360, "Intermediate stone cannon flies at three blocks per tick");
+		for(var id:List.of("ice_pillar","ice_lance","waterfall","wind_bind","earth_lance")) check(SpellDefinition.find(id).motion()==SpellDefinition.Motion.INSTANT, "Instant execution: "+id);
+		check(!SpellDefinition.SONIC_BOOM.areaDamage()&&SpellDefinition.SONIC_BOOM.piercing(), "Piercing is distinct from AOE");
+		check(SpellDefinition.WIND_SLICE.areaDamage()&&!SpellDefinition.WIND_SLICE.piercing(), "Impact AOE is distinct from piercing");
+		check(SpellDefinition.MAGIC_SHIELD.glowColor()==0x43BFFF&&SpellDefinition.PHYSICAL_SHIELD.glowColor()==0xBA70FF, "Shield glow colors");
+		check(SpellDefinition.EARTH_PILLAR.motion()==SpellDefinition.Motion.FALLING, "Earth rock falls until terrain contact");
+		check(MagicRules.shieldAfter(MagicRules.shieldAfter(16,7),9)==0, "Repeated physical hits break shield at capacity");
 		var ringCenter = net.minecraft.world.phys.Vec3.ZERO;
 		check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(1.6,0,-0.3,2.2,1.8,0.3),ringCenter,2), "Body overlapping fire ring is hit");
 		check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(-3,0,-3,3,4,3),ringCenter,2), "Large body surrounding ring is hit");
@@ -178,9 +194,9 @@ public final class MagicStateTest {
 		var flight = new FlameSliceFlight(0).advance(2.25);
 		var flightJson = FlameSliceFlight.CODEC.encodeStart(JsonOps.INSTANCE, flight).getOrThrow();
 		var restored = FlameSliceFlight.CODEC.parse(JsonOps.INSTANCE, flightJson).getOrThrow();
-		check(restored.equals(flight) && restored.remaining() == 7.75, "Reload preserves ten-block range");
-		check(!flight.advance(7.5).exhausted(), "Blade still flies before ten-block limit");
-		check(flight.advance(7.75).exhausted(), "Blade expires at exactly ten blocks");
+		check(restored.equals(flight) && restored.remaining() == 117.75, "Reload preserves constant flight budget");
+		check(!flight.advance(117.5).exhausted(), "Blade still flies before time-derived limit");
+		check(flight.advance(117.75).exhausted(), "Blade expires at its time-derived range");
 		check(new FlameSliceFlight(Double.NaN).exhausted(), "Invalid saved range fails closed");
 		var origin = new net.minecraft.world.phys.Vec3(0, 1, 0);
 		var south = new net.minecraft.world.phys.Vec3(0, 0, 1);

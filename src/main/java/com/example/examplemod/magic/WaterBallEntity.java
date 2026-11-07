@@ -36,19 +36,18 @@ public final class WaterBallEntity extends ThrowableProjectile {
 
 	@Override
 	public void tick() {
-		if (!level().isClientSide()) {
-			var next = position().add(getDeltaMovement());
-			if (++age >= spell().lifetimeTicks() || !level().hasChunkAt(net.minecraft.core.BlockPos.containing(next))) {
-				discard();
-				return;
-			}
-		}
-		if (spell() == SpellDefinition.ICE_BLADE) {
-			setDeltaMovement(getDeltaMovement().normalize().scale(Math.min(spell().speed(), Math.max(0, spell().range()-distance))));
-			distance += getDeltaMovement().length();
+		if (level() instanceof ServerLevel level) {
+			if (getY() < level.getMinY()) { discard(); return; }
+			var sweep = getBoundingBox().expandTowards(getDeltaMovement());
+			if (!PhaseTwoSpells.loaded(level, sweep)) return;
+			var fluid = MagicFlight.fluidHit(this, new SpellSweep(getDeltaMovement().normalize(), 0.25, 0.25, 0.25), position(), getDeltaMovement());
+			var block = level.clip(new net.minecraft.world.level.ClipContext(position(), position().add(getDeltaMovement()), net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, this));
+			double before = block.getType() == HitResult.Type.MISS ? getDeltaMovement().length() : position().distanceTo(block.getLocation());
+			var entity = net.minecraft.world.entity.projectile.ProjectileUtil.getEntityHitResult(level, this, position(), position().add(getDeltaMovement()), sweep.inflate(1), this::canHitEntity);
+			if (entity != null) before = Math.min(before, position().distanceTo(entity.getLocation()));
+			if (Double.isFinite(fluid) && fluid <= before) { setPos(position().add(getDeltaMovement().normalize().scale(fluid))); onHit(new net.minecraft.world.phys.BlockHitResult(position(), net.minecraft.core.Direction.UP, blockPosition(), false)); return; }
 		}
 		super.tick();
-		if (spell() == SpellDefinition.ICE_BLADE && distance >= spell().range() && !level().isClientSide()) discard();
 	}
 
 	@Override

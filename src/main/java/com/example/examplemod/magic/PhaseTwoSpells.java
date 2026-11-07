@@ -48,7 +48,7 @@ public final class PhaseTwoSpells {
 			case "wind_bind","ice_pillar","ice_lance","explosion","waterfall","earth_lance" -> true;
 			case "ice_fortress" -> { var plan=plan(player,spell,direction); yield !plan.isEmpty()&&preflight(player,plan); }
 			case "flame_pillar" -> trace(player,direction,spell.range())!=null;
-			case "earth_pillar" -> { var hit=aim(player,direction); yield hit!=null&&loaded((ServerLevel)player.level(),new AABB(hit.getLocation(),hit.getLocation().add(0,8,0)).inflate(2)); }
+			case "earth_pillar" -> { var hit=aim(player,direction); yield hit!=null; }
 			case "wind_blast" -> true;
 			default -> true;
 		};
@@ -61,7 +61,8 @@ public final class PhaseTwoSpells {
 		switch(spell.id()) {
 			case "ex_healing": player.heal(spell.healingAmount(player.getHealth(),player.getMaxHealth())); return true;
 			case "antidote_ii": return player.removeEffect(MobEffects.POISON)|player.removeEffect(MobEffects.NAUSEA)|player.removeEffect(MobEffects.HUNGER);
-			case "wind_bind","ice_pillar","ice_lance","explosion": return shootRay(player,spell,direction);
+			case "wind_bind","ice_pillar","ice_lance": return instant(player,spell,direction);
+			case "explosion": return level.addFreshEntity(entity(player,spell,player.getEyePosition(),direction.direction()));
 			case "wind_blast": {
 				launch(player,PhaseTwoRules.launchVelocity(direction.direction().scale(-1),6));
 				// Refresh a fixed duration; never add to the remaining effect time.
@@ -70,23 +71,26 @@ public final class PhaseTwoSpells {
 			case "earth_lance": {
 				var hit=aim(player,direction);
 				if(hit!=null&&hit.getType()==HitResult.Type.BLOCK&&hit.getDirection()==net.minecraft.core.Direction.UP&&PhaseTwoRules.underfoot(hit.getBlockPos(),player.blockPosition())) {
-					beam(player,hit.getLocation(),spell);return construct(player,spell,direction);
+					return construct(player,spell,direction);
 				}
-				return shootRay(player,spell,direction);
+				return instant(player,spell,direction);
 			}
 			case "ice_fortress": return construct(player,spell,direction);
 			case "physical_shield": return PhaseTwoRuntime.shield(player,direction);
 			case "flame_pillar": {
 				var hit=trace(player,direction,spell.range());if(hit==null)return false;
-				beam(player,hit.point(),spell);
+
 				if(hit.target()!=null)return PhaseTwoRuntime.igniteTarget(player,hit.target(),direction);
 				var block=aim(player,direction);if(block==null||block.getType()!=HitResult.Type.BLOCK)return false;
 				return igniteBlock(player,block);
 			}
 			case "earth_pillar": {
-				var hit=aim(player,direction); if(hit==null) return false;
-				var top=hit.getLocation().add(0,6,0);
-				if(!level.noCollision(new AABB(top.x-1.5,top.y,top.z-1.5,top.x+1.5,top.y+3,top.z+1.5))) return false;
+				var hit=trace(player,direction,12);var block=aim(player,direction);if(block==null)return false;
+				var point=hit!=null?Vec3.atBottomCenterOf(hit.base()):block.getLocation();
+				var top=point.add(0,6,0);
+				var bounds=new AABB(top.x-1.5,top.y,top.z-1.5,top.x+1.5,top.y+3,top.z+1.5);
+				if(!loaded(level,bounds))return false;
+				for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX-1.0E-6,bounds.maxY-1.0E-6,bounds.maxZ-1.0E-6)))if(!level.getBlockState(pos).isAir())return false;
 				return level.addFreshEntity(entity(player,spell,top,new Vec3(0,-1,0)));
 			}
 			case "icicle_break": return level.addFreshEntity(entity(player,spell,player.getEyePosition(),direction.direction()));
@@ -177,10 +181,7 @@ public final class PhaseTwoSpells {
 		var base=block.getBlockPos().relative(block.getDirection());
 		return new Ray(point,base,null);
 	}
-	public static void beam(ServerPlayer player,Vec3 point,SpellDefinition spell) {
-		var level=(ServerLevel)player.level();var from=player.getEyePosition();var delta=point.subtract(from);
-		for(double n=0;n<=delta.length();n+=0.2) {var p=from.add(delta.normalize().scale(n));level.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,p.x,p.y,p.z,1,0,0,0,0);}
-	}
+
 	private static boolean raiseAt(ServerPlayer player,SpellDefinition spell,MagicAim aim,BlockPos start,LivingEntity alreadyHit) {
 		var plan=List.of(start,start.above(),start.above(2));if(!preflight(player,plan))return false;
 		var level=(ServerLevel)player.level();var carrier=entity(player,spell,Vec3.atCenterOf(start),aim.direction());
@@ -191,22 +192,23 @@ public final class PhaseTwoSpells {
 		else for(var pos:plan) MagicTerrain.temporary(player,pos,MagicTerrain.TEMPORARY_ICE,200);
 		return true;
 	}
-	public static boolean shootRay(ServerPlayer player,SpellDefinition spell,MagicAim aim) {
-		var ray=entity(player,spell,player.getEyePosition(),aim.direction());ray.makeRay();return player.level().addFreshEntity(ray);
-	}
-	public static void rayImpact(ServerPlayer player,PhaseTwoEntity carrier,Ray hit) {
-		var spell=carrier.spell();var level=(ServerLevel)player.level();var motion=carrier.direction();var aim=new MagicAim((float)Math.toDegrees(Math.atan2(-motion.x,motion.z)),(float)-Math.toDegrees(Math.atan2(motion.y,motion.horizontalDistance())));
-		switch(spell.id()) {
-			case "ice_pillar" -> {if(hit.target()!=null)damage(carrier,hit.target());raiseAt(player,spell,aim,hit.base(),hit.target());}
-			case "ice_lance" -> level.addFreshEntity(entity(player,spell,Vec3.atBottomCenterOf(hit.base()),carrier.direction()));
-			case "waterfall" -> {if(MagicWaterSources.place(player,hit.base()))PhaseTwoRuntime.waterContact(player,hit.base());}
-			case "explosion" -> {
-				var center=hit.point().subtract(carrier.direction().scale(0.02));
-				level.explode(carrier,center.x,center.y,center.z,PhaseTwoRules.TNT_POWER,true,net.minecraft.world.level.Level.ExplosionInteraction.TNT);
-			}
-			case "earth_lance" -> {var target=hit.target();if(target!=null){damage(carrier,target);MagicSpikes.raise(player,target.blockPosition());}}
-			case "wind_bind" -> {var target=hit.target();if(target!=null&&!target.getType().builtInRegistryHolder().is(BIND_IMMUNE))target.addEffect(new MobEffectInstance(MagicEffects.WIND_BOUND,100,0),player);}
+	public static boolean instant(ServerPlayer player,SpellDefinition spell,MagicAim aim) {
+		var hit=trace(player,aim,spell.range());if(hit==null)return false;
+		if(spell==SpellDefinition.WATERFALL) {
+			if(!MagicWaterSources.place(player,hit.base())&&!MagicWaterSources.renew(player,hit.base()))return false;
+			PhaseTwoRuntime.waterContact(player,hit.base());return true;
 		}
+		if(spell==SpellDefinition.WIND_BIND&&(hit.target()==null||hit.target().getType().builtInRegistryHolder().is(BIND_IMMUNE)))return false;
+		if(spell==SpellDefinition.EARTH_LANCE&&hit.target()==null)return false;
+		if(spell==SpellDefinition.ICE_PILLAR)return raiseAt(player,spell,aim,hit.base(),null);
+		var carrier=entity(player,spell,hit.point(),aim.direction());
+		if(spell==SpellDefinition.ICE_LANCE)return player.level().addFreshEntity(entity(player,spell,Vec3.atBottomCenterOf(hit.base()),aim.direction()));
+		if(spell==SpellDefinition.EARTH_LANCE){
+			if(!MagicSpikes.raise(player,hit.target().blockPosition()))return false;
+			damage(carrier,hit.target());return true;
+		}
+		if(spell==SpellDefinition.WIND_BIND)return hit.target().addEffect(new MobEffectInstance(MagicEffects.WIND_BOUND,100,0),player);
+		return false;
 	}
 
 	/** Any targeted face is accepted; fall back to the block top when fire needs solid support. */

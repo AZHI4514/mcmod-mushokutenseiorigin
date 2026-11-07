@@ -13,8 +13,6 @@ import net.minecraft.core.BlockPos;
 
 /** Synced visual identity; only the server owns sweep hits, durations and shield capacity. */
 public final class PhaseTwoEntity extends Projectile {
-	private static final EntityDataAccessor<Boolean> RAY=SynchedEntityData.defineId(PhaseTwoEntity.class,EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> RESTING=SynchedEntityData.defineId(PhaseTwoEntity.class,EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> SPELL=SynchedEntityData.defineId(PhaseTwoEntity.class,EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> YAW=SynchedEntityData.defineId(PhaseTwoEntity.class,EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> PITCH=SynchedEntityData.defineId(PhaseTwoEntity.class,EntityDataSerializers.FLOAT);
@@ -22,14 +20,14 @@ public final class PhaseTwoEntity extends Projectile {
 	private int age, remaining;
 	private double traveled;
 	private Vec3 anchor=Vec3.ZERO;
-	private boolean renewable=true, areaHit;
+	private boolean renewable=true;
 	private float capacity=16;
 	public PhaseTwoEntity(EntityType<? extends PhaseTwoEntity> type,Level level) { super(type,level); }
-	@Override protected void defineSynchedData(SynchedEntityData.Builder builder) { builder.define(RAY,false);builder.define(RESTING,false); builder.define(SPELL,"wind_slice"); builder.define(YAW,0F); builder.define(PITCH,0F); }
+	@Override protected void defineSynchedData(SynchedEntityData.Builder builder) { builder.define(SPELL,"wind_slice"); builder.define(YAW,0F); builder.define(PITCH,0F); }
 	public SpellDefinition spell() { return SpellDefinition.find(entityData.get(SPELL)); }
 	public Vec3 direction() { return Vec3.directionFromRotation(entityData.get(PITCH),entityData.get(YAW)); }
 	public void configure(ServerPlayer owner,SpellDefinition spell,Vec3 pos,Vec3 direction) {
-		setOwner(owner); entityData.set(SPELL,spell.id()); remaining=spell.lifetimeTicks(); anchor=owner.position(); setDirection(direction); setPos(pos);
+		setOwner(owner); entityData.set(SPELL,spell.id()); remaining=spell.motion()==SpellDefinition.Motion.CONSTANT?spell.flightTicks():spell.lifetimeTicks(); anchor=owner.position(); setDirection(direction); setPos(pos);
 		if(!stationary()) setDeltaMovement(direction.scale(speed())); updateBounds();
 	}
 	public void setDirection(Vec3 direction) {
@@ -42,39 +40,55 @@ public final class PhaseTwoEntity extends Projectile {
 		remaining=MagicRules.extend(remaining,160); capacity=16; return true;
 	}
 	public void absorb(float amount) { capacity=MagicRules.shieldAfter(capacity,amount); if(capacity<=0) discard(); }
-	public boolean ray() {return entityData.get(RAY);}
-	public void makeRay() {entityData.set(RAY,true);remaining=100;setDeltaMovement(direction().scale(2));updateBounds();}
-	public boolean stationary() { if(ray())return false;return switch(spell().id()) { case "ice_lance","flame_pillar","waterfall","physical_shield" -> true; default -> false; }; }
+	public boolean ray() { return false; }
+	public boolean stationary() { return switch(spell().id()) { case "ice_lance","flame_pillar","waterfall","physical_shield" -> true; default -> false; }; }
 	public boolean shield() { return spell()==SpellDefinition.PHYSICAL_SHIELD; }
-	public double width() { if(ray())return 0.12;return switch(spell().id()) { case "icicle_edge","flood_flush","physical_shield","waterfall","earth_pillar" -> 3; case "flame_pillar" -> 2; case "ice_lance" -> 1; default -> 0.25; }; }
-	public double height() { if(ray())return 0.12;return switch(spell().id()) { case "waterfall","flame_pillar" -> 4; case "physical_shield","earth_pillar","ice_lance" -> 3; case "icicle_edge","flood_flush" -> 1; default -> 0.25; }; }
-	public double depth() { if(ray())return 0.12;return switch(spell().id()) { case "earth_pillar" -> 3; case "flame_pillar" -> 2; case "ice_lance","flood_flush" -> 1; case "icicle_edge" -> 1; case "physical_shield","waterfall" -> 0.2; default -> 0.5; }; }
-	private double speed() { return switch(spell().id()) { case "wind_slice" -> 2; case "earth_pillar","flood_flush" -> 0.5; default -> 1.5; }; }
+	public double width() { return switch(spell().id()) { case "icicle_edge","flood_flush","physical_shield","waterfall","earth_pillar" -> 3; case "flame_pillar" -> 2; case "ice_lance" -> 1; default -> 0.25; }; }
+	public double height() { return switch(spell().id()) { case "waterfall","flame_pillar" -> 4; case "physical_shield","earth_pillar","ice_lance" -> 3; case "icicle_edge","flood_flush" -> 1; default -> 0.25; }; }
+	public double depth() { return switch(spell().id()) { case "earth_pillar" -> 3; case "flame_pillar" -> 2; case "ice_lance","flood_flush" -> 1; case "icicle_edge" -> 1; case "physical_shield","waterfall" -> 0.2; default -> 0.5; }; }
+	private double speed() { return fallingRock()?0.5:spell().speed(); }
+	public boolean fallingRock() { return spell()==SpellDefinition.EARTH_PILLAR; }
 	public SpellSweep volume() {
 		return new SpellSweep(stationary()&&!shield()?Vec3.directionFromRotation(0,entityData.get(YAW)):direction(),width(),height(),depth());
 	}
 	public Vec3 center() { return (stationary()&&!shield())||(spell()==SpellDefinition.EARTH_PILLAR&&!ray())?position().add(0,height()/2,0):position(); }
 	public void updateBounds() { setBoundingBox(volume().bounds(center())); }
-	@Override public boolean canBeCollidedWith(Entity other) { return spell()==SpellDefinition.EARTH_PILLAR&&entityData.get(RESTING)&&(other==null||!(other instanceof Projectile)&&!other.isSpectator()); }
-	@Override public boolean canCollideWith(Entity other) { return canBeCollidedWith(other); }
+	@Override public boolean canBeCollidedWith(Entity other) { return false; }
+	@Override public boolean isPickable() { return shield()&&!isRemoved(); }
+	@Override public boolean isAttackable() { return shield()&&!isRemoved(); }
+	@Override public float getPickRadius() { return 0; }
+	@Override public boolean hurtServer(ServerLevel level,net.minecraft.world.damagesource.DamageSource source,float amount) {
+		if(!shield()||isRemoved()||!Float.isFinite(amount)||amount<=0)return false;
+		var direct=source.getDirectEntity();
+		if(direct instanceof Projectile projectile&&MagicAreas.isMagic(projectile))return false;
+		if(!(direct instanceof LivingEntity)&&!(direct instanceof Projectile))return false;
+		absorb(amount);return true;
+	}
 	@Override public boolean isPushable() { return false; }
-	@Override public boolean shouldBeSaved() { return entityData.get(RESTING); }
-	@Override protected void addAdditionalSaveData(ValueOutput output) { super.addAdditionalSaveData(output); output.putBoolean("RestingRock",entityData.get(RESTING)); }
-	@Override protected void readAdditionalSaveData(ValueInput input) { super.readAdditionalSaveData(input); remaining=0; if(input.getBooleanOr("RestingRock",false)){entityData.set(SPELL,"earth_pillar");entityData.set(RESTING,true);setDirection(new Vec3(0,-1,0));} }
+	@Override public boolean shouldBeSaved() { return !shield(); }
+	@Override protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);output.putString("Spell",spell().id());output.putInt("MagicAge",age);output.putInt("Remaining",remaining);output.putFloat("AimYaw",entityData.get(YAW));output.putFloat("AimPitch",entityData.get(PITCH));MagicFlight.saveHits(output,hit);
+	}
+	@Override protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);var id=input.getStringOr("Spell","wind_slice");var definition=SpellDefinition.find(id);
+		if(definition==null||definition.execution()!=SpellDefinition.Execution.PHASE_TWO)id="wind_slice";
+		entityData.set(SPELL,id);entityData.set(YAW,input.getFloatOr("AimYaw",0));entityData.set(PITCH,input.getFloatOr("AimPitch",0));
+		age=Math.max(0,input.getIntOr("MagicAge",0));remaining=Math.max(0,input.getIntOr("Remaining",spell().motion()==SpellDefinition.Motion.CONSTANT?spell().flightTicks():spell().lifetimeTicks()));MagicFlight.loadHits(input,hit);
+	}
+
 	@Override public void tick() {
 		super.tick(); updateBounds();
-		if(entityData.get(RESTING)) {
-			setDeltaMovement(Vec3.ZERO);
-			if(level() instanceof ServerLevel server&&server.getGameTime()%20==0&&getOwner() instanceof ServerPlayer owner&&PhaseTwoSpells.loaded(server,getBoundingBox())&&PhaseTwoSpells.permanentStone(owner,BlockPos.containing(position()))) discard();
-			return;
-		}
 		if(!(level() instanceof ServerLevel level)) { if(!stationary()) setPos(position().add(getDeltaMovement())); updateBounds(); return; }
-		if(!(getOwner() instanceof ServerPlayer owner)||owner.isRemoved()||!owner.isAlive()||owner.level()!=level||!PhaseTwoSpells.loaded(level,getBoundingBox())) { discard(); return; }
-		if(getY()<level.getMinY()-16) {discard();return;}
-		if(ray()){rayTick(owner,level);return;}
-		if(spell()!=SpellDefinition.EARTH_PILLAR&&++age>remaining) { discard(); return; }
+		if(getY()<level.getMinY()){discard();return;}
+		if(!PhaseTwoSpells.loaded(level,getBoundingBox()))return;
+		var owner=getOwner() instanceof ServerPlayer player?player:null;
+		if(stationary()&&owner==null)return;
+		if(!stationary()&&!PhaseTwoSpells.loaded(level,getBoundingBox().expandTowards(direction().scale(speed()))))return;
+		if(!fallingRock()&&age>=remaining){discard();return;}
+		++age;
 		if(shield()) { if(owner.position().distanceToSqr(anchor)>1.0E-6) renewable=false; return; }
 		if(stationary()) { stationaryTick(owner,level); return; }
+		if(fallingRock()){fall(owner,level);return;}
 		fly(owner,level);
 	}
 	private void stationaryTick(ServerPlayer owner,ServerLevel level) {
@@ -98,55 +112,65 @@ public final class PhaseTwoEntity extends Projectile {
 			PhaseTwoSpells.damage(this,living);
 		}
 	}
-	private void rest(Vec3 bottom) {entityData.set(RESTING,true);setDeltaMovement(Vec3.ZERO);setPos(bottom);updateBounds();}
-	public void keepAlive() { remaining=age+12; }
-	private void rayTick(ServerPlayer owner,ServerLevel level) {
-		double distance=Math.min(2,spell().range()-traveled);if(distance<=0){discard();return;}
-		var next=position().add(direction().scale(distance));if(!PhaseTwoSpells.loaded(level,new AABB(position(),next).inflate(0.1))){discard();return;}
-		var contact=PhaseTwoSpells.traceFrom(owner,position(),direction(),distance);
-		var end=contact==null?next:contact.point();var delta=end.subtract(position());
-		for(double t=0;t<=delta.length();t+=0.2){var p=position().add(direction().scale(t));level.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,p.x,p.y,p.z,1,0,0,0,0);}
-		if(contact!=null){PhaseTwoSpells.rayImpact(owner,this,contact);discard();return;}
-		setPos(next);traveled+=distance;updateBounds();if(traveled>=spell().range())discard();
+	private void fall(ServerPlayer owner,ServerLevel level) {
+		var from=center();var motion=new Vec3(0,-1,0);double distance=speed();
+		var body=new SpellSweep(new Vec3(0,0,1),3,3,3);
+		var bounds=body.bounds(from).minmax(body.bounds(from.add(0,-distance,0)));
+		if(!PhaseTwoSpells.loaded(level,bounds))return;
+		double stop=MagicFlight.fluidHit(this,body,from,motion.scale(distance));
+		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
+			var state=level.getBlockState(pos);
+			if(!state.isAir()&&state.getFluidState().isEmpty())stop=Math.min(stop,body.contact(new AABB(pos),from,motion,distance));
+		}
+		for(var target:level.getEntities(this,bounds,e->e instanceof LivingEntity&&MagicEffects.allowed(getOwner(),(LivingEntity)e))) {
+			double contact=body.contact(target.getBoundingBox(),from,motion,distance);
+			if(contact<=Math.min(distance,stop)&&hit.add(target.getUUID()))PhaseTwoSpells.damage(this,(LivingEntity)target);
+		}
+		if(stop<=distance) {
+			setPos(position().add(0,-Math.max(0,stop),0));updateBounds();
+			if(owner!=null)PhaseTwoSpells.permanentStone(owner,BlockPos.containing(getX(),Math.ceil(getY()-1.0E-6),getZ()));
+			discard();return;
+		}
+		setPos(position().add(0,-distance,0));updateBounds();
 	}
+	public void keepAlive() { remaining=age+12; }
 
+	private void explode(){((ServerLevel)level()).explode(this,getX(),getY(),getZ(),PhaseTwoRules.TNT_POWER,true,Level.ExplosionInteraction.TNT);discard();}
 	private void fly(ServerPlayer owner,ServerLevel level) {
-		var from=center(); var motion=direction(); double distance=Math.min(speed(),spell()==SpellDefinition.EARTH_PILLAR?32:spell().range()-traveled);
+		var from=center(); var motion=direction(); double distance=speed();
 		if(distance<=0) { discard(); return; }
 		var volume=volume(); var to=from.add(motion.scale(distance)); var bounds=volume.bounds(from).minmax(volume.bounds(to));
-		if(!PhaseTwoSpells.loaded(level,bounds)) { discard(); return; }
+		if(!PhaseTwoSpells.loaded(level,bounds))return;
 		double wall=Double.POSITIVE_INFINITY; BlockPos block=null; var shapes=new java.util.ArrayList<AABB>();
 		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
-			var state=level.getBlockState(pos);var collisions=spell()==SpellDefinition.EARTH_PILLAR&&!state.isAir()&&state.getFluidState().isEmpty()?java.util.List.of(new AABB(0,0,0,1,1,1)):state.getCollisionShape(level,pos).toAabbs();
+			var state=level.getBlockState(pos);var collisions=state.getCollisionShape(level,pos).toAabbs();
 			for(var shape:collisions) {
 				shapes.add(shape.move(pos)); double contact=volume.contact(shape.move(pos),from,motion,distance);
 				if(contact<wall) { wall=contact; block=pos.immutable(); }
 			}
 		}
 		if(spell()==SpellDefinition.ICICLE_EDGE) wall=new FlameSliceVolume(motion,-entityData.get(YAW)).blockingDistance(from,distance,shapes);
+		double fluid=MagicFlight.fluidHit(this,volume,from,motion.scale(distance));
 		var candidates=new java.util.ArrayList<LivingEntity>();
 		for(var entity:level.getEntities(this,bounds,e->e instanceof LivingEntity&&MagicEffects.allowed(owner,(LivingEntity)e)))
-			if(!hit.contains(entity.getUUID())&&volume.contact(entity.getBoundingBox(),from,motion,distance)<wall) candidates.add((LivingEntity)entity);
+			if(!hit.contains(entity.getUUID())&&volume.contact(entity.getBoundingBox(),from,motion,distance)<Math.min(wall,fluid)) candidates.add((LivingEntity)entity);
 		candidates.sort(java.util.Comparator.comparingDouble(t->volume.contact(t.getBoundingBox(),from,motion,distance)));
 		for(var target:candidates) {
 			double contact=volume.contact(target.getBoundingBox(),from,motion,distance); if(contact>distance) continue;
 			hit.add(target.getUUID());
-			if(spell()==SpellDefinition.EARTH_PILLAR) { PhaseTwoSpells.damage(this,target); areaHit=true;
-			}
-			else if(spell()==SpellDefinition.WIND_SLICE) {
+			if(spell()==SpellDefinition.EXPLOSION){setPos(from.add(motion.scale(contact)));explode();return;}
+			if(spell()==SpellDefinition.WIND_SLICE) {
 				for(var e:level.getEntities(this,target.getBoundingBox().inflate(3),e->e instanceof LivingEntity&&e.getBoundingBox().getCenter().distanceToSqr(target.getBoundingBox().getCenter())<=9)) PhaseTwoSpells.damage(this,(LivingEntity)e);
 			} else PhaseTwoSpells.damage(this,target);
 			if(spell()==SpellDefinition.WIND_SLICE||spell()==SpellDefinition.ICICLE_BREAK) { discard(); return; }
 		}
+		if(fluid<=distance&&fluid<=wall){discard();return;}
 		if(wall<=distance&&block!=null) {
-			if(spell()==SpellDefinition.EARTH_PILLAR) {
-				var impact=from.add(motion.scale(wall)); if(!areaHit) PhaseTwoSpells.areaDamage(this,impact,1.5);
-				var landing=BlockPos.containing(impact.x,block.getY()+1,impact.z);
-				if(!PhaseTwoSpells.permanentStone(owner,landing)) {rest(Vec3.atBottomCenterOf(landing));return;}
-			}
+			if(spell()==SpellDefinition.EXPLOSION){setPos(from.add(motion.scale(Math.max(0,wall-0.02))));explode();return;}
+
 			discard(); return;
 		}
 		var next=position().add(motion.scale(distance));
-		setPos(next); traveled+=distance; updateBounds(); if(spell()!=SpellDefinition.EARTH_PILLAR&&traveled>=spell().range()) discard();
+		setPos(next); traveled+=distance; updateBounds();
 	}
 }

@@ -61,9 +61,10 @@ public final class PhaseTwoRuntime {
 		var next=new Channel(player,spell,aim);
 		int oldDebt=player.getAttachedOrElse(CHANNEL_DEBT,0);
 		if(!pay(player,spell)) return;
-		if(spell==SpellDefinition.WATERFALL&&!PhaseTwoSpells.shootRay(player,spell,aim)) {player.setAttached(MagicAttachments.STATE,state);player.setAttached(CHANNEL_DEBT,oldDebt);return;}
+		if(spell==SpellDefinition.WATERFALL&&!PhaseTwoSpells.instant(player,spell,aim)) {player.setAttached(MagicAttachments.STATE,state);player.setAttached(CHANNEL_DEBT,oldDebt);return;}
 		CHANNELS.put(player.getUUID(),next);
-		player.setAttached(MagicAttachments.CAST_TICKS,2);
+		if(spell==SpellDefinition.WATERFALL){var hit=PhaseTwoSpells.trace(player,aim,12);if(hit!=null)next.water=hit.base();}
+		MagicGlow.success(player,spell);
 		if(spell!=SpellDefinition.WATERFALL) flame(player,next,player.level().getGameTime());
 		MagicSounds.listener.accept(player,MagicSounds.Phase.RELEASE);
 	}
@@ -92,11 +93,12 @@ public final class PhaseTwoRuntime {
 		CONTACTS.values().forEach(map->map.values().removeIf(time->now-time>=20)); CONTACTS.values().removeIf(Map::isEmpty);
 		var channel=CHANNELS.get(id); if(channel==null) return false;
 		if(!available(player,channel)||++channel.heartbeat>6) { stop(player); return true; }
+		if(channel.spell==SpellDefinition.WATERFALL&&PhaseTwoSpells.trace(player,channel.aim,12)==null){stop(player);return true;}
 		if(!pay(player,channel.spell)) { stop(player); return true; }
-		player.setAttached(MagicAttachments.CAST_TICKS,2);
+		MagicGlow.success(player,channel.spell);
 		if(channel.spell==SpellDefinition.WATERFALL) {
 			if(channel.water!=null)MagicWaterSources.renew(player,channel.water);
-			if(++channel.ticks%20==0)PhaseTwoSpells.shootRay(player,channel.spell,channel.aim);
+			if(++channel.ticks%20==0)PhaseTwoSpells.instant(player,channel.spell,channel.aim);
 		} else flame(player,channel,now);
 		return false;
 	}
