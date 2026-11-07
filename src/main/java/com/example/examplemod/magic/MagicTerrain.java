@@ -26,9 +26,16 @@ public final class MagicTerrain {
 	public static final Block TEMPORARY_ICE=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("temporary_magic_ice"),new TemporaryIce(
 			BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
 					.setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("temporary_magic_ice")))));
+	public static final Block TEMPORARY_DIRT=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("temporary_magic_dirt"),new TemporaryIce(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("temporary_magic_dirt")))));
+	public static boolean temporary(ServerPlayer owner,BlockPos pos,Block material,int ticks) {
+		var level=(ServerLevel)owner.level();
+		if(!mayChange(owner,pos)||!level.getBlockState(pos).isAir()||!level.setBlockAndUpdate(pos,material.defaultBlockState())) return false;
+		if(level.getBlockEntity(pos) instanceof IceExpiry timer) { timer.expiry=level.getGameTime()+ticks; timer.setChanged(); }
+		level.scheduleTick(pos,material,ticks); return true;
+	}
 	public static final net.minecraft.world.level.block.entity.BlockEntityType<IceExpiry> ICE_EXPIRY=Registry.register(
 			BuiltInRegistries.BLOCK_ENTITY_TYPE,ExampleMod.id("magic_ice_expiry"),
-			net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(IceExpiry::new,TEMPORARY_ICE).build());
+			net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(IceExpiry::new,TEMPORARY_ICE,TEMPORARY_DIRT).build());
 	public static final class IceExpiry extends net.minecraft.world.level.block.entity.BlockEntity {
 		long expiry;
 		public IceExpiry(BlockPos pos,BlockState state) { super(ICE_EXPIRY,pos,state); }
@@ -55,7 +62,7 @@ public final class MagicTerrain {
 	}
 	public static boolean mayChange(ServerPlayer owner,BlockPos pos) {
 		var level=(ServerLevel)owner.level();
-		return level.hasChunkAt(pos)&&owner.mayBuild()&&owner.mayInteract(level,pos)
+		return level.isInWorldBounds(pos)&&level.getWorldBorder().isWithinBounds(pos)&&level.hasChunkAt(pos)&&owner.mayBuild()&&owner.mayInteract(level,pos)
 				&&!owner.blockActionRestricted(level,pos,owner.gameMode.getGameModeForPlayer())&&!level.getServer().isUnderSpawnProtection(level,pos,owner);
 	}
 	public static void encase(ServerPlayer owner,net.minecraft.world.entity.LivingEntity target) {

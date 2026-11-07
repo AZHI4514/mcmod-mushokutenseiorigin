@@ -12,7 +12,7 @@ public final class SpellHooks {
 	public static BiConsumer<net.minecraft.world.entity.projectile.Projectile, Entity> afterHit = (projectile, target) -> { };
 
 	public static boolean canUse(ServerPlayer player, SpellDefinition spell, CastSource source) {
-		return source == CastSource.KEYBOARD && spell.castMode() == SpellDefinition.CastMode.INSTANT
+		return source == CastSource.KEYBOARD && (spell.castMode() == SpellDefinition.CastMode.INSTANT || PhaseTwoSpells.isChannel(spell))
 				&& spell.prerequisitesMet(id -> requirement.test(player, id));
 	}
 

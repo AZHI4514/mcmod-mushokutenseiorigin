@@ -65,7 +65,7 @@ public final class MagicStateTest {
 
 		var four = MagicState.initial(100);
 		for (var definition : SpellDefinition.ALL) four = four.learn(definition.id());
-		check(four.learned().size() == 21 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
+		check(four.learned().size() == 39 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
 		check(four.selected().equals(spell.id()), "Later lessons preserve selection");
 		for (var definition : SpellDefinition.ALL) {
 			var ready = new MagicState(100, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
@@ -229,6 +229,64 @@ public final class MagicStateTest {
 		check(new MagicAim(1080, 0).direction().distanceTo(new MagicAim(0, 0).direction()) < 1.0E-5, "Repeated mouse turns normalize yaw");
 		check(!new MagicAim(Float.NaN, 0).valid() && !new MagicAim(0, Float.POSITIVE_INFINITY).valid(), "Reject non-finite network angles");
 		check(!new MagicAim(0, 91).valid() && !new MagicAim(0, -91).valid(), "Reject out-of-range network pitch before payment");
+		check(SpellDefinition.ALL.size()==39 && MagicBooks.LESSONS.size()==39,"Thirty-nine spells share both textbooks");
+		check(MagicBooks.LESSONS.stream().distinct().count()==39,"No duplicated textbook lessons");
+		for(var definition:SpellDefinition.ALL) {
+			check(MagicBooks.LESSONS.contains(definition.id()),"Every registered spell is teachable");
+			if(definition.execution()==SpellDefinition.Execution.PHASE_TWO) {
+				check(definition.rank()==2,"New spells retain intermediate status durations");
+				check(!MagicState.initial(100).learn(definition.id()).learned().contains(definition.id()),"New spell cannot bypass its learning prerequisites");
+			}
+		}
+		check(SpellDefinition.EX_HEALING.healingAmount(17,20)==3 && SpellDefinition.EX_HEALING.healingAmount(20,20)==0,"Intermediate healing clamps and rejects full health");
+		check(SpellDefinition.EX_HEALING.healingAmount(4,20)==8,"Intermediate healing restores eight points");
+		for(int rate:new int[]{4,6}) {
+			int debt=0, paidChannel=0;
+			for(int tick=1;tick<=1000;tick++) {
+				int debit=PhaseTwoRules.debit(debt,rate);
+				paidChannel+=debit; debt=PhaseTwoRules.remainder(debt,rate,debit);
+				check(debt>=-19 && debt<=0,"Fractional channel debt stays inside persistent codec range");
+				check(paidChannel*20+debt==tick*rate,"Every channel tick is paid exactly, including fractional carry");
+				check(paidChannel==(tick*rate+19)/20,"Restart-safe prepayment never gives free fractional ticks");
+			}
+			check(paidChannel==rate*50,"Channel rate remains exact over fifty seconds");
+		}
+		int fractional=0, switchingCost=0, units=0;
+		for(int tick=0;tick<123;tick++) {
+			int rate=tick%2==0?4:6; int debit=PhaseTwoRules.debit(fractional,rate);
+			switchingCost+=debit;units+=rate;fractional=PhaseTwoRules.remainder(fractional,rate,debit);
+		}
+		check(switchingCost==(units+19)/20,"Rapid channel switching preserves prepaid fractions");
+		var movement=PhaseTwoRules.boundMovement(new net.minecraft.world.phys.Vec3(4,-0.7,3));
+		check(movement.lengthSqr()==0,"Wind bind prevents all displacement");
+		check(PhaseTwoRules.boundMovement(new net.minecraft.world.phys.Vec3(0,0.42,0)).y==0,"Wind bind prevents jumping");
+		check(PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16),south,16),"Flame reaches sixteen blocks");
+		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16.1),south,16),"Flame cannot exceed range");
+		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(3,0,1),south,16),"Flame excludes targets outside its half angle");
+		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,-1),south,16),"Flame cannot hit behind the player");
+		int pulses=0;for(int t=100;t>0;t--)if(PhaseTwoRules.bindPulse(t))pulses++;
+		check(pulses==5&&!PhaseTwoRules.bindPulse(100),"Wind bind delays damage and pulses five times");
+		check(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),6).y>0,"Launch imparts upward velocity");
+		for(double height:new double[]{0.5,3,6})check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),height).y)-height)<1.0E-7,"Vertical launch reaches requested height under vanilla gravity");
+		var angledShield=new SpellSweep(new net.minecraft.world.phys.Vec3(1,0,1),3,3,0.2);
+		check(!angledShield.intersects(new net.minecraft.world.phys.AABB(0.8,0,0.8,0.9,0.1,0.9),net.minecraft.world.phys.Vec3.ZERO),"Angled shield does not block empty bounding-box corners");
+		check(Double.isFinite(angledShield.contact(new net.minecraft.world.phys.AABB(-2,0,-2,-1.9,0.1,-1.9),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(-1,0,-1).normalize(),4)),"Angled shield detects incoming movement");
+		var ceilingShield=new SpellSweep(new net.minecraft.world.phys.Vec3(0,1,0),3,3,0.2);
+		check(Double.isFinite(ceilingShield.contact(new net.minecraft.world.phys.AABB(0,2,0,0.1,2.1,0.1),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,1,0),3)),"Vertical shield supports full pitch collision");
+
+		var plane=new net.minecraft.world.phys.Vec3(0,0,1);
+		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,-0.5),plane,0.2).lengthSqr()==0,"Overlapping creature cannot pass through shield");
+		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,0.5),plane,-0.2).lengthSqr()==0,"Shield blocks crossing from either side");
+		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,0.5),plane,0.2).z==0.5,"Overlapping creature can escape away from shield");
+		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,-0.5),plane,0.2).x==0.2,"Shield retains tangent movement");
+		check(SpellDefinition.WIND_BLAST.cooldownTicks()==4,"Wind blast cooldown is 0.2 seconds");
+		check(SpellDefinition.EARTH_LANCE.cooldownTicks()==10&&SpellDefinition.ICICLE_BREAK.cooldownTicks()==10,"Earth lance and ice shot cooldowns are 0.5 seconds");
+
+		var casterFeet=new net.minecraft.core.BlockPos(5,64,-3);
+		check(PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,63,-3),casterFeet),"Earth lance builds dirt directly under caster");
+		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(6,63,-3),casterFeet),"Earth lance does not build dirt on nearby terrain");
+		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,60,-3),casterFeet),"Earth lance does not build dirt far below caster");
+		check(PhaseTwoRules.TNT_POWER==4F,"Explosion uses the vanilla single-TNT power");
 		System.out.println("MagicState: " + assertions + " behavior assertions passed.");
 	}
 }

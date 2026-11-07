@@ -24,23 +24,24 @@ public final class MagicAreaRenderer extends EntityRenderer<MagicAreaEntity, Mag
 		glass = atlas.getSprite(Identifier.withDefaultNamespace("block/light_blue_stained_glass"));
 	}
 	@Override protected net.minecraft.world.phys.AABB getBoundingBoxForCulling(MagicAreaEntity entity) { return entity.areaBounds(); }
-	public static final class State extends EntityRenderState { String spell; float yaw; }
+	public static final class State extends EntityRenderState { String spell; float yaw,pitch; }
 	@Override public State createRenderState() { return new State(); }
 	@Override public void extractRenderState(MagicAreaEntity entity, State state, float delta) {
-		super.extractRenderState(entity, state, delta); state.spell = entity.spell().id(); state.yaw=entity.getYRot();
+		super.extractRenderState(entity, state, delta); state.spell = entity.spell().id(); state.yaw=entity.getYRot();state.pitch=entity.wallPitch();
 	}
 	@Override public void submit(State state, PoseStack poses, SubmitNodeCollector collector, CameraRenderState camera) {
 		super.submit(state, poses, collector, camera); poses.pushPose();
 		poses.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-state.yaw));
 		boolean waterWall = state.spell.equals("water_shield"), burning = state.spell.equals("burning_place");
+		if(waterWall)poses.mulPose(com.mojang.math.Axis.XP.rotationDegrees(state.pitch));
 		boolean warm = state.spell.equals("heat_island");
 		var sprite = waterWall ? water : burning ? fire : glass;
 		int color = waterWall ? 0x803F76E4 : burning ? 0xFFFFFFFF : warm ? 0x50FFB65C : 0x4096DCFF;
 		var pipeline = burning ? RenderTypes.entityCutout(TextureAtlas.LOCATION_BLOCKS) : RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS);
 		collector.submitCustomGeometry(poses, pipeline, (pose, vertices) -> {
 			if (waterWall) {
-				quad(pose, vertices, sprite, color, -1.5F,0,-0.15F, 1.5F,0,-0.15F, 1.5F,2,-0.15F, -1.5F,2,-0.15F);
-				quad(pose, vertices, sprite, color, -1.5F,2,0.15F, 1.5F,2,0.15F, 1.5F,0,0.15F, -1.5F,0,0.15F);
+				quad(pose, vertices, sprite, color, -1.5F,-1,-0.15F, 1.5F,-1,-0.15F, 1.5F,1,-0.15F, -1.5F,1,-0.15F);
+				quad(pose, vertices, sprite, color, -1.5F,1,0.15F, 1.5F,1,0.15F, 1.5F,-1,0.15F, -1.5F,-1,0.15F);
 			} else {
 				float radius = warm ? 3 : state.spell.equals("magic_shield") ? 0.85F : 2;
 				float height = warm ? 0.12F : burning ? 0.65F : 2.1F;

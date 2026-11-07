@@ -321,3 +321,7 @@ SpellHooks.afterHit 接受 Projectile，六种单目标弹体与火断共用后�
 ## 中级魔法第一批
 
 最终实现规范见 docs/INTERMEDIATE_MAGIC_PHASE1.md；后续工作与验收以该文件为准。
+
+## 中级魔法补全（18术实现与验收）
+
+用户确认的18术参数、神击范围计数及待明确边界见 docs/INTERMEDIATE_MAGIC_PHASE2.md。已授权实现18术，具体入口、实现边界与待游戏实测项目见该规范末节；神击另行设计。

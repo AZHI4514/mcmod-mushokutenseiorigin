@@ -7,7 +7,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 		int lifetimeTicks, String element, float speed, double gravity, double knockback,
 		CastMode castMode, List<String> requirements, Execution execution, float healing,
 		double range, int maxTargets, List<String> learningRequirements) {
-	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL, AREA, HEAT_HAND, DETOX, ADVANCED_PROJECTILE, TARGET_AREA }
+	public enum Execution { PROJECTILE, FLAME_SLICE, SELF_HEAL, AREA, HEAT_HAND, DETOX, ADVANCED_PROJECTILE, TARGET_AREA, PHASE_TWO }
 	public enum CastMode { INSTANT, CHANT, CHARGE, CHANNEL }
 	public static final SpellDefinition WATER_BALL = projectile("water_ball", 1, 1, 2, "water", 0.03, 0);
 	public static final SpellDefinition FIREBALL = projectile("fireball", 3, 3, 12, "fire", 0.03, 0);
@@ -40,17 +40,35 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 		return new SpellDefinition(id,mana,damage,cooldown,100,element,speed,0,knockback,
 				CastMode.INSTANT,List.of(),execution,0,range,Integer.MAX_VALUE,List.of(prerequisites));
 	}
+	public static final SpellDefinition ICE_PILLAR = new SpellDefinition("ice_pillar",8,4,60,200,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("ice_smash"));
+	public static final SpellDefinition WATERFALL = new SpellDefinition("waterfall",4,0,20,1,"water",1.5F,0,0,CastMode.CHANNEL,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("water_shield"));
+	public static final SpellDefinition ICE_LANCE = new SpellDefinition("ice_lance",10,8,40,12,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("ice_pillar"));
+	public static final SpellDefinition ICICLE_BREAK = new SpellDefinition("icicle_break",12,2,10,100,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,18,Integer.MAX_VALUE,List.of("ice_smash"));
+	public static final SpellDefinition ICICLE_EDGE = new SpellDefinition("icicle_edge",10,6,30,100,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,18,Integer.MAX_VALUE,List.of("ice_blade"));
+	public static final SpellDefinition FLOOD_FLUSH = new SpellDefinition("flood_flush",12,2,80,100,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,8,Integer.MAX_VALUE,List.of("water_shield"));
+	public static final SpellDefinition ICE_FORTRESS = new SpellDefinition("ice_fortress",14,0,120,200,"water",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("ice_pillar","water_shield"));
+	public static final SpellDefinition EXPLOSION = new SpellDefinition("explosion",16,10,80,1,"fire",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("ex_flame"));
+	public static final SpellDefinition FLAME_PILLAR = new SpellDefinition("flame_pillar",12,3,80,60,"fire",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("burning_place"));
+	public static final SpellDefinition FLAMETHROWER = new SpellDefinition("flamethrower",6,4,20,1,"fire",1.5F,0,0,CastMode.CHANNEL,List.of(),Execution.PHASE_TWO,0,16,Integer.MAX_VALUE,List.of("fireball","burning_place"));
+	public static final SpellDefinition WIND_SLICE = new SpellDefinition("wind_slice",8,7,20,100,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,20,Integer.MAX_VALUE,List.of("sonic_boom"));
+	public static final SpellDefinition WIND_BIND = new SpellDefinition("wind_bind",10,0,100,60,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("wind_ball"));
+	public static final SpellDefinition WIND_BLAST = new SpellDefinition("wind_blast",8,0,4,1,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,6,Integer.MAX_VALUE,List.of("wind_ball"));
+	public static final SpellDefinition EARTH_LANCE = new SpellDefinition("earth_lance",10,6,10,200,"earth",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("rock_bullet"));
+	public static final SpellDefinition EARTH_PILLAR = new SpellDefinition("earth_pillar",14,8,60,100,"earth",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("stone_cannon"));
+	public static final SpellDefinition EX_HEALING = new SpellDefinition("ex_healing",16,0,100,1,"healing",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,8,0,Integer.MAX_VALUE,List.of("healing"));
+	public static final SpellDefinition ANTIDOTE_II = new SpellDefinition("antidote_ii",12,0,100,1,"healing",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,0,Integer.MAX_VALUE,List.of("detoxification"));
+	public static final SpellDefinition PHYSICAL_SHIELD = new SpellDefinition("physical_shield",14,0,120,160,"magic",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,0,Integer.MAX_VALUE,List.of("magic_shield"));
 	public static final List<SpellDefinition> ALL = List.of(WATER_BALL, FIREBALL, WIND_BALL, ROCK_BULLET,
-			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING, WATER_SHIELD, ICE_BLADE, HEAT_HAND, HEAT_ISLAND, BURNING_PLACE, DETOXIFICATION, MAGIC_SHIELD, WATER_CANNON, WATER_SPLASH, ICICLE_FIELD, EX_FLAME, SONIC_BOOM, STONE_CANNON);
+			WATER_ARROW, ICE_SMASH, FLAME_SLICE, HEALING, WATER_SHIELD, ICE_BLADE, HEAT_HAND, HEAT_ISLAND, BURNING_PLACE, DETOXIFICATION, MAGIC_SHIELD, WATER_CANNON, WATER_SPLASH, ICICLE_FIELD, EX_FLAME, SONIC_BOOM, STONE_CANNON, ICE_PILLAR, WATERFALL, ICE_LANCE, ICICLE_BREAK, ICICLE_EDGE, FLOOD_FLUSH, ICE_FORTRESS, EXPLOSION, FLAME_PILLAR, FLAMETHROWER, WIND_SLICE, WIND_BIND, WIND_BLAST, EARTH_LANCE, EARTH_PILLAR, EX_HEALING, ANTIDOTE_II, PHYSICAL_SHIELD);
 
 	private static SpellDefinition utility(String id, int mana, int cooldown, int duration, String element, Execution execution, String... prerequisites) {
 		return new SpellDefinition(id, mana, 0, cooldown, duration, element, 0, 0, 0,
 				CastMode.INSTANT, List.of(), execution, 0, 0, 1, List.of(prerequisites));
 	}
 
-	public int rank() { return execution == Execution.ADVANCED_PROJECTILE || execution == Execution.TARGET_AREA ? 2 : 1; }
+	public int rank() { return execution == Execution.ADVANCED_PROJECTILE || execution == Execution.TARGET_AREA || execution == Execution.PHASE_TWO ? 2 : 1; }
 	public int statusTicks() { return id.equals("water_splash") ? 2000 : MagicRules.statusTicks(rank()); }
-	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade") || id.equals("icicle_field"); }
+	public boolean icy() { return id.equals("ice_smash") || id.equals("ice_blade") || id.equals("icicle_field") || id.equals("ice_pillar") || id.equals("ice_lance") || id.equals("icicle_break") || id.equals("icicle_edge") || id.equals("ice_fortress"); }
 
 	/** 原有基础弹体定义保持相同参数与 ID。 */
 	public SpellDefinition(String id, int manaCost, float damage, int cooldownTicks, int lifetimeTicks,
@@ -81,7 +99,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 
 	/** 与原版 heal 配合；满血、死亡或无效生命数值不产生治疗。 */
 	public float healingAmount(float health, float maximum) {
-		if (execution != Execution.SELF_HEAL || !Float.isFinite(health) || !Float.isFinite(maximum) || health <= 0)
+		if ((execution != Execution.SELF_HEAL && !id.equals("ex_healing")) || !Float.isFinite(health) || !Float.isFinite(maximum) || health <= 0)
 			return 0;
 		return Math.min(healing, Math.max(0, maximum - health));
 	}

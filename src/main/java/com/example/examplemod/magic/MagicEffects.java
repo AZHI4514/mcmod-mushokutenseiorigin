@@ -13,11 +13,17 @@ import net.minecraft.world.entity.player.Player;
 
 /** 湿身无额外效果；冻结计时只维持原版冻结值，伤害和减速仍由原版执行。 */
 public final class MagicEffects {
+	public static final Holder<MobEffect> WIND_BOUND = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ExampleMod.id("wind_bound"), new WindBound());
 	public static final Holder<MobEffect> WET = register("wet", MobEffectCategory.NEUTRAL, 0x397DCE);
 	public static final Holder<MobEffect> WARMTH = register("warmth", MobEffectCategory.BENEFICIAL, 0xEBA654);
 	public static final Holder<MobEffect> FROZEN = register("magic_frozen", MobEffectCategory.HARMFUL, 0xB0E7FF);
 	private static Holder<MobEffect> register(String id, MobEffectCategory category, int color) {
 		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ExampleMod.id(id), new Marker(category, color));
+	}
+	private static final class WindBound extends MobEffect {
+		WindBound() { super(MobEffectCategory.HARMFUL,0xB9E4D8); }
+		@Override public boolean shouldApplyEffectTickThisTick(int remaining,int amplifier) { return PhaseTwoRules.bindPulse(remaining); }
+		@Override public boolean applyEffectTick(net.minecraft.server.level.ServerLevel level,LivingEntity target,int amplifier) { target.hurtServer(level,target.damageSources().magic(),1); return true; }
 	}
 	private static final class Marker extends MobEffect {
 		Marker(MobEffectCategory category, int color) { super(category, color); }

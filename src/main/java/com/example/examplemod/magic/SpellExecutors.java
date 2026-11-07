@@ -8,6 +8,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 /** 仅服务端调用；MagicSystem 先校验并扣除，效果未产生则回滚魔力与冷却。 */
 public final class SpellExecutors {
 	public static boolean canExecute(ServerPlayer player, SpellDefinition spell, MagicAim aim) {
+		if (spell.execution() == SpellDefinition.Execution.PHASE_TWO) return PhaseTwoSpells.canExecute(player,spell,aim);
 		if (spell.execution() == SpellDefinition.Execution.DETOX) return player.hasEffect(net.minecraft.world.effect.MobEffects.POISON);
 		if (spell.execution() == SpellDefinition.Execution.HEAT_HAND) return HeatHand.canUse(player, aim);
 		return spell.execution() != SpellDefinition.Execution.SELF_HEAL
@@ -15,6 +16,7 @@ public final class SpellExecutors {
 	}
 
 	public static boolean execute(ServerPlayer player, SpellDefinition spell, MagicAim castingAim) {
+		if (spell.execution() == SpellDefinition.Execution.PHASE_TWO) return PhaseTwoSpells.execute(player,spell,castingAim);
 		if (spell.execution() == SpellDefinition.Execution.ADVANCED_PROJECTILE || spell.execution() == SpellDefinition.Execution.TARGET_AREA)
 			return IntermediateSpells.execute(player,spell,castingAim,10);
 		if (spell.execution() == SpellDefinition.Execution.AREA) return MagicAreas.cast(player, spell, castingAim);

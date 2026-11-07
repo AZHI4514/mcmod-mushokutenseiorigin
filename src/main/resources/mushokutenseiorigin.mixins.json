@@ -7,14 +7,16 @@
 		"MagicSleepMixin",
 		"MagicFreezeMixin",
 		"MagicProjectileMixin",
-		"MagicArrowAccessor"
+		"MagicArrowAccessor",
+		"MagicMovementMixin"
 	],
 	"client": [
 		"ExampleMixin",
 		"MagicRenderStateMixin",
 		"MagicExtractPoseMixin",
 		"MagicHumanoidMixin",
-		"MagicFirstPersonMixin"
+		"MagicFirstPersonMixin",
+		"MagicWindBoundRenderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -44,6 +44,7 @@ public final class MagicSystem {
 	public static final EntityType<IntermediateProjectile> EX_FLAME=registerIntermediate("ex_flame",2F);
 	public static final EntityType<IntermediateProjectile> SONIC_BOOM=registerIntermediate("sonic_boom",1F);
 	public static final EntityType<IntermediateProjectile> STONE_CANNON=registerIntermediate("stone_cannon",0.25F);
+	public static final EntityType<PhaseTwoEntity> PHASE_TWO=Registry.register(BuiltInRegistries.ENTITY_TYPE,ExampleMod.id("phase_two_spell"),EntityType.Builder.<PhaseTwoEntity>of(PhaseTwoEntity::new,MobCategory.MISC).sized(0.25F,0.25F).clientTrackingRange(8).updateInterval(1).build(ResourceKey.create(Registries.ENTITY_TYPE,ExampleMod.id("phase_two_spell"))));
 	private static EntityType<IntermediateProjectile> registerIntermediate(String id,float size) {
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE,ExampleMod.id(id),EntityType.Builder.<IntermediateProjectile>of(IntermediateProjectile::new,MobCategory.MISC)
 				.sized(size,size).clientTrackingRange(8).updateInterval(1).build(ResourceKey.create(Registries.ENTITY_TYPE,ExampleMod.id(id))));
@@ -80,6 +81,7 @@ public final class MagicSystem {
 		MagicTerrain.initialize();
 		MagicEffects.initialize();
 		MagicAreas.initialize();
+		PhaseTwoRuntime.initialize();
 		MagicAttachments.initialize();
 		MagicCommands.initialize();
 		PayloadTypeRegistry.serverboundPlay().register(MagicActionPayload.TYPE, MagicActionPayload.CODEC);
@@ -90,11 +92,12 @@ public final class MagicSystem {
 			StoneCharge.cancel(player);
 			player.setAttached(MagicAttachments.STATE, state(player));
 		});
-		ServerPlayerEvents.LEAVE.register(player -> { StoneCharge.cancel(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(StoneCharge::cancel); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
+		ServerPlayerEvents.LEAVE.register(player -> { StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(player -> { StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); }); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, player, alive) -> {
 			SESSIONS.put(player.getUUID(), new Session());
 			MagicAreas.clear(player.getUUID());
+			PhaseTwoRuntime.clear(oldPlayer);
 			StoneCharge.cancel(player);
 			if (!alive) player.setAttached(MagicAttachments.STATE, state(player).refill());
 			player.setAttached(MagicAttachments.CAST_TICKS, 0);
@@ -103,12 +106,13 @@ public final class MagicSystem {
 			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 				Session session = SESSIONS.computeIfAbsent(player.getUUID(), id -> new Session());
 				session.age++;
-				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) MagicAreas.clear(player.getUUID());
+				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) { MagicAreas.clear(player.getUUID()); PhaseTwoRuntime.clear(player); session.blocked=true; }
 				session.dimension = player.level().dimension();
 				if (player.isAlive()) player.setAttached(MagicAttachments.STATE, state(player).tick());
-				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicAreas.breakMaintenance(player); }
+				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicAreas.breakMaintenance(player); PhaseTwoRuntime.breakMaintenance(player); }
 				if (!player.isAlive()) MagicAreas.clear(player.getUUID());
 				if (StoneCharge.tick(player)) session.blocked=true;
+				if (PhaseTwoRuntime.tick(player)) session.blocked=true;
 				int pose = player.getAttachedOrElse(MagicAttachments.CAST_TICKS, 0);
 				if (pose > 0) player.setAttached(MagicAttachments.CAST_TICKS,
 						player.isUsingItem() ? 0 : pose - 1);
@@ -140,8 +144,8 @@ public final class MagicSystem {
 		// Bound UI/network actions per tick, independently of the spell cooldown.
 		if (session.requestTick != session.age) { session.requestTick = session.age; session.requests = 0; }
 		if (++session.requests > 8) return;
-		if (packet.action().equals("release")) { StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
-		if (packet.action().equals("stop")) { StoneCharge.cancel(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
+		if (packet.action().equals("release")) { StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
+		if (packet.action().equals("stop")) { StoneCharge.cancel(player); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
 		if (packet.action().equals("arm")) {
 			if (!player.isUsingItem() && player.isAlive() && !player.isSpectator()) session.blocked = false;
 			return;
@@ -154,17 +158,19 @@ public final class MagicSystem {
 						|| MagicBooks.teaches(player.getOffhandItem(), packet.spell()))
 					player.setAttached(MagicAttachments.STATE, before.learn(packet.spell()));
 			}
-			case "toggle" -> { StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
-			case "select" -> { StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
+			case "toggle" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
+			case "select" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
 			case "cast" -> {
 				if (player.isUsingItem() || player.containerMenu != player.inventoryMenu || player.isSleeping()) {
 					StoneCharge.cancel(player);
+					PhaseTwoRuntime.stop(player);
 					session.blocked = true;
 					player.setAttached(MagicAttachments.CAST_TICKS, 0);
 					return;
 				}
 				if (session.blocked) return;
 				SpellDefinition spell = SpellDefinition.find(packet.spell());
+				if (PhaseTwoSpells.isChannel(spell)) { PhaseTwoRuntime.channel(player,spell,new MagicAim(packet.yaw(),packet.pitch())); return; }
 				if (spell == SpellDefinition.STONE_CANNON) {
 					StoneCharge.begin(player,new MagicAim(packet.yaw(),packet.pitch())); return;
 				}

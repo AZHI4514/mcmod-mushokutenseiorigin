@@ -28,7 +28,7 @@ public final class MagicAreas {
 		});
 	}
 	public static boolean isMagic(Projectile projectile) {
-		return projectile instanceof WaterBallEntity || projectile instanceof FlameSliceEntity || projectile instanceof MagicAreaEntity || projectile instanceof IntermediateProjectile;
+		return projectile instanceof WaterBallEntity || projectile instanceof FlameSliceEntity || projectile instanceof MagicAreaEntity || projectile instanceof IntermediateProjectile || projectile instanceof PhaseTwoEntity;
 	}
 	public static boolean cast(ServerPlayer owner, SpellDefinition spell, MagicAim aim) {
 		var entries = ACTIVE.computeIfAbsent(owner.getUUID(), id -> new HashMap<>());
@@ -47,6 +47,8 @@ public final class MagicAreas {
 	public static void clearAll() { ACTIVE.values().forEach(map -> map.values().forEach(Entity::discard)); ACTIVE.clear(); }
 	/** 在ServerLevel的整个弹体tick之前检测；不凭水幕附近就吞弹。 */
 	public static boolean intercept(Projectile projectile) {
+		if (PhaseTwoRuntime.intercept(projectile)) return true;
+		if (projectile instanceof PhaseTwoEntity phase && phase.stationary()) return false;
 		if (projectile instanceof MagicAreaEntity || projectile instanceof net.minecraft.world.entity.projectile.FishingHook
 				|| projectile.isRemoved() || projectile.getDeltaMovement().lengthSqr() < 1.0E-8) return false;
 		double first = Double.POSITIVE_INFINITY; MagicAreaEntity selected = null;
@@ -54,10 +56,10 @@ public final class MagicAreas {
 		for (var entries : ACTIVE.values()) for (var area : entries.values()) {
 			if (area.isRemoved() || area.level() != projectile.level() || area.spell() != SpellDefinition.WATER_SHIELD
 					|| projectile.getOwner() == area.getOwner()) continue;
-			var normal = Vec3.directionFromRotation(0, area.getYRot());
+			var normal = area.wallDirection();
 			if (movement.dot(normal) >= 0) continue;
-			double contact = new MagicWallVolume(normal, area.getYRot()).contact(
-					projectile.getBoundingBox(), area.position().add(0,1,0), movement.scale(-1 / distance), distance);
+			double contact = area.wallVolume().contact(
+					projectile.getBoundingBox(), area.position(), movement.scale(-1 / distance), distance);
 			if (contact < first) { first = contact; selected = area; }
 		}
 		if (selected == null) return false;

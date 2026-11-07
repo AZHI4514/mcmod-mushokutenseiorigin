@@ -19,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 /** 短期法术实体不跨退出/区块重载复活；剩余时间与盾值只由服务端维护。 */
 public final class MagicAreaEntity extends Projectile {
 	private static final EntityDataAccessor<String> SPELL = SynchedEntityData.defineId(MagicAreaEntity.class, EntityDataSerializers.STRING);
+	private static final EntityDataAccessor<Float> PITCH=SynchedEntityData.defineId(MagicAreaEntity.class,EntityDataSerializers.FLOAT);
 	private int remaining;
 	private float capacity = 8;
 	private Vec3 anchor = Vec3.ZERO;
@@ -27,13 +28,13 @@ public final class MagicAreaEntity extends Projectile {
 	private final java.util.Map<java.util.UUID, Integer> wetContacts = new java.util.HashMap<>();
 	private boolean renewable = true;
 	public MagicAreaEntity(EntityType<? extends MagicAreaEntity> type, Level level) { super(type, level); }
-	@Override protected void defineSynchedData(SynchedEntityData.Builder builder) { builder.define(SPELL, "water_shield"); }
+	@Override protected void defineSynchedData(SynchedEntityData.Builder builder) { builder.define(PITCH,0F);builder.define(SPELL, "water_shield"); }
 	public SpellDefinition spell() { return SpellDefinition.find(entityData.get(SPELL)); }
 	public void configure(ServerPlayer owner, SpellDefinition spell, MagicAim aim) {
 		setOwner(owner); entityData.set(SPELL, spell.id()); anchor = owner.position(); remaining = spell.lifetimeTicks();
-		setYRot(aim.yaw());
+		setYRot(aim.yaw());entityData.set(PITCH,aim.pitch());
 		Vec3 offset = Vec3.directionFromRotation(0, aim.yaw()).scale(1.5);
-		setPos(spell == SpellDefinition.WATER_SHIELD ? anchor.add(offset) : anchor);
+		setPos(spell == SpellDefinition.WATER_SHIELD ? owner.getEyePosition().add(aim.direction()) : anchor);
 	}
 	public void breakMaintenance() { renewable = false; }
 	public boolean canRenew(ServerPlayer owner) {
@@ -44,16 +45,16 @@ public final class MagicAreaEntity extends Projectile {
 	public void absorb(float damage) { capacity = MagicRules.shieldAfter(capacity, damage); if (capacity <= 0) discard(); }
 	public AABB areaBounds() {
 		if (spell() == SpellDefinition.WATER_SHIELD) {
-			double yaw = Math.toRadians(getYRot());
-			double x = Math.abs(Math.cos(yaw)) * 1.5 + Math.abs(Math.sin(yaw)) * 0.15;
-			double z = Math.abs(Math.sin(yaw)) * 1.5 + Math.abs(Math.cos(yaw)) * 0.15;
-			return new AABB(getX()-x,getY(),getZ()-z,getX()+x,getY()+2,getZ()+z);
+			return wallVolume().bounds(position());
 		}
 		double r = spell() == SpellDefinition.HEAT_ISLAND ? 3 : spell() == SpellDefinition.BURNING_PLACE ? spell().range()+0.5 : 2;
 		return new AABB(getX()-r,getY()-0.5,getZ()-r,getX()+r,getY()+2.5,getZ()+r);
 	}
+	public float wallPitch(){return entityData.get(PITCH);}
+	public Vec3 wallDirection(){return Vec3.directionFromRotation(wallPitch(),getYRot());}
+	public SpellSweep wallVolume(){return new SpellSweep(wallDirection(),3,2,0.3);}
 	public boolean touchesWall(AABB box) {
-		return new MagicWallVolume(Vec3.directionFromRotation(0,getYRot()),getYRot()).intersects(box,position().add(0,1,0));
+		return wallVolume().intersects(box,position());
 	}
 
 	@Override public void tick() {

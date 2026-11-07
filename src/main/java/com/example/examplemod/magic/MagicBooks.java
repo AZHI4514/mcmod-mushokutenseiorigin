@@ -8,7 +8,7 @@ import com.example.examplemod.item.ModItems;
 public final class MagicBooks {
 	public static final List<String> LESSONS = List.of("water_ball", "fireball", "wind_ball", "rock_bullet",
 			"water_arrow", "ice_smash", "flame_slice", "healing", "water_shield", "ice_blade", "heat_hand", "heat_island",
-			"burning_place", "detoxification", "magic_shield", "water_cannon", "water_splash", "icicle_field", "ex_flame", "sonic_boom", "stone_cannon");
+			"burning_place", "detoxification", "magic_shield", "water_cannon", "water_splash", "icicle_field", "ex_flame", "sonic_boom", "stone_cannon", "ice_pillar", "waterfall", "ice_lance", "icicle_break", "icicle_edge", "flood_flush", "ice_fortress", "explosion", "flame_pillar", "flamethrower", "wind_slice", "wind_bind", "wind_blast", "earth_lance", "earth_pillar", "ex_healing", "antidote_ii", "physical_shield");
 	public static final List<String> INTRO_PAGES = List.of("nature", "elements", "ranks", "methods", "practice", "safety", "status_rules", "maintenance");
 
 	public static boolean isTextbook(ItemStack stack) {
