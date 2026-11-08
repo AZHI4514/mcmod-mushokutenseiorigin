@@ -39,6 +39,7 @@ public final class MagicPreparation {
 		if (!available(player, spell) || !SpellExecutors.canExecute(player, spell, aim)) return;
 		var next = new Pending(player, spell, aim);
 		ACTIVE.put(player.getUUID(), next);
+		player.setAttached(MagicAttachments.VISUAL_SPELL,spell.id());
 		player.setAttached(MagicAttachments.PREPARE_TOTAL, next.remaining);
 		player.setAttached(MagicAttachments.PREPARE_LEFT, next.remaining);
 		player.setAttached(MagicAttachments.CAST_COLOR, 0);

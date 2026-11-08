@@ -1,7 +1,6 @@
 package com.example.examplemod.magic;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 public final class FlameSliceEntity extends Projectile {
 	private FlameSliceFlight flight = new FlameSliceFlight(0);
 	private int age;
+	private final java.util.Set<java.util.UUID> hit=new java.util.HashSet<>();
 
 	public FlameSliceEntity(EntityType<? extends FlameSliceEntity> type, Level level) { super(type, level); }
 	@Override
@@ -47,48 +47,34 @@ public final class FlameSliceEntity extends Projectile {
 		++age;
 		if(getY()<level.getMinY()) {discard();return;}
 		var obstacles = new ArrayList<AABB>();
-		for (var shape : level.getBlockCollisions(this, bounds)) obstacles.addAll(shape.toAabbs());
+		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
+			if(MagicFlight.passesWaterBlock(this,pos))continue;
+			for(var box:level.getBlockState(pos).getCollisionShape(level,pos).toAabbs())obstacles.add(box.move(pos));
+		}
 		double wall = Math.min(volume.blockingDistance(from, distance, obstacles), MagicFlight.fluidHit(this,new SpellSweep(direction,3,1,1),from,direction.scale(distance)));
 		// 不用原版细射线/墙体视线判定，宽体从边缘擦过生物同样命中。
 		var targets = level.getEntities(this, bounds, entity -> entity instanceof LivingEntity
 				&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());
-		double firstHit = Double.POSITIVE_INFINITY;
-		LivingEntity hitTarget = null;
-		for (var target : targets) {
-			double contact = volume.contact(target.getBoundingBox(), from, distance);
-			if (contact < firstHit) {
-				firstHit = contact;
-				hitTarget = (LivingEntity) target;
-			}
-		}
-		if (wall <= firstHit && wall <= distance) { discard(); return; }
-		if (hitTarget != null && firstHit <= distance) {
-			var center = from.add(direction.scale(Math.min(distance, firstHit + 1.0E-5)));
-			setPos(center);
-			// 以首个命中生物为中心，水平3×3格；高度沿用其身体范围。
-			var body = hitTarget.getBoundingBox();
-			var impactArea = new AABB(hitTarget.getX() - 1.5, body.minY, hitTarget.getZ() - 1.5,
-					hitTarget.getX() + 1.5, body.maxY, hitTarget.getZ() + 1.5);
-			var affected = level.getEntities(this, impactArea, entity -> entity instanceof LivingEntity
-					&& entity.isAlive() && !entity.isSpectator() && entity != getOwner());
-			for (var target : affected) {
-				if (getOwner() instanceof Player owner && target instanceof Player player && !owner.canHarmPlayer(player)) continue;
-				if (target.hurtServer(level, MagicDamage.source(this, SpellDefinition.FLAME_SLICE), SpellDefinition.FLAME_SLICE.damage())) {
-					MagicEffects.apply(getOwner(), target, SpellDefinition.FLAME_SLICE);
-					SpellHooks.afterHit.accept(this, target);
+		targets.sort(java.util.Comparator.comparingDouble(t->volume.contact(t.getBoundingBox(),from,distance)));
+		for(var entity:targets) {
+			var hitTarget=(LivingEntity)entity;
+			double contact=volume.contact(hitTarget.getBoundingBox(),from,distance);
+			if(contact>=wall || contact>distance || hit.contains(hitTarget.getUUID()))continue;
+			var center=from.add(direction.scale(contact));
+			var body=hitTarget.getBoundingBox();
+			var impactArea=new AABB(hitTarget.getX()-1.5,body.minY,hitTarget.getZ()-1.5,hitTarget.getX()+1.5,body.maxY,hitTarget.getZ()+1.5);
+			for(var target:level.getEntities(this,impactArea,e->e instanceof LivingEntity living && MagicEffects.allowed(getOwner(),living))) {
+				if(!hit.add(target.getUUID()))continue;
+				if(target.hurtServer(level,MagicDamage.source(this,SpellDefinition.FLAME_SLICE),SpellDefinition.FLAME_SLICE.damage())) {
+					MagicEffects.apply(getOwner(),target,SpellDefinition.FLAME_SLICE);SpellHooks.afterHit.accept(this,target);
 				}
 			}
-			for (int i = -6; i <= 6; i++) {
-				var at = center.add(volume.side.scale(i * 0.25));
-				level.sendParticles(ParticleTypes.FLAME, at.x, at.y, at.z, 2, 0.04, 0.3, 0.04, 0.01);
-			}
-			impactSound();
-			discard();
-			return;
+			SpellVisuals.burst(level,SpellDefinition.FLAME_SLICE,center,direction);impactSound();
 		}
+		if(wall<=distance){discard();return;}
 		setPos(to);
 		flight = flight.advance(distance);
-		level.sendParticles(ParticleTypes.FLAME, getX(), getY(), getZ(), 2, 0.3, 0.1, 0.3, 0);
+		level.sendParticles(SpellParticles.trail(SpellDefinition.FLAME_SLICE), getX(), getY(), getZ(), 2, 0.3, 0.1, 0.3, 0);
 		if (flight.exhausted()) discard();
 	}
 
@@ -102,12 +88,14 @@ public final class FlameSliceEntity extends Projectile {
 	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.putInt("MagicAge", age);
+		MagicFlight.saveHits(output,hit);
 		output.store("FlameFlight", FlameSliceFlight.CODEC, flight);
 	}
 	@Override
 	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		age = Math.max(0, input.getIntOr("MagicAge", 0));
+		MagicFlight.loadHits(input,hit);
 		flight = input.read("FlameFlight", FlameSliceFlight.CODEC)
 				.orElse(new FlameSliceFlight(SpellDefinition.FLAME_SLICE.range()));
 	}

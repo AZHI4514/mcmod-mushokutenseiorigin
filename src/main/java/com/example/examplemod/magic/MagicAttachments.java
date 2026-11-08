@@ -8,6 +8,9 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import com.example.examplemod.ExampleMod;
 
 public final class MagicAttachments {
+	public static final AttachmentType<Boolean> WIND_BOUND_VISUAL = AttachmentRegistry.create(ExampleMod.id("wind_bound_visual"), builder -> builder.initializer(() -> false).syncWith(ByteBufCodecs.BOOL, AttachmentSyncPredicate.all()));
+	/** Cosmetic identity only; does not expose learned spells or mana to other players. */
+	public static final AttachmentType<String> VISUAL_SPELL = AttachmentRegistry.create(ExampleMod.id("visual_spell"), builder -> builder.initializer(() -> "").syncWith(ByteBufCodecs.STRING_UTF8, AttachmentSyncPredicate.all()));
 	public static final AttachmentType<MagicState> STATE = AttachmentRegistry.create(
 			ExampleMod.id("magic_state"), builder -> builder
 					.initializer(() -> MagicState.initial(MagicConfig.maximumMana()))

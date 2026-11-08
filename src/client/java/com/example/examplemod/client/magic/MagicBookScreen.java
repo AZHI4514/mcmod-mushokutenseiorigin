@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import com.example.examplemod.magic.*;
 import com.example.examplemod.item.MagicTextbookItem;
 
-/** 双页教材：左页课程，右页学习谱；旧教材仅供阅读。 */
+/** 双页教材：分类书使用学习谱；两本旧教材直接解锁课程。 */
 public final class MagicBookScreen extends Screen {
 	private final ItemStack book;
 	private final List<String> lessons;
@@ -31,7 +31,7 @@ public final class MagicBookScreen extends Screen {
 	private void send(String action, int value) { ClientPlayNetworking.send(new ChantPayload(action, spell(), token, value, "")); }
 	@Override
 	protected void init() {
-		learn = addRenderableWidget(Button.builder(MagicScreens.text("learn"), b -> { waiting = true; requested = System.nanoTime(); send("start", 0); }).bounds(left() + 163, top() + 105, 116, 20).build());
+		learn = addRenderableWidget(Button.builder(MagicScreens.text("learn"), b -> { waiting = !MagicBooks.isLegacy(book); requested = System.nanoTime(); send("start", 0); }).bounds(left() + 163, top() + 105, 116, 20).build());
 		back = addRenderableWidget(Button.builder(Component.literal("<"), b -> { if (page > 0) page--; }).bounds(left() + 18, top() + 183, 24, 20).build());
 		next = addRenderableWidget(Button.builder(Component.literal(">"), b -> { if (page < lessons.size()) page++; }).bounds(left() + 258, top() + 183, 24, 20).build());
 	}

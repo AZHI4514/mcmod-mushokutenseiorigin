@@ -7,10 +7,8 @@ build/
 .kotlin
 
 ### IntelliJ IDEA ###
-# 只保留运行配置，其余 IDEA 本地状态不入库
-.idea/*
-!.idea/runConfigurations/
-!.idea/runConfigurations/*.xml
+# IDEA 配置仅本地使用，不入库
+.idea/
 *.iws
 *.iml
 *.ipr

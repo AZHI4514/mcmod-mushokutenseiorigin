@@ -1,7 +1,6 @@
 package com.example.examplemod.magic;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,7 +41,7 @@ public final class IntermediateSpells {
 			}
 		}
 		encased.forEach(target->MagicTerrain.encase(owner,target));
-		level.sendParticles(spell==SpellDefinition.WATER_SPLASH?ParticleTypes.SPLASH:ParticleTypes.SNOWFLAKE,center.x,center.y,center.z,80,3,1,3,0.05);
+		SpellVisuals.burst(level,spell,center,aim.direction());
 		return true;
 	}
 	public static void hurt(IntermediateProjectile projectile,LivingEntity target,SpellDefinition spell,float damage) {
@@ -58,7 +57,6 @@ public final class IntermediateSpells {
 		for(var entity:level.getEntities(projectile,IntermediateRules.impactBounds(center),e->e instanceof LivingEntity&&MagicEffects.allowed(owner,(LivingEntity)e)))
 			if(visible(level,visibleFrom,(LivingEntity)entity,projectile)) hurt(projectile,(LivingEntity)entity,projectile.spell(),projectile.damage());
 		MagicTerrain.blast(owner,block,center,projectile.spell()==SpellDefinition.WATER_CANNON?1:2,projectile.spell()==SpellDefinition.EX_FLAME);
-		level.sendParticles(ParticleTypes.EXPLOSION,center.x,center.y,center.z,1,0,0,0,0);
 	}
 	public static boolean visible(ServerLevel level,Vec3 from,LivingEntity target,net.minecraft.world.entity.Entity source) {
 		var to=target.getBoundingBox().getCenter(); var difference=to.subtract(from);
@@ -69,8 +67,7 @@ public final class IntermediateSpells {
 	}
 	public static void impactParticles(IntermediateProjectile projectile) {
 		var level=(ServerLevel)projectile.level();
-		var particle=switch(projectile.spell().element()) { case "fire"->ParticleTypes.FLAME; case "wind"->ParticleTypes.CLOUD; case "earth"->ParticleTypes.CRIT; default->ParticleTypes.SPLASH; };
-		level.sendParticles(particle,projectile.getX(),projectile.getY(),projectile.getZ(),12,0.3,0.3,0.3,0.04);
+		SpellVisuals.burst(level,projectile.spell(),projectile.position(),projectile.getDeltaMovement().normalize());
 		if(projectile.getOwner() instanceof ServerPlayer owner) MagicSounds.listener.accept(owner,MagicSounds.Phase.IMPACT);
 	}
 	private IntermediateSpells() { }

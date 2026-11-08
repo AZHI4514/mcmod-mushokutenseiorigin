@@ -40,6 +40,9 @@ public final class MagicClient {
 	}
 
 	public static void initialize() {
+		SpellSpriteParticle.initialize();
+		SpellVolumeEffects.initialize();
+		ClientPlayNetworking.registerGlobalReceiver(com.example.examplemod.magic.SpellVisualPayload.TYPE, (packet, context) -> SpellVisualAnimations.receive(packet));
 		ClientPlayNetworking.registerGlobalReceiver(com.example.examplemod.magic.ChantPayload.TYPE, (packet, context) -> {
 			if (Minecraft.getInstance().screen instanceof MagicBookScreen book) book.receive(packet);
 		});
@@ -132,6 +135,7 @@ public final class MagicClient {
 
 	private static void tick(Minecraft client) {
 		MagicHandGlow.tick(client);
+		SpellVisualAnimations.tick(client);
 		if (client.player != lastPlayer) { interrupt(); lastPlayer = client.player; }
 		if (client.player == null || client.level == null) { armed = false; mustRelease = true; return; }
 		if (!physicallyDown(WHEEL)) wheelMustRelease = false;

@@ -1,0 +1,16 @@
+{
+  "spells": 39,
+  "compiled_renderer_uses_new_material_path": true,
+  "jar": "D:\\Develop\\project-mc-mod-mushoku-tensei\\project-mc-mod-mushoku-tensei\\build\\libs\\mushokutenseiorigin-0.1.0+26.1.jar",
+  "jar_sha256": "d9066227a8a87dd9d9818eb462f38f7d230351d6ad891ab93656eaaf1a1f69cc",
+  "checks": [
+    "39 actual mesh UV render comparisons show visible changes",
+    "new runtime material path present in compiled class; old path absent",
+    "39 24-frame atlases match final JAR",
+    "all UVs strictly inside atlas",
+    "78 editable embedded previews match first frame",
+    "all external textures match runtime atlases"
+  ],
+  "build": "clean build --offline: success; 7019 behavior assertions",
+  "in_game_validation": false
+}

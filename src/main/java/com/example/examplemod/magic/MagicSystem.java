@@ -77,6 +77,7 @@ public final class MagicSystem {
 	}
 
 	public static void initialize() {
+		SpellParticles.initialize();
 		MagicConfig.load();
 		MagicTerrain.initialize();
 		MagicEffects.initialize();
@@ -86,6 +87,7 @@ public final class MagicSystem {
 		MagicCommands.initialize();
 		PayloadTypeRegistry.serverboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
 		PayloadTypeRegistry.clientboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(SpellVisualPayload.TYPE, SpellVisualPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(ChantPayload.TYPE, (packet, context) -> ChantLessons.handle(context.player(), packet));
 		PayloadTypeRegistry.serverboundPlay().register(MagicActionPayload.TYPE, MagicActionPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(MagicActionPayload.TYPE,

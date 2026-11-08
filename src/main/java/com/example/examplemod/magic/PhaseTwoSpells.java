@@ -64,9 +64,9 @@ public final class PhaseTwoSpells {
 			case "wind_bind","ice_pillar","ice_lance": return instant(player,spell,direction);
 			case "explosion": return level.addFreshEntity(entity(player,spell,player.getEyePosition(),direction.direction()));
 			case "wind_blast": {
-				launch(player,PhaseTwoRules.launchVelocity(direction.direction().scale(-1),6));
+				launch(player,PhaseTwoRules.windLaunchVelocity(direction.direction().scale(-1)));
 				// Refresh a fixed duration; never add to the remaining effect time.
-				player.addEffect(new MobEffectInstance(MobEffects.LEVITATION,20,0)); return true;
+				player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,PhaseTwoRules.WIND_SLOW_FALL_TICKS,0)); return true;
 			}
 			case "earth_lance": {
 				var hit=aim(player,direction);
@@ -108,7 +108,7 @@ public final class PhaseTwoSpells {
 		var box=new AABB(center.x-half,center.y-half,center.z-half,center.x+half,center.y+half,center.z+half);
 		for(var entity:carrier.level().getEntities(carrier,box,e->e instanceof LivingEntity))
 			if(IntermediateSpells.visible((ServerLevel)carrier.level(),center,(LivingEntity)entity,carrier)) damage(carrier,(LivingEntity)entity);
-		((ServerLevel)carrier.level()).sendParticles(net.minecraft.core.particles.ParticleTypes.EXPLOSION,center.x,center.y,center.z,1,0,0,0,0);
+		((ServerLevel)carrier.level()).sendParticles(SpellParticles.burst(carrier.spell()),center.x,center.y,center.z,1,0,0,0,0);
 	}
 	public static List<BlockPos> plan(ServerPlayer player,SpellDefinition spell,MagicAim direction) {
 		var hit=aim(player,direction); var result=new ArrayList<BlockPos>();
@@ -140,11 +140,12 @@ public final class PhaseTwoSpells {
 			launch(target,PhaseTwoRules.launchVelocity(new Vec3(0,1,0),3));
 		}
 		if(!self&&spell.damage()>0) {var carrier=entity(player,spell,Vec3.atCenterOf(plan.getFirst()),direction.direction());for(var target:targets) damage(carrier,(LivingEntity)target);}
-		if(!targets.isEmpty()) { PhaseTwoRuntime.growingColumn(player,plan,spell,self); return true; }
+		if(!targets.isEmpty()) { PhaseTwoRuntime.growingColumn(player,plan,spell,self); SpellVisuals.burst(level,spell,Vec3.atBottomCenterOf(plan.getFirst()),direction.direction()); return true; }
 		for(var pos:plan) {
 			if(self) level.setBlockAndUpdate(pos,Blocks.DIRT.defaultBlockState());
 			else MagicTerrain.temporary(player,pos,spell==SpellDefinition.EARTH_LANCE?MagicTerrain.TEMPORARY_DIRT:MagicTerrain.TEMPORARY_ICE,200);
 		}
+		SpellVisuals.burst(level,spell,Vec3.atBottomCenterOf(plan.getFirst()),direction.direction());
 		if(!self&&spell.damage()>0) {
 			var carrier=entity(player,spell,Vec3.atCenterOf(plan.getFirst()),direction.direction());
 			for(var target:targets) damage(carrier,(LivingEntity)target);
@@ -190,12 +191,14 @@ public final class PhaseTwoSpells {
 		for(var target:targets) {if(target!=alreadyHit)damage(carrier,(LivingEntity)target);launch(target,PhaseTwoRules.launchVelocity(new Vec3(0,1,0),3));}
 		if(!targets.isEmpty()) PhaseTwoRuntime.growingColumn(player,plan,spell,false);
 		else for(var pos:plan) MagicTerrain.temporary(player,pos,MagicTerrain.TEMPORARY_ICE,200);
+		SpellVisuals.burst(level,spell,Vec3.atBottomCenterOf(start),aim.direction());
 		return true;
 	}
 	public static boolean instant(ServerPlayer player,SpellDefinition spell,MagicAim aim) {
 		var hit=trace(player,aim,spell.range());if(hit==null)return false;
 		if(spell==SpellDefinition.WATERFALL) {
 			if(!MagicWaterSources.place(player,hit.base())&&!MagicWaterSources.renew(player,hit.base()))return false;
+			SpellVisuals.burst((ServerLevel)player.level(),spell,Vec3.atBottomCenterOf(hit.base()),aim.direction());
 			PhaseTwoRuntime.waterContact(player,hit.base());return true;
 		}
 		if(spell==SpellDefinition.WIND_BIND&&(hit.target()==null||hit.target().getType().builtInRegistryHolder().is(BIND_IMMUNE)))return false;
@@ -205,9 +208,13 @@ public final class PhaseTwoSpells {
 		if(spell==SpellDefinition.ICE_LANCE)return player.level().addFreshEntity(entity(player,spell,Vec3.atBottomCenterOf(hit.base()),aim.direction()));
 		if(spell==SpellDefinition.EARTH_LANCE){
 			if(!MagicSpikes.raise(player,hit.target().blockPosition()))return false;
-			damage(carrier,hit.target());return true;
+			damage(carrier,hit.target());SpellVisuals.burst((ServerLevel)player.level(),spell,hit.target().position(),aim.direction());return true;
 		}
-		if(spell==SpellDefinition.WIND_BIND)return hit.target().addEffect(new MobEffectInstance(MagicEffects.WIND_BOUND,100,0),player);
+		if(spell==SpellDefinition.WIND_BIND) {
+			boolean applied=hit.target().addEffect(new MobEffectInstance(MagicEffects.WIND_BOUND,100,0),player);
+			if(applied)hit.target().setAttached(MagicAttachments.WIND_BOUND_VISUAL,true);
+			return applied;
+		}
 		return false;
 	}
 

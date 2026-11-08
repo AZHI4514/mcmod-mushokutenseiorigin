@@ -42,11 +42,16 @@ public final class MagicAreaEntity extends Projectile {
 	}
 	private boolean stationary() { return spell() == SpellDefinition.WATER_SHIELD || spell() == SpellDefinition.HEAT_ISLAND; }
 	public void renew() { remaining = MagicRules.extend(remaining, spell().lifetimeTicks()); capacity = 8; }
-	public void absorb(float damage) { capacity = MagicRules.shieldAfter(capacity, damage); if (capacity <= 0) discard(); }
+	public void absorb(float damage) {
+		capacity = MagicRules.shieldAfter(capacity, damage);
+		if(level() instanceof ServerLevel server) SpellVisuals.burst(server,spell(),position(),wallDirection());
+		if (capacity <= 0) discard();
+	}
 	public AABB areaBounds() {
 		if (spell() == SpellDefinition.WATER_SHIELD) {
 			return wallVolume().bounds(position());
 		}
+		if (spell() == SpellDefinition.BURNING_PLACE && getOwner() instanceof LivingEntity owner) return owner.getBoundingBox().inflate(.12);
 		double r = spell() == SpellDefinition.HEAT_ISLAND ? 3 : spell() == SpellDefinition.BURNING_PLACE ? spell().range()+0.5 : 2;
 		return new AABB(getX()-r,getY()-0.5,getZ()-r,getX()+r,getY()+2.5,getZ()+r);
 	}
@@ -59,7 +64,18 @@ public final class MagicAreaEntity extends Projectile {
 
 	@Override public void tick() {
 		super.tick();
-		if (!(level() instanceof ServerLevel level)) return;
+		if (!(level() instanceof ServerLevel level)) {
+			if(tickCount%4==0) {
+				boolean warm=spell()==SpellDefinition.HEAT_ISLAND;
+				double radius=warm?3:spell()==SpellDefinition.BURNING_PLACE?.45:0.85;
+				if(spell()!=SpellDefinition.WATER_SHIELD) for(int i=0;i<2;i++) {
+					double angle=tickCount*0.08+i*Math.PI;
+					var particle=SpellParticles.trail(spell());
+					level().addParticle(particle,getX()+Math.cos(angle)*radius,getY()+(warm?0.08:spell()==SpellDefinition.BURNING_PLACE?.2+(tickCount%20)/12.0:0.2),getZ()+Math.sin(angle)*radius,0,0.015,0);
+				}
+			}
+			return;
+		}
 		if (!(getOwner() instanceof ServerPlayer owner) || owner.isRemoved() || !owner.isAlive()
 				|| owner.level() != level || --remaining <= 0 || !level.hasChunkAt(blockPosition())) { discard(); return; }
 		if (stationary() && owner.position().distanceToSqr(anchor) >= 1.0E-6) renewable = false;
@@ -88,7 +104,7 @@ public final class MagicAreaEntity extends Projectile {
 		}
 	}
 	private boolean touchesFireRing(LivingEntity target) {
-		return MagicRules.touchesRing(target.getBoundingBox(), position(), spell().range());
+		return getOwner() instanceof LivingEntity owner && MagicRules.touchesBody(owner.getBoundingBox(),target.getBoundingBox());
 	}
 	private boolean insideRadius(LivingEntity target, double radius) {
 		double dx=target.getX()-getX(), dz=target.getZ()-getZ(); return dx*dx+dz*dz <= radius*radius;

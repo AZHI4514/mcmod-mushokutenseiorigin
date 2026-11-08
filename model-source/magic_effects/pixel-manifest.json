@@ -1,0 +1,509 @@
+[
+  {
+    "spell": "water_ball",
+    "reference": "Waterball_2.webp",
+    "parts": 4,
+    "quads": 254,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "fireball",
+    "reference": "Fireball_2.webp",
+    "parts": 7,
+    "quads": 209,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "wind_ball",
+    "reference": "Sonic_Boom.webp",
+    "parts": 3,
+    "quads": 246,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "wind"
+  },
+  {
+    "spell": "rock_bullet",
+    "reference": "Rock_Bullet.webp",
+    "parts": 2,
+    "quads": 86,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "earth"
+  },
+  {
+    "spell": "water_arrow",
+    "reference": "Waterball_3.webp",
+    "parts": 4,
+    "quads": 36,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "ice_smash",
+    "reference": "Ice_Smash.webp",
+    "parts": 7,
+    "quads": 63,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "flame_slice",
+    "reference": "Flame_Slice.webp",
+    "parts": 9,
+    "quads": 210,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "healing",
+    "reference": "Healing.webp",
+    "parts": 8,
+    "quads": 236,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "heal"
+  },
+  {
+    "spell": "water_shield",
+    "reference": "Water_Shield_2.webp",
+    "parts": 6,
+    "quads": 218,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "ice_blade",
+    "reference": "Icicle_Edge.webp",
+    "parts": 4,
+    "quads": 36,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "heat_hand",
+    "reference": "Heat_Hand.webp",
+    "parts": 7,
+    "quads": 42,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "warm"
+  },
+  {
+    "spell": "heat_island",
+    "reference": "Heat_Hand.webp",
+    "parts": 7,
+    "quads": 118,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "warm"
+  },
+  {
+    "spell": "burning_place",
+    "reference": "Burning_Place.webp",
+    "parts": 25,
+    "quads": 370,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "detoxification",
+    "reference": "Healing_2.webp",
+    "parts": 8,
+    "quads": 236,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "detox"
+  },
+  {
+    "spell": "magic_shield",
+    "reference": "Physical_Shield.webp",
+    "parts": 7,
+    "quads": 212,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "barrier"
+  },
+  {
+    "spell": "water_cannon",
+    "reference": "Waterball_3.webp",
+    "parts": 4,
+    "quads": 254,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "water_splash",
+    "reference": "Water_Splash.webp",
+    "parts": 11,
+    "quads": 142,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "icicle_field",
+    "reference": "Icicle_Field.webp",
+    "parts": 11,
+    "quads": 172,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "ex_flame",
+    "reference": "Ex-Flame.webp",
+    "parts": 7,
+    "quads": 209,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "sonic_boom",
+    "reference": "Sonic_Boom.webp",
+    "parts": 3,
+    "quads": 138,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "wind"
+  },
+  {
+    "spell": "stone_cannon",
+    "reference": "Stone_Cannon_2.webp",
+    "parts": 2,
+    "quads": 86,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "earth"
+  },
+  {
+    "spell": "ice_pillar",
+    "reference": "Ice_Smash.webp",
+    "parts": 4,
+    "quads": 36,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "waterfall",
+    "reference": "Flood_Flush.webp",
+    "parts": 8,
+    "quads": 84,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "ice_lance",
+    "reference": "Ice_Smash.webp",
+    "parts": 4,
+    "quads": 36,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "icicle_break",
+    "reference": "Icicle_Break.webp",
+    "parts": 7,
+    "quads": 63,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "icicle_edge",
+    "reference": "Icicle_Edge.webp",
+    "parts": 3,
+    "quads": 138,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "flood_flush",
+    "reference": "Flood_Flush.webp",
+    "parts": 14,
+    "quads": 126,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "water"
+  },
+  {
+    "spell": "ice_fortress",
+    "reference": "Frost_Nova.webp",
+    "parts": 8,
+    "quads": 105,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "ice"
+  },
+  {
+    "spell": "explosion",
+    "reference": "Exodus_Flame_2.webp",
+    "parts": 8,
+    "quads": 291,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "flame_pillar",
+    "reference": "Burning_Place.webp",
+    "parts": 14,
+    "quads": 168,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "flamethrower",
+    "reference": "Flamethrower.webp",
+    "parts": 7,
+    "quads": 42,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "fire"
+  },
+  {
+    "spell": "wind_slice",
+    "reference": "Sonic_Boom.webp",
+    "parts": 3,
+    "quads": 138,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "wind"
+  },
+  {
+    "spell": "wind_bind",
+    "reference": "Tornado.webp",
+    "parts": 3,
+    "quads": 246,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "wind"
+  },
+  {
+    "spell": "wind_blast",
+    "reference": "Wind_Blast.webp",
+    "parts": 4,
+    "quads": 328,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "wind"
+  },
+  {
+    "spell": "earth_lance",
+    "reference": "Earth_Lance.webp",
+    "parts": 4,
+    "quads": 36,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "earth"
+  },
+  {
+    "spell": "earth_pillar",
+    "reference": "Earth_Pillar.webp",
+    "parts": 5,
+    "quads": 98,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "earth"
+  },
+  {
+    "spell": "ex_healing",
+    "reference": "Healing_2.webp",
+    "parts": 9,
+    "quads": 318,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "heal"
+  },
+  {
+    "spell": "antidote_ii",
+    "reference": "X-Healing.webp",
+    "parts": 9,
+    "quads": 318,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "detox"
+  },
+  {
+    "spell": "physical_shield",
+    "reference": "Physical_Shield.webp",
+    "parts": 6,
+    "quads": 218,
+    "texture": [
+      64,
+      384
+    ],
+    "frames": 24,
+    "source": "Blockbench MCP export",
+    "family": "purple"
+  }
+]

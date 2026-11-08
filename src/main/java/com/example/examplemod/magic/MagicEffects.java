@@ -51,6 +51,8 @@ public final class MagicEffects {
 	}
 	/** 在原版aiStep的冻结结算前运行，让原版处理减速、皮革防护和每40tick冻伤。 */
 	public static void beforeFreeze(LivingEntity target) {
+		boolean bound=target.isAlive() && target.hasEffect(WIND_BOUND);
+		if(target.getAttachedOrElse(MagicAttachments.WIND_BOUND_VISUAL,false)!=bound)target.setAttached(MagicAttachments.WIND_BOUND_VISUAL,bound);
 		if (target.hasEffect(WARMTH)) {
 			target.setTicksFrozen(0);
 			target.removeEffect(FROZEN);

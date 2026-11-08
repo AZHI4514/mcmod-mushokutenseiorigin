@@ -1,0 +1,275 @@
+[
+  {
+    "spell": "water_ball",
+    "meshes": 3,
+    "faces": 216,
+    "source": "Blockbench MCP export",
+    "reference": "Waterball_2.webp"
+  },
+  {
+    "spell": "fireball",
+    "meshes": 4,
+    "faces": 288,
+    "source": "Blockbench MCP export",
+    "reference": "Fireball_2.webp"
+  },
+  {
+    "spell": "wind_ball",
+    "meshes": 3,
+    "faces": 248,
+    "source": "Blockbench MCP export",
+    "reference": "Sonic_Boom.webp"
+  },
+  {
+    "spell": "rock_bullet",
+    "meshes": 2,
+    "faces": 176,
+    "source": "Blockbench MCP export",
+    "reference": "Rock_Bullet.webp"
+  },
+  {
+    "spell": "water_arrow",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Waterball_3.webp"
+  },
+  {
+    "spell": "ice_smash",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Ice_Smash.webp"
+  },
+  {
+    "spell": "flame_slice",
+    "meshes": 3,
+    "faces": 106,
+    "source": "Blockbench MCP export",
+    "reference": "Flame_Slice.webp"
+  },
+  {
+    "spell": "healing",
+    "meshes": 8,
+    "faces": 256,
+    "source": "Blockbench MCP export",
+    "reference": "Healing.webp"
+  },
+  {
+    "spell": "water_shield",
+    "meshes": 3,
+    "faces": 58,
+    "source": "Blockbench MCP export",
+    "reference": "Water_Shield_2.webp"
+  },
+  {
+    "spell": "ice_blade",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Icicle_Edge.webp"
+  },
+  {
+    "spell": "heat_hand",
+    "meshes": 5,
+    "faces": 100,
+    "source": "Blockbench MCP export",
+    "reference": "Heat_Hand.webp"
+  },
+  {
+    "spell": "heat_island",
+    "meshes": 9,
+    "faces": 232,
+    "source": "Blockbench MCP export",
+    "reference": "Heat_Hand.webp"
+  },
+  {
+    "spell": "burning_place",
+    "meshes": 13,
+    "faces": 296,
+    "source": "Blockbench MCP export",
+    "reference": "Burning_Place.webp"
+  },
+  {
+    "spell": "detoxification",
+    "meshes": 8,
+    "faces": 256,
+    "source": "Blockbench MCP export",
+    "reference": "Healing_2.webp"
+  },
+  {
+    "spell": "magic_shield",
+    "meshes": 3,
+    "faces": 280,
+    "source": "Blockbench MCP export",
+    "reference": "Physical_Shield.webp"
+  },
+  {
+    "spell": "water_cannon",
+    "meshes": 3,
+    "faces": 216,
+    "source": "Blockbench MCP export",
+    "reference": "Waterball_3.webp"
+  },
+  {
+    "spell": "water_splash",
+    "meshes": 8,
+    "faces": 224,
+    "source": "Blockbench MCP export",
+    "reference": "Water_Splash.webp"
+  },
+  {
+    "spell": "icicle_field",
+    "meshes": 8,
+    "faces": 224,
+    "source": "Blockbench MCP export",
+    "reference": "Icicle_Field.webp"
+  },
+  {
+    "spell": "ex_flame",
+    "meshes": 4,
+    "faces": 288,
+    "source": "Blockbench MCP export",
+    "reference": "Ex-Flame.webp"
+  },
+  {
+    "spell": "sonic_boom",
+    "meshes": 3,
+    "faces": 106,
+    "source": "Blockbench MCP export",
+    "reference": "Sonic_Boom.webp"
+  },
+  {
+    "spell": "stone_cannon",
+    "meshes": 2,
+    "faces": 176,
+    "source": "Blockbench MCP export",
+    "reference": "Stone_Cannon_2.webp"
+  },
+  {
+    "spell": "ice_pillar",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Ice_Smash.webp"
+  },
+  {
+    "spell": "waterfall",
+    "meshes": 1,
+    "faces": 34,
+    "source": "Blockbench MCP export",
+    "reference": "Flood_Flush.webp"
+  },
+  {
+    "spell": "ice_lance",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Ice_Smash.webp"
+  },
+  {
+    "spell": "icicle_break",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Icicle_Break.webp"
+  },
+  {
+    "spell": "icicle_edge",
+    "meshes": 3,
+    "faces": 106,
+    "source": "Blockbench MCP export",
+    "reference": "Icicle_Edge.webp"
+  },
+  {
+    "spell": "flood_flush",
+    "meshes": 1,
+    "faces": 48,
+    "source": "Blockbench MCP export",
+    "reference": "Flood_Flush.webp"
+  },
+  {
+    "spell": "ice_fortress",
+    "meshes": 3,
+    "faces": 58,
+    "source": "Blockbench MCP export",
+    "reference": "Frost_Nova.webp"
+  },
+  {
+    "spell": "explosion",
+    "meshes": 8,
+    "faces": 224,
+    "source": "Blockbench MCP export",
+    "reference": "Exodus_Flame_2.webp"
+  },
+  {
+    "spell": "flame_pillar",
+    "meshes": 5,
+    "faces": 100,
+    "source": "Blockbench MCP export",
+    "reference": "Burning_Place.webp"
+  },
+  {
+    "spell": "flamethrower",
+    "meshes": 5,
+    "faces": 100,
+    "source": "Blockbench MCP export",
+    "reference": "Flamethrower.webp"
+  },
+  {
+    "spell": "wind_slice",
+    "meshes": 3,
+    "faces": 106,
+    "source": "Blockbench MCP export",
+    "reference": "Sonic_Boom.webp"
+  },
+  {
+    "spell": "wind_bind",
+    "meshes": 2,
+    "faces": 208,
+    "source": "Blockbench MCP export",
+    "reference": "Tornado.webp"
+  },
+  {
+    "spell": "wind_blast",
+    "meshes": 5,
+    "faces": 100,
+    "source": "Blockbench MCP export",
+    "reference": "Wind_Blast.webp"
+  },
+  {
+    "spell": "earth_lance",
+    "meshes": 5,
+    "faces": 40,
+    "source": "Blockbench MCP export",
+    "reference": "Earth_Lance.webp"
+  },
+  {
+    "spell": "earth_pillar",
+    "meshes": 1,
+    "faces": 72,
+    "source": "Blockbench MCP export",
+    "reference": "Earth_Pillar.webp"
+  },
+  {
+    "spell": "ex_healing",
+    "meshes": 8,
+    "faces": 256,
+    "source": "Blockbench MCP export",
+    "reference": "Healing_2.webp"
+  },
+  {
+    "spell": "antidote_ii",
+    "meshes": 8,
+    "faces": 256,
+    "source": "Blockbench MCP export",
+    "reference": "X-Healing.webp"
+  },
+  {
+    "spell": "physical_shield",
+    "meshes": 3,
+    "faces": 58,
+    "source": "Blockbench MCP export",
+    "reference": "Physical_Shield.webp"
+  }
+]

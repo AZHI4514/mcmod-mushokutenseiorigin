@@ -1,6 +1,5 @@
 package com.example.examplemod.magic;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -48,6 +47,16 @@ public final class WaterBallEntity extends ThrowableProjectile {
 			if (Double.isFinite(fluid) && fluid <= before) { setPos(position().add(getDeltaMovement().normalize().scale(fluid))); onHit(new net.minecraft.world.phys.BlockHitResult(position(), net.minecraft.core.Direction.UP, blockPosition(), false)); return; }
 		}
 		super.tick();
+		if (level().isClientSide() && !isRemoved()) {
+			var velocity = getDeltaMovement();
+			var trail = SpellParticles.trail(spell());
+			int count = 1;
+			for (int i = 0; i < count; i++) {
+				var point = position().subtract(velocity.scale(i / 3.0));
+				level().addParticle(trail, point.x, point.y + 0.1, point.z,
+						-velocity.x * 0.04, 0.015, -velocity.z * 0.04);
+			}
+		}
 	}
 
 	@Override
@@ -90,13 +99,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 	protected void onHit(HitResult hit) {
 		super.onHit(hit);
 		if (level() instanceof ServerLevel level) {
-			var particles = spell().icy() ? ParticleTypes.SNOWFLAKE : switch (spell().element()) {
-				case "fire" -> ParticleTypes.FLAME;
-				case "wind" -> ParticleTypes.CLOUD;
-				case "earth" -> ParticleTypes.CRIT;
-				default -> ParticleTypes.SPLASH;
-			};
-			level.sendParticles(particles, getX(), getY(), getZ(), 6, 0.1, 0.1, 0.1, 0.05);
+			SpellVisuals.burst(level,spell(),position(),getDeltaMovement().normalize());
 			if (getOwner() instanceof net.minecraft.server.level.ServerPlayer player)
 				MagicSounds.listener.accept(player, MagicSounds.Phase.IMPACT);
 			discard();

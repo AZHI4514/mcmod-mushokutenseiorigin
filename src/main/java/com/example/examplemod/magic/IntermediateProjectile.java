@@ -39,7 +39,12 @@ public final class IntermediateProjectile extends Projectile {
 	@Override protected void readAdditionalSaveData(ValueInput input) { super.readAdditionalSaveData(input); age=Math.max(0,input.getIntOr("MagicAge",0));paid=Math.max(10,input.getIntOr("PaidMana",10));MagicFlight.loadHits(input,hit); }
 	@Override public void tick() {
 		super.tick(); if(isRemoved()) return;
-		if(!(level() instanceof ServerLevel level)) { setPos(position().add(getDeltaMovement())); return; }
+		if(!(level() instanceof ServerLevel level)) {
+			var motion=getDeltaMovement(); var point=position().subtract(motion.scale(0.35));
+			var trail=SpellParticles.trail(spell());
+			level().addParticle(trail,point.x,point.y,point.z,-motion.x*0.025,-motion.y*0.025,-motion.z*0.025);
+			setPos(position().add(motion)); return;
+		}
 		if(getY()<level.getMinY()||age>=spell().flightTicks()||getDeltaMovement().lengthSqr()<1.0E-8) { discard(); return; }
 		var from=position(); var direction=getDeltaMovement().normalize();
 		double distance=spell().speed();
@@ -52,6 +57,7 @@ public final class IntermediateProjectile extends Projectile {
 		++age;
 		double wall=Double.POSITIVE_INFINITY; BlockPos block=null; Vec3 impact=null;
 		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
+			if(MagicFlight.passesWaterBlock(this,pos)) continue;
 			for(var local:level.getBlockState(pos).getCollisionShape(level,pos).toAabbs()) {
 				double contact=body.contact(local.move(pos),from,direction,distance);
 				if(contact<wall) {
@@ -67,7 +73,7 @@ public final class IntermediateProjectile extends Projectile {
 			if(!hit.contains(entity.getUUID())&&body.contact(entity.getBoundingBox(),from,direction,distance)<Math.min(wall,fluid)) targets.add((LivingEntity)entity);
 		}
 		targets.sort(Comparator.comparingDouble(t->body.contact(t.getBoundingBox(),from,direction,distance)));
-		boolean piercing=spell()==SpellDefinition.SONIC_BOOM||spell()==SpellDefinition.STONE_CANNON;
+		boolean piercing=spell().piercing();
 		for(var target:targets) {
 			double contact=body.contact(target.getBoundingBox(),from,direction,distance); if(contact>distance) continue;
 			hit.add(target.getUUID());

@@ -4,6 +4,16 @@ import net.minecraft.world.phys.Vec3;
 
 /** Fixed point channel accounting: units are twentieths of one mana point. */
 public final class PhaseTwoRules {
+	public static final int WIND_SLOW_FALL_TICKS = 100;
+	public static final double WIND_LAUNCH_DISTANCE = 10;
+	/** One initial impulse. Airborne 0.91 horizontal drag gives a nominal ten-block recoil. */
+	public static Vec3 windLaunchVelocity(Vec3 direction) {
+		var n=direction.normalize();
+		double horizontal=WIND_LAUNCH_DISTANCE*(1-.91);
+		double y=n.y>0?verticalLaunch(WIND_LAUNCH_DISTANCE*n.y):n.y<0?-1.2*Math.abs(n.y):.42;
+		return new Vec3(n.x*horizontal,y,n.z*horizontal);
+	}
+
 	public static int debit(int debt,int rate) { return (debt+rate+19)/20; }
 	public static int remainder(int debt,int rate,int debit) { return debt+rate-debit*20; }
 	public static Vec3 boundMovement(Vec3 movement) {

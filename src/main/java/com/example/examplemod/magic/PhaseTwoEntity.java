@@ -39,7 +39,11 @@ public final class PhaseTwoEntity extends Projectile {
 		if(isRemoved()||!renewable||level()!=owner.level()||owner.position().distanceToSqr(anchor)>1.0E-6) return false;
 		remaining=MagicRules.extend(remaining,160); capacity=16; return true;
 	}
-	public void absorb(float amount) { capacity=MagicRules.shieldAfter(capacity,amount); if(capacity<=0) discard(); }
+	public void absorb(float amount) {
+		capacity=MagicRules.shieldAfter(capacity,amount);
+		if(level() instanceof ServerLevel server) SpellVisuals.burst(server,spell(),center(),direction());
+		if(capacity<=0) discard();
+	}
 	public boolean ray() { return false; }
 	public boolean stationary() { return switch(spell().id()) { case "ice_lance","flame_pillar","waterfall","physical_shield" -> true; default -> false; }; }
 	public boolean shield() { return spell()==SpellDefinition.PHYSICAL_SHIELD; }
@@ -78,7 +82,19 @@ public final class PhaseTwoEntity extends Projectile {
 
 	@Override public void tick() {
 		super.tick(); updateBounds();
-		if(!(level() instanceof ServerLevel level)) { if(!stationary()) setPos(position().add(getDeltaMovement())); updateBounds(); return; }
+		if(!(level() instanceof ServerLevel level)) {
+			if(!stationary()) {
+				var motion=getDeltaMovement(); var point=position().subtract(motion.scale(0.35));
+				var trail=SpellParticles.trail(spell());
+				level().addParticle(trail,point.x,point.y,point.z,-motion.x*0.02,-motion.y*0.02,-motion.z*0.02);
+				setPos(position().add(motion));
+			} else if(spell()==SpellDefinition.FLAME_PILLAR && tickCount%3==0) {
+				level().addParticle(SpellParticles.trail(spell()),getX(),getY()+tickCount%4*0.2,getZ(),0,0.04,0);
+			} else if(spell()==SpellDefinition.WATERFALL && tickCount%3==0) {
+				level().addParticle(SpellParticles.trail(spell()),getX(),getY()+Math.random()*3,getZ(),0,-0.04,0);
+			}
+			updateBounds(); return;
+		}
 		if(getY()<level.getMinY()){discard();return;}
 		if(!PhaseTwoSpells.loaded(level,getBoundingBox()))return;
 		var owner=getOwner() instanceof ServerPlayer player?player:null;
@@ -135,7 +151,8 @@ public final class PhaseTwoEntity extends Projectile {
 	}
 	public void keepAlive() { remaining=age+12; }
 
-	private void explode(){((ServerLevel)level()).explode(this,getX(),getY(),getZ(),PhaseTwoRules.TNT_POWER,true,Level.ExplosionInteraction.TNT);discard();}
+	private void explode(){ explode(false); }
+	private void explode(boolean keepFlying){SpellVisuals.burst((ServerLevel)level(),spell(),position(),direction());((ServerLevel)level()).explode(this,getX(),getY(),getZ(),PhaseTwoRules.TNT_POWER,true,Level.ExplosionInteraction.TNT);if(!keepFlying)discard();}
 	private void fly(ServerPlayer owner,ServerLevel level) {
 		var from=center(); var motion=direction(); double distance=speed();
 		if(distance<=0) { discard(); return; }
@@ -143,6 +160,7 @@ public final class PhaseTwoEntity extends Projectile {
 		if(!PhaseTwoSpells.loaded(level,bounds))return;
 		double wall=Double.POSITIVE_INFINITY; BlockPos block=null; var shapes=new java.util.ArrayList<AABB>();
 		for(var pos:BlockPos.betweenClosed(BlockPos.containing(bounds.minX,bounds.minY,bounds.minZ),BlockPos.containing(bounds.maxX,bounds.maxY,bounds.maxZ))) {
+			if(MagicFlight.passesWaterBlock(this,pos)) continue;
 			var state=level.getBlockState(pos);var collisions=state.getCollisionShape(level,pos).toAabbs();
 			for(var shape:collisions) {
 				shapes.add(shape.move(pos)); double contact=volume.contact(shape.move(pos),from,motion,distance);
@@ -156,13 +174,13 @@ public final class PhaseTwoEntity extends Projectile {
 			if(!hit.contains(entity.getUUID())&&volume.contact(entity.getBoundingBox(),from,motion,distance)<Math.min(wall,fluid)) candidates.add((LivingEntity)entity);
 		candidates.sort(java.util.Comparator.comparingDouble(t->volume.contact(t.getBoundingBox(),from,motion,distance)));
 		for(var target:candidates) {
-			double contact=volume.contact(target.getBoundingBox(),from,motion,distance); if(contact>distance) continue;
+			double contact=volume.contact(target.getBoundingBox(),from,motion,distance); if(contact>distance || hit.contains(target.getUUID())) continue;
 			hit.add(target.getUUID());
-			if(spell()==SpellDefinition.EXPLOSION){setPos(from.add(motion.scale(contact)));explode();return;}
+			if(spell()==SpellDefinition.EXPLOSION){setPos(from.add(motion.scale(contact)));explode(spell().piercing());if(!spell().piercing())return;continue;}
 			if(spell()==SpellDefinition.WIND_SLICE) {
-				for(var e:level.getEntities(this,target.getBoundingBox().inflate(3),e->e instanceof LivingEntity&&e.getBoundingBox().getCenter().distanceToSqr(target.getBoundingBox().getCenter())<=9)) PhaseTwoSpells.damage(this,(LivingEntity)e);
+				for(var e:level.getEntities(this,target.getBoundingBox().inflate(3),e->e instanceof LivingEntity&&e.getBoundingBox().getCenter().distanceToSqr(target.getBoundingBox().getCenter())<=9 && MagicEffects.allowed(owner,(LivingEntity)e))) if(e==target || hit.add(e.getUUID())) PhaseTwoSpells.damage(this,(LivingEntity)e);
 			} else PhaseTwoSpells.damage(this,target);
-			if(spell()==SpellDefinition.WIND_SLICE||spell()==SpellDefinition.ICICLE_BREAK) { discard(); return; }
+			if(!spell().piercing()) { SpellVisuals.burst(level,spell(),from.add(motion.scale(contact)),motion); discard(); return; }
 		}
 		if(fluid<=distance&&fluid<=wall){discard();return;}
 		if(wall<=distance&&block!=null) {
@@ -170,7 +188,7 @@ public final class PhaseTwoEntity extends Projectile {
 
 			discard(); return;
 		}
-		var next=position().add(motion.scale(distance));
+		var next=to;
 		setPos(next); traveled+=distance; updateBounds();
 	}
 }

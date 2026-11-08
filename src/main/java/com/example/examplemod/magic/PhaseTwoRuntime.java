@@ -122,7 +122,7 @@ public final class PhaseTwoRuntime {
 			var pos=origin.add(forward.scale(i));
 			if(!PhaseTwoSpells.loaded(level,new AABB(origin,pos).inflate(0.01))) break;
 			if(level.clip(new net.minecraft.world.level.ClipContext(origin,pos,net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,player)).getType()!=HitResult.Type.MISS) break;
-			level.sendParticles(net.minecraft.core.particles.ParticleTypes.FLAME,pos.x,pos.y,pos.z,3,i*0.13,i*0.13,i*0.13,0.01);
+			level.sendParticles(SpellParticles.trail(channel.spell),pos.x,pos.y,pos.z,3,i*0.13,i*0.13,i*0.13,0.01);
 		}
 	}
 	public static boolean intercept(Projectile projectile) {
@@ -184,6 +184,7 @@ public final class PhaseTwoRuntime {
 	public static boolean igniteTarget(ServerPlayer owner,LivingEntity target,MagicAim aim) {
 		var carrier=PhaseTwoSpells.entity(owner,SpellDefinition.FLAME_PILLAR,target.position(),aim.direction());
 		target.igniteForTicks(60); PhaseTwoSpells.damage(carrier,target);placeFire(owner,target);
+		SpellVisuals.burst((ServerLevel)owner.level(),SpellDefinition.FLAME_PILLAR,target.position(),aim.direction());
 		BURNS.computeIfAbsent(owner.getUUID(),k->new ArrayList<>()).add(new Burn(target,carrier,owner.level().getGameTime()));return true;
 	}
 	private static void tickBurns(ServerPlayer owner) {

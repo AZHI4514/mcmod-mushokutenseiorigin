@@ -48,6 +48,7 @@ public final class HeatHand {
 		}
 		var warmth = player.getEffect(MagicEffects.WARMTH);
 		if (changed || player.getTicksFrozen() > 0 || warmth == null) { MagicEffects.warm(player, 200); changed = true; }
+		if(changed) for(var pos:targets) ((net.minecraft.server.level.ServerLevel)player.level()).sendParticles(SpellParticles.burst(SpellDefinition.HEAT_HAND),pos.getX()+0.5,pos.getY()+1,pos.getZ()+0.5,3,0.2,0.1,0.2,0.015);
 		return changed;
 	}
 	private HeatHand() { }

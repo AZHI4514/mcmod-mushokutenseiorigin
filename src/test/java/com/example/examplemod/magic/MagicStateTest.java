@@ -12,6 +12,30 @@ public final class MagicStateTest {
 	}
 
 	public static void main(String[] args) {
+		// Contact aura, piercing-water policy and bounded wind propulsion regressions.
+		var body = new net.minecraft.world.phys.AABB(-.3, 0, -.3, .3, 1.8, .3);
+		check(MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(.35,.8,-.2,.8,1.5,.2)), "Body flame contacts the torso");
+		check(MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(-.2,1.7,-.2,.2,2,.2)), "Body flame covers the head");
+		check(!MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(1.8,0,-.2,2.2,1,.2)), "Old distant fire ring no longer causes contact damage");
+		for(var id:List.of("sonic_boom","stone_cannon","icicle_edge","flood_flush")) {
+			check(MagicRules.passesWater(SpellDefinition.find(id),true), "Piercing spell crosses water: "+id);
+			check(!MagicRules.passesWater(SpellDefinition.find(id),false), "Dry wall remains solid: "+id);
+		}
+		for(var id:List.of("fireball","water_ball","ice_blade","rock_bullet")) check(!MagicRules.passesWater(SpellDefinition.find(id),true), "Nonpiercing fluid stop preserved: "+id);
+		for(var id:List.of("flame_slice","water_cannon","ex_flame","sonic_boom","stone_cannon","icicle_break","icicle_edge","flood_flush","wind_slice","explosion")) {
+			var constant=SpellDefinition.find(id);
+			check(constant.piercing(),"Every constant-speed spell pierces: "+id);
+			check(MagicRules.passesWater(constant,false,true),"Dry waterloggable block is passable: "+id);
+			check(MagicRules.passesWater(constant,true,true),"Wet waterloggable block is passable: "+id);
+			check(!MagicRules.passesWater(constant,false,false),"Dry full solid block stops flight: "+id);
+		}
+		var recoil=PhaseTwoRules.windLaunchVelocity(new net.minecraft.world.phys.Vec3(0,0,-1));
+		check(recoil.z<0 && recoil.y>0,"Slime-like recoil lifts off and pushes opposite aim");
+		double travel=0,velocity=-recoil.z;for(int tick=0;tick<240;tick++){travel+=velocity;velocity*=.91;}
+		check(Math.abs(travel-10)<1.0E-7,"Nominal airborne horizontal recoil is ten blocks");
+		check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.windLaunchVelocity(new net.minecraft.world.phys.Vec3(0,1,0)).y)-10)<1.0E-7,"Upward recoil peak uses ten blocks");
+		check(PhaseTwoRules.WIND_SLOW_FALL_TICKS==100,"Slow falling lasts five seconds");
+
 		var spell = SpellDefinition.WATER_BALL;
 		var state = MagicState.initial(100);
 		check(!state.canCast(spell), "Unknown spell cannot cast");
@@ -93,7 +117,7 @@ public final class MagicStateTest {
 		check(SpellDefinition.STONE_CANNON.flightTicks()==120&&SpellDefinition.STONE_CANNON.flightRange()==360, "Intermediate stone cannon flies at three blocks per tick");
 		for(var id:List.of("ice_pillar","ice_lance","waterfall","wind_bind","earth_lance")) check(SpellDefinition.find(id).motion()==SpellDefinition.Motion.INSTANT, "Instant execution: "+id);
 		check(!SpellDefinition.SONIC_BOOM.areaDamage()&&SpellDefinition.SONIC_BOOM.piercing(), "Piercing is distinct from AOE");
-		check(SpellDefinition.WIND_SLICE.areaDamage()&&!SpellDefinition.WIND_SLICE.piercing(), "Impact AOE is distinct from piercing");
+		check(SpellDefinition.WIND_SLICE.areaDamage()&&SpellDefinition.WIND_SLICE.piercing(), "Impact AOE is distinct from piercing");
 		check(SpellDefinition.MAGIC_SHIELD.glowColor()==0x43BFFF&&SpellDefinition.PHYSICAL_SHIELD.glowColor()==0xBA70FF, "Shield glow colors");
 		check(SpellDefinition.EARTH_PILLAR.motion()==SpellDefinition.Motion.FALLING, "Earth rock falls until terrain contact");
 		check(MagicRules.shieldAfter(MagicRules.shieldAfter(16,7),9)==0, "Repeated physical hits break shield at capacity");

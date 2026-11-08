@@ -11,6 +11,6 @@ import com.example.examplemod.magic.MagicEffects;
 public abstract class MagicWindBoundRenderMixin {
 	@Inject(method="extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V",at=@At("TAIL"))
 	private void mushoku$shiver(LivingEntity entity,LivingEntityRenderState state,float delta,CallbackInfo ci) {
-		if(entity.hasEffect(MagicEffects.WIND_BOUND))state.isFullyFrozen=true;
+		if(entity.getAttachedOrElse(com.example.examplemod.magic.MagicAttachments.WIND_BOUND_VISUAL,false))state.isFullyFrozen=true;
 	}
 }

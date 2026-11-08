@@ -1,6 +1,5 @@
 package com.example.examplemod.magic;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -28,7 +27,7 @@ public final class SpellExecutors {
 			if (amount <= 0) return false;
 			player.heal(amount);
 			if (player.getHealth() <= health) return false;
-			((ServerLevel) player.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER,
+			((ServerLevel) player.level()).sendParticles(SpellParticles.burst(spell),
 					player.getX(), player.getY() + 1, player.getZ(), 8, 0.3, 0.4, 0.3, 0);
 			return true;
 		}

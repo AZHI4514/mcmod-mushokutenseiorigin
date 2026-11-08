@@ -52,7 +52,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 	public static final SpellDefinition FLAMETHROWER = new SpellDefinition("flamethrower",6,4,20,1,"fire",1.5F,0,0,CastMode.CHANNEL,List.of(),Execution.PHASE_TWO,0,16,Integer.MAX_VALUE,List.of("fireball","burning_place"));
 	public static final SpellDefinition WIND_SLICE = new SpellDefinition("wind_slice",8,7,20,100,"wind",2F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,20,Integer.MAX_VALUE,List.of("sonic_boom"));
 	public static final SpellDefinition WIND_BIND = new SpellDefinition("wind_bind",10,0,100,60,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("wind_ball"));
-	public static final SpellDefinition WIND_BLAST = new SpellDefinition("wind_blast",8,0,4,1,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,6,Integer.MAX_VALUE,List.of("wind_ball"));
+	public static final SpellDefinition WIND_BLAST = new SpellDefinition("wind_blast",8,0,4,1,"wind",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,10,Integer.MAX_VALUE,List.of("wind_ball"));
 	public static final SpellDefinition EARTH_LANCE = new SpellDefinition("earth_lance",10,6,10,200,"earth",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("rock_bullet"));
 	public static final SpellDefinition EARTH_PILLAR = new SpellDefinition("earth_pillar",14,8,60,100,"earth",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,0,12,Integer.MAX_VALUE,List.of("stone_cannon"));
 	public static final SpellDefinition EX_HEALING = new SpellDefinition("ex_healing",16,0,100,1,"healing",1.5F,0,0,CastMode.INSTANT,List.of(),Execution.PHASE_TWO,8,0,Integer.MAX_VALUE,List.of("healing"));
@@ -77,7 +77,7 @@ public record SpellDefinition(String id, int manaCost, float damage, int cooldow
 	}
 	public int flightTicks() { return motion() == Motion.CONSTANT ? MagicRules.flightTicks(rank()) : 0; }
 	public double flightRange() { return motion() == Motion.CONSTANT ? speed * flightTicks() : Double.POSITIVE_INFINITY; }
-	public boolean piercing() { return switch(id) { case "sonic_boom","stone_cannon","icicle_edge","flood_flush" -> true; default -> false; }; }
+	public boolean piercing() { return motion() == Motion.CONSTANT; }
 	public boolean areaDamage() { return switch(id) { case "flame_slice","burning_place","water_cannon","water_splash","icicle_field","ex_flame","ice_pillar","ice_lance","explosion","flamethrower","wind_slice","earth_pillar" -> true; default -> false; }; }
 	public int glowColor() {
 		if(id.equals("physical_shield")) return 0xBA70FF;

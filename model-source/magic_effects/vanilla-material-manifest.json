@@ -1,0 +1,548 @@
+[
+  {
+    "spell": "water_ball",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "fireball",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "wind_ball",
+    "source_texture": "minecraft:block/snow",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "ad82ec9ee2960d04a59e7212aaf3275ca74e68bff26699773d2da458dca01c3f"
+  },
+  {
+    "spell": "rock_bullet",
+    "source_texture": "minecraft:block/stone",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "8bebbe2937fa838faf080b45aa68da5cd476af567fe3105582d7e79e649a9fbe"
+  },
+  {
+    "spell": "water_arrow",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "ice_smash",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "flame_slice",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "healing",
+    "source_texture": "minecraft:block/emerald_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "5842a8956e9df7629467efa8b96ec9f1e9d99c693b7717a5f588efc8863ff81a"
+  },
+  {
+    "spell": "water_shield",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "090a3a0ee9d44b18ea8685543718b6c307bb28244331edb511ff6ce5adafb73c"
+  },
+  {
+    "spell": "ice_blade",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "heat_hand",
+    "source_texture": "minecraft:block/magma",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "a6d33a193ada4dbcf22aedf76c1bdd3f59b6c45f58f385989abb471c9cfee8aa"
+  },
+  {
+    "spell": "heat_island",
+    "source_texture": "minecraft:block/magma",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "a6d33a193ada4dbcf22aedf76c1bdd3f59b6c45f58f385989abb471c9cfee8aa"
+  },
+  {
+    "spell": "burning_place",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "detoxification",
+    "source_texture": "minecraft:block/emerald_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "1fd717e8ab032e193776f9f619d7bc0c0bdd777346ed7a0c4bd924eb8b9ba70b"
+  },
+  {
+    "spell": "magic_shield",
+    "source_texture": "minecraft:block/amethyst_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "be839e58d3fc4fe9d0670c2f337c86b997f34dfe78c4a0e726917cd0dee98dbf"
+  },
+  {
+    "spell": "water_cannon",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "water_splash",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "icicle_field",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "ex_flame",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "sonic_boom",
+    "source_texture": "minecraft:block/snow",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "ad82ec9ee2960d04a59e7212aaf3275ca74e68bff26699773d2da458dca01c3f"
+  },
+  {
+    "spell": "stone_cannon",
+    "source_texture": "minecraft:block/stone",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "8bebbe2937fa838faf080b45aa68da5cd476af567fe3105582d7e79e649a9fbe"
+  },
+  {
+    "spell": "ice_pillar",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "waterfall",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "ice_lance",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "icicle_break",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "icicle_edge",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "flood_flush",
+    "source_texture": "minecraft:block/water_still",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "c1d38e6a24758131b3ea7a9d2434928cc4c19a284a1c1dee4988c6b4560201ea"
+  },
+  {
+    "spell": "ice_fortress",
+    "source_texture": "minecraft:block/packed_ice",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "00a0715d13fe0b4af2191aa68371ab131500eb4087bac2b239c715538979e735"
+  },
+  {
+    "spell": "explosion",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "flame_pillar",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "flamethrower",
+    "source_texture": "minecraft:block/fire_0",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "9a5905f9c26acf0666ad6eb4337cbfd35a04702c9671333828fe28a30887bf6f"
+  },
+  {
+    "spell": "wind_slice",
+    "source_texture": "minecraft:block/snow",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "ad82ec9ee2960d04a59e7212aaf3275ca74e68bff26699773d2da458dca01c3f"
+  },
+  {
+    "spell": "wind_bind",
+    "source_texture": "minecraft:block/snow",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "ad82ec9ee2960d04a59e7212aaf3275ca74e68bff26699773d2da458dca01c3f"
+  },
+  {
+    "spell": "wind_blast",
+    "source_texture": "minecraft:block/snow",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "ad82ec9ee2960d04a59e7212aaf3275ca74e68bff26699773d2da458dca01c3f"
+  },
+  {
+    "spell": "earth_lance",
+    "source_texture": "minecraft:block/stone",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "8bebbe2937fa838faf080b45aa68da5cd476af567fe3105582d7e79e649a9fbe"
+  },
+  {
+    "spell": "earth_pillar",
+    "source_texture": "minecraft:block/stone",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "8bebbe2937fa838faf080b45aa68da5cd476af567fe3105582d7e79e649a9fbe"
+  },
+  {
+    "spell": "ex_healing",
+    "source_texture": "minecraft:block/emerald_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "5842a8956e9df7629467efa8b96ec9f1e9d99c693b7717a5f588efc8863ff81a"
+  },
+  {
+    "spell": "antidote_ii",
+    "source_texture": "minecraft:block/emerald_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "1fd717e8ab032e193776f9f619d7bc0c0bdd777346ed7a0c4bd924eb8b9ba70b"
+  },
+  {
+    "spell": "physical_shield",
+    "source_texture": "minecraft:block/amethyst_block",
+    "atlas": [
+      64,
+      384
+    ],
+    "tile": [
+      16,
+      16
+    ],
+    "frames": 24,
+    "sha256": "73b5ac710016894c03b92edf244340886c34243f614b953d0f3f21ec4f7877b8"
+  }
+]
