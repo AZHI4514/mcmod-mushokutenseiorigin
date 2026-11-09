@@ -79,6 +79,7 @@ public final class IntermediateProjectile extends Projectile {
 			hit.add(target.getUUID());
 			setPos(from.add(direction.scale(contact)));
 			IntermediateSpells.hurt(this,target,spell(),damage());
+			if(piercing) IntermediateSpells.impactParticles(this);
 			if(!piercing) { setPos(from.add(direction.scale(contact))); IntermediateSpells.impactParticles(this); discard(); return; }
 		}
 		if(fluid<=distance&&fluid<=wall) {setPos(from.add(direction.scale(fluid)));IntermediateSpells.impactParticles(this);discard();return;}

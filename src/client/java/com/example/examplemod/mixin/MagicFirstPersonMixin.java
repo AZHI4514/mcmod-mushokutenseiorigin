@@ -16,12 +16,20 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import com.example.examplemod.magic.MagicAttachments;
+import com.example.examplemod.client.magic.MagicCastMotion;
 
 @Mixin(ItemInHandRenderer.class)
 public abstract class MagicFirstPersonMixin {
 	@Shadow
 	private void renderPlayerArm(PoseStack poses, SubmitNodeCollector collector, int light, float equip, float swing, HumanoidArm arm) {
 		throw new AssertionError();
+	}
+	@Unique
+	private static void mushoku$sway(PoseStack poses,float time) {
+		poses.translate(MagicCastMotion.handSide(time),MagicCastMotion.handLift(time),0);
+		poses.mulPose(Axis.XP.rotation(MagicCastMotion.pitch(time)));
+		poses.mulPose(Axis.YP.rotation(MagicCastMotion.yaw(time)));
+		poses.mulPose(Axis.ZP.rotation(MagicCastMotion.roll(time)));
 	}
 	@Unique
 	private static boolean casting(AbstractClientPlayer player, InteractionHand hand) {
@@ -40,6 +48,7 @@ public abstract class MagicFirstPersonMixin {
 			poses.pushPose();
 			poses.translate(-0.12, 0.18, -0.18);
 			poses.mulPose(Axis.XP.rotationDegrees(-18));
+			mushoku$sway(poses,player.tickCount+delta);
 		}
 	}
 	@Inject(method = "renderArmWithItem", at = @At("RETURN"))
@@ -55,6 +64,7 @@ public abstract class MagicFirstPersonMixin {
 			poses.pushPose();
 			poses.translate(-0.12, 0.18, -0.18);
 			poses.mulPose(Axis.XP.rotationDegrees(-18));
+			mushoku$sway(poses,player.tickCount+delta);
 			renderPlayerArm(poses, collector, light, 0, 0, HumanoidArm.RIGHT);
 			poses.popPose();
 		}

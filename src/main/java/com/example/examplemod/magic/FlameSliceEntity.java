@@ -71,7 +71,7 @@ public final class FlameSliceEntity extends Projectile {
 			}
 			SpellVisuals.burst(level,SpellDefinition.FLAME_SLICE,center,direction);impactSound();
 		}
-		if(wall<=distance){discard();return;}
+		if(wall<=distance){SpellVisuals.burst(level,SpellDefinition.FLAME_SLICE,from.add(direction.scale(wall)),direction);discard();return;}
 		setPos(to);
 		flight = flight.advance(distance);
 		level.sendParticles(SpellParticles.trail(SpellDefinition.FLAME_SLICE), getX(), getY(), getZ(), 2, 0.3, 0.1, 0.3, 0);

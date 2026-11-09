@@ -140,10 +140,14 @@ public final class PhaseTwoEntity extends Projectile {
 		}
 		for(var target:level.getEntities(this,bounds,e->e instanceof LivingEntity&&MagicEffects.allowed(getOwner(),(LivingEntity)e))) {
 			double contact=body.contact(target.getBoundingBox(),from,motion,distance);
-			if(contact<=Math.min(distance,stop)&&hit.add(target.getUUID()))PhaseTwoSpells.damage(this,(LivingEntity)target);
+			if(contact<=Math.min(distance,stop)&&hit.add(target.getUUID())) {
+				PhaseTwoSpells.damage(this,(LivingEntity)target);
+				SpellVisuals.burst(level,spell(),from.add(motion.scale(contact)),motion);
+			}
 		}
 		if(stop<=distance) {
 			setPos(position().add(0,-Math.max(0,stop),0));updateBounds();
+			SpellVisuals.burst(level,spell(),center(),motion);
 			if(owner!=null)PhaseTwoSpells.permanentStone(owner,BlockPos.containing(getX(),Math.ceil(getY()-1.0E-6),getZ()));
 			discard();return;
 		}
@@ -180,12 +184,14 @@ public final class PhaseTwoEntity extends Projectile {
 			if(spell()==SpellDefinition.WIND_SLICE) {
 				for(var e:level.getEntities(this,target.getBoundingBox().inflate(3),e->e instanceof LivingEntity&&e.getBoundingBox().getCenter().distanceToSqr(target.getBoundingBox().getCenter())<=9 && MagicEffects.allowed(owner,(LivingEntity)e))) if(e==target || hit.add(e.getUUID())) PhaseTwoSpells.damage(this,(LivingEntity)e);
 			} else PhaseTwoSpells.damage(this,target);
-			if(!spell().piercing()) { SpellVisuals.burst(level,spell(),from.add(motion.scale(contact)),motion); discard(); return; }
+			SpellVisuals.burst(level,spell(),from.add(motion.scale(contact)),motion);
+			if(!spell().piercing()) { discard(); return; }
 		}
 		if(fluid<=distance&&fluid<=wall){discard();return;}
 		if(wall<=distance&&block!=null) {
 			if(spell()==SpellDefinition.EXPLOSION){setPos(from.add(motion.scale(Math.max(0,wall-0.02))));explode();return;}
 
+			SpellVisuals.burst(level,spell(),from.add(motion.scale(wall)),motion);
 			discard(); return;
 		}
 		var next=to;

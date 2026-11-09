@@ -87,7 +87,7 @@ final class ReferenceSpellModels {
 		float x = v[0], y = v[1], z = v[2];
 		float phase = t * .24F + p.index * 1.73F;
 		if (stage == IMPACT) {
-			float progress = Math.clamp(t / 20, 0, 1), spread = (float) Math.sqrt(progress);
+			float progress = Math.clamp(t / 20, 0, 1), spread = 1 - (1 - progress) * (1 - progress) * (1 - progress);
 			if (id.equals("water_ball")) {
 				if (p.role.equals("liquid")) { x *= 1 + t * .45F; y *= 1 + t * .45F; z *= .2F; }
 				else {
@@ -144,7 +144,7 @@ final class ReferenceSpellModels {
 			}
 			case "ice_smash" -> {
 				if (stage == FORM && p.role.equals("crystal")) {
-					float grow = Math.clamp((t - p.index * .18F) / 7, .01F, 1);
+					float grow = .01F + .99F * SpellAtmosphereProfile.smooth((t - p.index * .18F) / 7);
 					x *= grow; y *= grow; z *= grow;
 				}
 			}

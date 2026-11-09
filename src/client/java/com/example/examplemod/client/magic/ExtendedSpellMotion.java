@@ -45,7 +45,12 @@ final class ExtendedSpellMotion {
 	static float alpha(String id, String role, int index, float age, int stage) {
 		if (stage != ReferenceSpellModels.IMPACT) {
 			if (role.equals("fracture")) return 0;
-			if (role.equals("droplet")) return .3F + .7F * sinUnit(age * .24F + index);
+			float rate = id.equals("waterfall") ? .065F : id.equals("flood_flush") ? .08F : .075F;
+			float offset = id.equals("waterfall") ? .097F : id.equals("flood_flush") ? .107F : .137F;
+			if (role.equals("droplet")) return cycleFade(age * rate + index * offset);
+			if (role.equals("ember") && (id.equals("burning_place") || id.equals("flame_pillar"))) return cycleFade(age * .065F + index * .127F);
+			if (role.equals("thermal")) return cycleFade(age * .035F + index * .13F);
+			if (role.equals("lifemote") || role.equals("lightseed")) return cycleFade(age * (id.equals("antidote_ii") ? .025F : .018F) + index * .079F);
 			if (role.equals("lifemote") || role.equals("wardmote")) return .35F + .65F * sinUnit(age * .2F + index * 2.4F);
 			return 1;
 		}
@@ -77,14 +82,14 @@ final class ExtendedSpellMotion {
 		};
 	}
 	static float[] deform(String id, String role, int index, float cx, float cy, float cz, float[] v, float t, int stage) {
-		float x = v[0], y = v[1], z = v[2], phase = t * .27F + index * 1.73F;
+		float x = v[0], y = v[1], z = v[2], phase = t * (.23F + (index % 5) * .013F) + index * 1.73F;
 		boolean impact = stage == ReferenceSpellModels.IMPACT, form = stage == ReferenceSpellModels.FORM;
 		float progress = Math.clamp(t / lifetime(id), 0, 1);
-		float spread = (float) Math.sqrt(progress);
+		float spread = 1 - (1 - progress) * (1 - progress) * (1 - progress);
 		String family = family(id);
 		if (family.equals("water")) {
 			if (id.equals("water_splash")) {
-				float expand = .1F + .9F * Math.clamp(t / 12, 0, 1);
+				float expand = .1F + .9F * SpellAtmosphereProfile.smooth(t / 12);
 				x *= expand; z *= expand;
 				if (role.equals("crown")) y = -.15F + (y + .15F) * (float) Math.sin(Math.min(1, t / 25) * Math.PI);
 				if (role.equals("droplet")) { y += .65F * progress - 1.25F * progress * progress; x *= 1 + progress * .3F; z *= 1 + progress * .3F; }
@@ -92,7 +97,7 @@ final class ExtendedSpellMotion {
 			} else if (id.equals("waterfall")) {
 				if (role.equals("droplet")) { float cycle = fraction(t * .065F + index * .097F); y = .46F - cycle; }
 				else { x += .008F * (float) Math.sin(y * 14 + t * .35F + index); z += .022F * (float) Math.sin(y * 16 + x * 9 - t * .4F); }
-				float grow = Math.clamp(t / 5, .01F, 1); y = .5F - (.5F - y) * grow;
+				float grow = .01F + .99F * SpellAtmosphereProfile.smooth(t / 5); y = .5F - (.5F - y) * grow;
 			} else if (impact) {
 				float a = index * 2.39996F, radius = spread * (role.equals("droplet") ? 1.6F : .95F);
 				x = (x - cx) * (1 + spread) + (float) Math.cos(a) * radius;
@@ -174,8 +179,8 @@ final class ExtendedSpellMotion {
 		} else {
 			boolean grows = role.equals("growth") || role.equals("groundspike") || role.equals("wallice");
 			if (grows) {
-				float grow = Math.clamp((t - index * .12F) / (id.equals("icicle_field") ? 6 : 4), .01F, 1);
-				if (stage == ReferenceSpellModels.FLIGHT && id.equals("ice_lance")) grow = Math.clamp(t / 5, .01F, 1);
+				float grow = .01F + .99F * SpellAtmosphereProfile.smooth((t - index * .12F) / (id.equals("icicle_field") ? 6 : 4));
+				if (stage == ReferenceSpellModels.FLIGHT && id.equals("ice_lance")) grow = .01F + .99F * SpellAtmosphereProfile.smooth(t / 5);
 				y = -.5F + (y + .5F) * grow;
 			} else if (impact) {
 				float length = (float) Math.sqrt(cx * cx + cy * cy + cz * cz);
@@ -189,11 +194,12 @@ final class ExtendedSpellMotion {
 				float a = t * (id.equals("stone_cannon") ? .36F : .18F), oldX = x;
 				x = x * (float) Math.cos(a) - y * (float) Math.sin(a); y = oldX * (float) Math.sin(a) + y * (float) Math.cos(a);
 				if (role.equals("rubble")) z -= fraction(t * .09F + index * .13F) * .45F;
-			} else if (form) { float grow = Math.clamp((t - index * .12F) / 8, .01F, 1); x *= grow; y *= grow; z *= grow; }
+			} else if (form) { float grow = .01F + .99F * SpellAtmosphereProfile.smooth((t - index * .12F) / 8); x *= grow; y *= grow; z *= grow; }
 		}
 		return new float[]{x, y, z};
 	}
-	private static float sinUnit(float value) { return .5F + .5F * (float) Math.sin(value); }
+	private static float cycleFade(float value) { float t = fraction(value); return SpellAtmosphereProfile.smooth(t / .16F) * SpellAtmosphereProfile.smooth((1 - t) / .22F); }
+	private static float sinUnit(float value) { return .5F + .35F * (float) Math.sin(value) + .15F * (float) Math.sin(value * 1.73F + .8F); }
 	private static float fraction(float value) { return value - (float) Math.floor(value); }
 	private ExtendedSpellMotion() { }
 }
