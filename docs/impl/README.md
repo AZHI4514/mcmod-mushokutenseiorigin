@@ -7,3 +7,5 @@
 - [水弹完整追踪示例](WATER_BALL_WALKTHROUGH.md)
 - [扩展实现核对材料](EXPANSION_NOTES.md)：只在核对特殊机制时查，不当作规格或状态。
 - [物品实现规范](../development/ITEMS.md)
+
+- [视觉实现与旧占位参数](visual/README.md)：仅定位实现，不定义最终造型。

@@ -15,7 +15,7 @@
 
 - 咏唱/取消/施法后冷却：[施法系统](../../casting/CONTRACT.md)。
 - 学习资格、教材收录：[学习关系](../../learning/CURRICULUM.md)按本ID查询；不决定本术是否成功命中。
-- 外观与资源：[视觉合同](../../visual/CONTRACT.md)。
+- 外观与动画：[本术视觉卡](../../visual/spells/gravity_magic.md)；玩法卡只提供作用形状、方向和生命周期约束。
 - 特殊仪式、地形、传送/召唤等：[世界交互规则](../../world/CONTRACT.md)，仅适用提到本术的条目。
 - 代码和测试：[实现索引](../../../impl/SPELL_INDEX.md#gravity_magic)；已知规格冲突：[差异登记](../../../reference/SPEC_DEVIATIONS.md)。
 

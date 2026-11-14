@@ -4,3 +4,5 @@
 
 - [文档职责重整](2026-11-14-documentation.md)
 - 早期重构经过与完整测试证据保留在[历史归档](../archive/README.md)。
+
+- [视觉文档解耦](2026-11-14-visual-docs.md)

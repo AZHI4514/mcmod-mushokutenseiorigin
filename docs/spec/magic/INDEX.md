@@ -106,3 +106,5 @@
 | 转移魔术 `teleportation_magic` | 官方未标级 | [设计卡](spells/teleportation_magic.md) |
 | 幻影结界 `illusion_barrier` | 暂定圣 | [设计卡](spells/illusion_barrier.md) |
 | ☆冰海 `ocean_freeze` | 神 | [设计卡](spells/ocean_freeze.md) |
+
+同ID的外观、材质、动画与粒子设计单独见[视觉目录](../visual/INDEX.md)。本目录中的玩法形状、功能性预警和有效时段是视觉的只读输入，不是模型外观定稿。

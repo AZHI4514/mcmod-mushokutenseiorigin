@@ -1,1 +1,3 @@
 每次先读 `docs/README.md`、`docs/STATUS.md`；存在 `docs/development/ACTIVE_TASK.md` 时读取它，再按任务选读intent→spec→impl。人类导览是 `docs/START_HERE.md`。开发遵循 `docs/development/WORKFLOW.md` 和 `ENGINEERING.md`；法术模板在 `development/templates/SPELL.md`，新增物品遵循 `development/ITEMS.md`。魔法与教材通过ID关联，禁止把书/学习谱塞进单术设计。进度仅更新STATUS，过程仅写logs，规格只在规则变更时修改。上下文压缩前更新活动任务的决定/文件/验证/下一步；默认不读全量102卡和archive，不恢复历史任务。不擅改数值/资源ID/存档键，保留用户工作区改动。纯逻辑只依赖JDK，Minecraft/Fabric留在适配层，客户端只表现。Java用UTF-8、LF、Tab和同行大括号。实现采用SOLID与恰当的经典设计模式，不创建自定义框架。结束运行相关检查和`.\gradlew.bat build --offline`，如实记录未测项。未经用户本次明确要求不启动Minecraft，不git add/commit/push。
+
+视觉单独维护在docs/spec/visual/spells/<id>.md，与玩法卡同ID关联。视觉重做读intent/VISUAL、视觉合同、对应视觉卡及玩法只读输入，遵循development/VISUAL_WORKFLOW.md。现有模型/动画只作占位实现，禁止反推最终方案；旧粒数/面数/幅度仅为impl快照，不冻结为设计。

@@ -17,3 +17,5 @@
 根AGENTS→本页→STATUS→活动任务（如果存在）；按任务只读相关intent、系统合同、具体法术卡、impl与代码。新开发再读WORKFLOW/ENGINEERING。默认不读取全量102术、不扫描archive、不恢复旧任务卡。
 
 中断恢复用ACTIVE_TASK的决定、文件、证据和下一步；完成后只在STATUS更新当前结果、日志追加过程。规格只有规则改变时才改，禁止附加“本轮已完成/最新进度”。用户最新明确决定优先；冲突不得凭实现倒推设计。
+
+视觉重做入口：[视觉意图](intent/VISUAL.md) → [视觉目录](spec/visual/INDEX.md) → [视觉工作流](development/VISUAL_WORKFLOW.md)。玩法与视觉按同一ID分别维护。
