@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.BladeSectionMigrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:49.822Z" hostname="AZHISLAPTOP" time="0.278">
+  <properties/>
+  <testcase name="partialObstructionAndTinyGapPassButAdjacentUnionStops()" classname="com.example.examplemod.magic.BladeSectionMigrationTest" time="0.014"/>
+  <testcase name="frozenPreMigrationGeometryMatchesSeededDirectionsAndObstacleUnions()" classname="com.example.examplemod.magic.BladeSectionMigrationTest" time="0.247"/>
+  <testcase name="negativeYawObliqueSectionRetainsPartialPassAndFullStop()" classname="com.example.examplemod.magic.BladeSectionMigrationTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

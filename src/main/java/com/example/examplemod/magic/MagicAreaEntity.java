@@ -1,4 +1,8 @@
 package com.example.examplemod.magic;
+import com.example.examplemod.infrastructure.fabric.magic.WindFieldRuntimeAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.SmokeFieldRuntimeAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.MaintainedFieldRuntimeAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.PoweredBarrierRuntimeAdapter;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,16 +42,30 @@ public final class MagicAreaEntity extends Projectile {
 	}
 	public void breakMaintenance() { renewable = false; }
 	public boolean canRenew(ServerPlayer owner) {
+		if(spell()==SpellDefinition.WATER_SHIELD)return renewable&&com.example.examplemod.magic.spell.water.water_shield.WaterShieldRules.canRenew(true,owner.position().distanceToSqr(anchor));
 		return renewable && (!stationary() || owner.position().distanceToSqr(anchor) < 1.0E-6);
 	}
 	private boolean stationary() { return spell() == SpellDefinition.WATER_SHIELD || spell() == SpellDefinition.HEAT_ISLAND; }
-	public void renew() { remaining = MagicRules.extend(remaining, spell().lifetimeTicks()); capacity = 8; }
+	public void renew() { remaining = spell()==SpellDefinition.WATER_SHIELD?com.example.examplemod.magic.spell.water.water_shield.WaterShieldRules.extend(remaining):MagicRules.extend(remaining, spell().lifetimeTicks()); capacity = 8; }
 	public void absorb(float damage) {
-		capacity = MagicRules.shieldAfter(capacity, damage);
-		if(level() instanceof ServerLevel server) SpellVisuals.burst(server,spell(),position(),wallDirection());
-		if (capacity <= 0) discard();
+		if(spell()==SpellDefinition.WATER_SHIELD){
+			com.example.examplemod.magic.spell.water.water_shield.WaterShieldAbsorb.apply(damage,new com.example.examplemod.magic.spell.water.water_shield.WaterShieldAbsorb.Shield(){
+				public float capacity(){return capacity;}
+				public void capacity(float value){capacity=value;}
+				public void show(){if(level() instanceof ServerLevel server)SpellVisuals.burst(server,spell(),position(),wallDirection());}
+				public void discard(){MagicAreaEntity.this.discard();}
+			});return;
+		}
+		com.example.examplemod.magic.mechanic.projectile.ShieldAbsorption.apply(damage,new com.example.examplemod.magic.mechanic.projectile.ShieldAbsorption.Shield(){
+			public float capacity(){return capacity;}
+			public void capacity(float value){capacity=value;}
+			public void show(){if(level() instanceof ServerLevel server)SpellVisuals.burst(server,spell(),position(),wallDirection());}
+			public void discard(){MagicAreaEntity.this.discard();}
+		});
 	}
 	public AABB areaBounds() {
+		var behavior=com.example.examplemod.bootstrap.AreaBehaviorComposition.find(spell());
+		if(behavior!=null)return behavior.bounds().apply(this);
 		if (spell() == SpellDefinition.WATER_SHIELD) {
 			return wallVolume().bounds(position());
 		}
@@ -64,6 +82,8 @@ public final class MagicAreaEntity extends Projectile {
 
 	@Override public void tick() {
 		super.tick();
+		var behavior=com.example.examplemod.bootstrap.AreaBehaviorComposition.find(spell());
+		if(behavior!=null){behavior.tick().accept(this);return;}
 		if (!(level() instanceof ServerLevel level)) {
 			if(tickCount%4==0) {
 				boolean warm=spell()==SpellDefinition.HEAT_ISLAND;
@@ -76,43 +96,33 @@ public final class MagicAreaEntity extends Projectile {
 			}
 			return;
 		}
-		if (!(getOwner() instanceof ServerPlayer owner) || owner.isRemoved() || !owner.isAlive()
-				|| owner.level() != level || --remaining <= 0 || !level.hasChunkAt(blockPosition())) { discard(); return; }
-		if (stationary() && owner.position().distanceToSqr(anchor) >= 1.0E-6) renewable = false;
-		if (!stationary()) setPos(owner.position());
-		++pulse;
-		fireContacts.values().removeIf(last -> pulse-last >= 20);
-		wetContacts.values().removeIf(last -> pulse-last >= 20);
-		for (var entity : level.getEntities(this, areaBounds(), e -> e instanceof LivingEntity && e.isAlive() && !e.isSpectator())) {
-			var target = (LivingEntity) entity;
-			if (spell() == SpellDefinition.WATER_SHIELD && touchesWall(target.getBoundingBox())) {
-				// 水幕无真实流体和气泡条；仅接触时施加水式移动阻力。
-				var motion = target.getDeltaMovement(); target.setDeltaMovement(motion.multiply(0.8, 0.8, 0.8));
-				target.hurtMarked = true;
-				if (!wetContacts.containsKey(target.getUUID())) {
-					wetContacts.put(target.getUUID(), pulse); MagicEffects.apply(owner, target, spell());
-				}
-			} else if (spell() == SpellDefinition.HEAT_ISLAND && insideRadius(target, 3)) {
-				target.removeEffect(MagicEffects.WET); MagicEffects.warm(target, spell().statusTicks());
-			} else if (spell() == SpellDefinition.BURNING_PLACE && !fireContacts.containsKey(target.getUUID()) && touchesFireRing(target)
-					&& MagicEffects.allowed(owner, target) && visible(level, target)) {
-				fireContacts.put(target.getUUID(), pulse);
-				if (target.hurtServer(level, MagicDamage.source(this, spell()), spell().damage())) {
-					MagicEffects.apply(owner, target, spell()); SpellHooks.afterHit.accept(this, target);
-				}
-			}
-		}
+		com.example.examplemod.magic.mechanic.field.AreaTick.tick(new com.example.examplemod.infrastructure.fabric.magic.AreaTickAdapter(this,level,new com.example.examplemod.infrastructure.fabric.magic.AreaTickAdapter.State(){
+			public int decrementRemaining(){return --remaining;}
+			public boolean stationary(){return MagicAreaEntity.this.stationary();}
+			public double displacementSquared(){return getOwner().position().distanceToSqr(anchor);}
+			public void advancePulse(){++pulse;}
+			public int pulse(){return pulse;}
+		},fireContacts,wetContacts));
 	}
-	private boolean touchesFireRing(LivingEntity target) {
-		return getOwner() instanceof LivingEntity owner && MagicRules.touchesBody(owner.getBoundingBox(),target.getBoundingBox());
+	public void startExpansion() { if (spell() == SpellDefinition.BLIZZARD_STORM) tickBlizzard(); }
+	public void tickBlizzard() {
+		if (!(level() instanceof ServerLevel level)) { if (getOwner() instanceof LivingEntity owner) setPos(owner.position()); return; }
+		com.example.examplemod.infrastructure.fabric.magic.BlizzardStormAdapter.tick(this,level,()->pulse,()->pulse++);
 	}
-	private boolean insideRadius(LivingEntity target, double radius) {
-		double dx=target.getX()-getX(), dz=target.getZ()-getZ(); return dx*dx+dz*dz <= radius*radius;
+	public void restoreSpellId(String id){entityData.set(SPELL,id);}
+	public void saveBlizzard(ValueOutput output){
+		output.putInt("ExpansionPulse",pulse);
+		output.putLong("ExpansionExpiry",com.example.examplemod.magic.spell.water.blizzard_storm.BlizzardStormRules.expiry(level().getGameTime(),pulse));
 	}
-	private boolean visible(ServerLevel level, LivingEntity target) {
-		return level.clip(new ClipContext(position().add(0,1,0), target.getBoundingBox().getCenter(),
-				ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() == HitResult.Type.MISS;
+	public void loadBlizzard(ValueInput input){
+		pulse=com.example.examplemod.magic.spell.water.blizzard_storm.BlizzardStormRules.restore(input.getIntOr("ExpansionPulse",80),input.getLongOr("ExpansionExpiry",0),level().getGameTime());
 	}
-	@Override protected void addAdditionalSaveData(ValueOutput output) { super.addAdditionalSaveData(output); }
-	@Override protected void readAdditionalSaveData(ValueInput input) { super.readAdditionalSaveData(input); remaining = 0; }
+	@Override protected void addAdditionalSaveData(ValueOutput output){
+		super.addAdditionalSaveData(output);
+		com.example.examplemod.bootstrap.AreaBehaviorComposition.save(this,output);
+	}
+	@Override protected void readAdditionalSaveData(ValueInput input){
+		super.readAdditionalSaveData(input);
+		com.example.examplemod.bootstrap.AreaBehaviorComposition.load(this,input,()->remaining=0);
+	}
 }

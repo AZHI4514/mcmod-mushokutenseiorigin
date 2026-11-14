@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.ChargeSessionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T11:03:34.416Z" hostname="AZHISLAPTOP" time="0.029">
+  <properties/>
+  <testcase name="eleventhMissingHeartbeatExpiresAndRefreshRestartsCounter()" classname="com.example.examplemod.magic.ChargeSessionTest" time="0.013"/>
+  <testcase name="independentSessionsCannotShareElapsedCharge()" classname="com.example.examplemod.magic.ChargeSessionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

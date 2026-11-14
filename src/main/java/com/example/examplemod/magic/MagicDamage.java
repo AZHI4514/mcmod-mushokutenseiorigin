@@ -9,6 +9,9 @@ import com.example.examplemod.ExampleMod;
 
 /** 火焰伤害复用原版标签与抗火，附加状态统一由MagicEffects在成功伤害后处理。 */
 public final class MagicDamage {
+	public static DamageSource thunder(net.minecraft.world.entity.Entity source, net.minecraft.world.entity.Entity owner) {
+		return new DamageSource(source.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ExampleMod.id("magic_thunder"))),source,owner);
+	}
 	public static DamageSource source(Projectile projectile, SpellDefinition spell) {
 		if (!spell.element().equals("fire")) return projectile.damageSources().thrown(projectile, projectile.getOwner());
 		var level = (ServerLevel) projectile.level();

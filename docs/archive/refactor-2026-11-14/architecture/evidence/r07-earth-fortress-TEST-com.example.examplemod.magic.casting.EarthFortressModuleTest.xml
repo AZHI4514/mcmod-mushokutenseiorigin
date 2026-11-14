@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.EarthFortressModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T08:34:00.731Z" hostname="AZHISLAPTOP" time="0.046">
+  <properties/>
+  <testcase name="frozenOriginalOrderMatchesAllQuadrantsAndRandomDirections()" classname="com.example.examplemod.magic.casting.EarthFortressModuleTest" time="0.042"/>
+  <testcase name="stableLayerAndDistanceOrderCannotBeMutated()" classname="com.example.examplemod.magic.casting.EarthFortressModuleTest" time="0.001"/>
+  <testcase name="doorwayIsTwoHighOnChosenReleaseSide()" classname="com.example.examplemod.magic.casting.EarthFortressModuleTest" time="0.001"/>
+  <testcase name="shellIsHollowUpperHemisphereAndNoDuplicateCells()" classname="com.example.examplemod.magic.casting.EarthFortressModuleTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

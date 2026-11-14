@@ -1,4 +1,6 @@
 package com.example.examplemod.client.magic;
+import com.example.examplemod.magic.domain.visual.ParticleAnimation;
+import com.example.examplemod.magic.domain.visual.SpellAtmosphereProfile;
 
 import com.example.examplemod.magic.SpellParticles;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
@@ -29,6 +31,7 @@ final class SpellSpriteParticle extends SingleQuadParticle {
 			gravity=profile.family().equals("earth")?.06F:profile.family().equals("water")||profile.family().equals("ice")?.025F:0;
 			if(profile.buoyant())yd+=haze?.018:.01;
 		}
+		if(spellId.equals("squall")&&role.equals("trail")){hasPhysics=true;friction=1;lifetime=40;}
 		// Preserve the eye-stream velocity sent by the server, including diagonal rise.
 		if(glyph)setSprite(sprites.get(random));
 		else setSpriteFromAge(sprites);
@@ -36,16 +39,16 @@ final class SpellSpriteParticle extends SingleQuadParticle {
 	@Override public void tick() {
 		super.tick();
 		if(haze) {
-			xd+=Math.sin(age*.13+drift)*.0006;
-			zd+=Math.cos(age*.11+drift)*.0006;
+			xd+=ParticleAnimation.driftX(age,drift);
+			zd+=ParticleAnimation.driftZ(age,drift);
 		}
 		if(!glyph)setSpriteFromAge(frames);
 	}
 	@Override public void extract(QuadParticleRenderState state,Camera camera,float delta) {
-		float progress=Math.clamp((age+delta)/lifetime,0,1);
-		alpha=haze||accent?SpellAtmosphereProfile.envelope(progress)*(haze?.7F:1.7F):(float)Math.sin(progress*Math.PI)*(glyph?0.85F:0.8F);
-		quadSize=baseSize*(haze?.55F+1.35F*SpellAtmosphereProfile.smooth(progress):accent?.65F+.65F*SpellAtmosphereProfile.smooth(progress):glyph?.65F+.35F*Math.min(1,progress*5):0.6F+progress*0.6F);
-		if(!glyph)setSprite(frames.get(Math.min(23,(int)(progress*24)),23));
+		float progress=ParticleAnimation.progress(age,delta,lifetime);
+		alpha=ParticleAnimation.alpha(progress,haze,accent,glyph);
+		quadSize=baseSize*ParticleAnimation.size(progress,haze,accent,glyph);
+		if(!glyph)setSprite(frames.get(ParticleAnimation.frame(progress),23));
 		super.extract(state,camera,delta);
 	}
 	@Override protected int getLightCoords(float delta) { return haze?super.getLightCoords(delta):0xF000F0; }

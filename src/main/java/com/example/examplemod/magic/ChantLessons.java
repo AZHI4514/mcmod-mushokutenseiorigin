@@ -1,4 +1,5 @@
 package com.example.examplemod.magic;
+import com.example.examplemod.infrastructure.fabric.magic.PreparationRuntimeAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,16 +10,23 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 /** 学习会话只信任服务端收到的逐拍输入，不接受客户端成功声明。 */
 public final class ChantLessons {
-	private static final Map<UUID, Lesson> ACTIVE = new HashMap<>();
+	private static final class Runtime {
+		private static final net.fabricmc.fabric.api.attachment.v1.AttachmentType<Map<UUID,Lesson>> SESSIONS =
+			net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry.create(com.example.examplemod.ExampleMod.id("chant_lessons_runtime"),
+				builder -> builder.initializer(() -> new HashMap<UUID,Lesson>()));
+	}
+	private static Map<UUID,Lesson> sessions(ServerPlayer player) {
+		return player.level().getServer().overworld().getAttachedOrCreate(Runtime.SESSIONS);
+	}
 	private static final java.security.SecureRandom RANDOM = new java.security.SecureRandom();
-	public static boolean active(ServerPlayer player) { return ACTIVE.containsKey(player.getUUID()); }
+	public static boolean active(ServerPlayer player) { return sessions(player).containsKey(player.getUUID()); }
 	private static final class Lesson {
-		final String spell; final long token; final String notes; final ChantScore score;
+		final int section; final String spell; final long token; final String notes; final ChantScore score;
 		final net.minecraft.world.item.Item book;
 		final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
 		long start, offered = System.nanoTime(); int transportMillis; boolean ready;
 		Lesson(ServerPlayer player, String spell, net.minecraft.world.item.Item book) {
-			this.spell = spell; this.book = book; dimension = player.level().dimension(); token = RANDOM.nextLong();
+			this.spell = spell; this.book = book; section = Math.clamp(player.getAttachedOrCreate(MagicAttachments.LESSON_SECTIONS).getOrDefault(spell, 0), 0, SegmentedChantScore.sectionCount(SpellDefinition.find(spell).rank()) - 1); dimension = player.level().dimension(); token = RANDOM.nextLong();
 			int count = ChantScore.noteCount(SpellDefinition.find(spell).rank(), RANDOM.nextInt());
 			int[] keys = new int[count]; var text = new StringBuilder();
 			for (int i = 0; i < count; i++) { keys[i] = RANDOM.nextInt(26); text.append((char)('a' + keys[i])); }
@@ -27,22 +35,22 @@ public final class ChantLessons {
 	}
 	public static void handle(ServerPlayer player, ChantPayload packet) {
 		if (packet.action().equals("start")) {
-			if (ACTIVE.containsKey(player.getUUID())) return;
+			if (sessions(player).containsKey(player.getUUID())) return;
 			var spell = SpellDefinition.find(packet.spell()); var state = MagicSystem.state(player);
 			if (spell == null || !valid(player) || state.learned().contains(spell.id())) return;
 			var stack = MagicBooks.teaches(player.getMainHandItem(), spell.id()) ? player.getMainHandItem() : player.getOffhandItem();
 			if (!MagicBooks.teaches(stack, spell.id())) return;
 			if (!MagicBooks.isLegacy(stack) && !spell.learningRequirementsMet(state.learned())) return;
 			if (MagicBooks.isLegacy(stack)) {
-				player.setAttached(MagicAttachments.STATE, state.learnWithoutRequirements(spell.id()));
+				player.setAttached(MagicAttachments.STATE, MagicState.from(new com.example.examplemod.magic.application.learning.LearnSpell().execute(state.pure(), spell.id(), MagicBooks.policy(stack), MagicBooks.teaches(stack, spell.id()), false).state()));
 				player.sendSystemMessage(Component.translatable("magic.mushokutenseiorigin.lesson_pass", Component.translatable("spell.mushokutenseiorigin." + spell.id())));
 				return;
 			}
-			MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.stop(player);
-			var lesson = new Lesson(player, spell.id(), stack.getItem()); ACTIVE.put(player.getUUID(), lesson);
+			PreparationRuntimeAdapter.cancel(player); StoneCharge.cancel(player); PlayerSpellRuntime.stop(player);
+			var lesson = new Lesson(player, spell.id(), stack.getItem()); sessions(player).put(player.getUUID(), lesson);
 			send(player, "offer", lesson); return;
 		}
-		var lesson = ACTIVE.get(player.getUUID());
+		var lesson = sessions(player).get(player.getUUID());
 		// Closing before the offer arrives must also cancel the pending handshake.
 		if (lesson != null && packet.action().equals("cancel") && packet.token() == 0 && !lesson.ready && lesson.spell.equals(packet.spell())) { clear(player); return; }
 		if (lesson == null || lesson.token != packet.token() || !lesson.spell.equals(packet.spell())) return;
@@ -67,23 +75,35 @@ public final class ChantLessons {
 		return valid(player) && lesson.dimension.equals(player.level().dimension()) && (player.getMainHandItem().is(lesson.book) || player.getOffhandItem().is(lesson.book));
 	}
 	public static void tick(ServerPlayer player) {
-		var lesson = ACTIVE.get(player.getUUID()); if (lesson == null) return;
+		var lesson = sessions(player).get(player.getUUID()); if (lesson == null) return;
 		if (!available(player, lesson) || (!lesson.ready && System.nanoTime() - lesson.offered > 10_000_000_000L)) { clear(player); return; }
 		if (lesson.ready) {
 			finish(player, lesson);
-			if (ACTIVE.containsKey(player.getUUID())) MagicChantEffects.tick(player);
+			if (sessions(player).containsKey(player.getUUID())) MagicChantEffects.tick(player);
 		}
 	}
 	private static void finish(ServerPlayer player, Lesson lesson) {
 		if (!lesson.score.finished()) return;
 		boolean passed = lesson.score.passed();
-		if (passed) player.setAttached(MagicAttachments.STATE, MagicSystem.state(player).learn(lesson.spell));
+		int total = SegmentedChantScore.sectionCount(SpellDefinition.find(lesson.spell).rank());
+		if (passed && lesson.section + 1 < total) {
+			var saved = new HashMap<>(player.getAttachedOrCreate(MagicAttachments.LESSON_SECTIONS));
+			saved.put(lesson.spell, lesson.section + 1);
+			player.setAttached(MagicAttachments.LESSON_SECTIONS, Map.copyOf(saved));
+			var next = new Lesson(player, lesson.spell, lesson.book);
+			sessions(player).put(player.getUUID(), next); send(player, "section", next); return;
+		}
+		if (passed) {
+			var saved = new HashMap<>(player.getAttachedOrCreate(MagicAttachments.LESSON_SECTIONS));
+			saved.remove(lesson.spell); player.setAttached(MagicAttachments.LESSON_SECTIONS, Map.copyOf(saved));
+		}
+		if (passed) player.setAttached(MagicAttachments.STATE, MagicState.from(new com.example.examplemod.magic.application.learning.LearnSpell().execute(MagicSystem.state(player).pure(), lesson.spell, MagicBooks.policy(new net.minecraft.world.item.ItemStack(lesson.book)), available(player, lesson), true).state()));
 		player.sendSystemMessage(Component.translatable("magic.mushokutenseiorigin.lesson_" + (passed ? "pass" : "fail"), Component.translatable("spell.mushokutenseiorigin." + lesson.spell)));
-		ACTIVE.remove(player.getUUID()); send(player, passed ? "pass" : "fail", lesson);
+		sessions(player).remove(player.getUUID()); send(player, passed ? "pass" : "fail", lesson);
 	}
 	private static void send(ServerPlayer player, String action, Lesson lesson) {
-		ServerPlayNetworking.send(player, new ChantPayload(action, lesson.spell, lesson.token, lesson.score.hits(), lesson.notes));
+		ServerPlayNetworking.send(player, new ChantPayload(action, lesson.spell, lesson.token, lesson.section, lesson.notes));
 	}
-	public static void clear(ServerPlayer player) { ACTIVE.remove(player.getUUID()); }
+	public static void clear(ServerPlayer player) { sessions(player).remove(player.getUUID()); }
 	private ChantLessons() { }
 }

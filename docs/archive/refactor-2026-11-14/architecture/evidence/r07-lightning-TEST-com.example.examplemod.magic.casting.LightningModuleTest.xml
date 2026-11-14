@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.LightningModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-13T08:26:42.556Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="cylinderUsesHorizontalInclusiveRadius()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.001"/>
+  <testcase name="lockAndWarningRemainOnOriginalPreparationTicks()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.0"/>
+  <testcase name="pointSamplesAndRangeKeepExactBoundaries()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.0"/>
+  <testcase name="damageAndControlFollowSkyPermissionVisibility()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.001"/>
+  <testcase name="ownerBypassesOnlyPermission()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.0"/>
+  <testcase name="lazyRejectionsHaveNoControlOrHooks()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.0"/>
+  <testcase name="controlExceptionDoesNotNotifyHit()" classname="com.example.examplemod.magic.casting.LightningModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

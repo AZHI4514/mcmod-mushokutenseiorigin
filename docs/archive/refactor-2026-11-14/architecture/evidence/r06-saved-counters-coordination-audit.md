@@ -1,0 +1,2 @@
+
+共享弹体存档计数边界已迁SavedProjectileCounters，IntermediateProjectile保持原读取默认值及逐字段立即赋值顺序；MagicAge非负无新上限，ExpansionBroken仍clamp0..64，PaidMana仍由StoneCannonRules处理且默认10。未改Codec/保存键/注册/资源。新增4项模块合同及10000组冻结计数差分；完整离线build通过63单测/442模块测试、15658旧断言、102定义/教材/资源/JAR。证据r06-saved-counters-build.log及JUnit汇总/XML。实际世界/Codec重载/Fabric/Mixin/视觉/联机/性能NOT_RUN。R06-intermediate-runtime仍IN_PROGRESS。下一审计并迁扫掠区块可用性检查，保持枚举顺序、首次未加载退出、狱炎和风枪discard而其他暂停、age仅通过预检后递增；先扩任务卡再实现。不游戏、不Git。

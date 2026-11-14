@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ParticleAnimationModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T12:39:54.855Z" hostname="AZHISLAPTOP" time="0.01">
+  <properties/>
+  <testcase name="glyphStreamKeepsFourTickCadenceIncludingWrap()" classname="com.example.examplemod.magic.casting.ParticleAnimationModuleTest" time="0.0"/>
+  <testcase name="allCatalogProfilesRemainBoundedAndUnknownIdsFail()" classname="com.example.examplemod.magic.casting.ParticleAnimationModuleTest" time="0.001"/>
+  <testcase name="fadeFramesAndProgressRetainEndpoints()" classname="com.example.examplemod.magic.casting.ParticleAnimationModuleTest" time="0.0"/>
+  <testcase name="samplesMatchFrozenParticleFormulaForEveryRole()" classname="com.example.examplemod.magic.casting.ParticleAnimationModuleTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

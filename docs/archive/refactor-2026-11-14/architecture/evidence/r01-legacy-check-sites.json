@@ -1,0 +1,1899 @@
+[
+  {
+    "id": "OLD-001",
+    "line": 16,
+    "source": "check(Math.abs(BarrierGeometry.sphere(center,3,false,new net.minecraft.world.phys.Vec3(-10,0,0),new net.minecraft.world.phys.Vec3(20,0,0))-.35)<1E-9,\"Fast outside-to-outside motion hits shell\");",
+    "status": "RETAINED",
+    "target": "GeometryTest + verifyGeometryMigration + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-002",
+    "line": 17,
+    "source": "check(!Double.isFinite(BarrierGeometry.sphere(center,3,false,new net.minecraft.world.phys.Vec3(-10,4,0),new net.minecraft.world.phys.Vec3(20,0,0))),\"Movement missing sphere is unblocked\");",
+    "status": "RETAINED",
+    "target": "GeometryTest + verifyGeometryMigration + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-003",
+    "line": 18,
+    "source": "check(Math.abs(BarrierGeometry.sphere(center,3,false,center,new net.minecraft.world.phys.Vec3(6,0,0))-.5)<1E-9,\"Exit hits shell\");",
+    "status": "RETAINED",
+    "target": "GeometryTest + verifyGeometryMigration + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-004",
+    "line": 19,
+    "source": "check(!Double.isFinite(BarrierGeometry.sphere(center,3,true,new net.minecraft.world.phys.Vec3(-10,-1,0),new net.minecraft.world.phys.Vec3(20,0,0))),\"Hemisphere has no buried sphere wall\");",
+    "status": "RETAINED",
+    "target": "GeometryTest + verifyGeometryMigration + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-005",
+    "line": 20,
+    "source": "check(Math.abs(BarrierGeometry.sphere(center,3,true,new net.minecraft.world.phys.Vec3(0,-2,0),new net.minecraft.world.phys.Vec3(0,4,0))-.5)<1E-9,\"Hemisphere base catches vertical entry\");",
+    "status": "RETAINED",
+    "target": "GeometryTest + verifyGeometryMigration + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-006",
+    "line": 21,
+    "source": "check(MagicControl.duration(60,true,100,0)==40,\"Player control cap\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-007",
+    "line": 22,
+    "source": "check(MagicControl.duration(60,false,100,80)==30,\"Repeated control halves\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-008",
+    "line": 23,
+    "source": "check(MagicControl.duration(60,false,140,80)==60,\"Resistance expires at three seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-009",
+    "line": 24,
+    "source": "check(MagicControl.duration(6,false,100,80)==5,\"Control minimum five ticks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-010",
+    "line": 25,
+    "source": "check(MagicFieldCadence.ready(100,90,10),\"Field cadence permits exact boundary\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-011",
+    "line": 26,
+    "source": "check(!MagicFieldCadence.ready(99,90,10),\"Overlapping fields cannot double pulse\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-012",
+    "line": 27,
+    "source": "check(!MagicFieldCadence.ready(100,90,0),\"Invalid field cadence rejected\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-013",
+    "line": 28,
+    "source": "check(SonicBlast.contains(new net.minecraft.world.phys.Vec3(0,0,16),new net.minecraft.world.phys.Vec3(0,0,1)),\"Sonic cone reaches sixteen blocks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-014",
+    "line": 29,
+    "source": "check(!SonicBlast.contains(new net.minecraft.world.phys.Vec3(0,0,-1),new net.minecraft.world.phys.Vec3(0,0,1)),\"Sonic cone excludes rear\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-015",
+    "line": 30,
+    "source": "check(!SonicBlast.contains(new net.minecraft.world.phys.Vec3(12,0,12),new net.minecraft.world.phys.Vec3(0,0,1)),\"Sonic cone excludes distant side\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-016",
+    "line": 31,
+    "source": "for(int i=0;i<12;i++){check(EarthHedgehog.offset(i).horizontalDistance()<=6,\"Hedgehog stays in radius\");check(!EarthHedgehog.active(i*2-1,i)&&EarthHedgehog.active(i*2,i),\"Hedgehog stagger boundary\");}",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-017",
+    "line": 32,
+    "source": "check(EarthHedgehog.mayHit(0)&&EarthHedgehog.mayHit(1)&&!EarthHedgehog.mayHit(2),\"Hedgehog two-cluster cap\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-018",
+    "line": 33,
+    "source": "check(Quagmire.contains(new net.minecraft.world.phys.Vec3(6,0,0))&&!Quagmire.contains(new net.minecraft.world.phys.Vec3(6.01,0,0)),\"Mud radius boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-019",
+    "line": 34,
+    "source": "check(!Quagmire.contains(new net.minecraft.world.phys.Vec3(0,2,0)),\"Mud leaves airborne targets alone\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-020",
+    "line": 35,
+    "source": "check(Quagmire.jumpVelocity(-.5)==-.5&&Quagmire.jumpVelocity(.42)==.115,\"Mud caps ascent without pulling down\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-021",
+    "line": 36,
+    "source": "double mudVelocity=Quagmire.jumpVelocity(.42),mudHeight=0;while(mudVelocity>0){mudHeight+=mudVelocity;mudVelocity=(mudVelocity-.08)*.98;}check(mudHeight<=.15,\"Mud jump remains below fifteen centimeters under vanilla gravity\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-022",
+    "line": 37,
+    "source": "check(ThermalGust.contains(new net.minecraft.world.phys.Vec3(0,0,20),new net.minecraft.world.phys.Vec3(0,0,1),20),\"Cold gust range boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-023",
+    "line": 38,
+    "source": "check(!ThermalGust.contains(new net.minecraft.world.phys.Vec3(0,0,-1),new net.minecraft.world.phys.Vec3(0,0,1),20),\"Thermal gust excludes rear\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-024",
+    "line": 39,
+    "source": "check(MagicBooks.lessons(MagicCategory.MIXED,2).contains(\"blast\"),\"Blast belongs to mixed textbook\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-025",
+    "line": 40,
+    "source": "float magmaTotal=0;for(int tick=0;tick<=180;tick++)magmaTotal+=MagmaGush.damageAt(tick);check(magmaTotal==26,\"Magma total is ten plus eight times two\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-026",
+    "line": 41,
+    "source": "check(MagmaGush.damageAt(160)==2&&MagmaGush.damageAt(161)==0,\"Magma final pulse boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-027",
+    "line": 42,
+    "source": "check(WindFields.contains(new net.minecraft.world.phys.Vec3(5,20,0),5,20),\"Tornado cylinder boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-028",
+    "line": 43,
+    "source": "check(!WindFields.contains(new net.minecraft.world.phys.Vec3(5.1,10,0),5,20),\"Tornado excludes outside radius\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-029",
+    "line": 44,
+    "source": "check(WindFields.impulse(new net.minecraft.world.phys.Vec3(1,0,0),new net.minecraft.world.phys.Vec3(0,.34,0),true,false,true).y==.35,\"Tornado player ascent cap\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-030",
+    "line": 45,
+    "source": "float flashResidual=0;for(int age=-1;age<=180;age++)flashResidual+=FlashOver.residual(age);check(flashResidual==24,\"Flash has eight residual attempts\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-031",
+    "line": 46,
+    "source": "check(FlashOver.contains(new net.minecraft.world.phys.Vec3(16,6,0))&&!FlashOver.contains(new net.minecraft.world.phys.Vec3(16.01,3,0)),\"Flash cylinder boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-032",
+    "line": 47,
+    "source": "check(MagicBooks.lessons(MagicCategory.MIXED,3).contains(\"frost_nova\"),\"Frost Nova mixed lesson\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-033",
+    "line": 48,
+    "source": "float infernoTotal=18;for(int age=0;age<=420;age++)infernoTotal+=Inferno.residual(age);check(infernoTotal==118,\"Inferno initial plus twenty pulses\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-034",
+    "line": 49,
+    "source": "check(Inferno.residual(0)==0&&Inferno.residual(400)==5&&Inferno.residual(401)==0,\"Inferno final pulse boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-035",
+    "line": 50,
+    "source": "check(AbsoluteZero.contains(new net.minecraft.world.phys.Vec3(16,0,0))&&!AbsoluteZero.contains(new net.minecraft.world.phys.Vec3(16,1,0)),\"Absolute zero spherical boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-036",
+    "line": 52,
+    "source": "check(dome.size()<=200&&!dome.isEmpty(),\"Fortress respects block cap\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-037",
+    "line": 53,
+    "source": "check(!dome.contains(new net.minecraft.core.BlockPos(0,0,3))&&!dome.contains(new net.minecraft.core.BlockPos(0,1,3)),\"Fortress has two-high doorway\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-038",
+    "line": 54,
+    "source": "check(!dome.contains(net.minecraft.core.BlockPos.ZERO),\"Fortress interior stays hollow\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-039",
+    "line": 55,
+    "source": "check(MagicRules.strikeReady(40,40,1200),\"Storm strike starts at scheduled tick\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-040",
+    "line": 56,
+    "source": "check(!MagicRules.strikeReady(39,40,1200),\"Storm cannot strike early\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-041",
+    "line": 57,
+    "source": "check(!MagicRules.strikeReady(1200,1200,1200),\"Storm cannot strike at expiry\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-042",
+    "line": 60,
+    "source": "check(blizzardPulses == 8, \"Blizzard has exactly eight pulses including release and excluding expiry\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-043",
+    "line": 61,
+    "source": "check(!MagicRules.fieldPulse(0,80,0), \"Invalid interval cannot pulse\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.fieldReleaseAndExpiryAreDifferentBoundaries + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-044",
+    "line": 64,
+    "source": "check(count >= (rank == 5 ? 8 : 10) && count <= (rank == 5 ? 10 : 12), \"High rank section respects bounded packet\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-045",
+    "line": 68,
+    "source": "check(MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(.35,.8,-.2,.8,1.5,.2)), \"Body flame contacts the torso\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-046",
+    "line": 69,
+    "source": "check(MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(-.2,1.7,-.2,.2,2,.2)), \"Body flame covers the head\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-047",
+    "line": 70,
+    "source": "check(!MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(1.8,0,-.2,2.2,1,.2)), \"Old distant fire ring no longer causes contact damage\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-048",
+    "line": 72,
+    "source": "check(MagicRules.passesWater(SpellDefinition.find(id),true), \"Piercing spell crosses water: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-049",
+    "line": 73,
+    "source": "check(!MagicRules.passesWater(SpellDefinition.find(id),false), \"Dry wall remains solid: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-050",
+    "line": 75,
+    "source": "for(var id:List.of(\"fireball\",\"water_ball\",\"ice_blade\",\"rock_bullet\")) check(!MagicRules.passesWater(SpellDefinition.find(id),true), \"Nonpiercing fluid stop preserved: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-051",
+    "line": 78,
+    "source": "check(constant.piercing(),\"Every constant-speed spell pierces: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-052",
+    "line": 79,
+    "source": "check(MagicRules.passesWater(constant,false,true),\"Dry waterloggable block is passable: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-053",
+    "line": 80,
+    "source": "check(MagicRules.passesWater(constant,true,true),\"Wet waterloggable block is passable: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-054",
+    "line": 81,
+    "source": "check(!MagicRules.passesWater(constant,false,false),\"Dry full solid block stops flight: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-055",
+    "line": 84,
+    "source": "check(recoil.z<0 && recoil.y>0,\"Slime-like recoil lifts off and pushes opposite aim\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-056",
+    "line": 86,
+    "source": "check(Math.abs(travel-10)<1.0E-7,\"Nominal airborne horizontal recoil is ten blocks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-057",
+    "line": 87,
+    "source": "check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.windLaunchVelocity(new net.minecraft.world.phys.Vec3(0,1,0)).y)-10)<1.0E-7,\"Upward recoil peak uses ten blocks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-058",
+    "line": 88,
+    "source": "check(PhaseTwoRules.WIND_SLOW_FALL_TICKS==100,\"Slow falling lasts five seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-059",
+    "line": 92,
+    "source": "check(!state.canCast(spell), \"Unknown spell cannot cast\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-060",
+    "line": 94,
+    "source": "check(state.canCast(spell), \"First learning loads and selects spell\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-061",
+    "line": 95,
+    "source": "check(state.learn(spell.id()).equals(state), \"Learning is idempotent\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-062",
+    "line": 96,
+    "source": "check(MagicState.initial(100).learn(\"water_shield\").learned().isEmpty(), \"Normal learning still requires prerequisites\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-063",
+    "line": 97,
+    "source": "check(MagicState.initial(100).learnWithoutRequirements(\"water_shield\").learned().contains(\"water_shield\"), \"Legacy learning bypasses prerequisites\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-064",
+    "line": 99,
+    "source": "check(paid.mana() == 99 && paid.cooldown() == 0, \"Beginner releases have no recovery after preparation\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-065",
+    "line": 100,
+    "source": "check(spell.castingProfile().preparationTicks() == 100, \"Beginner requires five seconds preparation\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-066",
+    "line": 102,
+    "source": "check(!zero.canCast(spell), \"Insufficient mana denied\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-067",
+    "line": 103,
+    "source": "check(!state.select(\"\").selected().isEmpty(), \"Blank selection keeps previous\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-068",
+    "line": 105,
+    "source": "check(removed.selected().isEmpty() && removed.loaded().isEmpty() && removed.learned().size() == 1, \"Unload does not forget\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-069",
+    "line": 106,
+    "source": "check(removed.toggle(spell.id()).canCast(spell), \"Known spell can be loaded again\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-070",
+    "line": 107,
+    "source": "check(paid.withMaximum(200).mana() == 99, \"Increasing maximum does not refill\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-071",
+    "line": 108,
+    "source": "check(paid.withMaximum(50).mana() == 50, \"Decreasing maximum clamps mana\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-072",
+    "line": 109,
+    "source": "check(paid.withMaximum(200).maximum() == 200, \"Maximum editable\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-073",
+    "line": 111,
+    "source": "check(countdown.tick().mana() == 3, \"No early daily recovery\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-074",
+    "line": 113,
+    "source": "check(recovered.mana() == 100 && recovered.onlineTicks() == 0 && recovered.cooldown() == 0, \"Daily recovery at exactly 24000 ticks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-075",
+    "line": 114,
+    "source": "check(paid.refill().learned().equals(paid.learned()) && paid.refill().loaded().equals(paid.loaded())",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-076",
+    "line": 117,
+    "source": "check(dirty.mana() == 0 && dirty.maximum() == 1 && dirty.onlineTicks() == 0 && dirty.cooldown() == 0, \"Invalid numeric data sanitized\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-077",
+    "line": 118,
+    "source": "check(dirty.learned().size() == 1 && dirty.loaded().size() == 1 && dirty.selected().equals(spell.id()), \"Invalid and duplicate spells sanitized\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-078",
+    "line": 120,
+    "source": "check(MagicState.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow().equals(paid), \"Persistent codec round trip\");",
+    "status": "RETAINED",
+    "target": "verifyPlayerSave + retained verifyMagic (R04 codec boundary)"
+  },
+  {
+    "id": "OLD-079",
+    "line": 123,
+    "source": "check(day.mana() == 0, \"No premature full day recovery\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-080",
+    "line": 124,
+    "source": "check(day.tick().mana() == 100, \"Full online day refills\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-081",
+    "line": 131,
+    "source": "check(successes == 100 && continuous.mana() == 0, \"100 casts consume 100 mana without overspending\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-082",
+    "line": 132,
+    "source": "check(zero.restoreMana(30).mana() == 30, \"Cheat restores requested amount\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-083",
+    "line": 133,
+    "source": "check(paid.restoreMana(30).mana() == 100, \"Cheat recovery clamps to maximum\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-084",
+    "line": 134,
+    "source": "check(zero.restoreMana(Integer.MAX_VALUE).mana() == 100, \"Full restore cannot overflow\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-085",
+    "line": 135,
+    "source": "check(paid.restoreMana(1).cooldown() == paid.cooldown() && paid.restoreMana(1).onlineTicks() == paid.onlineTicks(), \"Cheat preserves timers\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-086",
+    "line": 136,
+    "source": "check(paid.restoreMana(-1).equals(paid), \"Negative recovery never removes mana\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-087",
+    "line": 137,
+    "source": "check(paid.restoreMana(1).learned().equals(paid.learned()) && paid.restoreMana(1).selected().equals(paid.selected()), \"Cheat preserves spell state\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-088",
+    "line": 141,
+    "source": "check(four.learned().size() == 102 && four.loaded().size() == 10, \"All lessons known, wheel limited to ten\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-089",
+    "line": 142,
+    "source": "check(four.selected().equals(spell.id()), \"Later lessons preserve selection\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-090",
+    "line": 146,
+    "source": "check(spent.mana() == 10000 - definition.manaCost(), \"Exact cost: \" + definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-091",
+    "line": 149,
+    "source": "check(!spent.canCast(definition), \"No early cooldown: \" + definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-092",
+    "line": 151,
+    "source": "check(spent.tick().canCast(definition), \"Cooldown ends exactly: \" + definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-093",
+    "line": 153,
+    "source": "check(!poor.canCast(definition), \"Reject insufficient mana: \" + definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-094",
+    "line": 154,
+    "source": "check(ready.learn(definition.id()).equals(ready), \"No duplicate lesson: \" + definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-095",
+    "line": 155,
+    "source": "check(definition.prerequisitesMet(id -> false), \"Basic spell has no external dependency\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-096",
+    "line": 157,
+    "source": "check(Double.isInfinite(SpellDefinition.ICE_BLADE.flightRange()), \"Ballistic Ice Blade has no distance cap\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-097",
+    "line": 158,
+    "source": "check(SpellDefinition.ICE_BLADE.speed() == 2.5F && SpellDefinition.ICE_BLADE.gravity() == 0.02, \"Ice Blade uses initial speed and ice gravity\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-098",
+    "line": 159,
+    "source": "for(int rank=1;rank<=7;rank++) check(MagicRules.flightTicks(rank)==rank*60, \"Three seconds per rank\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-099",
+    "line": 162,
+    "source": "check(definition.gravity()==0, \"Constant flight has no gravity: \"+definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-100",
+    "line": 163,
+    "source": "check(definition.flightRange()==definition.speed()*definition.flightTicks(), \"Time determines flight range: \"+definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-101",
+    "line": 165,
+    "source": "if(definition.motion()==SpellDefinition.Motion.BALLISTIC) check(definition.flightTicks()==0&&Double.isInfinite(definition.flightRange()), \"Ballistic flight has no expiry: \"+definition.id());",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-102",
+    "line": 167,
+    "source": "check(SpellDefinition.FLAME_SLICE.flightTicks()==60&&SpellDefinition.FLAME_SLICE.speed()==2, \"Beginner constant flight lasts three seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-103",
+    "line": 168,
+    "source": "check(SpellDefinition.STONE_CANNON.flightTicks()==120&&SpellDefinition.STONE_CANNON.flightRange()==360, \"Intermediate stone cannon flies at three blocks per tick\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-104",
+    "line": 169,
+    "source": "for(var id:List.of(\"ice_pillar\",\"ice_lance\",\"waterfall\",\"wind_bind\",\"earth_lance\")) check(SpellDefinition.find(id).motion()==SpellDefinition.Motion.INSTANT, \"Instant execution: \"+id);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-105",
+    "line": 170,
+    "source": "check(!SpellDefinition.SONIC_BOOM.areaDamage()&&SpellDefinition.SONIC_BOOM.piercing(), \"Piercing is distinct from AOE\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-106",
+    "line": 171,
+    "source": "check(SpellDefinition.WIND_SLICE.areaDamage()&&SpellDefinition.WIND_SLICE.piercing(), \"Impact AOE is distinct from piercing\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-107",
+    "line": 172,
+    "source": "check(SpellDefinition.MAGIC_SHIELD.glowColor()==0x43BFFF&&SpellDefinition.PHYSICAL_SHIELD.glowColor()==0xBA70FF, \"Shield glow colors\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-108",
+    "line": 173,
+    "source": "check(SpellDefinition.EARTH_PILLAR.motion()==SpellDefinition.Motion.FALLING, \"Earth rock falls until terrain contact\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-109",
+    "line": 174,
+    "source": "check(MagicRules.shieldAfter(MagicRules.shieldAfter(16,7),9)==0, \"Repeated physical hits break shield at capacity\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-110",
+    "line": 176,
+    "source": "check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(1.6,0,-0.3,2.2,1.8,0.3),ringCenter,2), \"Body overlapping fire ring is hit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-111",
+    "line": 177,
+    "source": "check(MagicRules.touchesRing(new net.minecraft.world.phys.AABB(-3,0,-3,3,4,3),ringCenter,2), \"Large body surrounding ring is hit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-112",
+    "line": 178,
+    "source": "check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(-0.3,0,-0.3,0.3,1.8,0.3),ringCenter,2), \"Center without ring contact is safe\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-113",
+    "line": 179,
+    "source": "check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(2.4,0,-0.3,3,1.8,0.3),ringCenter,2), \"Outside ring is safe\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-114",
+    "line": 180,
+    "source": "check(!MagicRules.touchesRing(new net.minecraft.world.phys.AABB(1.8,1,-0.2,2.2,2,0.2),ringCenter,2), \"Above fire ring is safe\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-115",
+    "line": 181,
+    "source": "check(MagicRules.statusTicks(1) == 100 && MagicRules.statusTicks(7) == 700, \"Rank-based status duration\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-116",
+    "line": 182,
+    "source": "check(MagicRules.extend(20,80) == 100, \"Maintenance adds remaining time\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-117",
+    "line": 183,
+    "source": "check(MagicRules.extend(Integer.MAX_VALUE-1,80) == Integer.MAX_VALUE, \"Maintenance cannot overflow\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-118",
+    "line": 184,
+    "source": "check(MagicRules.shieldAfter(8,4) == 4 && MagicRules.shieldAfter(4,20) == 0, \"Shield capacity clamps on oversized hit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-119",
+    "line": 185,
+    "source": "check(SpellDefinition.WATER_SHIELD.cooldownTicks() == 0 && SpellDefinition.MAGIC_SHIELD.cooldownTicks() == 0, \"Beginner utility uses shared recovery\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-120",
+    "line": 186,
+    "source": "check(MagicState.initial(100).learn(\"water_shield\").learned().isEmpty(), \"Water Shield requires Water Ball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-121",
+    "line": 188,
+    "source": "check(legacyLearning.learned().contains(\"physical_shield\") && legacyLearning.loaded().contains(\"physical_shield\"), \"Legacy book directly teaches spells with prerequisites\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-122",
+    "line": 189,
+    "source": "check(MagicState.initial(100).learn(\"ice_blade\").learned().isEmpty(), \"Ice Blade requires Ice Smash\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-123",
+    "line": 190,
+    "source": "check(MagicState.initial(100).learn(\"heat_island\").learned().isEmpty(), \"Heat Island requires Heat Hand\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-124",
+    "line": 191,
+    "source": "check(SpellDefinition.ICE_BLADE.icy() && !SpellDefinition.WATER_ARROW.icy(), \"Ice status separate from water status\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-125",
+    "line": 194,
+    "source": "check(Double.isFinite(wallGeometry.contact(arrowBox,new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),3)), \"Water wall sweeps fast projectile\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-126",
+    "line": 195,
+    "source": "check(!wallGeometry.intersects(new net.minecraft.world.phys.AABB(1.6,0.9,-0.1,1.8,1.1,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), \"Outside water wall width does not block\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-127",
+    "line": 196,
+    "source": "check(wallGeometry.intersects(new net.minecraft.world.phys.AABB(-0.1,1.8,-0.1,0.1,1.9,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), \"Upper half of two-block water wall contacts\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-128",
+    "line": 200,
+    "source": "check(Math.abs(rotated.side.dot(normal)) < 1.0E-6 && rotated.up.y > 0.99, \"Water wall orthonormal at yaw \" + yaw);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-129",
+    "line": 203,
+    "source": "check(Double.isFinite(rotated.contact(hitBox,new net.minecraft.world.phys.Vec3(0,1,0),normal,3)), \"Water wall rotated sweep \" + yaw);",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-130",
+    "line": 205,
+    "source": "check(SpellDefinition.WATER_CANNON.rank()==2 && SpellDefinition.EX_FLAME.statusTicks()==200,\"Intermediate rank and status duration\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-131",
+    "line": 206,
+    "source": "check(IntermediateRules.chargeDisplay(10)==10 && IntermediateRules.chargeDisplay(19)==19 && IntermediateRules.chargeDisplay(20)==20,\"Charge UI displays actual paid mana\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.chargeIntegralMonotonicallyAccumulatesWholeMana + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-132",
+    "line": 207,
+    "source": "check(SpellDefinition.WATER_SPLASH.statusTicks()==2000,\"Water Splash wetness lasts 100 seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-133",
+    "line": 208,
+    "source": "check(SpellDefinition.ICICLE_FIELD.damage()==5,\"Icicle Field deals five damage\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-134",
+    "line": 210,
+    "source": "check(IntermediateRules.chargeExtraAfterTicks(0)==0 && IntermediateRules.chargeExtraAfterTicks(20)==15 && IntermediateRules.chargeExtraAfterTicks(40)==40 && IntermediateRules.chargeExtraAfterTicks(60)==75,\"Linear rate acceleration integrates to increasing per-second costs\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.chargeIntegralMonotonicallyAccumulatesWholeMana + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-135",
+    "line": 214,
+    "source": "check(debit>=0,\"Injection never refunds mana during charging\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-136",
+    "line": 217,
+    "source": "check(injected==175,\"Fractional tick amounts carry forward without lost mana\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-137",
+    "line": 218,
+    "source": "check(IntermediateRules.chargeExtraAfterTicks(Integer.MAX_VALUE)>Integer.MAX_VALUE,\"Large charge duration uses safe long arithmetic\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.chargeIntegralMonotonicallyAccumulatesWholeMana + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-138",
+    "line": 219,
+    "source": "check(IntermediateRules.stoneDamage(10)==10 && IntermediateRules.stoneDamage(19)==10 && IntermediateRules.stoneDamage(20)==11,\"Stone damage counts full extra tens\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.chargeIntegralMonotonicallyAccumulatesWholeMana + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-139",
+    "line": 220,
+    "source": "check(IntermediateRules.stoneDamage(1000000)==100009,\"No arbitrary stone damage cap\");",
+    "status": "RETAINED",
+    "target": "RuleBoundaryTest.chargeIntegralMonotonicallyAccumulatesWholeMana + retained verifyMagic (R03)"
+  },
+  {
+    "id": "OLD-140",
+    "line": 222,
+    "source": "check(debited.mana()==87&&debited.cooldown()==0,\"Charge prepayment does not start cooldown\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-141",
+    "line": 223,
+    "source": "check(debited.restoreMana(13).equals(four),\"Charge refund preserves live state\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-142",
+    "line": 226,
+    "source": "check(IntermediateRules.blastBlocks(anchor,1,hitPoint).equals(List.of(anchor)),\"Water blast exactly one block\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-143",
+    "line": 227,
+    "source": "check(IntermediateRules.blastBlocks(anchor,2,hitPoint).size()==8&&IntermediateRules.blastBlocks(anchor,2,hitPoint).stream().distinct().count()==8,\"Fire blast exactly eight distinct positions\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-144",
+    "line": 228,
+    "source": "check(IntermediateRules.impactBounds(hitPoint).getXsize()==3&&IntermediateRules.impactBounds(hitPoint).getYsize()==3,\"Blast damage volume side length three\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-145",
+    "line": 230,
+    "source": "check(Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(1.3,0,3,1.7,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),\"Wide sonic sweep catches side target\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-146",
+    "line": 231,
+    "source": "check(!Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(2,0,3,2.5,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),\"Sonic sweep excludes outside width\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-147",
+    "line": 233,
+    "source": "check(Double.isFinite(fastRock.contact(new net.minecraft.world.phys.AABB(-0.1,0.9,0.8,0.1,1.1,1),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),2)),\"Fast stone cannot skip a thin creature between endpoints\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-148",
+    "line": 234,
+    "source": "check(!Double.isFinite(fastRock.contact(new net.minecraft.world.phys.AABB(-0.1,0.9,2.2,0.1,1.1,2.3),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),2)),\"Swept body cannot hit beyond current travel\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-149",
+    "line": 236,
+    "source": "check(Double.isFinite(verticalSweep.contact(new net.minecraft.world.phys.AABB(-0.1,3,-0.1,0.1,3.2,0.1),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,1,0),3)),\"Vertical aim retains finite collision basis\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-150",
+    "line": 237,
+    "source": "check(!MagicState.initial(100).learn(\"icicle_field\").learned().contains(\"icicle_field\"),\"Cannot forge ice field prerequisites\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-151",
+    "line": 239,
+    "source": "check(!iceStudent.learn(\"icicle_field\").learned().contains(\"icicle_field\"),\"Ice field requires Heat Island too\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-152",
+    "line": 240,
+    "source": "check(iceStudent.learn(\"fireball\").learn(\"heat_hand\").learn(\"heat_island\").learn(\"icicle_field\").learned().contains(\"icicle_field\"),\"Both prerequisites unlock ice field\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-153",
+    "line": 242,
+    "source": "check(firePaid.canCast(spell), \"Beginner has no post-release cooldown; server preparation controls cadence\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-154",
+    "line": 244,
+    "source": "check(MagicState.CODEC.parse(JsonOps.INSTANCE, fourJson).getOrThrow().equals(firePaid), \"Four spells persist with cooldown\");",
+    "status": "RETAINED",
+    "target": "verifyPlayerSave + retained verifyMagic (R04 codec boundary)"
+  },
+  {
+    "id": "OLD-155",
+    "line": 245,
+    "source": "check(four.toggle(\"water_ball\").selected().equals(\"fireball\"), \"Removing selection falls back to first remaining\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-156",
+    "line": 248,
+    "source": "check(!gated.prerequisitesMet(id -> false), \"Missing future dependency denies availability\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-157",
+    "line": 249,
+    "source": "check(gated.prerequisitesMet(id -> id.equals(\"disease_system\")), \"Known dependency can be supplied later\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-158",
+    "line": 252,
+    "source": "check(novice.learn(\"water_arrow\").equals(novice), \"Cannot forge water-arrow learning without Water Ball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-159",
+    "line": 253,
+    "source": "check(novice.learn(\"ice_smash\").equals(novice), \"Ice Smash requires Water Ball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-160",
+    "line": 254,
+    "source": "check(novice.learn(\"flame_slice\").equals(novice), \"Flame Slice requires Fireball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-161",
+    "line": 255,
+    "source": "check(novice.learn(\"healing\").learned().contains(\"healing\"), \"Healing needs no offensive prerequisite\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-162",
+    "line": 257,
+    "source": "check(waterStudent.learn(\"water_arrow\").learned().contains(\"water_arrow\"), \"Water Arrow unlocks after Water Ball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-163",
+    "line": 258,
+    "source": "check(waterStudent.learn(\"ice_smash\").learned().contains(\"ice_smash\"), \"Ice Smash unlocks after Water Ball\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-164",
+    "line": 259,
+    "source": "check(waterStudent.learn(\"flame_slice\").equals(waterStudent), \"Wrong element prerequisite cannot unlock Flame Slice\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-165",
+    "line": 260,
+    "source": "check(novice.learn(\"fireball\").learn(\"flame_slice\").learned().contains(\"flame_slice\"), \"Fireball unlocks Flame Slice\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-166",
+    "line": 262,
+    "source": "check(heal.healingAmount(20, 20) == 0, \"Full health prevents healing execution\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-167",
+    "line": 263,
+    "source": "check(heal.healingAmount(19, 20) == 1, \"Healing clamps to missing health\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-168",
+    "line": 264,
+    "source": "check(heal.healingAmount(10, 20) == 4, \"Healing restores four HP\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-169",
+    "line": 265,
+    "source": "check(heal.healingAmount(0, 20) == 0, \"Healing cannot resurrect\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-170",
+    "line": 266,
+    "source": "check(heal.healingAmount(30, 40) == 4, \"Healing respects modified maximum health\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-171",
+    "line": 267,
+    "source": "check(heal.healingAmount(Float.NaN, 20) == 0, \"Invalid health is rejected\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-172",
+    "line": 268,
+    "source": "check(SpellDefinition.WATER_BALL.healingAmount(10, 20) == 0, \"Attack spell cannot heal\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-173",
+    "line": 272,
+    "source": "check(restored.equals(flight) && restored.remaining() == 117.75, \"Reload preserves constant flight budget\");",
+    "status": "RETAINED",
+    "target": "FlameSliceRulesTest + verifyFlameSliceMigration + retained verifyMagic Codec roundtrip (R06); actual entity save/load NOT_RUN"
+  },
+  {
+    "id": "OLD-174",
+    "line": 273,
+    "source": "check(!flight.advance(117.5).exhausted(), \"Blade still flies before time-derived limit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-175",
+    "line": 274,
+    "source": "check(flight.advance(117.75).exhausted(), \"Blade expires at its time-derived range\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-176",
+    "line": 275,
+    "source": "check(new FlameSliceFlight(Double.NaN).exhausted(), \"Invalid saved range fails closed\");",
+    "status": "RETAINED",
+    "target": "FlameSliceRulesTest + verifyFlameSliceMigration + retained verifyMagic Codec roundtrip (R06); actual entity save/load NOT_RUN"
+  },
+  {
+    "id": "OLD-177",
+    "line": 280,
+    "source": "check(Double.isFinite(volume.contact(edge, origin, 0.75)), \"Volume edge hits a creature even when center ray misses\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-178",
+    "line": 281,
+    "source": "check(Math.abs(volume.contact(edge, origin, 0.75) - 0.1) < 1.0E-6, \"One-block thickness participates in earliest collision\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-179",
+    "line": 282,
+    "source": "check(!Double.isFinite(volume.contact(new net.minecraft.world.phys.AABB(1.6, 0, 0.6, 1.8, 2, 0.9), origin, 0.75)), \"Creature wholly outside width does not trigger\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-180",
+    "line": 283,
+    "source": "check(!Double.isFinite(volume.contact(new net.minecraft.world.phys.AABB(-0.1, 1.6, 0.6, 0.1, 1.8, 0.9), origin, 0.75)), \"Creature above volume does not trigger\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-181",
+    "line": 284,
+    "source": "check(volume.intersects(new net.minecraft.world.phys.AABB(-0.1, 0, -0.1, 0.1, 2, 0.1), origin), \"Creature initially inside volume is detected\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-182",
+    "line": 286,
+    "source": "check(Double.isFinite(volume.contact(distant, origin, 6)), \"Continuous sweep cannot skip creature between tick endpoints\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-183",
+    "line": 288,
+    "source": "check(volume.intersects(edge, hit), \"Creature triggering collision remains in impact volume\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-184",
+    "line": 289,
+    "source": "check(volume.intersects(new net.minecraft.world.phys.AABB(-1.4, 0, 0.6, -1.1, 2, 0.9), hit), \"Second creature in opposite side is included in same area hit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-185",
+    "line": 290,
+    "source": "check(!volume.intersects(distant, hit), \"Creature farther down flight path is not part of first hit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-186",
+    "line": 292,
+    "source": "check(volume.fullyBlocked(origin, List.of(full)), \"Exact three-by-one coverage fully blocks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-187",
+    "line": 293,
+    "source": "check(!volume.fullyBlocked(origin, List.of()), \"Air does not block\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-188",
+    "line": 295,
+    "source": "check(!volume.fullyBlocked(origin, List.of(singleBlock)), \"One-block-wide obstacle cannot stop whole blade\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-189",
+    "line": 297,
+    "source": "check(!volume.fullyBlocked(origin, List.of(halfSlab)), \"Half-height obstruction allows passage\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-190",
+    "line": 300,
+    "source": "check(volume.fullyBlocked(origin, List.of(left, right)), \"Union of neighboring blocks completely stops blade\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-191",
+    "line": 302,
+    "source": "check(!volume.fullyBlocked(origin, List.of(left, gapped)), \"Small real opening must not be treated as full coverage\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-192",
+    "line": 303,
+    "source": "check(volume.fullyBlocked(origin, List.of(full, full)), \"Overlapping blockers do not create coverage artifacts\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-193",
+    "line": 304,
+    "source": "check(!volume.fullyBlocked(origin, List.of(new net.minecraft.world.phys.AABB(-2, 0, 1, 2, 2, 2))), \"Block outside current cross-section does not block\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-194",
+    "line": 306,
+    "source": "check(volume.blockingDistance(origin, 0.75, List.of(wall)) < 0.3, \"Full wall stops within upcoming movement\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-195",
+    "line": 307,
+    "source": "check(!Double.isFinite(volume.blockingDistance(origin, 0.75, List.of(singleBlock))), \"Partial block is passed across entire tick\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-196",
+    "line": 310,
+    "source": "check(!diagonalVolume.intersects(new net.minecraft.world.phys.AABB(1.2, 0, 1.2, 1.3, 2, 1.3), origin), \"Rotated volume excludes conservative bounding-box corners\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-197",
+    "line": 311,
+    "source": "check(diagonalVolume.fullyBlocked(origin, List.of(new net.minecraft.world.phys.AABB(-3, 0, -3, 3, 2, 3))), \"Diagonal volume can be completely blocked\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-198",
+    "line": 313,
+    "source": "check(Double.isFinite(upwards.contact(new net.minecraft.world.phys.AABB(-0.2, 2, -0.2, 0.2, 3, 0.2), origin, 1)), \"Looking upward uses vertical swept volume\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-199",
+    "line": 314,
+    "source": "check(upwards.fullyBlocked(new net.minecraft.world.phys.Vec3(0, 2, 0), List.of(new net.minecraft.world.phys.AABB(-2, 2, -1, 2, 3, 1))), \"Ceiling can block full upward cross-section\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-200",
+    "line": 315,
+    "source": "check(new MagicAim(0, 0).direction().distanceTo(new net.minecraft.world.phys.Vec3(0, 0, 1)) < 1.0E-5, \"Aim faces south at yaw zero\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-201",
+    "line": 316,
+    "source": "check(new MagicAim(90, 0).direction().distanceTo(new net.minecraft.world.phys.Vec3(-1, 0, 0)) < 1.0E-5, \"Mouse right/left yaw controls flight\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-202",
+    "line": 317,
+    "source": "check(new MagicAim(0, -90).direction().y > 0.99999, \"Looking up sends blade upwards\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-203",
+    "line": 318,
+    "source": "check(new MagicAim(0, 90).direction().y < -0.99999, \"Looking down sends blade downwards\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-204",
+    "line": 319,
+    "source": "check(new MagicAim(45, -30).direction().x < 0 && new MagicAim(45, -30).direction().y > 0, \"Diagonal upward aim preserves both axes\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-205",
+    "line": 320,
+    "source": "check(new MagicAim(1080, 0).direction().distanceTo(new MagicAim(0, 0).direction()) < 1.0E-5, \"Repeated mouse turns normalize yaw\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-206",
+    "line": 321,
+    "source": "check(!new MagicAim(Float.NaN, 0).valid() && !new MagicAim(0, Float.POSITIVE_INFINITY).valid(), \"Reject non-finite network angles\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-207",
+    "line": 322,
+    "source": "check(!new MagicAim(0, 91).valid() && !new MagicAim(0, -91).valid(), \"Reject out-of-range network pitch before payment\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-208",
+    "line": 323,
+    "source": "check(SpellDefinition.ALL.size()==102 && MagicBooks.LESSONS.size()==39,\"Introductory primer retains its thirty-nine lessons\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-209",
+    "line": 324,
+    "source": "check(MagicBooks.LESSONS.stream().distinct().count()==39,\"No duplicated textbook lessons\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-210",
+    "line": 325,
+    "source": "check(MagicBooks.ZENITH_LESSONS.equals(SpellDefinition.ALL.stream().map(SpellDefinition::id).toList()),\"Zenith book includes every registered spell exactly once in catalog order\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-211",
+    "line": 328,
+    "source": "check(zenithStudent.learned().size()==SpellDefinition.ALL.size(),\"Zenith buttons can learn all spells without prerequisites or chant lessons\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-212",
+    "line": 329,
+    "source": "check(zenithStudent.loaded().size()==10,\"Learning every Zenith lesson still respects the ten-slot wheel limit\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-213",
+    "line": 331,
+    "source": "check(MagicBooks.lessons(MagicCategory.of(definition),definition.rank()).contains(definition.id()),\"Every registered spell has an authorized categorized textbook\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-214",
+    "line": 333,
+    "source": "check(definition.rank()==2,\"New spells retain intermediate status durations\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-215",
+    "line": 334,
+    "source": "check(!MagicState.initial(100).learn(definition.id()).learned().contains(definition.id()),\"New spell cannot bypass its learning prerequisites\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-216",
+    "line": 337,
+    "source": "check(SpellDefinition.EX_HEALING.healingAmount(17,20)==3 && SpellDefinition.EX_HEALING.healingAmount(20,20)==0,\"Intermediate healing clamps and rejects full health\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-217",
+    "line": 338,
+    "source": "check(SpellDefinition.EX_HEALING.healingAmount(4,20)==8,\"Intermediate healing restores eight points\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-218",
+    "line": 344,
+    "source": "check(debt>=-19 && debt<=0,\"Fractional channel debt stays inside persistent codec range\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-219",
+    "line": 345,
+    "source": "check(paidChannel*20+debt==tick*rate,\"Every channel tick is paid exactly, including fractional carry\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-220",
+    "line": 346,
+    "source": "check(paidChannel==(tick*rate+19)/20,\"Restart-safe prepayment never gives free fractional ticks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-221",
+    "line": 348,
+    "source": "check(paidChannel==rate*50,\"Channel rate remains exact over fifty seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-222",
+    "line": 355,
+    "source": "check(switchingCost==(units+19)/20,\"Rapid channel switching preserves prepaid fractions\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-223",
+    "line": 357,
+    "source": "check(movement.lengthSqr()==0,\"Wind bind prevents all displacement\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-224",
+    "line": 358,
+    "source": "check(PhaseTwoRules.boundMovement(new net.minecraft.world.phys.Vec3(0,0.42,0)).y==0,\"Wind bind prevents jumping\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-225",
+    "line": 359,
+    "source": "check(PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16),south,16),\"Flame reaches sixteen blocks\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-226",
+    "line": 360,
+    "source": "check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16.1),south,16),\"Flame cannot exceed range\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-227",
+    "line": 361,
+    "source": "check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(3,0,1),south,16),\"Flame excludes targets outside its half angle\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-228",
+    "line": 362,
+    "source": "check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,-1),south,16),\"Flame cannot hit behind the player\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-229",
+    "line": 364,
+    "source": "check(pulses==5&&!PhaseTwoRules.bindPulse(100),\"Wind bind delays damage and pulses five times\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-230",
+    "line": 365,
+    "source": "check(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),6).y>0,\"Launch imparts upward velocity\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-231",
+    "line": 366,
+    "source": "for(double height:new double[]{0.5,3,6})check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),height).y)-height)<1.0E-7,\"Vertical launch reaches requested height under vanilla gravity\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-232",
+    "line": 368,
+    "source": "check(!angledShield.intersects(new net.minecraft.world.phys.AABB(0.8,0,0.8,0.9,0.1,0.9),net.minecraft.world.phys.Vec3.ZERO),\"Angled shield does not block empty bounding-box corners\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-233",
+    "line": 369,
+    "source": "check(Double.isFinite(angledShield.contact(new net.minecraft.world.phys.AABB(-2,0,-2,-1.9,0.1,-1.9),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(-1,0,-1).normalize(),4)),\"Angled shield detects incoming movement\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-234",
+    "line": 371,
+    "source": "check(Double.isFinite(ceilingShield.contact(new net.minecraft.world.phys.AABB(0,2,0,0.1,2.1,0.1),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,1,0),3)),\"Vertical shield supports full pitch collision\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-235",
+    "line": 374,
+    "source": "check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,-0.5),plane,0.2).lengthSqr()==0,\"Overlapping creature cannot pass through shield\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-236",
+    "line": 375,
+    "source": "check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,0.5),plane,-0.2).lengthSqr()==0,\"Shield blocks crossing from either side\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-237",
+    "line": 376,
+    "source": "check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,0.5),plane,0.2).z==0.5,\"Overlapping creature can escape away from shield\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-238",
+    "line": 377,
+    "source": "check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,-0.5),plane,0.2).x==0.2,\"Shield retains tangent movement\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-239",
+    "line": 378,
+    "source": "check(SpellDefinition.WIND_BLAST.cooldownTicks()==10,\"Intermediate recovery is 0.5 seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-240",
+    "line": 379,
+    "source": "check(SpellDefinition.EARTH_LANCE.cooldownTicks()==10&&SpellDefinition.ICICLE_BREAK.cooldownTicks()==10,\"Earth lance and ice shot cooldowns are 0.5 seconds\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-241",
+    "line": 382,
+    "source": "check(PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,63,-3),casterFeet),\"Earth lance builds dirt directly under caster\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-242",
+    "line": 383,
+    "source": "check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(6,63,-3),casterFeet),\"Earth lance does not build dirt on nearby terrain\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-243",
+    "line": 384,
+    "source": "check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,60,-3),casterFeet),\"Earth lance does not build dirt far below caster\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-244",
+    "line": 385,
+    "source": "check(PhaseTwoRules.TNT_POWER==4F,\"Explosion uses the vanilla single-TNT power\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-245",
+    "line": 391,
+    "source": "check(definition.rank() == rank && MagicCategory.of(definition) == category, \"Each course has the correct category and rank\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-246",
+    "line": 394,
+    "source": "check(HolyMagic.inColumn(new net.minecraft.world.phys.Vec3(2, 0, 15), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), \"Holy ray includes cylinder boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-247",
+    "line": 395,
+    "source": "check(!HolyMagic.inColumn(new net.minecraft.world.phys.Vec3(2.01, 0, 15), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), \"Holy ray excludes outside cylinder\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-248",
+    "line": 396,
+    "source": "check(!HolyMagic.inColumn(new net.minecraft.world.phys.Vec3(0, 0, 15.01), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), \"Holy ray stops at wall\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-249",
+    "line": 397,
+    "source": "check(SpellDefinition.GOD_PURGE.castingProfile().requiresCircle() && SpellDefinition.GOD_PURGE.manaCost() == 1800, \"God Purge uses the divine circle and its own mana charge\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-250",
+    "line": 398,
+    "source": "check(DivineCircle.withinRange(new net.minecraft.world.phys.Vec3(3.5, 65, .5), new net.minecraft.core.BlockPos(0,64,0)), \"Circle accepts three-block boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-251",
+    "line": 399,
+    "source": "check(!DivineCircle.withinRange(new net.minecraft.world.phys.Vec3(3.51, 65, .5), new net.minecraft.core.BlockPos(0,64,0)), \"Circle rejects movement outside boundary\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-252",
+    "line": 401,
+    "source": "check(runes == 8, \"Circle has eight rune positions\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-253",
+    "line": 402,
+    "source": "check(ExpansionFields.wallContains(new net.minecraft.world.phys.Vec3(8,8,2),new net.minecraft.world.phys.Vec3(0,0,1)) && !ExpansionFields.wallContains(new net.minecraft.world.phys.Vec3(8.01,8,2),new net.minecraft.world.phys.Vec3(0,0,1)), \"Fire wall is sixteen by eight by four\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-254",
+    "line": 403,
+    "source": "check(ExpansionFields.damagePulse(\"apocalypse_flame\",59)==-1 && ExpansionFields.damagePulse(\"apocalypse_flame\",60)==0 && ExpansionFields.damagePulse(\"apocalypse_flame\",360)==15, \"Apocalypse warns three seconds then has fifteen residual pulses\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-255",
+    "line": 404,
+    "source": "check(ExpansionFields.damagePulse(\"terra_fall\",19)==-1 && ExpansionFields.damagePulse(\"terra_fall\",20)==0 && ExpansionFields.damagePulse(\"terra_fall\",60)==1 && ExpansionFields.damagePulse(\"terra_fall\",100)==2, \"Three falling-earth waves each have a preceding warning\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-256",
+    "line": 405,
+    "source": "check(OceanFreeze.radius(0)==0 && OceanFreeze.radius(20)==8 && OceanFreeze.radius(160)==64 && OceanFreeze.radius(99999)==64, \"Ocean freezes at eight blocks per second with a bounded radius\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-257",
+    "line": 406,
+    "source": "check(DivineJudge.pulseIndex(0) == 0 && DivineJudge.pulseIndex(19) == 0 && DivineJudge.pulseIndex(20) == 1 && DivineJudge.pulseIndex(40) == 2 && DivineJudge.pulseIndex(60) == -1, \"Judgment has three one-second pulse windows\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-258",
+    "line": 407,
+    "source": "check(taught == 47, \"Beginner and intermediate catalogs include legacy spells, earth wall and blast\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-259",
+    "line": 408,
+    "source": "for (int rank = 1; rank <= 7; rank++) check(CastingProfile.of(rank, CastingProfile.Mode.FULL).preparationTicks() > 0, \"All full-chant tiers configured\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-260",
+    "line": 409,
+    "source": "check(!CastingProfile.unlocked(CastingProfile.Mode.SILENT) && !CastingProfile.unlocked(CastingProfile.Mode.SHORTENED), \"Future modes remain locked\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-261",
+    "line": 410,
+    "source": "check(CastingProfile.of(7, CastingProfile.Mode.FULL).requiresCircle(), \"Divine tier requires circle\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-262",
+    "line": 417,
+    "source": "check(lesson.index() == i && !lesson.finished(), \"Wrong guesses preserve progress and never end the lesson\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-263",
+    "line": 419,
+    "source": "check(lesson.index() == i + 1, \"Correct next letter lights exactly one symbol\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-264",
+    "line": 421,
+    "source": "check(lesson.passed(), \"All letters in sequence complete learning\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-265",
+    "line": 423,
+    "source": "check(lesson.index() == count, \"Completed lesson is stable\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-266",
+    "line": 429,
+    "source": "check(special.officialRank() == 0 && special.rank() == rank, \"Unknown official grade retains timing\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-267",
+    "line": 430,
+    "source": "check(special.cooldownTicks() == profile.recoveryTicks(), \"Explicit timing controls cooldown\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-268",
+    "line": 434,
+    "source": "progress.press(1); check(progress.currentIndex() == 0, \"Wrong input preserves progress\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-269",
+    "line": 436,
+    "source": "check(progress.currentIndex() == 0, \"Incomplete section restarts\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-270",
+    "line": 438,
+    "source": "check(progress.completedSections() == 1, \"Completed section checkpoint\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  },
+  {
+    "id": "OLD-271",
+    "line": 441,
+    "source": "check(resumed.finished(), \"Resume remaining sections\");",
+    "status": "RETAINED",
+    "target": "R03/R04 or corresponding spell task; old harness remains active"
+  }
+]

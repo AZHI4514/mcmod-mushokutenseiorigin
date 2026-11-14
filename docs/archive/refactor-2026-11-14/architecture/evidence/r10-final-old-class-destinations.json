@@ -1,0 +1,250 @@
+[
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/ExpansionVfx.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/ExtendedSpellMotion.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/IntermediateRenderer.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/MagicScreens.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/PhaseTwoRenderer.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/client/magic/SpellAtmosphereProfile.java",
+    "sameTypeMovedTo": [
+      "magic-core/src/main/java/com/example/examplemod/magic/domain/visual/SpellAtmosphereProfile.java"
+    ],
+    "status": "moved"
+  },
+  {
+    "old": "src/client/java/com/example/examplemod/mixin/ExampleMixin.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/CastingProfile.java",
+    "sameTypeMovedTo": [
+      "magic-core/src/main/java/com/example/examplemod/magic/CastingProfile.java"
+    ],
+    "status": "moved"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/CommunicationMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/CoreFields.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/DivineJudge.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/EarthFortress.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/EarthHedgehog.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/EarthWall.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ExpansionBarriers.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ExpansionFields.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ExpansionParticles.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ExpansionTerrain.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ExpansionTerrainLeases.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/HeatHand.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/HolyMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/IllusionMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/IntermediateProjectile.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/IntermediateRules.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/IntermediateSpells.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/LocalMagicRain.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/LocalMagicStorm.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/MagicAreas.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/MagicCategory.java",
+    "sameTypeMovedTo": [
+      "magic-core/src/main/java/com/example/examplemod/magic/MagicCategory.java"
+    ],
+    "status": "moved"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/MagicPreparation.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/MagicWallVolume.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ModeFields.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/OceanFreeze.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/PhaseTwoEntity.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/PhaseTwoRules.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/PhaseTwoRuntime.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/PhaseTwoSpells.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SacredNova.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SmokeFields.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SoundMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SpellDefinition.java",
+    "sameTypeMovedTo": [
+      "magic-core/src/main/java/com/example/examplemod/magic/SpellDefinition.java"
+    ],
+    "status": "moved"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SummonMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/SupportMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/TeleportMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ThermalGust.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/ThunderMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/UtilityMagic.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  },
+  {
+    "old": "src/main/java/com/example/examplemod/magic/WindFields.java",
+    "sameTypeMovedTo": [],
+    "status": "removed/replaced; see final report and mapping evidence"
+  }
+]

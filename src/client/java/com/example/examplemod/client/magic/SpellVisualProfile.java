@@ -5,10 +5,12 @@ import com.example.examplemod.magic.SpellDefinition;
 /** Cosmetic classification must not infer projectiles from obsolete speed fields. */
 final class SpellVisualProfile {
 	static boolean condenses(SpellDefinition spell) {
-		return spell.motion() == SpellDefinition.Motion.BALLISTIC || spell.motion() == SpellDefinition.Motion.CONSTANT;
+		return spell.execution()==SpellDefinition.Execution.THUNDER || spell.motion() == SpellDefinition.Motion.BALLISTIC || spell.motion() == SpellDefinition.Motion.CONSTANT;
 	}
 	static float[] handSize(String id) {
 		return switch (id) {
+			case "tornado_impact" -> new float[]{.35F,.35F,.7F};
+			case "exodus_flame" -> new float[]{.55F,.55F,.55F};
 			case "water_ball", "fireball" -> new float[]{.32F, .32F, .32F};
 			case "ice_smash" -> new float[]{.38F, .38F, .38F};
 			case "rock_bullet" -> new float[]{.3F, .3F, .3F};

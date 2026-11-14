@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.SonicBoomGeometryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T12:11:51.227Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="wideEdgeHitsButOutsideWidthAndHeightDoNot()" classname="com.example.examplemod.magic.SonicBoomGeometryTest" time="0.001"/>
+  <testcase name="verticalSweepRetainsThinDepthAndFullWidth()" classname="com.example.examplemod.magic.SonicBoomGeometryTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

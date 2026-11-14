@@ -1,0 +1,318 @@
+{
+  "src/client/java/com/example/examplemod/client/magic/ExpansionVfx.java": [
+    "textures/effect/expansion/"
+  ],
+  "src/client/java/com/example/examplemod/client/magic/MagicBookScreen.java": [
+    "textures/gui/magic_textbook.png"
+  ],
+  "src/client/java/com/example/examplemod/client/magic/MagicClient.java": [
+    "magic",
+    "magic_hud"
+  ],
+  "src/client/java/com/example/examplemod/client/magic/ReferenceSpellModels.java": [
+    "textures/effect/reference/"
+  ],
+  "src/client/java/com/example/examplemod/client/render/BlockbenchArmorRenderer.java": [
+    "batches",
+    "format_version",
+    "quads",
+    "texture"
+  ],
+  "src/client/java/com/example/examplemod/client/render/ModArmorRenderers.java": [
+    "models/equipment/roxy_pantsu.json"
+  ],
+  "src/main/java/com/example/examplemod/item/ModItems.java": [
+    "mushokutenseiorigin"
+  ],
+  "src/main/java/com/example/examplemod/item/RoxyPantsuItem.java": [
+    "roxy_pantsu",
+    "roxy_pantsu_armor"
+  ],
+  "src/main/java/com/example/examplemod/magic/AbsoluteZero.java": [
+    "ZeroExpiry",
+    "ZeroNext",
+    "ZeroReleased",
+    "ZeroStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/ChantPayload.java": [
+    "chant_lesson"
+  ],
+  "src/main/java/com/example/examplemod/magic/CommunicationMagic.java": [
+    "communication_bonds",
+    "communication_muted"
+  ],
+  "src/main/java/com/example/examplemod/magic/CoreFields.java": [
+    "CoreCapacity",
+    "CoreDry",
+    "CoreExpiry",
+    "CoreIDs",
+    "CoreNext",
+    "CoreTarget",
+    "aura_end",
+    "aura_next",
+    "aura_ready",
+    "dragon_aura_knockback",
+    "sealable"
+  ],
+  "src/main/java/com/example/examplemod/magic/DivineJudge.java": [
+    "JudgmentCount",
+    "JudgmentStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/EarthHedgehog.java": [
+    "SpikesBases",
+    "SpikesHits",
+    "SpikesProcessed",
+    "SpikesStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/ExpansionBarriers.java": [
+    "BarrierCapacity",
+    "BarrierExpiry",
+    "BarrierMagical",
+    "BarrierMode",
+    "BarrierNormal",
+    "BarrierPhysical",
+    "BarrierTarget",
+    "magic_holy",
+    "magic_thunder"
+  ],
+  "src/main/java/com/example/examplemod/magic/ExpansionFields.java": [
+    "FieldContacts",
+    "FieldDirection",
+    "FieldExpiry",
+    "FieldOrigin",
+    "FieldPulse",
+    "FieldStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/ExpansionTerrainLeases.java": [
+    "expansion_terrain",
+    "expected",
+    "expiry",
+    "leases",
+    "old",
+    "owner",
+    "pending",
+    "placed",
+    "pos"
+  ],
+  "src/main/java/com/example/examplemod/magic/FlameSliceEntity.java": [
+    "FlameFlight",
+    "MagicAge"
+  ],
+  "src/main/java/com/example/examplemod/magic/FlameSliceFlight.java": [
+    "travelled"
+  ],
+  "src/main/java/com/example/examplemod/magic/FlashOver.java": [
+    "FlashExpiry",
+    "FlashNext",
+    "FlashStart",
+    "Flashed"
+  ],
+  "src/main/java/com/example/examplemod/magic/HolyMagic.java": [
+    "holy_targets",
+    "magic_holy"
+  ],
+  "src/main/java/com/example/examplemod/magic/IllusionMagic.java": [
+    "IllusionEnd",
+    "IllusionNext"
+  ],
+  "src/main/java/com/example/examplemod/magic/Inferno.java": [
+    "InfernoExpiry",
+    "InfernoNext",
+    "InfernoStart",
+    "Infernoed"
+  ],
+  "src/main/java/com/example/examplemod/magic/IntermediateProjectile.java": [
+    "ExpansionBroken",
+    "MagicAge",
+    "PaidMana"
+  ],
+  "src/main/java/com/example/examplemod/magic/LightLeases.java": [
+    "pos",
+    "summon_lights",
+    "users"
+  ],
+  "src/main/java/com/example/examplemod/magic/LocalMagicRain.java": [
+    "RainExpiry"
+  ],
+  "src/main/java/com/example/examplemod/magic/LocalMagicStorm.java": [
+    "StormExpiry",
+    "StormNext",
+    "StormVictims"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicActionPayload.java": [
+    "magic_action"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicAreaEntity.java": [
+    "CoreSpell",
+    "ExpansionExpiry",
+    "ExpansionPulse",
+    "ExpansionSpell",
+    "Illusion"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicAreas.java": [
+    "magic_shield"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicAttachments.java": [
+    "arc_bound_visual",
+    "aura_active",
+    "cast_color",
+    "cast_ticks",
+    "charge_budget",
+    "charge_mana",
+    "control_end",
+    "counter_until",
+    "field_hits",
+    "fog_color",
+    "fog_left",
+    "fog_linger",
+    "fog_range",
+    "hypnosis_active",
+    "hypnosis_until",
+    "lesson_sections",
+    "magic_state",
+    "prepare_left",
+    "prepare_total",
+    "recovery_total",
+    "spike_bases",
+    "spikes_started",
+    "visual_spell",
+    "wind_bound_visual"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicConfig.java": [
+    "expansionPermanentTerrain",
+    "maximumMana",
+    "teleportDimensionWhitelist"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicCores.java": [
+    "core_energy",
+    "core_owner"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicDamage.java": [
+    "magic_thunder"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicEffects.java": [
+    "wind_bound"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicFlight.java": [
+    "MagicVictims"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicSpikes.java": [
+    "expiry",
+    "magic_spikes",
+    "pos",
+    "state"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicState.java": [
+    "cooldown",
+    "learned",
+    "loaded",
+    "mana",
+    "maximum",
+    "online_ticks",
+    "selected"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicSystem.java": [
+    "flame_slice",
+    "magic_area",
+    "phase_two_spell"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicTerrain.java": [
+    "ExpiresAt",
+    "expansion_dirt",
+    "expansion_ice",
+    "magic_ice_expiry",
+    "scorched_surface",
+    "temporary_magic_dirt",
+    "temporary_magic_ice"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagicWaterSources.java": [
+    "expiry",
+    "magic_water_sources",
+    "pos"
+  ],
+  "src/main/java/com/example/examplemod/magic/MagmaGush.java": [
+    "MagmaProcessed",
+    "MagmaStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/ModeFields.java": [
+    "ModeChoice",
+    "ModeDirection",
+    "ModeExpiry",
+    "ModeExploded",
+    "ModeNext",
+    "ModeStart",
+    "NuclearExtra",
+    "nuclear_extra",
+    "nuclear_ready",
+    "spell_modes"
+  ],
+  "src/main/java/com/example/examplemod/magic/OceanFreeze.java": [
+    "OceanBlocks",
+    "OceanHit",
+    "OceanScanned",
+    "OceanStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/PhaseTwoEntity.java": [
+    "AimPitch",
+    "AimYaw",
+    "MagicAge",
+    "Remaining",
+    "Spell"
+  ],
+  "src/main/java/com/example/examplemod/magic/PhaseTwoRuntime.java": [
+    "channel_debt"
+  ],
+  "src/main/java/com/example/examplemod/magic/PhaseTwoSpells.java": [
+    "wind_bind_immune"
+  ],
+  "src/main/java/com/example/examplemod/magic/Quagmire.java": [
+    "MudExpiry"
+  ],
+  "src/main/java/com/example/examplemod/magic/SacredNova.java": [
+    "NovaExpiry"
+  ],
+  "src/main/java/com/example/examplemod/magic/SmokeFields.java": [
+    "SandFlight",
+    "SandVelocity",
+    "SmokeExpiry",
+    "SmokeNext",
+    "SmokeStart"
+  ],
+  "src/main/java/com/example/examplemod/magic/SpellVisualPayload.java": [
+    "spell_visual"
+  ],
+  "src/main/java/com/example/examplemod/magic/SummonMagic.java": [
+    "light_debt",
+    "magic_corpses",
+    "necro_paid_until",
+    "spirit_summon",
+    "summon_command",
+    "summon_expiry",
+    "summon_kind",
+    "summon_next",
+    "summon_owner",
+    "summon_slot_expiry",
+    "summon_slots",
+    "summon_target"
+  ],
+  "src/main/java/com/example/examplemod/magic/SupportMagic.java": [
+    "support_consent"
+  ],
+  "src/main/java/com/example/examplemod/magic/TeleportMagic.java": [
+    "dimension",
+    "name",
+    "pos",
+    "teleport_circles",
+    "teleport_destination"
+  ],
+  "src/main/java/com/example/examplemod/magic/WaterBallEntity.java": [
+    "MagicAge",
+    "MagicDistance"
+  ],
+  "src/main/java/com/example/examplemod/magic/WindFields.java": [
+    "WindDirection",
+    "WindExpiry",
+    "WindNext",
+    "WindStart"
+  ]
+}

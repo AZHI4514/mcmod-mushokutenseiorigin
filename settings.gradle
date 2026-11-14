@@ -21,3 +21,5 @@ pluginManagement {
 }
 
 rootProject.name = 'project-mc-mod-mushoku-tensei'
+
+include 'magic-core'

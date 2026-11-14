@@ -1,0 +1,2194 @@
+[
+  {
+    "id": "water_ball",
+    "stage": "R05-water_ball",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_ball/WaterBallSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterBallModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WATER_BALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_BALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WATER_BALL,castingAim"
+  },
+  {
+    "id": "fireball",
+    "stage": "R06-fireball",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/fireball/FireballImpactPolicy.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/fireball/FireballSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FireballModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.FIREBALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FIREBALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.FIREBALL,castingAim"
+  },
+  {
+    "id": "wind_ball",
+    "stage": "R06-wind_ball",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_ball/WindBallSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBallModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WIND_BALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WIND_BALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WIND_BALL,castingAim"
+  },
+  {
+    "id": "rock_bullet",
+    "stage": "R06-rock_bullet",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/rock_bullet/RockBulletSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/RockBulletModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.ROCK_BULLET.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ROCK_BULLET.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ROCK_BULLET,castingAim"
+  },
+  {
+    "id": "water_arrow",
+    "stage": "R06-water_arrow",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_arrow/WaterArrowImpactPolicy.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_arrow/WaterArrowSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterArrowModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WATER_ARROW.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_ARROW.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WATER_ARROW,castingAim"
+  },
+  {
+    "id": "ice_smash",
+    "stage": "R06-ice_smash",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_smash/IceSmashImpactPolicy.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_smash/IceSmashSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceSmashModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.ICE_SMASH.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICE_SMASH.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ICE_SMASH,castingAim"
+  },
+  {
+    "id": "flame_slice",
+    "stage": "R06-flame_slice",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_slice/FlameSliceFlightState.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_slice/FlameSliceRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_slice/FlameSliceSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlameSliceModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.FLAME_SLICE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FLAME_SLICE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.FLAME_SLICE,castingAim"
+  },
+  {
+    "id": "healing",
+    "stage": "R08-healing",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HealingSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/ex_healing/ExHealingEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/ex_healing/ExHealingRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/healing/HealingEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/healing/HealingRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingEffectModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingReleaseModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingRulesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HealingDetoxModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HealingAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.HEALING.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.HEALING.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new HealingAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "water_shield",
+    "stage": "R07-water_shield",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_shield/WaterShieldAbsorb.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_shield/WaterShieldContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_shield/WaterShieldRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_shield/WaterShieldSelection.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterShieldModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterShieldSelectionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "WaterShieldAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WATER_SHIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_SHIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new WaterShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "ice_blade",
+    "stage": "R06-ice_blade",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_blade/IceBladeImpactPolicy.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_blade/IceBladeSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceBladeModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.ICE_BLADE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICE_BLADE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ICE_BLADE,castingAim"
+  },
+  {
+    "id": "heat_hand",
+    "stage": "R07-heat_hand",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/heat_hand/HeatHandMelt.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/heat_hand/HeatHandRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HeatHandModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HeatHandAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "HeatHandAdapter.canUse(player, aim)",
+    "paidRelease": "new HeatHandAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "heat_island",
+    "stage": "R07-heat_island",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/heat_island/HeatIslandRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HeatIslandModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HeatIslandAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.HEAT_ISLAND.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.HEAT_ISLAND.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new HeatIslandAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "burning_place",
+    "stage": "R07-burning_place",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/burning_place/BurningPlaceContact.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BurningPlaceModuleTest.java"
+    ],
+    "worldAdapters": [
+      "BurningPlaceAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.BURNING_PLACE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BURNING_PLACE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BurningPlaceAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "detoxification",
+    "stage": "R08-detoxification",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HealingSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/detox/detoxification/DetoxificationEffect.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/DetoxificationCommandModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DetoxificationAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "player.hasEffect(net.minecraft.world.effect.MobEffects.POISON)",
+    "paidRelease": "new DetoxificationAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "magic_shield",
+    "stage": "R07-magic_shield",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/magic_shield/MagicShieldDamageGate.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/MagicShieldModuleTest.java"
+    ],
+    "worldAdapters": [
+      "MagicShieldAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.MAGIC_SHIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.MAGIC_SHIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new MagicShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "water_cannon",
+    "stage": "R06-water_cannon",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_cannon/WaterCannonRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_cannon/WaterCannonSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlightPoliciesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterCannonModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WATER_CANNON.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_CANNON.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.WATER_CANNON,castingAim,10"
+  },
+  {
+    "id": "water_splash",
+    "stage": "R06-water_splash",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_splash/WaterSplashRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/water_splash/WaterSplashSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterSplashModuleTest.java"
+    ],
+    "worldAdapters": [
+      "WaterSplashAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.WATER_SPLASH.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_SPLASH.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new WaterSplashAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "icicle_field",
+    "stage": "R07-icicle_field",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/icicle_field/IcicleFieldRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IcicleFieldModuleTest.java"
+    ],
+    "worldAdapters": [
+      "IcicleFieldAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.ICICLE_FIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICICLE_FIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new IcicleFieldAdapter(player).cast(castingAim,10"
+  },
+  {
+    "id": "ex_flame",
+    "stage": "R06-ex_flame",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/ex_flame/ExFlameRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/ex_flame/ExFlameSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExFlameModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlightPoliciesModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.EX_FLAME.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EX_FLAME.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.EX_FLAME,castingAim,10"
+  },
+  {
+    "id": "sonic_boom",
+    "stage": "R06-sonic_boom",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/sonic_boom/SonicBoomSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SonicBoomModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.SONIC_BOOM.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.SONIC_BOOM.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.SONIC_BOOM,castingAim,10"
+  },
+  {
+    "id": "stone_cannon",
+    "stage": "R06-stone_cannon",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/stone_cannon/ChargeEligibility.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/stone_cannon/ChargeSession.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/stone_cannon/ChargeStep.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/stone_cannon/StoneCannonRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/stone_cannon/StoneCannonSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ChargePaymentModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlightPoliciesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SavedProjectileCountersModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.STONE_CANNON.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.STONE_CANNON.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.STONE_CANNON,castingAim,10"
+  },
+  {
+    "id": "ice_pillar",
+    "stage": "R06-ice_pillar",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_pillar/IcePillarRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_pillar/IcePillarSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IcePillarModuleTest.java"
+    ],
+    "worldAdapters": [
+      "IcePillarAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new IcePillarAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "waterfall",
+    "stage": "R06-waterfall",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/waterfall/ConnectedWater.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/waterfall/WaterfallSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WaterfallChannelModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.WATERFALL,castingAim"
+  },
+  {
+    "id": "ice_lance",
+    "stage": "R06-ice_lance",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_lance/IceLanceHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_lance/IceLanceRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_lance/IceLanceSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceLanceHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceLanceModuleTest.java"
+    ],
+    "worldAdapters": [
+      "IceLanceAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new IceLanceAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "icicle_break",
+    "stage": "R06-icicle_break",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/icicle_break/IcicleBreakSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IcicleBreakModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.ICICLE_BREAK,castingAim"
+  },
+  {
+    "id": "icicle_edge",
+    "stage": "R06-icicle_edge",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/icicle_edge/IcicleEdgeSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IcicleEdgeModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.ICICLE_EDGE,castingAim"
+  },
+  {
+    "id": "flood_flush",
+    "stage": "R06-flood_flush",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/flood_flush/FloodFlushSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FloodFlushModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.FLOOD_FLUSH,castingAim"
+  },
+  {
+    "id": "ice_fortress",
+    "stage": "R06-ice_fortress",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_fortress/IceFortressPlacement.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ice_fortress/IceFortressSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceFortressModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/IceFortressPlacementModuleTest.java"
+    ],
+    "worldAdapters": [
+      "IceFortressAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()&&(IceFortressAdapter.canCast(player,aim))",
+    "paidRelease": "new IceFortressAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "explosion",
+    "stage": "R06-explosion",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/explosion/ExplosionImpact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/explosion/ExplosionSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExplosionImpactModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExplosionModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.EXPLOSION,castingAim"
+  },
+  {
+    "id": "flame_pillar",
+    "stage": "R06-flame_pillar",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_pillar/FlamePillarBurn.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_pillar/FlamePillarFirePlacement.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_pillar/FlamePillarIgnition.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_pillar/FlamePillarSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlamePillarBurnModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlamePillarFireModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlamePillarModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FlamePillarAdapter",
+      "SpellRaycastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()&&(SpellRaycastAdapter.trace(player,aim,SpellDefinition.FLAME_PILLAR.range())!=null)",
+    "paidRelease": "new FlamePillarAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "flamethrower",
+    "stage": "R06-flamethrower",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flamethrower/FlamethrowerHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flamethrower/FlamethrowerSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ContactCooldownsModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlamethrowerChannelModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlamethrowerHitModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.FLAMETHROWER,castingAim"
+  },
+  {
+    "id": "wind_slice",
+    "stage": "R06-wind_slice",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_slice/WindSliceHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_slice/WindSliceSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindSliceHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindSliceModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "EffectCarrierSpawner.launch(player,SpellDefinition.WIND_SLICE,castingAim"
+  },
+  {
+    "id": "wind_bind",
+    "stage": "R06-wind_bind",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_bind/WindBindEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_bind/WindBindSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBindEffectModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBindModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBindPulseModuleTest.java"
+    ],
+    "worldAdapters": [
+      "WindBindAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new WindBindAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "wind_blast",
+    "stage": "R06-wind_blast",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_blast/WindBlastEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/wind_blast/WindBlastRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBlastEffectModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/WindBlastRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "WindBlastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new WindBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "earth_lance",
+    "stage": "R06-earth_lance",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_lance/EarthLanceHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_lance/EarthLanceLift.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_lance/EarthLanceSelection.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_lance/EarthLanceSpikes.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthLanceHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthLanceLiftModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthLanceReleaseModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthLanceSelectionModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthLanceSpikesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthLanceAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new EarthLanceAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "earth_pillar",
+    "stage": "R06-earth_pillar",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_pillar/EarthPillarFall.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_pillar/EarthPillarSpawn.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_pillar/EarthPillarStone.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_pillar/EarthPillarStop.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthPillarFallModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthPillarHistoryModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthPillarSpawnModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthPillarStoneModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthPillarStopModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthPillarAdapter",
+      "SpellRaycastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()&&(SpellRaycastAdapter.aim(player,aim)!=null)",
+    "paidRelease": "new EarthPillarAdapter(player).cast(castingAim"
+  },
+  {
+    "id": "ex_healing",
+    "stage": "R08-ex_healing",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HealingSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/ex_healing/ExHealingEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/healing/ex_healing/ExHealingRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingEffectModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingReleaseModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExHealingRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ExHealingAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()&&(SpellDefinition.EX_HEALING.healingAmount(player.getHealth(),player.getMaxHealth())>0)",
+    "paidRelease": "new ExHealingAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "antidote_ii",
+    "stage": "R08-antidote_ii",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HealingSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/detox/antidote_ii/AntidoteIIEffect.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HealingDetoxModuleTest.java"
+    ],
+    "worldAdapters": [
+      "AntidoteIIAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()&&(player.hasEffect(net.minecraft.world.effect.MobEffects.POISON)||player.hasEffect(net.minecraft.world.effect.MobEffects.NAUSEA)||player.hasEffect(net.minecraft.world.effect.MobEffects.HUNGER))",
+    "paidRelease": "new AntidoteIIAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "physical_shield",
+    "stage": "R07-physical_shield",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldAbsorb.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldInterception.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldMovement.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldRegistry.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldRelease.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/physical_shield/PhysicalShieldSelection.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldAbsorbModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldCommandModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldInterceptionModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldMovementModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldRegistryModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldReleaseModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PhysicalShieldSelectionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "PhysicalShieldAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new PhysicalShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "blizzard_storm",
+    "stage": "R07-blizzard_storm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/blizzard_storm/BlizzardStormRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/blizzard_storm/BlizzardStormTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BlizzardStormModuleTest.java"
+    ],
+    "worldAdapters": [
+      "BlizzardStormAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.BLIZZARD_STORM.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BLIZZARD_STORM.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BlizzardStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "squall",
+    "stage": "R07-squall",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/squall/SquallRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/squall/SquallTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SquallModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SquallAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SquallAdapter.target(player,aim)!=null",
+    "paidRelease": "new SquallAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "exodus_flame",
+    "stage": "R06-exodus_flame",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/exodus_flame/ExodusFlameFlight.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/exodus_flame/ExodusFlameHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/exodus_flame/ExodusFlameRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/exodus_flame/ExodusFlameSpec.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExodusFlameFlightModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExodusFlameHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExodusFlameModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExodusFlameRulesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlightPoliciesModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.EXODUS_FLAME.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EXODUS_FLAME.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.EXODUS_FLAME,castingAim,10"
+  },
+  {
+    "id": "tornado_impact",
+    "stage": "R06-tornado_impact",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/tornado_impact/TornadoImpactFlight.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/tornado_impact/TornadoImpactHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/tornado_impact/TornadoImpactSpec.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/tornado_impact/TornadoImpactTerrain.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlightPoliciesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TornadoImpactFlightModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TornadoImpactHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TornadoImpactModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TornadoImpactTerrainModuleTest.java"
+    ],
+    "worldAdapters": [],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.TORNADO_IMPACT.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.TORNADO_IMPACT.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "SweptProjectileSpawner.launch(player,SpellDefinition.TORNADO_IMPACT,castingAim,10"
+  },
+  {
+    "id": "cumulonimbus",
+    "stage": "R07-cumulonimbus",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/cumulonimbus/CumulonimbusRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/cumulonimbus/CumulonimbusState.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/cumulonimbus/CumulonimbusTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/CumulonimbusModuleTest.java"
+    ],
+    "worldAdapters": [
+      "CumulonimbusAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "CumulonimbusAdapter.target(player,aim)!=null",
+    "paidRelease": "new CumulonimbusAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "lightning",
+    "stage": "R07-lightning",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/lightning/LightningImpact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/lightning/LightningRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/LightningModuleTest.java"
+    ],
+    "worldAdapters": [
+      "LightningAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "LightningAdapter.point(player,aim)!=null",
+    "paidRelease": "false"
+  },
+  {
+    "id": "electric",
+    "stage": "R07-electric",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/electric/ElectricImpact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/electric/ElectricRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ElectricModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ElectricAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "ElectricAdapter.target(player,aim)!=null",
+    "paidRelease": "new ElectricAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "frost_nova",
+    "stage": "R06-frost_nova",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/frost_nova/FrostNovaHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/frost_nova/FrostNovaRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FrostNovaCommandModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FrostNovaHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FrostNovaRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FrostNovaAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.FROST_NOVA.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FROST_NOVA.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new FrostNovaAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "sonic_blast",
+    "stage": "R06-sonic_blast",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/sonic_blast/SonicBlastHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/sonic_blast/SonicBlastRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/sonic_blast/SonicBlastTerrain.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SonicBlastCommandModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SonicBlastHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SonicBlastRulesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SonicBlastTerrainModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SonicBlastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.SONIC_BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.SONIC_BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new SonicBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "earth_wall",
+    "stage": "R07-earth_wall",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_wall/EarthWallLayout.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthWallModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthWallAdapter"
+    ],
+    "visual": "terrain block construction",
+    "eligibility": "SpellDefinition.EARTH_WALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EARTH_WALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new EarthWallAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "earth_fortress",
+    "stage": "R07-earth_fortress",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_fortress/EarthFortressLayout.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthFortressModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthFortressAdapter"
+    ],
+    "visual": "terrain block construction",
+    "eligibility": "SpellDefinition.EARTH_FORTRESS.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EARTH_FORTRESS.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new EarthFortressAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "earth_hedgehog",
+    "stage": "R07-earth_hedgehog",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_hedgehog/EarthHedgehogRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_hedgehog/EarthHedgehogState.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earth_hedgehog/EarthHedgehogTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/EarthHedgehogModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthHedgehogAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "EarthHedgehogAdapter.target(player,aim)!=null",
+    "paidRelease": "new EarthHedgehogAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "quagmire",
+    "stage": "R07-quagmire",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MixedSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/quagmire/QuagmireContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/quagmire/QuagmireRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/quagmire/QuagmireTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/QuagmireModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthHedgehogAdapter",
+      "QuagmireAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "EarthHedgehogAdapter.target(player,aim)!=null",
+    "paidRelease": "new QuagmireAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "blast",
+    "stage": "R06-blast",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/blast/BlastHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/blast/BlastRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BlastCombinationModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BlastHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BlastRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "BlastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "bora_blast",
+    "stage": "R06-bora_blast",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/bora_blast/BoraBlastHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/bora_blast/BoraBlastRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BoraBlastCombinationModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BoraBlastHitModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BoraBlastRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "BoraBlastAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "SpellDefinition.BORA_BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BORA_BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BoraBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "magma_gush",
+    "stage": "R07-magma_gush",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/magma_gush/MagmaGushHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/magma_gush/MagmaGushRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/magma_gush/MagmaGushState.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/magma_gush/MagmaGushTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/MagmaGushModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthHedgehogAdapter",
+      "MagmaGushAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "EarthHedgehogAdapter.target(player,aim)!=null",
+    "paidRelease": "new MagmaGushAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "violent_storm",
+    "stage": "R07-violent_storm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/violent_storm/ViolentStormPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ViolentStormModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ViolentStormAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.VIOLENT_STORM,aim)!=null",
+    "paidRelease": "new ViolentStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "tornado",
+    "stage": "R07-tornado",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/tornado/TornadoPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TornadoModuleTest.java"
+    ],
+    "worldAdapters": [
+      "TornadoAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.TORNADO,aim)!=null",
+    "paidRelease": "new TornadoAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "vacuum_storm",
+    "stage": "R07-vacuum_storm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/vacuum_storm/VacuumStormPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/VacuumStormModuleTest.java"
+    ],
+    "worldAdapters": [
+      "VacuumStormAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.VACUUM_STORM,aim)!=null",
+    "paidRelease": "new VacuumStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "sky_tempest",
+    "stage": "R07-sky_tempest",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/sky_tempest/SkyTempestPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SkyTempestModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SkyTempestAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.SKY_TEMPEST,aim)!=null",
+    "paidRelease": "new SkyTempestAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "flash_over",
+    "stage": "R07-flash_over",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flash_over/FlashOverContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flash_over/FlashOverRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flash_over/FlashOverState.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlashOverModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FlashOverAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.FLASH_OVER,aim)!=null",
+    "paidRelease": "new FlashOverAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "flame_tornado",
+    "stage": "R07-flame_tornado",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/flame_tornado/FlameTornadoPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlameTornadoModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FlameTornadoAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.FLAME_TORNADO,aim)!=null",
+    "paidRelease": "new FlameTornadoAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "inferno",
+    "stage": "R07-inferno",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/inferno/InfernoRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/InfernoModuleTest.java"
+    ],
+    "worldAdapters": [
+      "InfernoAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.INFERNO,aim)!=null",
+    "paidRelease": "new InfernoAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "absolute_zero",
+    "stage": "R07-absolute_zero",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/absolute_zero/AbsoluteZeroContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/absolute_zero/AbsoluteZeroRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/AbsoluteZeroModuleTest.java"
+    ],
+    "worldAdapters": [
+      "AbsoluteZeroAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "reference mesh",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.ABSOLUTE_ZERO,aim)!=null",
+    "paidRelease": "new AbsoluteZeroAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "exorcist_ray",
+    "stage": "R07-exorcist_ray",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/exorcist_ray/ExorcistRayPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExorcistRayModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ExorcistRayAdapter",
+      "HolyInstantAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.EXORCIST_RAY,aim)",
+    "paidRelease": "new ExorcistRayAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "exorcist_burst",
+    "stage": "R07-exorcist_burst",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/exorcist_burst/ExorcistBurstPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExorcistBurstModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ExorcistBurstAdapter",
+      "HolyInstantAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.EXORCIST_BURST,aim)",
+    "paidRelease": "new ExorcistBurstAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "exorcist_judge",
+    "stage": "R07-exorcist_judge",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/exorcist_judge/ExorcistJudgePolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ExorcistJudgeModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ExorcistJudgeAdapter",
+      "HolyInstantAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.EXORCIST_JUDGE,aim)",
+    "paidRelease": "new ExorcistJudgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "holy_ray",
+    "stage": "R07-holy_ray",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/holy_ray/HolyRayPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HolyRayModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HolyInstantAdapter",
+      "HolyRayAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.HOLY_RAY,aim)",
+    "paidRelease": "new HolyRayAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "sacred_nova",
+    "stage": "R07-sacred_nova",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/sacred_nova/SacredNovaRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HolySanctuaryModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HolyInstantAdapter",
+      "SacredNovaAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.SACRED_NOVA,aim)",
+    "paidRelease": "new SacredNovaAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "divine_judge",
+    "stage": "R07-divine_judge",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/divine_judge/DivineJudgePulse.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/divine_judge/DivineJudgeRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/divine_judge/DivineJudgeTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/DivineJudgeModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DivineJudgeAdapter",
+      "HolyInstantAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.DIVINE_JUDGE,aim)",
+    "paidRelease": "new DivineJudgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "god_purge",
+    "stage": "R07-god_purge",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HolySpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/holy/god_purge/GodPurgeRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/HolySanctuaryModuleTest.java"
+    ],
+    "worldAdapters": [
+      "GodPurgeAdapter",
+      "HolyInstantAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HolyInstantAdapter.canCast(player,SpellDefinition.GOD_PURGE,aim)",
+    "paidRelease": "new GodPurgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "flame_storm",
+    "stage": "R07-flame_storm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_storm/FlameStormGeometry.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/flame_storm/FlameStormPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/FlameStormGeometryModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundClaimPolicyModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundFieldPolicyModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FlameStormAdapter",
+      "GroundFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.target(player,SpellDefinition.FLAME_STORM,aim)!=null",
+    "paidRelease": "new FlameStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "apocalypse_flame",
+    "stage": "R07-apocalypse_flame",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/fire/apocalypse_flame/ApocalypseFlamePolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundClaimPolicyModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundFieldPolicyModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ApocalypseFlameAdapter",
+      "GroundFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.target(player,SpellDefinition.APOCALYPSE_FLAME,aim)!=null",
+    "paidRelease": "new ApocalypseFlameAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "earthquake",
+    "stage": "R07-earthquake",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/earthquake/EarthquakePolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundFieldPolicyModuleTest.java"
+    ],
+    "worldAdapters": [
+      "EarthquakeAdapter",
+      "GroundFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.target(player,SpellDefinition.EARTHQUAKE,aim)!=null",
+    "paidRelease": "new EarthquakeAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "terra_fall",
+    "stage": "R07-terra_fall",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/terra_fall/TerraFallPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundFieldPolicyModuleTest.java"
+    ],
+    "worldAdapters": [
+      "GroundFieldRuntimeAdapter",
+      "TerraFallAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.target(player,SpellDefinition.TERRA_FALL,aim)!=null",
+    "paidRelease": "new TerraFallAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "continental_sink",
+    "stage": "R07-continental_sink",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/continental_sink/ContinentalSinkPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundClaimPolicyModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/GroundFieldPolicyModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ContinentalSinkAdapter",
+      "GroundFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.target(player,SpellDefinition.CONTINENTAL_SINK,aim)!=null",
+    "paidRelease": "new ContinentalSinkAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "sand_cloud",
+    "stage": "R07-sand_cloud",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/sand_cloud/SandCloudPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SmokeSpecificationsModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SandCloudAdapter",
+      "SmokeFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SmokeFieldRuntimeAdapter.canCast(player,SpellDefinition.SAND_CLOUD,aim)",
+    "paidRelease": "new SandCloudAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "dust_storm",
+    "stage": "R07-dust_storm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/dust_storm/DustStormPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SmokeSpecificationsModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DustStormAdapter",
+      "SmokeFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SmokeFieldRuntimeAdapter.canCast(player,SpellDefinition.DUST_STORM,aim)",
+    "paidRelease": "new DustStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "sandstorm",
+    "stage": "R07-sandstorm",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "EarthSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/earth/sandstorm/SandstormPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SmokeSpecificationsModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SandstormAdapter",
+      "SmokeFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SmokeFieldRuntimeAdapter.canCast(player,SpellDefinition.SANDSTORM,aim)",
+    "paidRelease": "new SandstormAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "deep_mist",
+    "stage": "R07-deep_mist",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MixedSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/deep_mist/DeepMistPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SmokeSpecificationsModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DeepMistAdapter",
+      "SmokeFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SmokeFieldRuntimeAdapter.canCast(player,SpellDefinition.DEEP_MIST,aim)",
+    "paidRelease": "new DeepMistAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "mud_rain",
+    "stage": "R07-mud_rain",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MixedSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/mud_rain/MudRainPolicy.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SmokeSpecificationsModuleTest.java"
+    ],
+    "worldAdapters": [
+      "MudRainAdapter",
+      "SmokeFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SmokeFieldRuntimeAdapter.canCast(player,SpellDefinition.MUD_RAIN,aim)",
+    "paidRelease": "new MudRainAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "antidote_iii",
+    "stage": "R08-antidote_iii",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "HealingSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/detox/antidote_iii/AntidoteIIIEffect.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SupportModuleTest.java"
+    ],
+    "worldAdapters": [
+      "AntidoteIIIAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "AntidoteIIIAdapter.canCure(player,aim)",
+    "paidRelease": "new AntidoteIIIAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "howling",
+    "stage": "R08-howling",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/howling/HowlingHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/howling/HowlingRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SoundModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HowlingAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new HowlingAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "hypnosis_magic",
+    "stage": "R08-hypnosis_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/hypnosis_magic/HypnosisEffect.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/hypnosis_magic/HypnosisRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SoundModuleTest.java"
+    ],
+    "worldAdapters": [
+      "HypnosisAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "HypnosisAdapter.canCast(player,aim)",
+    "paidRelease": "new HypnosisAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "atmosphere_dominion",
+    "stage": "R07-atmosphere_dominion",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WindSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/atmosphere_dominion/AtmosphereContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/wind/atmosphere_dominion/AtmosphereDominionRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ModeContactModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ModeSelectionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "AtmosphereDominionAdapter",
+      "MaintainedFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "MaintainedFieldRuntimeAdapter.canCast(player,SpellDefinition.ATMOSPHERE_DOMINION,aim)",
+    "paidRelease": "new AtmosphereDominionAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "gravity_magic",
+    "stage": "R08-gravity_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/gravity_magic/GravityContact.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/gravity_magic/GravityMagicRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ModeContactModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ModeSelectionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "GravityMagicAdapter",
+      "MaintainedFieldRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "MaintainedFieldRuntimeAdapter.canCast(player,SpellDefinition.GRAVITY_MAGIC,aim)",
+    "paidRelease": "new GravityMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "nuclear_explosion",
+    "stage": "R07-nuclear_explosion",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "FireSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/nuclear_explosion/NuclearExplosionRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/mixed/nuclear_explosion/NuclearExplosionTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/MaintainedFieldModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/ModeSelectionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "MaintainedFieldRuntimeAdapter",
+      "NuclearExplosionAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "MaintainedFieldRuntimeAdapter.canCast(player,SpellDefinition.NUCLEAR_EXPLOSION,aim)",
+    "paidRelease": "new NuclearExplosionAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "dual_shield",
+    "stage": "R07-dual_shield",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/dual_shield/DualShieldRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BarrierCapacityModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DualShieldAdapter",
+      "FiniteBarrierRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.FiniteBarrierRuntimeAdapter.target(player,SpellDefinition.DUAL_SHIELD,aim)!=null",
+    "paidRelease": "new DualShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "spirit_sealing_barrier",
+    "stage": "R07-spirit_sealing_barrier",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/spirit_sealing_barrier/SpiritSealingBarrierRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BarrierCapacityModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FiniteBarrierRuntimeAdapter",
+      "SpiritSealingBarrierAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.FiniteBarrierRuntimeAdapter.target(player,SpellDefinition.SPIRIT_SEALING_BARRIER,aim)!=null",
+    "paidRelease": "new SpiritSealingBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "confinement_barrier",
+    "stage": "R07-confinement_barrier",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/confinement_barrier/ConfinementBarrierRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/BarrierCapacityModuleTest.java"
+    ],
+    "worldAdapters": [
+      "ConfinementBarrierAdapter",
+      "FiniteBarrierRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "com.example.examplemod.infrastructure.fabric.magic.FiniteBarrierRuntimeAdapter.target(player,SpellDefinition.CONFINEMENT_BARRIER,aim)!=null",
+    "paidRelease": "new ConfinementBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "disturb_magic",
+    "stage": "R08-disturb_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/disturb_magic/DisturbEffect.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/UtilityIllusionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DisturbMagicAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "aim.valid()",
+    "paidRelease": "new DisturbMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "divination_magic",
+    "stage": "R08-divination_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/divination_magic/DivinationRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/UtilityIllusionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DivinationMagicAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "DivinationMagicAdapter.canCast(player,aim)",
+    "paidRelease": "new DivinationMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "monster_summon",
+    "stage": "R08-monster_summon",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SummonSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/summon/monster_summon/MonsterSummonRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SummonRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "MonsterSummonAdapter",
+      "SummonRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SummonRuntimeAdapter.canCast(player,SpellDefinition.MONSTER_SUMMON,aim)",
+    "paidRelease": "new MonsterSummonAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "spirit_summon",
+    "stage": "R08-spirit_summon",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SummonSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/summon/spirit_summon/SpiritSummonRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SummonRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "SpiritSummonAdapter",
+      "SummonRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SummonRuntimeAdapter.canCast(player,SpellDefinition.SPIRIT_SUMMON,aim)",
+    "paidRelease": "new SpiritSummonAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "lamplight_spirits",
+    "stage": "R08-lamplight_spirits",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SummonSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/summon/lamplight_spirits/LamplightUpkeep.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SummonRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "LamplightSpiritsAdapter",
+      "SummonRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SummonRuntimeAdapter.canCast(player,SpellDefinition.LAMPLIGHT_SPIRITS,aim)",
+    "paidRelease": "new LamplightSpiritsAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "necromancy",
+    "stage": "R08-necromancy",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/necromancy/NecromancyRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SummonRulesModuleTest.java"
+    ],
+    "worldAdapters": [
+      "NecromancyAdapter",
+      "SummonRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "SummonRuntimeAdapter.canCast(player,SpellDefinition.NECROMANCY,aim)",
+    "paidRelease": "new NecromancyAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "fortress_barrier",
+    "stage": "R07-fortress_barrier",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/fortress_barrier/FortressUpkeep.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PoweredBarrierModuleTest.java"
+    ],
+    "worldAdapters": [
+      "FortressBarrierAdapter",
+      "PoweredBarrierRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "PoweredBarrierRuntimeAdapter.canCast(player,SpellDefinition.FORTRESS_BARRIER,aim)",
+    "paidRelease": "new FortressBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "demon_god_sealing_barrier",
+    "stage": "R07-demon_god_sealing_barrier",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/demon_god_sealing_barrier/DemonGodSealRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/PoweredBarrierModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DemonGodSealingBarrierAdapter",
+      "PoweredBarrierRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "PoweredBarrierRuntimeAdapter.canCast(player,SpellDefinition.DEMON_GOD_SEALING_BARRIER,aim)",
+    "paidRelease": "new DemonGodSealingBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "saint_dragon_battle_aura",
+    "stage": "R08-saint_dragon_battle_aura",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/saint_dragon_battle_aura/DragonAuraRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/saint_dragon_battle_aura/DragonAuraTick.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/DragonAuraModuleTest.java"
+    ],
+    "worldAdapters": [
+      "DragonAuraAdapter",
+      "PoweredBarrierRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "PoweredBarrierRuntimeAdapter.canCast(player,SpellDefinition.SAINT_DRAGON_BATTLE_AURA,aim)",
+    "paidRelease": "new DragonAuraAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "communication_magic",
+    "stage": "R08-communication_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/communication_magic/CommunicationDrafts.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/communication_magic/CommunicationRelease.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/communication_magic/CommunicationRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/CommunicationModuleTest.java"
+    ],
+    "worldAdapters": [
+      "CommunicationAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "CommunicationAdapter.canCast(player)",
+    "paidRelease": "new CommunicationAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "teleportation_magic",
+    "stage": "R08-teleportation_magic",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "SpecialSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/teleportation_magic/TeleportInvitations.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/teleportation_magic/TeleportRelease.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/teleportation_magic/TeleportRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/special/teleportation_magic/TeleportSafety.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/TeleportModuleTest.java"
+    ],
+    "worldAdapters": [
+      "TeleportationAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "TeleportationAdapter.canCast(player)",
+    "paidRelease": "new TeleportationAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "illusion_barrier",
+    "stage": "R08-illusion_barrier",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "MagicSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/illusion_barrier/IllusionPulse.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/barrier/illusion_barrier/IllusionRules.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/SummonRulesModuleTest.java",
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/UtilityIllusionModuleTest.java"
+    ],
+    "worldAdapters": [
+      "IllusionAdapter",
+      "WindFieldRuntimeAdapter"
+    ],
+    "visual": "illusion block projection",
+    "eligibility": "WindFieldRuntimeAdapter.target(player,SpellDefinition.ILLUSION_BARRIER,aim)!=null",
+    "paidRelease": "new IllusionAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  },
+  {
+    "id": "ocean_freeze",
+    "stage": "R07-ocean_freeze",
+    "code": "DONE",
+    "offline": "PASS",
+    "game": "NOT_RUN",
+    "catalog": "WaterSpellDefinitions",
+    "core": [
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ocean_freeze/OceanFreezeHit.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ocean_freeze/OceanFreezeRules.java",
+      "magic-core/src/main/java/com/example/examplemod/magic/spell/water/ocean_freeze/OceanFreezeState.java"
+    ],
+    "behaviorTests": [
+      "magic-core/src/moduleTest/java/com/example/examplemod/magic/casting/OceanFreezeModuleTest.java"
+    ],
+    "worldAdapters": [
+      "OceanFreezeAdapter",
+      "OceanFreezeRuntimeAdapter"
+    ],
+    "visual": "layered pixel mesh",
+    "eligibility": "OceanFreezeRuntimeAdapter.target(player,aim)!=null",
+    "paidRelease": "new OceanFreezeAdapter(player).apply(castingAim.yaw(),castingAim.pitch("
+  }
+]

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.BlizzardStormModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:54.971Z" hostname="AZHISLAPTOP" time="0.006">
+  <properties/>
+  <testcase name="sphereIsInclusiveAndPreservesNaNComparison()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.001"/>
+  <testcase name="followPrecedesAdoptAndRefusalDoesNotAge()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.001"/>
+  <testcase name="expiryDoesNotFollowOrAdopt()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.0"/>
+  <testcase name="savedAgeNeverRewindsAndExpiryBoundsRemaining()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.0"/>
+  <testcase name="pulseZeroHitsImmediatelyAndEightyTicksYieldEightPulses()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.0"/>
+  <testcase name="expiryUsesOriginalLongAndIntOverflowSemantics()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.001"/>
+  <testcase name="validatesBeforeFollowingAndAdoption()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.0"/>
+  <testcase name="hitExceptionKeepsPulse()" classname="com.example.examplemod.magic.casting.BlizzardStormModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

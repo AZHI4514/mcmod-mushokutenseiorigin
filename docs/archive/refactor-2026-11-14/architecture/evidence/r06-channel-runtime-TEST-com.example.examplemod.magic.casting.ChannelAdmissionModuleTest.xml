@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-13T07:24:52.514Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="registrationFailureDoesNotEmit()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.001"/>
+  <testcase name="successOrder()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.0"/>
+  <testcase name="soundFailureKeepsCommittedEmission()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.001"/>
+  <testcase name="emissionFailureKeepsRegistration()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.0"/>
+  <testcase name="refusedBeginDoesNotRegister()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.0"/>
+  <testcase name="beginFailureDoesNotCommit()" classname="com.example.examplemod.magic.casting.ChannelAdmissionModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

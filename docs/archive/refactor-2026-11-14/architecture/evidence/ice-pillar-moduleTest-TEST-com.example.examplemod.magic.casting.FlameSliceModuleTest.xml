@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.FlameSliceModuleTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T11:15:16.054Z" hostname="AZHISLAPTOP" time="0.006">
+  <properties/>
+  <testcase name="spawnFailureAndExceptionRollbackBeforeAnyNotification()" classname="com.example.examplemod.magic.casting.FlameSliceModuleTest" time="0.002"/>
+  <testcase name="invalidAnglesInsufficientManaAndCancellationNeverSpawn()" classname="com.example.examplemod.magic.casting.FlameSliceModuleTest" time="0.002"/>
+  <testcase name="preparesThenReleasesRequestedAnglesWithoutScatterAndCommitsOnce()" classname="com.example.examplemod.magic.casting.FlameSliceModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

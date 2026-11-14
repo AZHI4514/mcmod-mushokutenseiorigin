@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.SonicBlastRulesModuleTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-13T02:52:18.165Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="nearOriginAndVanillaDirectionThresholdRemainDistinct()" classname="com.example.examplemod.magic.casting.SonicBlastRulesModuleTest" time="0.0"/>
+  <testcase name="rangeAndForwardDirection()" classname="com.example.examplemod.magic.casting.SonicBlastRulesModuleTest" time="0.0"/>
+  <testcase name="frozenLegacyArithmeticMatchesRandomAndExceptionalInputs()" classname="com.example.examplemod.magic.casting.SonicBlastRulesModuleTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

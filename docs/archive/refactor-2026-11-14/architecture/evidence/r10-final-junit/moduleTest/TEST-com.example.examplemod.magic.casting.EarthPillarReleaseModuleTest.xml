@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.211Z" hostname="AZHISLAPTOP" time="0.006">
+  <properties/>
+  <testcase name="unknownPartialEffectKeepsPaymentAndDoesNotNotifyOrRetry()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.002"/>
+  <testcase name="cancellationAndHeartbeatExpiryNeverReachReadyOrSpend()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.0"/>
+  <testcase name="invalidAimInsufficientManaAndUnknownSpellNeverQueryWorld()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.0"/>
+  <testcase name="observerFailureCannotRefundOrSuppressLaterObservers()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.001"/>
+  <testcase name="missingTargetDoesNotPayAndFalsePlacementRestoresExactState()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.0"/>
+  <testcase name="preparationAndSuccessCommitOnceThenNotifyInOrder()" classname="com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

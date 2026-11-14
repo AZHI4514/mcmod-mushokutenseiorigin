@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.WaterShieldModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.704Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="absorbShowsRemainingCapacity()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="presentationFailureDoesNotUndoCapacityOrDiscard()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.001"/>
+  <testcase name="firstContactDragsThenClaimsBeforeWet()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="wetFailureKeepsClaim()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="repeatedContactStillDragsButDoesNotWet()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="ieeeDamageIsNotSilentlyFiltered()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="depletedShieldShowsThenDiscards()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <testcase name="renewBoundaryAndSaturation()" classname="com.example.examplemod.magic.casting.WaterShieldModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

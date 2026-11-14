@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.IceLanceModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:36:56.786Z" hostname="AZHISLAPTOP" time="0.01">
+  <properties/>
+  <testcase name="unknownPartialEffectKeepsPaymentAndDoesNotNotifyOrRetry()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <testcase name="cancellationAndHeartbeatExpiryNeverReachReadyOrSpend()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.0"/>
+  <testcase name="invalidAimInsufficientManaAndUnknownSpellNeverQueryWorld()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <testcase name="observerFailureCannotRefundOrSuppressLaterObservers()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <testcase name="missingTargetDoesNotPayAndFalsePlacementRestoresExactState()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <testcase name="preparationAndSuccessCommitOnceThenNotifyInOrder()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <testcase name="preparationReleaseAndSavedAgeProduceOnePaidHitWithoutEarlyDamage()" classname="com.example.examplemod.magic.casting.IceLanceModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

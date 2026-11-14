@@ -1,0 +1,268 @@
+[
+  {
+    "id": "illusion_barrier",
+    "tick": "IllusionMagic.tick",
+    "bounds": "IllusionMagic.bounds(a)",
+    "storageKey": "Illusion",
+    "lateLoad": false
+  },
+  {
+    "id": "fortress_barrier",
+    "tick": "PoweredBarrierRuntimeAdapter.tick",
+    "bounds": "PoweredBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "CoreSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "demon_god_sealing_barrier",
+    "tick": "PoweredBarrierRuntimeAdapter.tick",
+    "bounds": "PoweredBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "CoreSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "saint_dragon_battle_aura",
+    "tick": "PoweredBarrierRuntimeAdapter.tick",
+    "bounds": "PoweredBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "CoreSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "dual_shield",
+    "tick": "FiniteBarrierRuntimeAdapter.tick",
+    "bounds": "FiniteBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "spirit_sealing_barrier",
+    "tick": "FiniteBarrierRuntimeAdapter.tick",
+    "bounds": "FiniteBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "confinement_barrier",
+    "tick": "FiniteBarrierRuntimeAdapter.tick",
+    "bounds": "FiniteBarrierRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "atmosphere_dominion",
+    "tick": "MaintainedFieldRuntimeAdapter.tick",
+    "bounds": "MaintainedFieldRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "gravity_magic",
+    "tick": "MaintainedFieldRuntimeAdapter.tick",
+    "bounds": "MaintainedFieldRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "nuclear_explosion",
+    "tick": "MaintainedFieldRuntimeAdapter.tick",
+    "bounds": "MaintainedFieldRuntimeAdapter.bounds(a)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "sand_cloud",
+    "tick": "SmokeFieldRuntimeAdapter.tick",
+    "bounds": "box(a,SmokeFieldRuntimeAdapter.radius(a.spell()),0,SmokeFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "dust_storm",
+    "tick": "SmokeFieldRuntimeAdapter.tick",
+    "bounds": "box(a,SmokeFieldRuntimeAdapter.radius(a.spell()),0,SmokeFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "sandstorm",
+    "tick": "SmokeFieldRuntimeAdapter.tick",
+    "bounds": "box(a,SmokeFieldRuntimeAdapter.radius(a.spell()),0,SmokeFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "deep_mist",
+    "tick": "SmokeFieldRuntimeAdapter.tick",
+    "bounds": "box(a,SmokeFieldRuntimeAdapter.radius(a.spell()),0,SmokeFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "mud_rain",
+    "tick": "SmokeFieldRuntimeAdapter.tick",
+    "bounds": "box(a,SmokeFieldRuntimeAdapter.radius(a.spell()),0,SmokeFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "flame_storm",
+    "tick": "GroundFieldRuntimeAdapter.tick",
+    "bounds": "box(a,GroundFieldRuntimeAdapter.radius(a.spell()),-.1,GroundFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "apocalypse_flame",
+    "tick": "GroundFieldRuntimeAdapter.tick",
+    "bounds": "box(a,GroundFieldRuntimeAdapter.radius(a.spell()),-.1,GroundFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "earthquake",
+    "tick": "GroundFieldRuntimeAdapter.tick",
+    "bounds": "box(a,GroundFieldRuntimeAdapter.radius(a.spell()),-.1,GroundFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "terra_fall",
+    "tick": "GroundFieldRuntimeAdapter.tick",
+    "bounds": "box(a,GroundFieldRuntimeAdapter.radius(a.spell()),-.1,GroundFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "continental_sink",
+    "tick": "GroundFieldRuntimeAdapter.tick",
+    "bounds": "box(a,GroundFieldRuntimeAdapter.radius(a.spell()),-.1,GroundFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "ocean_freeze",
+    "tick": "OceanFreeze.tick",
+    "bounds": "new AABB(a.position().add(-64,-3,-64),a.position().add(64,3,64))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "sacred_nova",
+    "tick": "SacredNova.tick",
+    "bounds": "new AABB(a.position(),a.position()).inflate(a.spell()==SpellDefinition.GOD_PURGE?48:16)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "god_purge",
+    "tick": "SacredNova.tick",
+    "bounds": "new AABB(a.position(),a.position()).inflate(a.spell()==SpellDefinition.GOD_PURGE?48:16)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "divine_judge",
+    "tick": "DivineJudge.tick",
+    "bounds": "DivineJudge.bounds(a.position())",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "absolute_zero",
+    "tick": "AbsoluteZero.tick",
+    "bounds": "new AABB(a.position(),a.position()).inflate(16)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "inferno",
+    "tick": "Inferno.tick",
+    "bounds": "box(a,20,0,8)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "flash_over",
+    "tick": "FlashOver.tick",
+    "bounds": "box(a,16,0,6)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "flame_tornado",
+    "tick": "WindFieldRuntimeAdapter.tick",
+    "bounds": "box(a,WindFieldRuntimeAdapter.radius(a.spell()),0,WindFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "violent_storm",
+    "tick": "WindFieldRuntimeAdapter.tick",
+    "bounds": "box(a,WindFieldRuntimeAdapter.radius(a.spell()),0,WindFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "tornado",
+    "tick": "WindFieldRuntimeAdapter.tick",
+    "bounds": "box(a,WindFieldRuntimeAdapter.radius(a.spell()),0,WindFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "vacuum_storm",
+    "tick": "WindFieldRuntimeAdapter.tick",
+    "bounds": "box(a,WindFieldRuntimeAdapter.radius(a.spell()),0,WindFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "sky_tempest",
+    "tick": "WindFieldRuntimeAdapter.tick",
+    "bounds": "box(a,WindFieldRuntimeAdapter.radius(a.spell()),0,WindFieldRuntimeAdapter.height(a.spell()))",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "magma_gush",
+    "tick": "MagmaGush.tick",
+    "bounds": "box(a,4,0,5)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "quagmire",
+    "tick": "Quagmire.tick",
+    "bounds": "box(a,6,-.2,1)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "earth_hedgehog",
+    "tick": "EarthHedgehog.tick",
+    "bounds": "box(a,6,-3,6)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": false
+  },
+  {
+    "id": "cumulonimbus",
+    "tick": "LocalMagicStorm.tick",
+    "bounds": "box(a,24,0,48)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": true
+  },
+  {
+    "id": "squall",
+    "tick": "LocalMagicRain.tick",
+    "bounds": "box(a,16,0,32)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": true
+  },
+  {
+    "id": "blizzard_storm",
+    "tick": "MagicAreaEntity.tickBlizzard",
+    "bounds": "new AABB(a.position().add(0,1,0),a.position().add(0,1,0)).inflate(8)",
+    "storageKey": "ExpansionSpell",
+    "lateLoad": true
+  }
+]

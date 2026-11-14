@@ -83,7 +83,7 @@ final class SpellVolumeEffects {
 				// These effects already have authoritative visible entities/areas.
 				// Their packet adds pixel sparks only, avoiding a second miniature body.
 				if (switch (burst.id) {
-					case "water_shield", "magic_shield", "physical_shield", "burning_place", "heat_island", "flamethrower", "wind_bind" -> true;
+					case "absolute_zero", "inferno", "flash_over", "magma_gush", "earth_hedgehog", "earth_fortress", "earth_wall", "water_shield", "magic_shield", "physical_shield", "burning_place", "heat_island", "flamethrower", "wind_bind" -> true;
 					default -> false;
 				}) continue;
 				if (ReferenceSpellModels.handles(burst.id)) {
@@ -97,7 +97,14 @@ final class SpellVolumeEffects {
 						case "healing", "ex_healing", "detoxification", "antidote_ii" -> { w = d = burst.id.equals("ex_healing") ? 1.7F : 1.3F; h = 1.8F; at = at.add(0, .9, 0); angle = 0; }
 						case "water_splash" -> { w = d = 12; h = 1.8F; at = at.add(0, .27, 0); angle = 0; }
 						case "icicle_field" -> { w = d = 11.5F; h = 1.4F; at = at.add(0, .7, 0); angle = 0; }
-						case "explosion" -> { w = h = d = 5.5F; angle = 0; }
+						case "blast", "bora_blast" -> {float length=burst.id.equals("blast")?10:20;w=h=length*1.1547F;d=length;at=at.add(burst.direction.scale(length/2));}
+						case "sonic_blast" -> {w=h=22.4F;d=16;at=at.add(burst.direction.scale(8));}
+						case "frost_nova" -> {w=h=d=16;angle=0;}
+						case "lightning" -> {w=d=4;h=32;at=at.add(0,16,0);angle=0;}
+						case "electric" -> {w=d=1.2F;h=1.8F;angle=0;}
+						case "cumulonimbus" -> {w=d=8;h=32;at=at.add(0,16,0);angle=0;}
+						case "exodus_flame" -> {w=h=d=8;angle=0;}
+					case "explosion" -> { w = h = d = 5.5F; angle = 0; }
 						case "ex_flame" -> { w = h = d = 3; }
 						case "ice_pillar", "ice_lance", "earth_lance" -> { w = d = .95F; h = 3; at = at.add(0, 1.5, 0); angle = 0; }
 						case "ice_fortress" -> { w = 5; h = 3; d = 1; at = at.add(0, 1.5, 0); angle = 0; }
@@ -107,7 +114,7 @@ final class SpellVolumeEffects {
 						case "earth_pillar" -> { w = h = d = 1.4F; angle = 0; }
 						default -> { }
 					}
-					draws.add(new Draw(burst.id, at, yaw(burst.direction), angle, age, w, h, d, 1).stage(ReferenceSpellModels.IMPACT));
+					draws.add(new Draw(burst.id, at, (burst.id.equals("cumulonimbus")||burst.id.equals("lightning")||burst.id.equals("electric"))?0:yaw(burst.direction), angle, age, w, h, d, 1).stage(ReferenceSpellModels.IMPACT));
 					continue;
 				}
 				float progress = age / lifetime, ease = 1 - (1 - progress) * (1 - progress);
@@ -116,7 +123,11 @@ final class SpellVolumeEffects {
 				var at = burst.at;
 				float pitch = pitch(burst.direction);
 				switch (burst.id) {
-					case "healing", "ex_healing", "detoxification", "antidote_ii" -> { w = d = burst.id.equals("ex_healing") ? 1.7F : 1.3F; h = 1.8F; at = at.add(0, .85 + ease * .25, 0); pitch = 0; }
+					case "exorcist_ray","exorcist_judge","holy_ray" -> {w=d=burst.id.equals("holy_ray")?4:1;h=8;at=at.add(0,2,0);pitch=0;}
+					case "exorcist_burst","sacred_nova","god_purge" -> {w=d=(burst.id.equals("god_purge")?96:burst.id.equals("sacred_nova")?32:8)*ease;h=2;pitch=0;}
+					case "howling" -> {w=h=4+ease*8;d=12;at=at.add(burst.direction.scale(6));}
+					case "teleportation_magic" -> {w=d=5;h=3;at=at.add(0,1.5,0);pitch=0;}
+					case "healing", "ex_healing", "detoxification", "antidote_ii", "antidote_iii" -> { w = d = burst.id.equals("ex_healing") ? 1.7F : 1.3F; h = 1.8F; at = at.add(0, .85 + ease * .25, 0); pitch = 0; }
 					case "water_splash" -> { w = d = .6F + ease * 11.4F; h = .25F + (float) Math.sin(progress * Math.PI) * 1.5F; at = at.add(0, h * .35, 0); pitch = 0; }
 					case "icicle_field" -> { w = d = 11.5F; h = .3F + Math.min(1, age / 7) * 1.2F; at = at.add(0, h * .5, 0); pitch = 0; }
 					case "explosion", "ex_flame" -> { w = h = d = .5F + ease * (burst.id.equals("explosion") ? 5 : 3); }
@@ -133,7 +144,12 @@ final class SpellVolumeEffects {
 				draws.add(new Draw(burst.id, at, yaw(burst.direction), pitch, age, w, h, d, fade));
 			}
 			if (client.player != null) {
+				for(var entity:level.getEntities(client.player,client.player.getBoundingBox().inflate(48),e->e.getAttachedOrElse(MagicAttachments.AURA_ACTIVE,false)||java.util.Set.of("spirit_summon","lamplight_spirits","monster_summon","necromancy","magic_core").contains(e.getAttachedOrElse(MagicAttachments.VISUAL_SPELL,"")))){if(draws.size()>160)break;var id=entity.getAttachedOrElse(MagicAttachments.AURA_ACTIVE,false)?"saint_dragon_battle_aura":entity.getAttachedOrElse(MagicAttachments.VISUAL_SPELL,"");if(id.equals("lamplight_spirits")){for(int i=0;i<3;i++){double a=(entity.tickCount+delta)*.04+i*Math.PI*2/3;draws.add(new Draw(id,entity.getPosition(delta).add(Math.cos(a)*1.3,.1+Math.sin(a*1.7)*.2,Math.sin(a)*1.3),0,0,entity.tickCount+delta,.24F,.24F,.24F,.95F));}}else draws.add(new Draw(id,entity.getPosition(delta).add(0,entity.getBbHeight()/2,0),0,0,entity.tickCount+delta,entity.getBbWidth()+.35F,entity.getBbHeight()+.15F,entity.getBbWidth()+.35F,.7F));}
 				int visited = 0;
+				if(client.player.getAttachedOrElse(MagicAttachments.ARC_BOUND_VISUAL,false))draws.add(new Draw("electric",client.player.getPosition(delta).add(0,client.player.getBbHeight()/2,0),0,0,client.player.tickCount+delta,client.player.getBbWidth()+.3F,client.player.getBbHeight(),client.player.getBbWidth()+.3F,.7F));
+				if(client.player.getAttachedOrElse(MagicAttachments.AURA_ACTIVE,false))draws.add(new Draw("saint_dragon_battle_aura",client.player.getPosition(delta).add(0,client.player.getBbHeight()/2,0),0,0,client.player.tickCount+delta,1,1.9F,1,.7F));
+				int arcVisited=0;
+				for(var entity:level.getEntities(client.player,client.player.getBoundingBox().inflate(48),e->e instanceof net.minecraft.world.entity.LivingEntity&&e.getAttachedOrElse(MagicAttachments.ARC_BOUND_VISUAL,false))){if(++arcVisited>32)break;draws.add(new Draw("electric",entity.getPosition(delta).add(0,entity.getBbHeight()/2,0),0,0,entity.tickCount+delta,entity.getBbWidth()+.3F,entity.getBbHeight(),entity.getBbWidth()+.3F,.7F));}
 				if (client.player.getAttachedOrElse(MagicAttachments.WIND_BOUND_VISUAL,false)) draws.add(new Draw("wind_bind", client.player.getPosition(delta).add(0, client.player.getBbHeight()/2, 0), 0, 0, client.player.tickCount + delta, client.player.getBbWidth()+.65F, client.player.getBbHeight()+.25F, client.player.getBbWidth()+.65F, 1));
 				for (var entity : level.getEntities(client.player, client.player.getBoundingBox().inflate(48), e -> e instanceof net.minecraft.world.entity.LivingEntity living && living.getAttachedOrElse(MagicAttachments.WIND_BOUND_VISUAL,false))) {
 					if (++visited > 64) break;
@@ -151,7 +167,8 @@ final class SpellVolumeEffects {
 				poses.translate(draw.at.x - camera.x, draw.at.y - camera.y, draw.at.z - camera.z);
 				poses.mulPose(Axis.YP.rotationDegrees(draw.yaw));
 				poses.mulPose(Axis.XP.rotationDegrees(-draw.pitch));
-				if (ReferenceSpellModels.handles(draw.id))
+				if(LayeredPixelMeshRenderer.handles(draw.id))LayeredPixelMeshRenderer.submit(poses,context.submitNodeCollector(),draw.id,draw.age,draw.width,draw.height,draw.depth,draw.opacity,draw.stage==ReferenceSpellModels.IMPACT);
+				else if (ReferenceSpellModels.handles(draw.id))
 					ReferenceSpellModels.submit(poses, context.submitNodeCollector(), draw.id, draw.age, draw.width, draw.height, draw.depth, draw.opacity, draw.stage);
 				else
 					SpellMeshModel.submit(poses, context.submitNodeCollector(), draw.id, draw.age, draw.width, draw.height, draw.depth, draw.opacity);

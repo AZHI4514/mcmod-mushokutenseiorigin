@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:54.993Z" hostname="AZHISLAPTOP" time="0.007">
+  <properties/>
+  <testcase name="nearZeroImpulseHasIndependentStrictSquaredThreshold()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <testcase name="statesAreReadAfterDamageAndImpulse()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <testcase name="wetColdHitFreezesSlowsAndThenHooks()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.0"/>
+  <testcase name="warmIsConsumedWithoutFreezeButWetSlowRemains()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <testcase name="wetIsReadAgainAfterWarmthConsumption()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <testcase name="cannotFreezeStillAllowsWetSlow()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.0"/>
+  <testcase name="slowExceptionKeepsEarlierFreezeButStopsHook()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <testcase name="impulseImmunityDoesNotBlockFreezeOrHook()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.0"/>
+  <testcase name="rejectedDamageDoesNotReadStatuses()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.0"/>
+  <testcase name="consumedWarmthExceptionStopsWetAndHook()" classname="com.example.examplemod.magic.casting.BoraBlastHitModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

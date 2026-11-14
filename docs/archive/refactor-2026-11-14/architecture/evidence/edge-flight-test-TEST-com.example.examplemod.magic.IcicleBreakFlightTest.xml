@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.IcicleBreakFlightTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:05:28.122Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="waterloggedCapabilityPassesEvenDryButLavaAndSolidDoNot()" classname="com.example.examplemod.magic.IcicleBreakFlightTest" time="0.0"/>
+  <testcase name="freshAndSavedBudgetsExpireBeforeNextAgeIncrement()" classname="com.example.examplemod.magic.IcicleBreakFlightTest" time="0.001"/>
+  <testcase name="candidateAndFinalContactPreserveStrictWallTiesAndInclusiveStepEnd()" classname="com.example.examplemod.magic.IcicleBreakFlightTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

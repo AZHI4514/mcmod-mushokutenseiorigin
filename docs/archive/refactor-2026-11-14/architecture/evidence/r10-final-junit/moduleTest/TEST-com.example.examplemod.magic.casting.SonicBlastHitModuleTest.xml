@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.645Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="partialImpulseExceptionStopsBeforeHook()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.001"/>
+  <testcase name="acceptedHitAppliesImpulseBeforeHook()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.0"/>
+  <testcase name="immunitySuppressesOnlyImpulse()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.0"/>
+  <testcase name="damageRejectionSkipsImmunityImpulseAndHook()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.0"/>
+  <testcase name="impulseNearOriginUsesStrictSquaredThreshold()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.0"/>
+  <testcase name="damageAndImmunityExceptionsDoNotInventLaterEffects()" classname="com.example.examplemod.magic.casting.SonicBlastHitModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

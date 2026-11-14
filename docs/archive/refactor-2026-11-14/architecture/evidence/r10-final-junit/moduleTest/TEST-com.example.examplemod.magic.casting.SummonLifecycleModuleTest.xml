@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.660Z" hostname="AZHISLAPTOP" time="0.001">
+  <properties/>
+  <testcase name="changedSlotCannotContinueOrCharge()" classname="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" time="0.0"/>
+  <testcase name="missingOwnerDiscardsBeforeWorldRead()" classname="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" time="0.001"/>
+  <testcase name="offCadenceStillRunsMovement()" classname="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" time="0.0"/>
+  <testcase name="insufficientManaDoesNotRunAiOrLight()" classname="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" time="0.0"/>
+  <testcase name="paymentScheduledBeforeAct()" classname="com.example.examplemod.magic.casting.SummonLifecycleModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

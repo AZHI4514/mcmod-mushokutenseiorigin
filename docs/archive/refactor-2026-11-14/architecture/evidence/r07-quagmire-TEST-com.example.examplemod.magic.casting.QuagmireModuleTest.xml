@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.QuagmireModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-13T09:02:04.748Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="contactSlowPrecedesHold()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.0"/>
+  <testcase name="bossesReceiveOnlyWeakerSlow()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.0"/>
+  <testcase name="upwardCapDoesNotPullFallingTargets()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.001"/>
+  <testcase name="expiryValidationAndStateRemovalOrderRemainExact()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.0"/>
+  <testcase name="surfaceBoundsRemainInclusiveAndAirborneTargetsExcluded()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.0"/>
+  <testcase name="slowFailureDoesNotApplyHold()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.001"/>
+  <testcase name="contactsRunOnlyAfterSuccessfulAdoption()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.0"/>
+  <testcase name="ownerBypassesPermissionButNotVisibility()" classname="com.example.examplemod.magic.casting.QuagmireModuleTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

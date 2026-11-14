@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.FlameSliceRulesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T10:49:53.226Z" hostname="AZHISLAPTOP" time="0.009">
+  <properties/>
+  <testcase name="incompleteCrossSectionPassesButUnionOfAdjacentBlocksStops()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.002"/>
+  <testcase name="waterloggedCapabilityPassesEvenWithoutWaterButSubmergedFullCubeDoesNot()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.001"/>
+  <testcase name="sweptEdgeAndVerticalFlightAreNotReplacedByCenterRay()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.001"/>
+  <testcase name="targetClaimIsPerProjectileAndSurvivesSnapshotRestoreEvenOnFailedDamage()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.002"/>
+  <testcase name="rangeAndAgeAreIndependentLimitsAndInvalidSavedDistanceFailsClosed()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.001"/>
+  <testcase name="ignitionKeepsStrictFloatThresholdAndImmunities()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.0"/>
+  <testcase name="wallWinsEqualContactAndAoeKeepsTargetBodyHeight()" classname="com.example.examplemod.magic.FlameSliceRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

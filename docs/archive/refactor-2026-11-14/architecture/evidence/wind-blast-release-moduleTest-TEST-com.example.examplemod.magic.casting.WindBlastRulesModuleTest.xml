@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.WindBlastRulesModuleTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-12T06:34:09.824Z" hostname="AZHISLAPTOP" time="0.017">
+  <properties/>
+  <testcase name="verticalAndTinyDirectionBoundariesRemainUnchanged()" classname="com.example.examplemod.magic.casting.WindBlastRulesModuleTest" time="0.0"/>
+  <testcase name="horizontalRecoilHasLiftAndNominalTenBlockDragScale()" classname="com.example.examplemod.magic.casting.WindBlastRulesModuleTest" time="0.001"/>
+  <testcase name="frozenImpulseMatchesTenThousandDirections()" classname="com.example.examplemod.magic.casting.WindBlastRulesModuleTest" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

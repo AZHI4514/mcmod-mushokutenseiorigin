@@ -1,0 +1,233 @@
+[
+  {
+    "spell": "fireball",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "wind_ball",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "rock_bullet",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "water_arrow",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ice_smash",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "flame_slice",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ice_blade",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "water_cannon",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "water_splash",
+    "assembly": [
+      "TargetedArea"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ex_flame",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "sonic_boom",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "stone_cannon",
+    "assembly": [
+      "StoneCharge/StoneCannonProjectileAdapter"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ice_pillar",
+    "assembly": [
+      "TargetedArea"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "waterfall",
+    "assembly": [
+      "ChannelRuntimeAdapter/waterfall Channel"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ice_lance",
+    "assembly": [
+      "LocalEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "icicle_break",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "icicle_edge",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "flood_flush",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "ice_fortress",
+    "assembly": [
+      "TargetedArea"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "explosion",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "flame_pillar",
+    "assembly": [
+      "LocalEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "flamethrower",
+    "assembly": [
+      "ChannelRuntimeAdapter/flamethrower Channel"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "wind_slice",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "wind_bind",
+    "assembly": [
+      "LocalEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "wind_blast",
+    "assembly": [
+      "SelfEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "earth_lance",
+    "assembly": [
+      "LocalEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "earth_pillar",
+    "assembly": [
+      "LocalEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "exodus_flame",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "tornado_impact",
+    "assembly": [
+      "Projectile"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "frost_nova",
+    "assembly": [
+      "SelfEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "sonic_blast",
+    "assembly": [
+      "SelfEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "blast",
+    "assembly": [
+      "SelfEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  },
+  {
+    "spell": "bora_blast",
+    "assembly": [
+      "SelfEffect"
+    ],
+    "world_acceptance": "NOT_RUN"
+  }
+]

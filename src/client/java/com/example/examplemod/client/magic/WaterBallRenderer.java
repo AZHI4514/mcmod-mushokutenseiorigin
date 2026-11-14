@@ -24,19 +24,11 @@ public final class WaterBallRenderer extends EntityRenderer<WaterBallEntity,Wate
 	}
 	@Override public void submit(State state,PoseStack poses,SubmitNodeCollector collector,CameraRenderState camera) {
 		super.submit(state,poses,collector,camera);poses.pushPose();
-		boolean blade=spell.equals("ice_blade"),arrow=spell.equals("water_arrow");
-		float size=switch(spell) {
-			case "water_ball" -> .42F;
-			case "wind_ball" -> .45F;
-			case "fireball" -> .45F;
-			case "ice_smash" -> .6F;
-			case "rock_bullet" -> .4F;
-			default -> .25F;
-		};
-		if(!blade&&!arrow)poses.translate(0,size/2,0);
+		var spec=com.example.examplemod.magic.domain.visual.ProjectileMeshSpec.basic(spell);
+		if(spec.offset()!=0)poses.translate(0,spec.offset(),0);
 		poses.mulPose(com.mojang.math.Axis.YP.rotationDegrees(state.yaw));
 		poses.mulPose(com.mojang.math.Axis.XP.rotationDegrees(-state.pitch));
-		SpellTextureAnimation.body(poses,collector,spell,state.phase,blade?.14F:arrow?.16F:size,blade?.65F:arrow?.16F:size,blade?.95F:arrow?.65F:size);
+		SpellTextureAnimation.body(poses,collector,spell,state.phase,spec.width(),spec.height(),spec.depth());
 		poses.popPose();
 	}
 }

@@ -22,6 +22,121 @@ public class ModItems {
 	 *
 	 * <p>使用 {@code stacksTo(16)} 只是为了演示属性配置，可自行调整。
 	 */
+	public static final Item MANA_CRYSTAL = register(
+			"mana_crystal",
+			ManaCrystalItem::new,
+			ManaCrystalItem.createProperties()
+	);
+	public static final Item CHARGED_MANA_CRYSTAL = register(
+			"charged_mana_crystal",
+			Item::new,
+			ManaCrystalItem.createProperties()
+	);
+	public static final Item KING_FIRE_MAGIC_TEXTBOOK = register(
+			"king_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_FIRE_MAGIC_TEXTBOOK = register(
+			"divine_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_EARTH_MAGIC_TEXTBOOK = register(
+			"king_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_EARTH_MAGIC_TEXTBOOK = register(
+			"emperor_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_EARTH_MAGIC_TEXTBOOK = register(
+			"divine_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_EARTH_MAGIC_TEXTBOOK = register(
+			"saint_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_DETOX_MAGIC_TEXTBOOK = register(
+			"advanced_detox_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.DETOX, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item INTERMEDIATE_SPECIAL_MAGIC_TEXTBOOK = register(
+			"intermediate_special_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SPECIAL, 2),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_SPECIAL_MAGIC_TEXTBOOK = register(
+			"advanced_special_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SPECIAL, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_WIND_MAGIC_TEXTBOOK = register(
+			"divine_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_SPECIAL_MAGIC_TEXTBOOK = register(
+			"emperor_special_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SPECIAL, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_MIXED_MAGIC_TEXTBOOK = register(
+			"divine_mixed_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.MIXED, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_BARRIER_MAGIC_TEXTBOOK = register(
+			"advanced_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_BARRIER_MAGIC_TEXTBOOK = register(
+			"saint_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_BARRIER_MAGIC_TEXTBOOK = register(
+			"king_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_SPECIAL_MAGIC_TEXTBOOK = register(
+			"king_special_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SPECIAL, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_SUMMON_MAGIC_TEXTBOOK = register(
+			"advanced_summon_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SUMMON, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_SUMMON_MAGIC_TEXTBOOK = register(
+			"saint_summon_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SUMMON, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item INTERMEDIATE_SUMMON_MAGIC_TEXTBOOK = register(
+			"intermediate_summon_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.SUMMON, 2),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_BARRIER_MAGIC_TEXTBOOK = register(
+			"emperor_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_BARRIER_MAGIC_TEXTBOOK = register(
+			"divine_barrier_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.BARRIER, 7),
+			MagicTextbookItem.createProperties()
+	);
 	public static final Item EXAMPLE_ITEM = register(
 			"example_item",
 			Item::new,
@@ -49,6 +164,121 @@ public class ModItems {
 			BasicAttackMagicPrimerItem.createProperties()
 	);
 
+	public static final Item INTERMEDIATE_MIXED_MAGIC_TEXTBOOK = register(
+			"intermediate_mixed_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.MIXED, 2),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_MIXED_MAGIC_TEXTBOOK = register(
+			"king_mixed_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.MIXED, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_MIXED_MAGIC_TEXTBOOK = register(
+			"advanced_mixed_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.MIXED, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_EARTH_MAGIC_TEXTBOOK = register(
+			"advanced_earth_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.EARTH, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_WIND_MAGIC_TEXTBOOK = register(
+			"saint_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_WIND_MAGIC_TEXTBOOK = register(
+			"king_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_WIND_MAGIC_TEXTBOOK = register(
+			"emperor_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_WIND_MAGIC_TEXTBOOK = register(
+			"advanced_wind_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WIND, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_FIRE_MAGIC_TEXTBOOK = register(
+			"emperor_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_FIRE_MAGIC_TEXTBOOK = register(
+			"saint_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_FIRE_MAGIC_TEXTBOOK = register(
+			"advanced_fire_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item BEGINNER_HOLY_MAGIC_TEXTBOOK = register(
+			"beginner_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 1),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item INTERMEDIATE_HOLY_MAGIC_TEXTBOOK = register(
+			"intermediate_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 2),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_HOLY_MAGIC_TEXTBOOK = register(
+			"advanced_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 3),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_HOLY_MAGIC_TEXTBOOK = register(
+			"saint_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_HOLY_MAGIC_TEXTBOOK = register(
+			"king_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_HOLY_MAGIC_TEXTBOOK = register(
+			"divine_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_HOLY_MAGIC_TEXTBOOK = register(
+			"emperor_holy_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.HOLY, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item DIVINE_WATER_MAGIC_TEXTBOOK = register(
+			"divine_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 7),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item EMPEROR_WATER_MAGIC_TEXTBOOK = register(
+			"emperor_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 6),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item KING_WATER_MAGIC_TEXTBOOK = register(
+			"king_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 5),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item SAINT_WATER_MAGIC_TEXTBOOK = register(
+			"saint_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 4),
+			MagicTextbookItem.createProperties()
+	);
+	public static final Item ADVANCED_WATER_MAGIC_TEXTBOOK = register(
+			"advanced_water_magic_textbook",
+			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.WATER, 3),
+			MagicTextbookItem.createProperties()
+	);
 	public static final Item BEGINNER_FIRE_MAGIC_TEXTBOOK = register(
 			"beginner_fire_magic_textbook",
 			properties -> new MagicTextbookItem(properties, com.example.examplemod.magic.MagicCategory.FIRE, 1),
@@ -144,6 +374,52 @@ public class ModItems {
 						output.accept(ROXY_PANTSU);
 						output.accept(ZENITH_GREYRAT_MAGIC_BOOK);
 						output.accept(BASIC_ATTACK_MAGIC_PRIMER);
+						output.accept(ADVANCED_WATER_MAGIC_TEXTBOOK);
+						output.accept(SAINT_WATER_MAGIC_TEXTBOOK);
+						output.accept(KING_WATER_MAGIC_TEXTBOOK);
+						output.accept(MANA_CRYSTAL);
+						output.accept(CHARGED_MANA_CRYSTAL);
+						output.accept(KING_FIRE_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_FIRE_MAGIC_TEXTBOOK);
+						output.accept(KING_EARTH_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_EARTH_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_EARTH_MAGIC_TEXTBOOK);
+						output.accept(SAINT_EARTH_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_DETOX_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_SPECIAL_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_SPECIAL_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_WIND_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_SPECIAL_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_MIXED_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(SAINT_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(KING_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(KING_SPECIAL_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_SUMMON_MAGIC_TEXTBOOK);
+						output.accept(SAINT_SUMMON_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_SUMMON_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_BARRIER_MAGIC_TEXTBOOK);
+						output.accept(BEGINNER_HOLY_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_HOLY_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_HOLY_MAGIC_TEXTBOOK);
+						output.accept(SAINT_HOLY_MAGIC_TEXTBOOK);
+						output.accept(KING_HOLY_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_HOLY_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_HOLY_MAGIC_TEXTBOOK);
+						output.accept(DIVINE_WATER_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_WATER_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_FIRE_MAGIC_TEXTBOOK);
+						output.accept(SAINT_FIRE_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_FIRE_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_WIND_MAGIC_TEXTBOOK);
+						output.accept(EMPEROR_WIND_MAGIC_TEXTBOOK);
+						output.accept(KING_WIND_MAGIC_TEXTBOOK);
+						output.accept(SAINT_WIND_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_EARTH_MAGIC_TEXTBOOK);
+						output.accept(ADVANCED_MIXED_MAGIC_TEXTBOOK);
+						output.accept(KING_MIXED_MAGIC_TEXTBOOK);
+						output.accept(INTERMEDIATE_MIXED_MAGIC_TEXTBOOK);
 						output.accept(BEGINNER_FIRE_MAGIC_TEXTBOOK);
 						output.accept(BEGINNER_WATER_MAGIC_TEXTBOOK);
 						output.accept(BEGINNER_WIND_MAGIC_TEXTBOOK);

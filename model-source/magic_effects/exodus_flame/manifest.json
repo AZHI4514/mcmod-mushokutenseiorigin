@@ -1,0 +1,16 @@
+{
+  "spell": "exodus_flame",
+  "primary_references": [
+    "Exodus_Flame.webp",
+    "Exodus_Flame_2.webp",
+    "狱炎火弹.webp"
+  ],
+  "authoring": "live Blockbench MCP",
+  "parts": 44,
+  "runtime_motion": "ReferenceSpellModels delegates fire flow deformation to fireball motion; independent geometry and texture",
+  "editor_animation_tracks": false,
+  "ingame_acceptance": false,
+  "runtime.json_sha256": "b86d5c37dfd663d8fd1ded58fe1755ad8e1e57f479d99f8d91a22b6f9e89c029",
+  "surface.png_sha256": "c795f3543a92bd880d1a81bf32608834fd96af06a022ceedba5c577cba3b1928",
+  "exodus_flame.bbmodel_sha256": "764dee4f70ddbb1e409a2b49d9a128e65143a03dbe4710795de720275e99573b"
+}

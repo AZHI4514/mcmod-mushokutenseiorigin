@@ -40,6 +40,7 @@ fabricApi {
 }
 
 dependencies {
+    implementation project(':magic-core')
     minecraft "com.mojang:minecraft:${propMinecraft}"
     implementation "net.fabricmc:fabric-loader:${propLoader}"
     implementation "net.fabricmc.fabric-api:fabric-api:${propFabricApi}"
@@ -80,3 +81,147 @@ tasks.named('check') { dependsOn tasks.named('verifyMagic') }
 
 // Behavior tests use verifyMagic rather than a JUnit engine.
 tasks.named('test') { failOnNoDiscoveredTests = false }
+
+// Retain the frozen pre-migration effective parameters throughout the refactor.
+tasks.register('verifySpellBaseline', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.examplemod.magic.SpellBaselineTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifySpellBaseline') }
+
+// Embed plain core classes once; this is not a second Fabric mod.
+tasks.named('jar') {
+    dependsOn ':magic-core:classes'
+    from { project(':magic-core').sourceSets.main.output }
+}
+tasks.named('sourcesJar') { from project(':magic-core').sourceSets.main.allSource }
+
+tasks.register('architectureTest') {
+    dependsOn ':magic-core:classes'
+    doLast {
+        def core = project(':magic-core')
+        if (!core.configurations.compileClasspath.files.empty)
+            throw new GradleException('Production magic-core must use only the JDK')
+        core.fileTree('src/main/java').matching { include '**/*.java' }.each { f ->
+            if (f.text =~ /(?:net\.minecraft|net\.fabricmc|com\.mojang|com\.example\.examplemod\.client)/)
+                throw new GradleException("Game/client dependency in core: $f")
+        }
+        fileTree('src/main/java').matching { include '**/*.java' }.each { f ->
+            if (f.text =~ /import\s+(?:net\.minecraft\.client|com\.example\.examplemod\.client)\./)
+                throw new GradleException("Client dependency in common code: $f")
+        }
+        fileTree('src/client/java').matching { include '**/*.java' }.each { f ->
+            if (f.text.contains('com.example.examplemod.infrastructure.fabric.magic.'))
+                throw new GradleException("Client depends on server world adapter: $f")
+        }
+        fileTree('src').matching { include '**/*.java' }.each { f ->
+            if (f.name ==~ /(?:PhaseTwo|Intermediate|Expansion)(?:Entity|Spells|Rules|Runtime|Renderer|Vfx|Fields|Barriers|Terrain|TerrainLeases|Particles).*\.java/)
+                throw new GradleException("Development-batch responsibility returned: $f")
+        }
+        def catalog = new groovy.json.JsonSlurper().parse(file('src/test/resources/architecture/spell-baseline.json')).spells*.id as Set
+        def definitions = file('magic-core/src/main/java/com/example/examplemod/magic/SpellDefinition.java').text
+        def constants = [:]
+        (definitions =~ /(?:public\s+)?static\s+final\s+SpellDefinition\s+(\w+)\s*=\s*(?:new\s+SpellDefinition|[\w.]+)\(\s*"([^"]+)"/).each { m -> constants[m[1]]=m[2] }
+        def bound = []
+        ['SelfEffectComposition','ProjectileComposition','LocalEffectComposition','TargetedAreaComposition'].each { name ->
+            def source = file("src/main/java/com/example/examplemod/bootstrap/${name}.java").text
+            (source =~ /Map.entry\(SpellDefinition\.(\w+),/).each { m ->
+                if (!constants.containsKey(m[1])) throw new GradleException("Unknown spell binding: ${m[1]}")
+                bound.add(constants[m[1]])
+            }
+        }
+        def executionSource=file('src/main/java/com/example/examplemod/magic/SpellExecutionBindings.java').text
+        def executionIds=[]
+        (executionSource =~ /Map.entry\(SpellDefinition\.(\w+),/).each { m -> executionIds.add(constants[m[1]]) }
+        if(executionIds.size()!=executionIds.toSet().size()||executionIds.toSet()!=catalog)
+            throw new GradleException('Eligibility/paid-release registry must cover every spell exactly once')
+        def atmosphere=file('magic-core/src/main/java/com/example/examplemod/magic/domain/visual/SpellAtmosphereProfile.java').text
+        def atmosphereIds=[]
+        (atmosphere =~ /Map.entry\("([^"]+)",/).each { m -> atmosphereIds.add(m[1]) }
+        if(atmosphereIds.size()!=atmosphereIds.toSet().size()||!catalog.containsAll(atmosphereIds))
+            throw new GradleException('Visual profiles contain duplicate or unknown spell ids')
+        // These spells use dedicated charging/channel/locked-target release protocols.
+        bound.addAll(['stone_cannon','waterfall','flamethrower','lightning'])
+        if (bound.size()!=bound.toSet().size()) throw new GradleException('Duplicate spell release bindings')
+        if (bound.toSet()!=catalog) throw new GradleException("Release binding mismatch: missing=${catalog-bound.toSet()}, extra=${bound.toSet()-catalog}")
+        def selfSource = file('src/main/java/com/example/examplemod/bootstrap/SelfEffectComposition.java').text
+        (selfSource =~ /Map.entry\(SpellDefinition\.\w+,(\w+)::new\)/).each { m ->
+            if (!file("src/main/java/com/example/examplemod/infrastructure/fabric/magic/${m[1]}.java").exists())
+                throw new GradleException("Missing effect adapter: ${m[1]}")
+        }
+        def moduleSources = core.fileTree('src/moduleTest/java').matching { include '**/*Test.java' }.files.collect { it.text }
+        def spellSources = core.fileTree('src/main/java/com/example/examplemod/magic/spell').matching { include '**/*.java' }.files
+        catalog.each { id ->
+            def owned = spellSources.findAll { it.parentFile.name == id }
+            if (owned.empty) throw new GradleException("No owned pure spell module: $id")
+            def packages = owned.collect { source -> (source.text =~ /package\s+([^;]+);/)[0][1] }.toSet()
+            def consumers = core.fileTree('src/main/java/com/example/examplemod/magic/application').matching { include '**/*.java' }.files.findAll { source -> packages.any { name -> source.text.contains(name + '.') } }.collect { source -> (source.text =~ /package\s+([^;]+);/)[0][1] + '.' + source.name.replace('.java','') }
+            if (!moduleSources.any { test -> packages.any { name -> test.contains(name + '.') } || consumers.any { name -> test.contains(name) } })
+                throw new GradleException("No explicit behavior-module test import: $id")
+        }
+        def reference = file('src/client/java/com/example/examplemod/client/magic/ReferenceMeshRepository.java').text
+        def layered = core.file('src/main/java/com/example/examplemod/magic/domain/visual/mesh/LayeredPixelMesh.java').text
+        catalog.each { id ->
+            if (!reference.contains('"' + id + '"') && !layered.contains('"' + id + '"') && !(id in ['earth_wall','earth_fortress']) && !(id == 'illusion_barrier' && file('src/client/java/com/example/examplemod/client/magic/IllusionProjection.java').exists()))
+                throw new GradleException("No authored mesh or explicit terrain-block visual binding: $id")
+        }
+        def liveSource = (fileTree('src/main/java').matching { include '**/*.java' }.files + fileTree('src/client/java').matching { include '**/*.java' }.files + core.fileTree('src/main/java').matching { include '**/*.java' }.files).collect { it.text }.join('\n')
+        def compatibility = new groovy.json.JsonSlurper().parse(file('docs/archive/refactor-2026-11-14/architecture/evidence/r00-compatibility-strings.json'))
+        compatibility.values().flatten().toSet().each { key ->
+            if (!liveSource.contains('"' + key + '"')) throw new GradleException("Frozen compatibility string removed: $key")
+        }
+        println 'Architecture: 102 owned pure modules, explicit behavior-test imports, authored/terrain visuals and frozen compatibility strings verified.'
+        println "Architecture: ${bound.size()} unique spell release bindings cover the frozen catalog."
+        println 'Architecture: JDK-only core compile classpath and server/client import boundaries verified.'
+    }
+}
+tasks.register('resourceTest') {
+    dependsOn tasks.named('jar')
+    doLast {
+        def output = tasks.named('jar').get().archiveFile.get().asFile
+        new java.util.zip.ZipFile(output).withCloseable { zip ->
+            def names = zip.entries().toList()*.name
+            if (names.size() != names.toSet().size()) throw new GradleException('Duplicate jar entries')
+            project(':magic-core').fileTree('build/classes/java/main').matching { include '**/*.class' }.each { f ->
+                def path = project(':magic-core').file('build/classes/java/main').toPath().relativize(f.toPath()).toString().replace('\\','/')
+                if (names.count { it == path } != 1) throw new GradleException("Missing/duplicate core class: $path")
+            }
+            ['pixelfx-MIT.txt', 'pixelfx-godot-MIT.txt'].each { license ->
+                if (!names.contains("META-INF/licenses/$license".toString())) throw new GradleException("Missing license: $license")
+            }
+            def manifest = new groovy.json.JsonSlurper().parse(file('docs/archive/refactor-2026-11-14/architecture/evidence/r00-file-hashes.json'))
+            manifest.findAll { k,v -> k.startsWith('src/main/resources/assets/') || k.startsWith('src/main/resources/data/') }.each { path, hash ->
+                def entry = zip.getEntry(path.substring('src/main/resources/'.length()))
+                if (entry == null) throw new GradleException("Missing baseline asset: $path")
+                def actual = java.security.MessageDigest.getInstance('SHA-256').digest(zip.getInputStream(entry).withCloseable { it.bytes }).encodeHex().toString()
+                if (actual != hash) throw new GradleException("Baseline asset changed: $path")
+            }
+            println 'Resources: packaged core exactly once, baseline assets and PixelFX licenses verified.'
+        }
+    }
+}
+tasks.named('check') {
+    dependsOn ':magic-core:check', tasks.named('architectureTest'), tasks.named('resourceTest')
+}
+
+tasks.register('verifyGeometryMigration', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.examplemod.magic.GeometryDifferentialTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyGeometryMigration') }
+
+tasks.register('verifyPlayerSave', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.examplemod.magic.PlayerSaveCompatibilityTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyPlayerSave') }
+
+tasks.register('verifyFlameSliceMigration', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.examplemod.magic.FlameSliceMigrationTest'
+}
+tasks.named('check') { dependsOn tasks.named('verifyFlameSliceMigration') }

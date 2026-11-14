@@ -1,0 +1,18 @@
+{
+  "CommunicationMagic": "CommunicationAdapter",
+  "DivineJudge": "DivineJudgmentAdapter",
+  "EarthFortress": "EarthFortressAdapter",
+  "EarthHedgehog": "EarthHedgehogAdapter",
+  "EarthWall": "EarthWallAdapter",
+  "HeatHand": "HeatHandAdapter",
+  "HolyMagic": "HolyInstantAdapter",
+  "IllusionMagic": "IllusionBarrierAdapter",
+  "LocalMagicRain": "SquallAdapter",
+  "LocalMagicStorm": "CumulonimbusAdapter",
+  "MagicAreas": "AreaRuntimeAdapter",
+  "MagicPreparation": "PreparationRuntimeAdapter",
+  "OceanFreeze": "OceanFreezeRuntimeAdapter",
+  "SacredNova": "HolySanctuaryAdapter",
+  "SummonMagic": "SummonRuntimeAdapter",
+  "TeleportMagic": "TeleportationAdapter"
+}

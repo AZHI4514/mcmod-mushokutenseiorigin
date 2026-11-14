@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-13T04:43:36.568Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="boundaryTerminationSkipsMovement()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.001"/>
+  <testcase name="completeSweepOrder()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.0"/>
+  <testcase name="terrainExceptionKeepsAgeAndPreventsFluidRead()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.001"/>
+  <testcase name="targetTerminationSkipsBoundaryAndMovement()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.0"/>
+  <testcase name="missingChunkDoesNotAdvanceAge()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.001"/>
+  <testcase name="fluidExceptionStopsBeforeTargets()" classname="com.example.examplemod.magic.casting.ProjectileServerStepModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

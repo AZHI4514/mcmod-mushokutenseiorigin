@@ -1,0 +1,1492 @@
+{
+  "counts": {
+    "test": 63,
+    "moduleTest": 944
+  },
+  "suites": [
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.BladeSectionMigrationTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.catalog.SpellFactoryRegistryTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.ChannelCostTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.ChannelingStateTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.ChargeSessionTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.ConnectedWaterTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.domain.geometry.GeometryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.domain.model.SpellIdTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.domain.player.ManaPolicyTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.domain.spec.CastingTimingTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.ExFlameRulesTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.FlameSliceRulesTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.FloodFlushRulesTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.IceFortressPlanTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.IceLanceRulesTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.IcePillarRulesTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.IcicleBreakFlightTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.IcicleBreakRulesTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.mechanic.RuleBoundaryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.SonicBoomGeometryTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.StoneCannonRulesTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.StoneChargeStepTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.WaterCannonRulesTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "test",
+      "suite": "com.example.examplemod.magic.WaterSplashRulesTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.AbsoluteZeroModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.AreaRegistryModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.AreaTickModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.AreaVisualContractsModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BarrierCapacityModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BarrierRuntimeModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlastCombinationModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlastCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlastHitModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlastRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlizzardStormModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BlockBurstPlanModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BoraBlastCombinationModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BoraBlastCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BoraBlastHitModuleTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BoraBlastRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BurningPlaceCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.BurningPlaceModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.CastingInputModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ChannelAdmissionModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ChannelPaymentModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ChargePaymentModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.CircleCommittedReleaseModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ColumnGrowthModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.CommunicationModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ContactCandidatesModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ContactCooldownsModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ContactGeometryModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ContactTraversalModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.CumulonimbusModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.DetoxificationCommandModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.DivineJudgeModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.DragonAuraModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthFortressModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthHedgehogModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthLanceHitModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthLanceLiftModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthLanceReleaseModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthLanceSelectionModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthLanceSpikesModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarFallModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarHistoryModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarReleaseModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarSpawnModuleTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarStoneModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthPillarStopModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EarthWallModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.EffectShapeModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ElectricModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExFlameModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExHealingEffectModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExHealingReleaseModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExHealingRulesModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExodusFlameFlightModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExodusFlameHitModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExodusFlameModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExodusFlameRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExorcistBurstModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExorcistJudgeModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExorcistRayModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExplosionImpactModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ExplosionModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FireballModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlamePillarBurnModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlamePillarFireModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlamePillarModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlameSliceModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlameStormGeometryModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlamethrowerChannelModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlamethrowerHitModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlameTornadoModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlashOverModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FlightPoliciesModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FloodFlushModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FluidContactScanModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FogSightModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FrostNovaCommandModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FrostNovaHitModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.FrostNovaRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.GroundClaimPolicyModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.GroundFieldContactModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.GroundFieldPolicyModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.GroundFieldTickModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HealingDetoxModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HeatHandCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HeatHandModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HeatIslandCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HeatIslandModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HitHistoryFormatModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HolyRayModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HolyRuntimeModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.HolySanctuaryModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceBladeModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceFortressModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceFortressPlacementModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceLanceHitModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceLanceModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IcePillarModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IceSmashModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IcicleBreakHistoryModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IcicleBreakModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IcicleEdgeModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IcicleFieldModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.InfernoModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.InputSessionsModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.IntermediateHitModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.LaunchBallisticsModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.LightningModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MagicShieldCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MagicShieldModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MagmaGushModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MaintainedFieldModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MaintainedFieldSpecModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.MeshMotionDifferentialModuleTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ModeContactModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ModeSelectionModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.OceanFreezeModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ParticleAnimationModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhaseTwoHitModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhaseTwoTerminationModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldAbsorbModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldCommandModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldMovementModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldRegistryModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldReleaseModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PhysicalShieldSelectionModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PoweredBarrierModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PreparationEligibilityModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PreparationRegistryModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ProjectileMeshSpecModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ProjectileServerStepModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ProjectileTerminationModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.PureSpellCatalogModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.QuagmireModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ReferenceMeshMotionModuleTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.RockBulletModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SavedProjectileCountersModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ShieldInterceptionModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SkyTempestModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SmokeRuntimeModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SmokeSpecificationsModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SolidContactsModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SonicBlastCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SonicBlastHitModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SonicBlastRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SonicBoomModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SoundModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SquallModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SummonLifecycleModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SummonRulesModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SupportModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.SweptChunkGateModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TeleportModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TerrainLeaseSchedulerModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TornadoImpactFlightModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TornadoImpactHitModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TornadoImpactModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.TornadoModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.UtilityIllusionModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.VacuumStormModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.ViolentStormModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterArrowModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterBallModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterCannonModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterfallChannelModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterShieldCommandModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterShieldModuleTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterShieldSelectionModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WaterSplashModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WheelGeometryModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBallModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBindEffectModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBindModuleTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBindPulseModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBlastEffectModuleTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBlastReleaseModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindBlastRulesModuleTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindFieldRuntimeModuleTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindSliceHitModuleTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.casting.WindSliceModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.domain.visual.mesh.LayeredPixelMeshModuleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "task": "moduleTest",
+      "suite": "com.example.examplemod.magic.learning.LearningModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    }
+  ]
+}

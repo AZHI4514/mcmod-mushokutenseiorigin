@@ -1,0 +1,9 @@
+# 强风结构切片退出审计
+
+准备入口MagicPreparation显式绑定SelfEffectComposition并持有单次Command/Preparing State；世界资格、维度与心跳取消仍走共享原入口。兼容PhaseTwoSpells.execute调用同WindBlastAdapter，不额外扣费。无目标查询、弹体生成、位置传送或推进运行Map。
+
+WindBlastEffect负责准星反向计算→launch→固定100tick缓降；缓降boolean不决定释放成功。launch异常不调用缓降；缓降异常不撤销已经发生的弹射，Command保留付款且不能重试。重复新施法再次赋速度并请求固定药水时长，不保存累加速度或时长。
+
+PhaseTwoSpells.launch保留setOnGround(false)、setDeltaMovement、hurtMarked和ServerPlayer的一次ClientboundSetEntityMotionPacket；后续运动交原版碰撞、重力、阻力和药水。原版addEffect对更强/更长效果的合并语义保留，不强制覆盖。
+
+无新增保存/网络ID、模型纹理或静态持续任务；原版运动与MobEffect保存边界不变。仅核心/协调结构切片SLICE_DONE，实际速度包、Mixin、药水调度、保存重载、客户端视觉、联机及性能NOT_RUN。

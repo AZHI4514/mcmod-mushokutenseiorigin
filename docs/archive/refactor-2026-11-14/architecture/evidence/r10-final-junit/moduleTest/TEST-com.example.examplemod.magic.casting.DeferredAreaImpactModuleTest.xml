@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.099Z" hostname="AZHISLAPTOP" time="0.007">
+  <properties/>
+  <testcase name="effectFailureDoesNotRunHookOrTerrain()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.002"/>
+  <testcase name="allHitsBeforeAnyTerrain()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.001"/>
+  <testcase name="effectsDecideQueueIndependentlyOfSnapshot()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.001"/>
+  <testcase name="emptyTargetsStillBurst()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.0"/>
+  <testcase name="damageMutationDoesNotReplaceWetSnapshot()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.001"/>
+  <testcase name="hookExceptionDoesNotFlushQueuedTerrain()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.001"/>
+  <testcase name="rejectedDamageNeverConsumesWetOrFiresHook()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.0"/>
+  <testcase name="rejectedSelectionNeverReadsWetOrHurts()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.0"/>
+  <testcase name="terrainFailureKeepsPriorPlacementAndStopsBurst()" classname="com.example.examplemod.magic.casting.DeferredAreaImpactModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

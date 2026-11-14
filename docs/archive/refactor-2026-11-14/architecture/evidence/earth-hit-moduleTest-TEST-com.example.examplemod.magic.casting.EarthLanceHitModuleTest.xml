@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.EarthLanceHitModuleTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-12T13:49:35.448Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="placementThenDamageThenVisual()" classname="com.example.examplemod.magic.casting.EarthLanceHitModuleTest" time="0.001"/>
+  <testcase name="damageExceptionCannotUndoPlacedSpikes()" classname="com.example.examplemod.magic.casting.EarthLanceHitModuleTest" time="0.0"/>
+  <testcase name="rejectedPlacementNeverHitsOrShows()" classname="com.example.examplemod.magic.casting.EarthLanceHitModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

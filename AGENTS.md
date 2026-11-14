@@ -1,3 +1,5 @@
+每次开发先读 `docs/README.md`、`docs/STATUS.md` 和 `docs/MAGIC_DEVELOPMENT.md`，再按入口选读本次任务相关规格。R00—R10架构重构已完成；当前架构见 `docs/ARCHITECTURE.md`。默认禁止加载 `docs/archive/` 全集或恢复历史任务卡；仅在追溯指定证据时按需读取。结束时更新唯一进度 `docs/STATUS.md` 及受影响正式规格。不启动游戏，不自动Git操作。
+
 # 新增物品的统一约定
 
 开始新增或修改物品前，先阅读 `docs/ADDING_ITEMS.md`，复制其中模板。

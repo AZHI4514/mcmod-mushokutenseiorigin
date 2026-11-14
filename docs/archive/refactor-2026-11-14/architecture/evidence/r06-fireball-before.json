@@ -1,0 +1,7 @@
+{
+  "src/main/java/com/example/examplemod/bootstrap/WaterBallComposition.java": "d53e02b16d04f0b22b0e819aac9697b66ecdbd6d1209151f179d058bd2f89fc6",
+  "src/main/java/com/example/examplemod/magic/MagicEffects.java": "adaf0115db353737d7efc85c86dafc570f2145d2f91bc8f34071e4ec3e973a85",
+  "src/main/java/com/example/examplemod/magic/MagicPreparation.java": "b2b4a42d1efd62a371fd539b9d282904c3e8101758c833929fc7193e0bfc5061",
+  "src/main/java/com/example/examplemod/magic/SpellDefinition.java": "a4dcdce58a67e630537e2bded959d17f73d9f6fda15fb5a503c469d9edd3d12d",
+  "src/main/java/com/example/examplemod/infrastructure/fabric/magic/VanillaProjectileAdapter.java": "cc52ca3642e7b03b6402f73df8317bbdc8e8066869b0d73855593c8d827d98b0"
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.TeleportModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.670Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="allTravelersMoveBeforeExtraPayment()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <testcase name="nameAndDistanceFeesRetainLimits()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.001"/>
+  <testcase name="liquidPreventsReservationHazardAndFloorReads()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <testcase name="failedThirdMoveRollsBackInReverseBeforePayment()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <testcase name="safetyChecksAllBeforeMovement()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <testcase name="failedFirstMoveDoesNotRollbackOrPay()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <testcase name="invitationIsServerOwned()" classname="com.example.examplemod.magic.casting.TeleportModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

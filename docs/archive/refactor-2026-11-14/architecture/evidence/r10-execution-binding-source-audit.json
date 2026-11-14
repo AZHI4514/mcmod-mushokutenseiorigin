@@ -1,0 +1,512 @@
+[
+  {
+    "id": "water_ball",
+    "eligibility": "SpellDefinition.WATER_BALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_BALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WATER_BALL,castingAim)"
+  },
+  {
+    "id": "fireball",
+    "eligibility": "SpellDefinition.FIREBALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FIREBALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.FIREBALL,castingAim)"
+  },
+  {
+    "id": "wind_ball",
+    "eligibility": "SpellDefinition.WIND_BALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WIND_BALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WIND_BALL,castingAim)"
+  },
+  {
+    "id": "rock_bullet",
+    "eligibility": "SpellDefinition.ROCK_BULLET.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ROCK_BULLET.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ROCK_BULLET,castingAim)"
+  },
+  {
+    "id": "water_arrow",
+    "eligibility": "SpellDefinition.WATER_ARROW.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_ARROW.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.WATER_ARROW,castingAim)"
+  },
+  {
+    "id": "ice_smash",
+    "eligibility": "SpellDefinition.ICE_SMASH.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICE_SMASH.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ICE_SMASH,castingAim)"
+  },
+  {
+    "id": "flame_slice",
+    "eligibility": "SpellDefinition.FLAME_SLICE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FLAME_SLICE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.FLAME_SLICE,castingAim)"
+  },
+  {
+    "id": "healing",
+    "eligibility": "SpellDefinition.HEALING.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.HEALING.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new HealingAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "water_shield",
+    "eligibility": "SpellDefinition.WATER_SHIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_SHIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new WaterShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "ice_blade",
+    "eligibility": "SpellDefinition.ICE_BLADE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICE_BLADE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "launch(player,SpellDefinition.ICE_BLADE,castingAim)"
+  },
+  {
+    "id": "heat_hand",
+    "eligibility": "HeatHand.canUse(player, aim)",
+    "paidRelease": "new HeatHandAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "heat_island",
+    "eligibility": "SpellDefinition.HEAT_ISLAND.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.HEAT_ISLAND.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new HeatIslandAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "burning_place",
+    "eligibility": "SpellDefinition.BURNING_PLACE.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BURNING_PLACE.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BurningPlaceAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "detoxification",
+    "eligibility": "player.hasEffect(net.minecraft.world.effect.MobEffects.POISON)",
+    "paidRelease": "new DetoxificationAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "magic_shield",
+    "eligibility": "SpellDefinition.MAGIC_SHIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.MAGIC_SHIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new MagicShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "water_cannon",
+    "eligibility": "SpellDefinition.WATER_CANNON.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_CANNON.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.WATER_CANNON,castingAim,10)"
+  },
+  {
+    "id": "water_splash",
+    "eligibility": "SpellDefinition.WATER_SPLASH.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.WATER_SPLASH.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.WATER_SPLASH,castingAim,10)"
+  },
+  {
+    "id": "icicle_field",
+    "eligibility": "SpellDefinition.ICICLE_FIELD.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.ICICLE_FIELD.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.ICICLE_FIELD,castingAim,10)"
+  },
+  {
+    "id": "ex_flame",
+    "eligibility": "SpellDefinition.EX_FLAME.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EX_FLAME.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.EX_FLAME,castingAim,10)"
+  },
+  {
+    "id": "sonic_boom",
+    "eligibility": "SpellDefinition.SONIC_BOOM.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.SONIC_BOOM.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.SONIC_BOOM,castingAim,10)"
+  },
+  {
+    "id": "stone_cannon",
+    "eligibility": "SpellDefinition.STONE_CANNON.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.STONE_CANNON.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.STONE_CANNON,castingAim,10)"
+  },
+  {
+    "id": "ice_pillar",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ICE_PILLAR,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.ICE_PILLAR,castingAim)"
+  },
+  {
+    "id": "waterfall",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.WATERFALL,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.WATERFALL,castingAim)"
+  },
+  {
+    "id": "ice_lance",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ICE_LANCE,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.ICE_LANCE,castingAim)"
+  },
+  {
+    "id": "icicle_break",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ICICLE_BREAK,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.ICICLE_BREAK,castingAim)"
+  },
+  {
+    "id": "icicle_edge",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ICICLE_EDGE,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.ICICLE_EDGE,castingAim)"
+  },
+  {
+    "id": "flood_flush",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.FLOOD_FLUSH,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.FLOOD_FLUSH,castingAim)"
+  },
+  {
+    "id": "ice_fortress",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ICE_FORTRESS,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.ICE_FORTRESS,castingAim)"
+  },
+  {
+    "id": "explosion",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.EXPLOSION,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.EXPLOSION,castingAim)"
+  },
+  {
+    "id": "flame_pillar",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.FLAME_PILLAR,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.FLAME_PILLAR,castingAim)"
+  },
+  {
+    "id": "flamethrower",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.FLAMETHROWER,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.FLAMETHROWER,castingAim)"
+  },
+  {
+    "id": "wind_slice",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.WIND_SLICE,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.WIND_SLICE,castingAim)"
+  },
+  {
+    "id": "wind_bind",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.WIND_BIND,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.WIND_BIND,castingAim)"
+  },
+  {
+    "id": "wind_blast",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.WIND_BLAST,aim)",
+    "paidRelease": "new WindBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "earth_lance",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.EARTH_LANCE,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.EARTH_LANCE,castingAim)"
+  },
+  {
+    "id": "earth_pillar",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.EARTH_PILLAR,aim)",
+    "paidRelease": "PhaseTwoSpells.execute(player,SpellDefinition.EARTH_PILLAR,castingAim)"
+  },
+  {
+    "id": "ex_healing",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.EX_HEALING,aim)",
+    "paidRelease": "new ExHealingAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "antidote_ii",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.ANTIDOTE_II,aim)",
+    "paidRelease": "new AntidoteIIAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "physical_shield",
+    "eligibility": "PhaseTwoSpells.canExecute(player,SpellDefinition.PHYSICAL_SHIELD,aim)",
+    "paidRelease": "new PhysicalShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "blizzard_storm",
+    "eligibility": "SpellDefinition.BLIZZARD_STORM.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BLIZZARD_STORM.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BlizzardStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "squall",
+    "eligibility": "LocalMagicRain.target(player,aim)!=null",
+    "paidRelease": "new SquallAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "exodus_flame",
+    "eligibility": "SpellDefinition.EXODUS_FLAME.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EXODUS_FLAME.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.EXODUS_FLAME,castingAim,10)"
+  },
+  {
+    "id": "tornado_impact",
+    "eligibility": "SpellDefinition.TORNADO_IMPACT.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.TORNADO_IMPACT.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "IntermediateSpells.execute(player,SpellDefinition.TORNADO_IMPACT,castingAim,10)"
+  },
+  {
+    "id": "cumulonimbus",
+    "eligibility": "LocalMagicStorm.target(player,aim)!=null",
+    "paidRelease": "new CumulonimbusAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "lightning",
+    "eligibility": "ThunderMagic.point(player,aim)!=null",
+    "paidRelease": "false"
+  },
+  {
+    "id": "electric",
+    "eligibility": "ThunderMagic.target(player,aim)!=null",
+    "paidRelease": "new ElectricAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "frost_nova",
+    "eligibility": "SpellDefinition.FROST_NOVA.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.FROST_NOVA.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new FrostNovaAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "sonic_blast",
+    "eligibility": "SpellDefinition.SONIC_BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.SONIC_BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new SonicBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "earth_wall",
+    "eligibility": "SpellDefinition.EARTH_WALL.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EARTH_WALL.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new EarthWallAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "earth_fortress",
+    "eligibility": "SpellDefinition.EARTH_FORTRESS.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.EARTH_FORTRESS.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new EarthFortressAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "earth_hedgehog",
+    "eligibility": "EarthHedgehog.target(player,aim)!=null",
+    "paidRelease": "new EarthHedgehogAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "quagmire",
+    "eligibility": "EarthHedgehog.target(player,aim)!=null",
+    "paidRelease": "new QuagmireAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "blast",
+    "eligibility": "SpellDefinition.BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "bora_blast",
+    "eligibility": "SpellDefinition.BORA_BLAST.execution() != SpellDefinition.Execution.SELF_HEAL || SpellDefinition.BORA_BLAST.healingAmount(player.getHealth(), player.getMaxHealth()) > 0",
+    "paidRelease": "new BoraBlastAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "magma_gush",
+    "eligibility": "EarthHedgehog.target(player,aim)!=null",
+    "paidRelease": "new MagmaGushAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "violent_storm",
+    "eligibility": "WindFields.target(player,SpellDefinition.VIOLENT_STORM,aim)!=null",
+    "paidRelease": "new ViolentStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "tornado",
+    "eligibility": "WindFields.target(player,SpellDefinition.TORNADO,aim)!=null",
+    "paidRelease": "new TornadoAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "vacuum_storm",
+    "eligibility": "WindFields.target(player,SpellDefinition.VACUUM_STORM,aim)!=null",
+    "paidRelease": "new VacuumStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "sky_tempest",
+    "eligibility": "WindFields.target(player,SpellDefinition.SKY_TEMPEST,aim)!=null",
+    "paidRelease": "new SkyTempestAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "flash_over",
+    "eligibility": "WindFields.target(player,SpellDefinition.FLASH_OVER,aim)!=null",
+    "paidRelease": "new FlashOverAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "flame_tornado",
+    "eligibility": "WindFields.target(player,SpellDefinition.FLAME_TORNADO,aim)!=null",
+    "paidRelease": "new FlameTornadoAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "inferno",
+    "eligibility": "WindFields.target(player,SpellDefinition.INFERNO,aim)!=null",
+    "paidRelease": "new InfernoAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "absolute_zero",
+    "eligibility": "WindFields.target(player,SpellDefinition.ABSOLUTE_ZERO,aim)!=null",
+    "paidRelease": "new AbsoluteZeroAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "exorcist_ray",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.EXORCIST_RAY,aim)",
+    "paidRelease": "new ExorcistRayAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "exorcist_burst",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.EXORCIST_BURST,aim)",
+    "paidRelease": "new ExorcistBurstAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "exorcist_judge",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.EXORCIST_JUDGE,aim)",
+    "paidRelease": "new ExorcistJudgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "holy_ray",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.HOLY_RAY,aim)",
+    "paidRelease": "new HolyRayAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "sacred_nova",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.SACRED_NOVA,aim)",
+    "paidRelease": "new SacredNovaAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "divine_judge",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.DIVINE_JUDGE,aim)",
+    "paidRelease": "new DivineJudgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "god_purge",
+    "eligibility": "HolyMagic.canCast(player,SpellDefinition.GOD_PURGE,aim)",
+    "paidRelease": "new GodPurgeAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "flame_storm",
+    "eligibility": "ExpansionFields.target(player,SpellDefinition.FLAME_STORM,aim)!=null",
+    "paidRelease": "new FlameStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "apocalypse_flame",
+    "eligibility": "ExpansionFields.target(player,SpellDefinition.APOCALYPSE_FLAME,aim)!=null",
+    "paidRelease": "new ApocalypseFlameAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "earthquake",
+    "eligibility": "ExpansionFields.target(player,SpellDefinition.EARTHQUAKE,aim)!=null",
+    "paidRelease": "new EarthquakeAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "terra_fall",
+    "eligibility": "ExpansionFields.target(player,SpellDefinition.TERRA_FALL,aim)!=null",
+    "paidRelease": "new TerraFallAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "continental_sink",
+    "eligibility": "ExpansionFields.target(player,SpellDefinition.CONTINENTAL_SINK,aim)!=null",
+    "paidRelease": "new ContinentalSinkAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "sand_cloud",
+    "eligibility": "SmokeFields.canCast(player,SpellDefinition.SAND_CLOUD,aim)",
+    "paidRelease": "new SandCloudAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "dust_storm",
+    "eligibility": "SmokeFields.canCast(player,SpellDefinition.DUST_STORM,aim)",
+    "paidRelease": "new DustStormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "sandstorm",
+    "eligibility": "SmokeFields.canCast(player,SpellDefinition.SANDSTORM,aim)",
+    "paidRelease": "new SandstormAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "deep_mist",
+    "eligibility": "SmokeFields.canCast(player,SpellDefinition.DEEP_MIST,aim)",
+    "paidRelease": "new DeepMistAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "mud_rain",
+    "eligibility": "SmokeFields.canCast(player,SpellDefinition.MUD_RAIN,aim)",
+    "paidRelease": "new MudRainAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "antidote_iii",
+    "eligibility": "SupportMagic.canCure(player,aim)",
+    "paidRelease": "new AntidoteIIIAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "howling",
+    "eligibility": "SoundMagic.canCast(player,SpellDefinition.HOWLING,aim)",
+    "paidRelease": "new HowlingAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "hypnosis_magic",
+    "eligibility": "SoundMagic.canCast(player,SpellDefinition.HYPNOSIS_MAGIC,aim)",
+    "paidRelease": "new HypnosisAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "atmosphere_dominion",
+    "eligibility": "ModeFields.canCast(player,SpellDefinition.ATMOSPHERE_DOMINION,aim)",
+    "paidRelease": "new AtmosphereDominionAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "gravity_magic",
+    "eligibility": "ModeFields.canCast(player,SpellDefinition.GRAVITY_MAGIC,aim)",
+    "paidRelease": "new GravityMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "nuclear_explosion",
+    "eligibility": "ModeFields.canCast(player,SpellDefinition.NUCLEAR_EXPLOSION,aim)",
+    "paidRelease": "new NuclearExplosionAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "dual_shield",
+    "eligibility": "ExpansionBarriers.target(player,SpellDefinition.DUAL_SHIELD,aim)!=null",
+    "paidRelease": "new DualShieldAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "spirit_sealing_barrier",
+    "eligibility": "ExpansionBarriers.target(player,SpellDefinition.SPIRIT_SEALING_BARRIER,aim)!=null",
+    "paidRelease": "new SpiritSealingBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "confinement_barrier",
+    "eligibility": "ExpansionBarriers.target(player,SpellDefinition.CONFINEMENT_BARRIER,aim)!=null",
+    "paidRelease": "new ConfinementBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "disturb_magic",
+    "eligibility": "UtilityMagic.canCast(player,SpellDefinition.DISTURB_MAGIC,aim)",
+    "paidRelease": "new DisturbMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "divination_magic",
+    "eligibility": "UtilityMagic.canCast(player,SpellDefinition.DIVINATION_MAGIC,aim)",
+    "paidRelease": "new DivinationMagicAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "monster_summon",
+    "eligibility": "SummonMagic.canCast(player,SpellDefinition.MONSTER_SUMMON,aim)",
+    "paidRelease": "new MonsterSummonAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "spirit_summon",
+    "eligibility": "SummonMagic.canCast(player,SpellDefinition.SPIRIT_SUMMON,aim)",
+    "paidRelease": "new SpiritSummonAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "lamplight_spirits",
+    "eligibility": "SummonMagic.canCast(player,SpellDefinition.LAMPLIGHT_SPIRITS,aim)",
+    "paidRelease": "new LamplightSpiritsAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "necromancy",
+    "eligibility": "SummonMagic.canCast(player,SpellDefinition.NECROMANCY,aim)",
+    "paidRelease": "new NecromancyAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "fortress_barrier",
+    "eligibility": "CoreFields.canCast(player,SpellDefinition.FORTRESS_BARRIER,aim)",
+    "paidRelease": "new FortressBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "demon_god_sealing_barrier",
+    "eligibility": "CoreFields.canCast(player,SpellDefinition.DEMON_GOD_SEALING_BARRIER,aim)",
+    "paidRelease": "new DemonGodSealingBarrierAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "saint_dragon_battle_aura",
+    "eligibility": "CoreFields.canCast(player,SpellDefinition.SAINT_DRAGON_BATTLE_AURA,aim)",
+    "paidRelease": "new DragonAuraAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "communication_magic",
+    "eligibility": "CommunicationMagic.canCast(player)",
+    "paidRelease": "new CommunicationAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "teleportation_magic",
+    "eligibility": "TeleportMagic.canCast(player)",
+    "paidRelease": "new TeleportationAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "illusion_barrier",
+    "eligibility": "WindFields.target(player,SpellDefinition.ILLUSION_BARRIER,aim)!=null",
+    "paidRelease": "new IllusionAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  },
+  {
+    "id": "ocean_freeze",
+    "eligibility": "OceanFreeze.target(player,aim)!=null",
+    "paidRelease": "new OceanFreezeAdapter(player).apply(castingAim.yaw(),castingAim.pitch())"
+  }
+]

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.IntermediateHitModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.431Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="rejectedHurtStops()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <testcase name="noKnockbackStillChecksThenEffects()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.001"/>
+  <testcase name="damageCanChangeKnockbackBeforeRead()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <testcase name="knockbackExceptionPreventsEffects()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <testcase name="effectExceptionStopsAfterHook()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.001"/>
+  <testcase name="damageExceptionPreventsAllLaterActions()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <testcase name="successPreservesOrder()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <testcase name="hookExceptionDoesNotRepeatEarlierEffects()" classname="com.example.examplemod.magic.casting.IntermediateHitModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

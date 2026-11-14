@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.IcicleBreakRulesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:20:34.901Z" hostname="AZHISLAPTOP" time="0.001">
+  <properties/>
+  <testcase name="freezingMatchesExistingIcyRuleAcrossSamplesAndEligibility()" classname="com.example.examplemod.magic.IcicleBreakRulesTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

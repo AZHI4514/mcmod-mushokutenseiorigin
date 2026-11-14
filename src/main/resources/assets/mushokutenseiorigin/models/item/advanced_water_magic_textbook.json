@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mushokutenseiorigin:item/advanced_water_magic_textbook"
+  }
+}

@@ -1,0 +1,7 @@
+# R07-area-runtime：STRUCTURE_SLICE_DONE（water_shield前置共享任务）
+
+水盾审计发现MagicAreas.ACTIVE仍进程全局；本独立任务先明确服务器归属，不将其他R07术算迁完。允许AreaRegistry核心/合同、AreaRuntimeAdapter、MagicAreas兼容委托及MagicSystem五个清理调用迁移。附件新键area_runtime仅initializer，无persistent/sync/copyOnDeath；原保存注册键不变。
+
+保持HashMap遍历、同术单实例、cast中spawn成功才discard旧项/put/startExpansion，replace/adopt顺序及逐项异常传播；clear先remove后discard，clearAll先discard后clear。移除只接UUID但无server上下文的内部签名，调用方均已审计在MagicSystem，改传player/server。不新增进程级索引。真实Fabric附件/停服/跨服务器仍NOT_RUN。
+
+已通过555模块基线中的6项注册表核心合同，证据r07-water-shield-final-build.log；真实附件/服务器生命周期NOT_RUN。

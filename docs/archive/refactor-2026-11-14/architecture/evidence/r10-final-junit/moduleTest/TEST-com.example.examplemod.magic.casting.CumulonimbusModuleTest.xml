@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.CumulonimbusModuleTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.091Z" hostname="AZHISLAPTOP" time="0.007">
+  <properties/>
+  <testcase name="refreshPrecedesSchedulingAndHitsPrecedeBurst()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.001"/>
+  <testcase name="absentStrikeConsumesScheduleButNoHitOrBurst()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.0"/>
+  <testcase name="victimBoundaryPrunedAfterSchedulingAndInstancesAreIsolated()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.001"/>
+  <testcase name="expiryShorteningDoesNotChangeNextOrVictims()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.001"/>
+  <testcase name="notReadyStillRefreshesButDoesNotSchedule()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.0"/>
+  <testcase name="stateAndExpiryPrecedeOwnerValidation()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.001"/>
+  <testcase name="radiusAndOldLoadDefaultsRemainUsable()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.0"/>
+  <testcase name="hitFailureDoesNotUndoScheduleOrEmitBurst()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.001"/>
+  <testcase name="refreshAndStrikeBoundariesMatchOriginalSchedule()" classname="com.example.examplemod.magic.casting.CumulonimbusModuleTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

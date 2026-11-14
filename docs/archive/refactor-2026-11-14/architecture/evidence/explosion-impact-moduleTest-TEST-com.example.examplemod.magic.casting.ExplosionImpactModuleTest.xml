@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:13:15.427Z" hostname="AZHISLAPTOP" time="0.009">
+  <properties/>
+  <testcase name="terminalContactDiscardsOnlyAfterVanilla()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.001"/>
+  <testcase name="fluidWinsTiesAndOnlyRealSolidContactTriggersSolidStop()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.001"/>
+  <testcase name="piercingContactBurstsBeforeVanillaAndKeepsCarrier()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.0"/>
+  <testcase name="restoredHistorySuppressesSameVictimButAllowsNextVictim()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.003"/>
+  <testcase name="failedVanillaExplosionDoesNotPretendToFinishOrRollback()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.002"/>
+  <testcase name="expirationAndBlockingBoundaryExcludeVictimExplosions()" classname="com.example.examplemod.magic.casting.ExplosionImpactModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

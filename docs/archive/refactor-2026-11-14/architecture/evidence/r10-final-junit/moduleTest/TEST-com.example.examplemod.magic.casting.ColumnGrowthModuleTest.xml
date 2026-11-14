@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ColumnGrowthModuleTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.051Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="invalidCellsSkipButFirstOccupiedCellPausesTheWholeOrderedTail()" classname="com.example.examplemod.magic.casting.ColumnGrowthModuleTest" time="0.0"/>
+  <testcase name="expiryTouchesNoWorldAndJobsAreIndependent()" classname="com.example.examplemod.magic.casting.ColumnGrowthModuleTest" time="0.001"/>
+  <testcase name="placementExceptionRetriesOnlyUnfinishedCellsWithUpdatedLease()" classname="com.example.examplemod.magic.casting.ColumnGrowthModuleTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,57 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/AZHI/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Configure project :
+Fabric Loom: 1.15.5
+
+> Task :processResources UP-TO-DATE
+> Task :processClientResources NO-SOURCE
+> Task :processIncludeJars UP-TO-DATE
+> Task :magic-core:compileJava
+> Task :magic-core:processResources NO-SOURCE
+> Task :magic-core:classes
+> Task :magic-core:jar
+> Task :magic-core:compileTestFixturesJava UP-TO-DATE
+> Task :magic-core:processTestFixturesResources NO-SOURCE
+> Task :magic-core:testFixturesClasses UP-TO-DATE
+> Task :magic-core:testFixturesJar UP-TO-DATE
+> Task :magic-core:compileTestJava UP-TO-DATE
+> Task :magic-core:processTestResources NO-SOURCE
+> Task :magic-core:testClasses UP-TO-DATE
+> Task :sourcesJar
+
+> Task :compileJava FAILED
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\src\main\java\com\example\examplemod\magic\IntermediateProjectile.java:115: 错误: 需要';'
+				}));
+				  ^
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\src\main\java\com\example\examplemod\magic\IntermediateProjectile.java:130: 错误: 需要';'
+				}));
+				  ^
+2 个错误
+
+> Task :magic-core:test
+
+[Incubating] Problems report is available at: file:///D:/Develop/project-mc-mod-mushoku-tensei/project-mc-mod-mushoku-tensei/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\src\main\java\com\example\examplemod\magic\IntermediateProjectile.java:115: 错误: 需要';'
+  				}));
+  				  ^
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\src\main\java\com\example\examplemod\magic\IntermediateProjectile.java:130: 错误: 需要';'
+  				}));
+  				  ^
+  2 个错误
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+10 actionable tasks: 5 executed, 5 up-to-date

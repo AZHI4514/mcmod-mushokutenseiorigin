@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.AreaTickModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:54.879Z" hostname="AZHISLAPTOP" time="0.006">
+  <properties/>
+  <testcase name="stationaryAreaPrunesBeforeContactEffects()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <testcase name="expiryDecrementsButSkipsChunkQuery()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <testcase name="unloadedAreaStillConsumesOneLifetimeTick()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.001"/>
+  <testcase name="maintenanceFailureStopsBeforeFollowOrPulse()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <testcase name="anchorThresholdIsInclusiveAndNaNDoesNotBreak()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <testcase name="movingFieldFollowsBeforePulseAndDoesNotReadAnchor()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.001"/>
+  <testcase name="contactExceptionRetainsLifetimeAndDoesNotDiscard()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <testcase name="invalidOwnerShortCircuitsBeforeLifetimeAndChunks()" classname="com.example.examplemod.magic.casting.AreaTickModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

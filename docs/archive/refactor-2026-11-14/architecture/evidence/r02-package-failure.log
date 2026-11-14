@@ -1,0 +1,60 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/AZHI/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Starting a Gradle Daemon, 1 busy Daemon could not be reused, use --status for details
+
+> Configure project :
+Fabric Loom: 1.15.5
+
+> Task :magic-core:compileJava UP-TO-DATE
+> Task :magic-core:processResources NO-SOURCE
+> Task :magic-core:classes UP-TO-DATE
+> Task :magic-core:jar UP-TO-DATE
+> Task :magic-core:compileTestFixturesJava NO-SOURCE
+> Task :magic-core:processTestFixturesResources NO-SOURCE
+> Task :magic-core:testFixturesClasses UP-TO-DATE
+> Task :magic-core:testFixturesJar UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :magic-core:compileTestJava
+> Task :magic-core:processTestResources NO-SOURCE
+> Task :magic-core:testClasses
+
+> Task :architectureTest
+Architecture: JDK-only core compile classpath and server/client import boundaries verified.
+
+> Task :compileJava UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileClientJava UP-TO-DATE
+> Task :processClientResources NO-SOURCE
+> Task :processIncludeJars UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :resourceTest FAILED
+> Task :magic-core:test
+
+
+[Incubating] Problems report is available at: file:///D:/Develop/project-mc-mod-mushoku-tensei/project-mc-mod-mushoku-tensei/build/reports/problems/problems-report.html
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file 'D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\build.gradle' line: 123
+
+* What went wrong:
+Execution failed for task ':resourceTest'.
+> Missing/duplicate core class: com/example/examplemod/magic/domain/model/SpellId.class
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.4.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 8s
+12 actionable tasks: 4 executed, 8 up-to-date

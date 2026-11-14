@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.ConnectedWaterTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-11T11:56:50.293Z" hostname="AZHISLAPTOP" time="0.031">
+  <properties/>
+  <testcase name="radiusIncludesSixteenButNeverQueriesSeventeen()" classname="com.example.examplemod.magic.ConnectedWaterTest" time="0.009"/>
+  <testcase name="denseSearchPreservesLegacyExpansionBoundaryAndDirectionOrder()" classname="com.example.examplemod.magic.ConnectedWaterTest" time="0.018"/>
+  <testcase name="wetRefreshUsesWorldTimeRatherThanChannelAge()" classname="com.example.examplemod.magic.ConnectedWaterTest" time="0.0"/>
+  <testcase name="disconnectedWaterAndUnavailableCellsCannotBridge()" classname="com.example.examplemod.magic.ConnectedWaterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

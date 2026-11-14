@@ -1,4 +1,5 @@
 package com.example.examplemod.client.magic;
+import com.example.examplemod.magic.domain.visual.SpellAtmosphereProfile;
 
 import com.example.examplemod.magic.*;
 import net.minecraft.client.Minecraft;

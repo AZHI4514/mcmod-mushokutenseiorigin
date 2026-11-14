@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.FlamePillarFireModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:22:19.184Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="existingFireSucceedsWithoutRewriteOrFallback()" classname="com.example.examplemod.magic.casting.FlamePillarFireModuleTest" time="0.0"/>
+  <testcase name="nonAirCellsAreNeverOverwrittenAndDuplicateTopCandidateIsNotDeduplicated()" classname="com.example.examplemod.magic.casting.FlamePillarFireModuleTest" time="0.0"/>
+  <testcase name="failedFirstPlacementTriesTopAndAllFailuresReturnFalse()" classname="com.example.examplemod.magic.casting.FlamePillarFireModuleTest" time="0.001"/>
+  <testcase name="deniedFaceFallsBackToTopWithoutReadingOrWritingDeniedCell()" classname="com.example.examplemod.magic.casting.FlamePillarFireModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,17 @@
+# R06-release-routing：STRUCTURE_SLICE_DONE
+
+先核对R06的全部33术在Projectile/TargetedArea/LocalEffect/SelfEffectComposition或StoneCharge/Channel中的真实装配。兼容执行路径仍对外保留，不能因正常路径已迁而擅自删除其他输入。
+
+允许PhaseTwoConstructionAdapter承接旧plan/construct/permanentStone/launch，PhaseTwoReleaseAdapter承接旧canExecute/execute/instant/entity；旧PhaseTwoSpells保持签名委托、Ray返回类型、免疫Tag常量不变；实体ID和所有数值不变。construction仍调用已有ColumnPlacement/EarthLanceLift/Stone核心，不新建空Factory。已有核心合同与完整离线build验证适配搬迁，不声称世界测试。
+
+随后核对IntermediateSpells弹体构造/释放分派、MagicPreparation准备资格/通知职责。R07/R08特殊仪式分支随逐术卡迁，不能在R06删除。全部重构完成后统一游戏实测；用户已持续授权，不Git。
+
+本批扩允许PreparationEligibility核心/合同、PreparationRuntimeAdapter与MagicPreparation兼容委托、IntermediateReleaseAdapter。保留旧特殊仪式准备分支，不在本批改通知隔离/退款，避免改变R07/R08未迁行为。原服务器附件ID、Pending字段、逐tick顺序及取消顺序全部不变。纯资格核心保持原短路顺序，state仍在世界适配入口先快照。
+
+## 准备资格和释放适配结构收尾（2026-11-13）
+
+PreparationEligibility纯核心保留counter/silence/玩家状态/GUI/冷却/选择/知识/装槽/MP/事件的原短路顺序，4项合同含13个拒绝位置验证。PreparationRuntimeAdapter持服务器准备附件及原特殊仪式协调，MagicPreparation仅兼容委托；未改变剩余R07/R08特殊分支。PhaseTwoConstructionAdapter/ReleaseAdapter和IntermediateReleaseAdapter承接原构造/兼容释放世界业务，PhaseTwoSpells/IntermediateSpells现仅签名委托/选择。六个无状态查询/仪式服务开放跨包调用，不增加实体公共setter；首次访问编译失败已修复，原失败日志保留。R06的33术装配源码逐项核对见r06-release-bindings.json：这是接线证据，非实际世界验收。已完成R06共享核心/协调结构切片；R10仍须清理兼容批次命名和实例几何身份，所有世界边界NOT_RUN。
+
+完整离线build退出0：63单测/526模块测试，15,658旧行为断言、102定义和39/102教材、旧玩家存档fixture、架构/资源/JAR检查通过。证据r06-preparation-routing-build.log及JUnit汇总/XML。实际游戏/Fabric/世界/事件/Codec重载/视觉/联机/性能NOT_RUN；用户授权持续执行全部重构，无需反复确认继续，全部完成后统一实机测试；不启动游戏、不Git。
+
+下一精确动作：R07-water_shield：按账本顺序建立逐术卡，审计水幕体积/续期/容量/接触湿身/弹体拦截及全局实例归属后迁独立核心和适配。

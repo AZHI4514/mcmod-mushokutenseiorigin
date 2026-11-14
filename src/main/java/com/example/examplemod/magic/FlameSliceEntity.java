@@ -14,11 +14,11 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 
-/** 3×1×1火断体沿准星方向扫掠；仅完整截面遮挡时停，首次遇生物则区域结算后消失。 */
+/** 3×1×1火断体沿准星方向扫掠；仅完整截面遮挡时停，穿透生物，每发目标身份去重。 */
 public final class FlameSliceEntity extends Projectile {
 	private FlameSliceFlight flight = new FlameSliceFlight(0);
 	private int age;
-	private final java.util.Set<java.util.UUID> hit=new java.util.HashSet<>();
+	private com.example.examplemod.magic.mechanic.projectile.ImpactHistory hit=new com.example.examplemod.magic.mechanic.projectile.ImpactHistory();
 
 	public FlameSliceEntity(EntityType<? extends FlameSliceEntity> type, Level level) { super(type, level); }
 	@Override
@@ -29,7 +29,7 @@ public final class FlameSliceEntity extends Projectile {
 		super.tick();
 		if (isRemoved()) return;
 		if (level().isClientSide()) { setPos(position().add(getDeltaMovement())); return; }
-		if (age >= SpellDefinition.FLAME_SLICE.flightTicks() || flight.exhausted() || getDeltaMovement().lengthSqr() < 1.0E-8) {
+		if (com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceRules.expired(age,flight.core(),getDeltaMovement().lengthSqr())) {
 			discard(); return;
 		}
 		var level = (ServerLevel) level();
@@ -59,14 +59,14 @@ public final class FlameSliceEntity extends Projectile {
 		for(var entity:targets) {
 			var hitTarget=(LivingEntity)entity;
 			double contact=volume.contact(hitTarget.getBoundingBox(),from,distance);
-			if(contact>=wall || contact>distance || hit.contains(hitTarget.getUUID()))continue;
+			if(!com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceRules.canTrigger(contact,wall,distance,hit.contains(hitTarget.getUUID())))continue;
 			var center=from.add(direction.scale(contact));
 			var body=hitTarget.getBoundingBox();
-			var impactArea=new AABB(hitTarget.getX()-1.5,body.minY,hitTarget.getZ()-1.5,hitTarget.getX()+1.5,body.maxY,hitTarget.getZ()+1.5);
+			var impactArea=com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.box(com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceRules.impactArea(hitTarget.getX(),body.minY,hitTarget.getZ(),body.maxY));
 			for(var target:level.getEntities(this,impactArea,e->e instanceof LivingEntity living && MagicEffects.allowed(getOwner(),living))) {
-				if(!hit.add(target.getUUID()))continue;
+				if(!hit.claim(target.getUUID()))continue;
 				if(target.hurtServer(level,MagicDamage.source(this,SpellDefinition.FLAME_SLICE),SpellDefinition.FLAME_SLICE.damage())) {
-					MagicEffects.apply(getOwner(),target,SpellDefinition.FLAME_SLICE);SpellHooks.afterHit.accept(this,target);
+					MagicEffects.apply(getOwner(),target,SpellDefinition.FLAME_SLICE);SpellHooks.afterHit(this,target);
 				}
 			}
 			SpellVisuals.burst(level,SpellDefinition.FLAME_SLICE,center,direction);impactSound();
@@ -88,14 +88,16 @@ public final class FlameSliceEntity extends Projectile {
 	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.putInt("MagicAge", age);
-		MagicFlight.saveHits(output,hit);
+		MagicFlight.saveHits(output,hit.snapshot());
 		output.store("FlameFlight", FlameSliceFlight.CODEC, flight);
 	}
 	@Override
 	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		age = Math.max(0, input.getIntOr("MagicAge", 0));
-		MagicFlight.loadHits(input,hit);
+		var restoredHits=new java.util.HashSet<java.util.UUID>();
+		MagicFlight.loadHits(input,restoredHits);
+		hit=new com.example.examplemod.magic.mechanic.projectile.ImpactHistory(restoredHits);
 		flight = input.read("FlameFlight", FlameSliceFlight.CODEC)
 				.orElse(new FlameSliceFlight(SpellDefinition.FLAME_SLICE.range()));
 	}

@@ -1,0 +1,2 @@
+
+扫掠区块可用性检查已迁SweptChunkGate，IntermediateProjectile使用窄Loaded回调读取原hasChunkAt，保持x外z内、floor转int再右移、首次未加载退出。失败后才判断狱炎/风枪销毁，其他暂停，成功后才++age；不加载新区块，不改法术/资源/存档。新增4项核心合同及1000组冻结枚举差分；完整离线build通过63单测/446模块测试、15658旧断言、102定义/教材/资源/JAR。证据r06-chunk-gate-build.log及JUnit汇总/XML。测试只验证核心枚举与短路，真实Fabric/区块卸载/世界/Codec/视觉/联机/性能NOT_RUN。R06-intermediate-runtime仍IN_PROGRESS，下一审计固体碰撞候选收集与首墙/impact选点协调，保留水穿透跳过、接触<=步长才记contacts但contact<wall仍选墙的原分支、同距首个shape和永久地形先于流体；先定义端口及边界合同再迁移。不游戏、不Git。

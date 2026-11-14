@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.PreparationEligibilityModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T07:37:13.875Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="insufficientManaDoesNotFireHook()" classname="com.example.examplemod.magic.casting.PreparationEligibilityModuleTest" time="0.001"/>
+  <testcase name="eventExceptionPropagates()" classname="com.example.examplemod.magic.casting.PreparationEligibilityModuleTest" time="0.0"/>
+  <testcase name="acceptedReadsInLegacyOrder()" classname="com.example.examplemod.magic.casting.PreparationEligibilityModuleTest" time="0.0"/>
+  <testcase name="everyDeniedStageShortCircuitsLaterWorldReads()" classname="com.example.examplemod.magic.casting.PreparationEligibilityModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

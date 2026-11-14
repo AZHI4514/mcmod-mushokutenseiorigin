@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-13T04:17:38.452Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="unexpectedNullDoesNotHideEarlierValidEntries()" classname="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" time="0.001"/>
+  <testcase name="readerFailureLeavesClearedHistory()" classname="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" time="0.0"/>
+  <testcase name="missingListClearsOldHistory()" classname="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" time="0.001"/>
+  <testcase name="restoreClearsBeforeReadAndKeepsSameSet()" classname="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" time="0.0"/>
+  <testcase name="savePreservesIterationOrderAndRoundTripsWithoutAliasing()" classname="com.example.examplemod.magic.casting.HitHistoryFormatModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

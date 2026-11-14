@@ -1,0 +1,81 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/AZHI/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Configure project :
+Fabric Loom: 1.15.5
+
+> Task :processResources UP-TO-DATE
+> Task :processClientResources NO-SOURCE
+> Task :processIncludeJars UP-TO-DATE
+> Task :magic-core:compileJava
+> Task :magic-core:processResources NO-SOURCE
+> Task :magic-core:classes
+> Task :magic-core:jar
+> Task :magic-core:compileTestFixturesJava NO-SOURCE
+> Task :magic-core:processTestFixturesResources NO-SOURCE
+> Task :magic-core:testFixturesClasses UP-TO-DATE
+> Task :magic-core:testFixturesJar UP-TO-DATE
+> Task :magic-core:compileTestJava
+> Task :magic-core:processTestResources NO-SOURCE
+> Task :magic-core:testClasses
+> Task :sourcesJar
+> Task :magic-core:test
+> Task :magic-core:compileModuleTestJava NO-SOURCE
+> Task :magic-core:processModuleTestResources NO-SOURCE
+> Task :magic-core:moduleTestClasses UP-TO-DATE
+> Task :magic-core:moduleTest NO-SOURCE
+> Task :magic-core:check
+> Task :magic-core:assemble
+> Task :magic-core:build
+
+> Task :compileJava
+注: 某些输入文件使用或覆盖了已过时的 API。
+
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+> Task :classes
+
+> Task :compileClientJava
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+
+> Task :architectureTest
+Architecture: JDK-only core compile classpath and server/client import boundaries verified.
+
+> Task :clientClasses
+> Task :compileTestJava
+> Task :processTestResources UP-TO-DATE
+> Task :testClasses
+> Task :test
+> Task :validateAccessWidener NO-SOURCE
+
+> Task :verifyGeometryMigration
+Geometry: 10,000 frozen-old/new sweep scenarios and 20,000 sphere crossings matched.
+
+> Task :verifyMagic
+MagicState: 15658 behavior assertions passed.
+
+> Task :verifySpellBaseline
+Spell baseline: 102 effective definitions, 39 primer lessons and 102 Zenith lessons match.
+
+> Task :jar
+> Task :assemble
+
+> Task :resourceTest
+Resources: packaged core exactly once, baseline assets and PixelFX licenses verified.
+
+> Task :check
+> Task :build
+
+[Incubating] Problems report is available at: file:///D:/Develop/project-mc-mod-mushoku-tensei/project-mc-mod-mushoku-tensei/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.4.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 8s
+19 actionable tasks: 15 executed, 4 up-to-date

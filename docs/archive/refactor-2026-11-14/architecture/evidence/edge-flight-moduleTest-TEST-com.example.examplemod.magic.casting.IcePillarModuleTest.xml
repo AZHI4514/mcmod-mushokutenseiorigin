@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.IcePillarModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:05:29.104Z" hostname="AZHISLAPTOP" time="0.005">
+  <properties/>
+  <testcase name="irreversibleColumnFailureKeepsPaymentAndObserverFailureDoesNotRepeatColumn()" classname="com.example.examplemod.magic.casting.IcePillarModuleTest" time="0.002"/>
+  <testcase name="missingTargetOrFailedPlacementPreflightDoesNotPayOrNotify()" classname="com.example.examplemod.magic.casting.IcePillarModuleTest" time="0.001"/>
+  <testcase name="cancelledOrExpiredPreparationNeverSignalsReady()" classname="com.example.examplemod.magic.casting.IcePillarModuleTest" time="0.001"/>
+  <testcase name="preparationThenValidatedBaseThenPaymentThenColumnAndObservers()" classname="com.example.examplemod.magic.casting.IcePillarModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

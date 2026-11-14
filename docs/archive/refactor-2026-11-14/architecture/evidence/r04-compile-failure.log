@@ -1,0 +1,63 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/AZHI/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+> Configure project :
+Fabric Loom: 1.15.5
+
+> Task :processResources UP-TO-DATE
+> Task :processClientResources NO-SOURCE
+> Task :processIncludeJars UP-TO-DATE
+
+> Task :magic-core:compileJava FAILED
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:9: 错误: 找不到符号
+	private ChantScore current;
+	        ^
+  符号:   类 ChantScore
+  位置: 类 SegmentedLesson
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:16: 错误: 找不到符号
+			new ChantScore(notes);
+			    ^
+  符号:   类 ChantScore
+  位置: 类 SegmentedLesson
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:30: 错误: 找不到符号
+	public void restartCurrentSection() { current = finished() ? null : new ChantScore(sections.get(completed)); }
+	                                                                        ^
+  符号:   类 ChantScore
+  位置: 类 SegmentedLesson
+3 个错误
+
+
+> Task :sourcesJar
+
+[Incubating] Problems report is available at: file:///D:/Develop/project-mc-mod-mushoku-tensei/project-mc-mod-mushoku-tensei/build/reports/problems/problems-report.html
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':magic-core:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:9: 错误: 找不到符号
+  	private ChantScore current;
+  	        ^
+    符号:   类 ChantScore
+    位置: 类 SegmentedLesson
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:16: 错误: 找不到符号
+  			new ChantScore(notes);
+  			    ^
+    符号:   类 ChantScore
+    位置: 类 SegmentedLesson
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\main\java\com\example\examplemod\magic\feature\learning\SegmentedLesson.java:30: 错误: 找不到符号
+  	public void restartCurrentSection() { current = finished() ? null : new ChantScore(sections.get(completed)); }
+  	                                                                        ^
+    符号:   类 ChantScore
+    位置: 类 SegmentedLesson
+  3 个错误
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1s
+4 actionable tasks: 2 executed, 2 up-to-date

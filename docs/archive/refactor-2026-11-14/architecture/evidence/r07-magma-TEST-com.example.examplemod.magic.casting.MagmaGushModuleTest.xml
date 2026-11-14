@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.MagmaGushModuleTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-13T09:04:16.012Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="selfHitBypassesPermissionAndUsesSelfEffectsOnly()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="foreignHitAppliesNormalEffectsBeforeHook()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="tickInvalidationPreservesRemoveBeforeDiscard()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="failedDamageStillClaimsCadenceBeforeRefusal()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="exactlyOneEruptionAndEightResidualPulses()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.001"/>
+  <testcase name="bodyCenterCylinderKeepsVerticalAndHorizontalBoundaries()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="effectsFailureCannotUndoDamageOrNotifyHook()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="processedStateClaimsEveryFrameBeforeDamageAndDoesNotReplay()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.0"/>
+  <testcase name="zeroDamageFrameIsProcessedButDoesNotQueryTargets()" classname="com.example.examplemod.magic.casting.MagmaGushModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

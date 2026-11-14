@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-13T07:19:24.934Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="burstCanAffectLaterHistory()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.001"/>
+  <testcase name="ordinaryOrder()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="failureKeepsClaimAndSkipsPresentation()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="emptyDoesNotReadWorld()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="explosionRereadsPiercingAfterEffect()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.001"/>
+  <testcase name="explosionHasOwnPresentation()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="ordinaryPiercingIsReadAfterBurst()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="skipDoesNotClaimOrEffect()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="nonPiercingExplosionDoesNotExtraDiscard()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <testcase name="nonPiercingStopsAndDiscards()" classname="com.example.examplemod.magic.casting.PhaseTwoContactTraversalModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

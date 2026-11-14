@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 /** One letter every four server ticks during preparation or lessons, emitted from the anatomical left eye. */
 public final class MagicChantEffects {
 	public static void tick(ServerPlayer player) {
-		if (Math.floorMod(player.tickCount, 4) != 0) return;
+		if (!com.example.examplemod.magic.domain.visual.ParticleAnimation.emitGlyph(player.tickCount)) return;
 		var look = player.getLookAngle();
 		// Head yaw, not body yaw: +X is the player's left while facing +Z.
 		var forward = Vec3.directionFromRotation(0, player.getYHeadRot());

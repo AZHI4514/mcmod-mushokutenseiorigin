@@ -1,5 +1,7 @@
 # 物品开发约定（Minecraft 26.1 / Fabric / Java 25）
 
+更新核对：2026-11-11。本文作为长期物品工程规范保留；当前项目进度与流程见[文档入口](README.md)，架构v2已获准渐进实施，现有物品模板继续适用，实际进度见STATUS.md。
+
 此文档是本项目新增物品的统一模板。新物品沿用现有包名 `com.example.examplemod`，命名空间固定为 `mushokutenseiorigin`。
 
 ## 固定格式

@@ -1,0 +1,512 @@
+[
+  {
+    "constant": "WATER_BALL",
+    "id": "water_ball",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "FIREBALL",
+    "id": "fireball",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "WIND_BALL",
+    "id": "wind_ball",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "ROCK_BULLET",
+    "id": "rock_bullet",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "WATER_ARROW",
+    "id": "water_arrow",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICE_SMASH",
+    "id": "ice_smash",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "FLAME_SLICE",
+    "id": "flame_slice",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "HEALING",
+    "id": "healing",
+    "catalog": "HealingSpellDefinitions"
+  },
+  {
+    "constant": "WATER_SHIELD",
+    "id": "water_shield",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICE_BLADE",
+    "id": "ice_blade",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "HEAT_HAND",
+    "id": "heat_hand",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "HEAT_ISLAND",
+    "id": "heat_island",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "BURNING_PLACE",
+    "id": "burning_place",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "DETOXIFICATION",
+    "id": "detoxification",
+    "catalog": "HealingSpellDefinitions"
+  },
+  {
+    "constant": "MAGIC_SHIELD",
+    "id": "magic_shield",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "WATER_CANNON",
+    "id": "water_cannon",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "WATER_SPLASH",
+    "id": "water_splash",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICICLE_FIELD",
+    "id": "icicle_field",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "EX_FLAME",
+    "id": "ex_flame",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "SONIC_BOOM",
+    "id": "sonic_boom",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "STONE_CANNON",
+    "id": "stone_cannon",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "ICE_PILLAR",
+    "id": "ice_pillar",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "WATERFALL",
+    "id": "waterfall",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICE_LANCE",
+    "id": "ice_lance",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICICLE_BREAK",
+    "id": "icicle_break",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICICLE_EDGE",
+    "id": "icicle_edge",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "FLOOD_FLUSH",
+    "id": "flood_flush",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ICE_FORTRESS",
+    "id": "ice_fortress",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "EXPLOSION",
+    "id": "explosion",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "FLAME_PILLAR",
+    "id": "flame_pillar",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "FLAMETHROWER",
+    "id": "flamethrower",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "WIND_SLICE",
+    "id": "wind_slice",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "WIND_BIND",
+    "id": "wind_bind",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "WIND_BLAST",
+    "id": "wind_blast",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "EARTH_LANCE",
+    "id": "earth_lance",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "EARTH_PILLAR",
+    "id": "earth_pillar",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "EX_HEALING",
+    "id": "ex_healing",
+    "catalog": "HealingSpellDefinitions"
+  },
+  {
+    "constant": "ANTIDOTE_II",
+    "id": "antidote_ii",
+    "catalog": "HealingSpellDefinitions"
+  },
+  {
+    "constant": "PHYSICAL_SHIELD",
+    "id": "physical_shield",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "FLAME_TORNADO",
+    "id": "flame_tornado",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "EXORCIST_RAY",
+    "id": "exorcist_ray",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "EXORCIST_BURST",
+    "id": "exorcist_burst",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "EXORCIST_JUDGE",
+    "id": "exorcist_judge",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "HOLY_RAY",
+    "id": "holy_ray",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "SACRED_NOVA",
+    "id": "sacred_nova",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "DIVINE_JUDGE",
+    "id": "divine_judge",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "GOD_PURGE",
+    "id": "god_purge",
+    "catalog": "HolySpellDefinitions"
+  },
+  {
+    "constant": "OCEAN_FREEZE",
+    "id": "ocean_freeze",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "FLAME_STORM",
+    "id": "flame_storm",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "APOCALYPSE_FLAME",
+    "id": "apocalypse_flame",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "EARTHQUAKE",
+    "id": "earthquake",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "TERRA_FALL",
+    "id": "terra_fall",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "CONTINENTAL_SINK",
+    "id": "continental_sink",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "SAND_CLOUD",
+    "id": "sand_cloud",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "DUST_STORM",
+    "id": "dust_storm",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "SANDSTORM",
+    "id": "sandstorm",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "DEEP_MIST",
+    "id": "deep_mist",
+    "catalog": "MixedSpellDefinitions"
+  },
+  {
+    "constant": "MUD_RAIN",
+    "id": "mud_rain",
+    "catalog": "MixedSpellDefinitions"
+  },
+  {
+    "constant": "ANTIDOTE_III",
+    "id": "antidote_iii",
+    "catalog": "HealingSpellDefinitions"
+  },
+  {
+    "constant": "HOWLING",
+    "id": "howling",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "HYPNOSIS_MAGIC",
+    "id": "hypnosis_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "ATMOSPHERE_DOMINION",
+    "id": "atmosphere_dominion",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "GRAVITY_MAGIC",
+    "id": "gravity_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "NUCLEAR_EXPLOSION",
+    "id": "nuclear_explosion",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "DUAL_SHIELD",
+    "id": "dual_shield",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "SPIRIT_SEALING_BARRIER",
+    "id": "spirit_sealing_barrier",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "CONFINEMENT_BARRIER",
+    "id": "confinement_barrier",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "DISTURB_MAGIC",
+    "id": "disturb_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "DIVINATION_MAGIC",
+    "id": "divination_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "MONSTER_SUMMON",
+    "id": "monster_summon",
+    "catalog": "SummonSpellDefinitions"
+  },
+  {
+    "constant": "SPIRIT_SUMMON",
+    "id": "spirit_summon",
+    "catalog": "SummonSpellDefinitions"
+  },
+  {
+    "constant": "LAMPLIGHT_SPIRITS",
+    "id": "lamplight_spirits",
+    "catalog": "SummonSpellDefinitions"
+  },
+  {
+    "constant": "NECROMANCY",
+    "id": "necromancy",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "FORTRESS_BARRIER",
+    "id": "fortress_barrier",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "DEMON_GOD_SEALING_BARRIER",
+    "id": "demon_god_sealing_barrier",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "SAINT_DRAGON_BATTLE_AURA",
+    "id": "saint_dragon_battle_aura",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "COMMUNICATION_MAGIC",
+    "id": "communication_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "TELEPORTATION_MAGIC",
+    "id": "teleportation_magic",
+    "catalog": "SpecialSpellDefinitions"
+  },
+  {
+    "constant": "ILLUSION_BARRIER",
+    "id": "illusion_barrier",
+    "catalog": "MagicSpellDefinitions"
+  },
+  {
+    "constant": "ABSOLUTE_ZERO",
+    "id": "absolute_zero",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "INFERNO",
+    "id": "inferno",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "FLASH_OVER",
+    "id": "flash_over",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "VIOLENT_STORM",
+    "id": "violent_storm",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "TORNADO",
+    "id": "tornado",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "VACUUM_STORM",
+    "id": "vacuum_storm",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "SKY_TEMPEST",
+    "id": "sky_tempest",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "MAGMA_GUSH",
+    "id": "magma_gush",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "BLAST",
+    "id": "blast",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "BORA_BLAST",
+    "id": "bora_blast",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "QUAGMIRE",
+    "id": "quagmire",
+    "catalog": "MixedSpellDefinitions"
+  },
+  {
+    "constant": "EARTH_HEDGEHOG",
+    "id": "earth_hedgehog",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "EARTH_FORTRESS",
+    "id": "earth_fortress",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "EARTH_WALL",
+    "id": "earth_wall",
+    "catalog": "EarthSpellDefinitions"
+  },
+  {
+    "constant": "SONIC_BLAST",
+    "id": "sonic_blast",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "FROST_NOVA",
+    "id": "frost_nova",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "LIGHTNING",
+    "id": "lightning",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "ELECTRIC",
+    "id": "electric",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "CUMULONIMBUS",
+    "id": "cumulonimbus",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "TORNADO_IMPACT",
+    "id": "tornado_impact",
+    "catalog": "WindSpellDefinitions"
+  },
+  {
+    "constant": "EXODUS_FLAME",
+    "id": "exodus_flame",
+    "catalog": "FireSpellDefinitions"
+  },
+  {
+    "constant": "SQUALL",
+    "id": "squall",
+    "catalog": "WaterSpellDefinitions"
+  },
+  {
+    "constant": "BLIZZARD_STORM",
+    "id": "blizzard_storm",
+    "catalog": "WaterSpellDefinitions"
+  }
+]

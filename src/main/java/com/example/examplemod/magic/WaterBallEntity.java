@@ -1,5 +1,7 @@
 package com.example.examplemod.magic;
 
+import com.example.examplemod.infrastructure.fabric.magic.SpellRaycastAdapter;
+
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -13,15 +15,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 	private int age;
 	private double distance;
 
-	public SpellDefinition spell() {
-		if (getType() == MagicSystem.FIREBALL) return SpellDefinition.FIREBALL;
-		if (getType() == MagicSystem.WIND_BALL) return SpellDefinition.WIND_BALL;
-		if (getType() == MagicSystem.ROCK_BULLET) return SpellDefinition.ROCK_BULLET;
-		if (getType() == MagicSystem.WATER_ARROW) return SpellDefinition.WATER_ARROW;
-		if (getType() == MagicSystem.ICE_BLADE) return SpellDefinition.ICE_BLADE;
-		if (getType() == MagicSystem.ICE_SMASH) return SpellDefinition.ICE_SMASH;
-		return SpellDefinition.WATER_BALL;
-	}
+	public SpellDefinition spell(){return com.example.examplemod.bootstrap.MagicEntityTypes.basicSpell(getType());}
 
 	@Override
 	protected double getDefaultGravity() { return spell().gravity(); }
@@ -38,7 +32,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 		if (level() instanceof ServerLevel level) {
 			if (getY() < level.getMinY()) { discard(); return; }
 			var sweep = getBoundingBox().expandTowards(getDeltaMovement());
-			if (!PhaseTwoSpells.loaded(level, sweep)) return;
+			if (!SpellRaycastAdapter.loaded(level, sweep)) return;
 			var fluid = MagicFlight.fluidHit(this, new SpellSweep(getDeltaMovement().normalize(), 0.25, 0.25, 0.25), position(), getDeltaMovement());
 			var block = level.clip(new net.minecraft.world.level.ClipContext(position(), position().add(getDeltaMovement()), net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, this));
 			double before = block.getType() == HitResult.Type.MISS ? getDeltaMovement().length() : position().distanceTo(block.getLocation());
@@ -86,7 +80,7 @@ public final class WaterBallEntity extends ThrowableProjectile {
 				var direction = getDeltaMovement();
 				target.knockback(spell().knockback(), -direction.x, -direction.z);
 			}
-			if (damaged) { MagicEffects.apply(getOwner(), hit.getEntity(), spell()); SpellHooks.afterHit.accept(this, hit.getEntity()); }
+			if (damaged) { MagicEffects.apply(getOwner(), hit.getEntity(), spell()); SpellHooks.afterHit(this, hit.getEntity()); }
 		}
 	}
 

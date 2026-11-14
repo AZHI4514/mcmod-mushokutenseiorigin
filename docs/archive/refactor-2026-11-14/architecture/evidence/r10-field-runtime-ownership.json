@@ -1,0 +1,21 @@
+{
+  "migratedToLevelOwnership": [
+    "AbsoluteZeroAdapter.java",
+    "CumulonimbusAdapter.java",
+    "DivineJudgmentAdapter.java",
+    "EarthHedgehogAdapter.java",
+    "FlashOverAdapter.java",
+    "GroundFieldRuntimeAdapter.java",
+    "IllusionBarrierAdapter.java",
+    "InfernoAdapter.java",
+    "MagmaGushAdapter.java",
+    "MaintainedFieldRuntimeAdapter.java",
+    "OceanFreezeRuntimeAdapter.java",
+    "SmokeFieldRuntimeAdapter.java",
+    "WindFieldRuntimeAdapter.java",
+    "FiniteBarrierRuntimeAdapter.java",
+    "HolySanctuaryAdapter.java",
+    "PoweredBarrierRuntimeAdapter.java"
+  ],
+  "globalQueryIndexesNeedExplicitLevel": []
+}

@@ -1,6 +1,6 @@
 package com.example.examplemod.mixin;
 
-import com.example.examplemod.magic.MagicAreas;
+import com.example.examplemod.infrastructure.fabric.magic.AreaRuntimeAdapter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MagicProjectileMixin {
 	@Inject(method = "tickNonPassenger", at = @At("HEAD"), cancellable = true)
 	private void mushoku$waterShield(Entity entity, CallbackInfo ci) {
-		if (entity instanceof Projectile projectile && MagicAreas.intercept(projectile)) ci.cancel();
+		if (entity instanceof Projectile projectile && AreaRuntimeAdapter.intercept(projectile)) ci.cancel();
 	}
 }

@@ -10,18 +10,12 @@ final class SpellTextureAnimation {
 		SpellMeshModel.submit(poses, collector, id, age, w, h, d, 1);
 	}
 	static void area(PoseStack poses, SubmitNodeCollector collector, String id, float age) {
+		var layout=com.example.examplemod.magic.domain.visual.AreaMeshLayout.at(id,age);
+		if(layout==null)return;
 		poses.pushPose();
-		switch (id) {
-			case "water_shield" -> SpellMeshModel.submit(poses, collector, id, age, 3, 2, 1, 1);
-			case "magic_shield" -> {
-				poses.translate(0, 1, 0);
-				SpellMeshModel.submit(poses, collector, id, age, 1.8F, 2.1F, 1.8F, 1);
-			}
-			case "burning_place" -> { poses.translate(0, .9, 0); SpellMeshModel.submit(poses, collector, id, age, 1F, 1.9F, 1F, 1); }
-			case "heat_island" -> { poses.translate(0, .08, 0); SpellMeshModel.submit(poses, collector, id, age, 5.8F, .7F, 5.8F, .6F); }
-			default -> { }
-		}
+		poses.translate(0,layout.y(),0);
+		SpellMeshModel.submit(poses,collector,id,age,layout.width(),layout.height(),layout.depth(),layout.opacity());
 		poses.popPose();
 	}
-	private SpellTextureAnimation() { }
+	private SpellTextureAnimation() {}
 }

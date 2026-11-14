@@ -1,0 +1,54 @@
+{
+  "test": [
+    {
+      "suite": "com.example.examplemod.magic.catalog.SpellFactoryRegistryTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.domain.geometry.GeometryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.domain.model.SpellIdTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.domain.player.ManaPolicyTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.domain.spec.CastingTimingTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.mechanic.RuleBoundaryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "moduleTest": [
+    {
+      "suite": "com.example.examplemod.magic.casting.WaterBallModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "com.example.examplemod.magic.learning.LearningModuleTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    }
+  ]
+}

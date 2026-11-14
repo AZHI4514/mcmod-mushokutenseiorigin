@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-11T12:59:39.518Z" hostname="AZHISLAPTOP" time="0.01">
+  <properties/>
+  <testcase name="seventhMissingHeartbeatStopsAndExplicitStopPreservesLargerCooldownAndCredit()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.005"/>
+  <testcase name="invalidAimAndInsufficientEntryManaNeverCallWorldAndPeriodicFailureKeepsChannel()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.001"/>
+  <testcase name="stoppedUseCaseCanBeRecreatedWithoutResettingPersistentCredit()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.001"/>
+  <testcase name="finalPrepaidCreditRunsOutThenStopsWithoutCreatingMoreWater()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.0"/>
+  <testcase name="lostTargetAndIneligiblePlayerStopBeforePaymentAndNeverRenewAgain()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.001"/>
+  <testcase name="independentChannelsKeepHeartbeatPaymentAndSourcesIsolated()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.0"/>
+  <testcase name="initialFailureRestoresPaymentAndRepeatedBeginDoesNotRegenerate()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.0"/>
+  <testcase name="twentiethTickRenewsBeforeGenerationAndChargesOnlyTheTickRate()" classname="com.example.examplemod.magic.casting.WaterfallChannelModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

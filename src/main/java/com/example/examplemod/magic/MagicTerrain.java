@@ -21,23 +21,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
-/** 独立临时冰以方块实体记录到期时间，计划tick清理；没有物品或掉落。 */
+/** Registry and vanilla temporary-block lifecycle; terrain permissions and edits live in dedicated adapters. */
 public final class MagicTerrain {
+	public static final Block EXPANSION_ICE=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("expansion_ice"),new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("expansion_ice")))));
+	public static final Block SCORCHED_SURFACE=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("scorched_surface"),new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MAGMA_BLOCK).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("scorched_surface")))));
+	public static final Block EXPANSION_DIRT=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("expansion_dirt"),new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("expansion_dirt")))));
 	public static final Block TEMPORARY_ICE=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("temporary_magic_ice"),new TemporaryIce(
 			BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
 					.setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("temporary_magic_ice")))));
 	public static final Block TEMPORARY_DIRT=Registry.register(BuiltInRegistries.BLOCK,ExampleMod.id("temporary_magic_dirt"),new TemporaryIce(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).noLootTable().pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK,ExampleMod.id("temporary_magic_dirt")))));
-	public static boolean temporary(ServerPlayer owner,BlockPos pos,Block material,int ticks) {
-		var level=(ServerLevel)owner.level();
-		if(!mayChange(owner,pos)||!level.getBlockState(pos).isAir()||!level.setBlockAndUpdate(pos,material.defaultBlockState())) return false;
-		if(level.getBlockEntity(pos) instanceof IceExpiry timer) { timer.expiry=level.getGameTime()+ticks; timer.setChanged(); }
-		level.scheduleTick(pos,material,ticks); return true;
-	}
+
 	public static final net.minecraft.world.level.block.entity.BlockEntityType<IceExpiry> ICE_EXPIRY=Registry.register(
 			BuiltInRegistries.BLOCK_ENTITY_TYPE,ExampleMod.id("magic_ice_expiry"),
 			net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(IceExpiry::new,TEMPORARY_ICE,TEMPORARY_DIRT).build());
 	public static final class IceExpiry extends net.minecraft.world.level.block.entity.BlockEntity {
-		long expiry;
+		private long expiry;
+		public void expireAt(long value){expiry=value;setChanged();}
 		public IceExpiry(BlockPos pos,BlockState state) { super(ICE_EXPIRY,pos,state); }
 		@Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) { super.saveAdditional(output); output.putLong("ExpiresAt",expiry); }
 		@Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) { super.loadAdditional(input); expiry=input.getLongOr("ExpiresAt",0); }
@@ -60,51 +59,11 @@ public final class MagicTerrain {
 			if(level.getBlockState(pos).is(this)) { level.levelEvent(2001,pos,Block.getId(state)); level.setBlockAndUpdate(pos,Blocks.AIR.defaultBlockState()); }
 		}
 	}
-	public static boolean mayChange(ServerPlayer owner,BlockPos pos) {
-		var level=(ServerLevel)owner.level();
-		return level.isInWorldBounds(pos)&&level.getWorldBorder().isWithinBounds(pos)&&level.hasChunkAt(pos)&&owner.mayBuild()&&owner.mayInteract(level,pos)
-				&&!owner.blockActionRestricted(level,pos,owner.gameMode.getGameModeForPlayer())&&!level.getServer().isUnderSpawnProtection(level,pos,owner);
-	}
-	public static void encase(ServerPlayer owner,net.minecraft.world.entity.LivingEntity target) {
-		var level=(ServerLevel)owner.level(); var middle=BlockPos.containing(target.getBoundingBox().getCenter());
-		for(var pos:BlockPos.betweenClosed(middle.offset(-1,-1,-1),middle.offset(1,1,1))) {
-			if(mayChange(owner,pos)&&level.getBlockState(pos).isAir()&&level.setBlockAndUpdate(pos,TEMPORARY_ICE.defaultBlockState())) {
-				if(level.getBlockEntity(pos) instanceof IceExpiry timer) { timer.expiry=level.getGameTime()+120; timer.setChanged(); }
-				level.scheduleTick(pos,TEMPORARY_ICE,120);
-			}
-		}
-	}
+
+
 	/** 原版木工具采集条件；例如石头可采但铁矿不可用木镐采集。 */
-	public static ItemStack woodenTool(BlockState state) {
-		for(var item:List.of(Items.WOODEN_PICKAXE,Items.WOODEN_AXE,Items.WOODEN_SHOVEL,Items.WOODEN_HOE,Items.WOODEN_SWORD)) {
-			var tool=new ItemStack(item);
-			if(!state.requiresCorrectToolForDrops()||tool.isCorrectToolForDrops(state)) return tool;
-		}
-		return ItemStack.EMPTY;
-	}
-	public static void blast(ServerPlayer owner,BlockPos anchor,Vec3 hit,int width,boolean ignite) {
-		var level=(ServerLevel)owner.level();
-		for(var pos:IntermediateRules.blastBlocks(anchor,width,hit)) {
-			if(!mayChange(owner,pos)) continue;
-			var state=level.getBlockState(pos); var tool=woodenTool(state);
-			if(state.isAir()||state.is(TEMPORARY_ICE)||state.getDestroySpeed(level,pos)<0||!state.getFluidState().isEmpty()||tool.isEmpty()) continue;
-			java.util.List<ItemStack> drops=java.util.List.of();
-			for(var item:List.of(Items.WOODEN_PICKAXE,Items.WOODEN_AXE,Items.WOODEN_SHOVEL,Items.WOODEN_HOE,Items.WOODEN_SWORD)) {
-				var candidate=new ItemStack(item);
-				if(state.requiresCorrectToolForDrops()&&!candidate.isCorrectToolForDrops(state)) continue;
-				var loot=Block.getDrops(state,level,pos,level.getBlockEntity(pos),owner,candidate);
-				if(!loot.isEmpty()) { drops=loot; break; }
-			}
-			if(drops.isEmpty()) continue;
-			drops.forEach(stack->Block.popResource(level,pos,stack));
-			level.setBlockAndUpdate(pos,Blocks.AIR.defaultBlockState());
-		}
-		if(ignite) for(var pos:IntermediateRules.blastBlocks(anchor,width,hit)) {
-			if(!mayChange(owner,pos)||!level.getBlockState(pos).isAir()) continue;
-			var fire=BaseFireBlock.getState(level,pos);
-			if(fire.canSurvive(level,pos)) level.setBlockAndUpdate(pos,fire);
-		}
-	}
+
+
 	public static void initialize() { }
 	private MagicTerrain() { }
 }

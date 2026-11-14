@@ -1,4 +1,6 @@
 package com.example.examplemod.mixin;
+import com.example.examplemod.infrastructure.fabric.magic.*;
+import com.example.examplemod.infrastructure.fabric.magic.SmokeFieldRuntimeAdapter;
 
 import com.example.examplemod.magic.MagicEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,6 +20,8 @@ public abstract class MagicFreezeMixin {
 			boolean active = entity.hasEffect(MagicEffects.FROZEN) && !entity.hasEffect(MagicEffects.WARMTH) && entity.canFreeze();
 			// 原版效果可能在aiStep前已到期；清除魔法遗留值，避免再自然解冻数秒。
 			if (mushoku$hadMagicFreeze && !active && !entity.isInPowderSnow) entity.setTicksFrozen(0);
+			com.example.examplemod.infrastructure.fabric.magic.SmokeFieldRuntimeAdapter.tickLiving(entity);
+			com.example.examplemod.infrastructure.fabric.magic.HypnosisAdapter.tickLiving(entity);
 			MagicEffects.beforeFreeze(entity);
 			mushoku$hadMagicFreeze = active;
 		}

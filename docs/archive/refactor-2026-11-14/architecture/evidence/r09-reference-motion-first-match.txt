@@ -1,0 +1,2 @@
+Preserved unreachable duplicate alpha conditions: ['flame_tornado']
+The first flame_tornado branch is authoritative; no visual behavior silently changed.

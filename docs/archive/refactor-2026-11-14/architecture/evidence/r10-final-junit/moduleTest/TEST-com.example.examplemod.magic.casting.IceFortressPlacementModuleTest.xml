@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.397Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="expiredDelayedJobNeverPlacesEvenWhenOccupantLeaves()" classname="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" time="0.0"/>
+  <testcase name="emptyAreaPlacesImmediatelyThenBursts()" classname="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" time="0.0"/>
+  <testcase name="occupiedAreaLaunchesThenQueuesAndLaterSharesOneExpiry()" classname="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" time="0.0"/>
+  <testcase name="launchFailureDoesNotQueueOrBurstAfterPartialLaunch()" classname="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" time="0.001"/>
+  <testcase name="immediatePlacementFailureLeavesEarlierWorldEffectsAndStopsTheTail()" classname="com.example.examplemod.magic.casting.IceFortressPlacementModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

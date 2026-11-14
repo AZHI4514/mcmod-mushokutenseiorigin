@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.CommunicationModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-13T12:11:37.563Z" hostname="AZHISLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="sameUuidOnDifferentServersCannotShareDraft()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <testcase name="networkFailureDoesNotEchoOrDraw()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.001"/>
+  <testcase name="invalidDraftIsNotConsumed()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <testcase name="signedDraftConsumedBeforeSendAndSenderEcho()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <testcase name="textLimitCountsCodepoints()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <testcase name="absentPeerSkipsPrivacyReads()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <testcase name="bothBindingAndUnmutedRecipientRequired()" classname="com.example.examplemod.magic.casting.CommunicationModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

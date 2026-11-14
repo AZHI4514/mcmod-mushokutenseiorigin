@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.349Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="wetMobConsumesWetBeforeFreezeAndControl()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.0"/>
+  <testcase name="damageMutationDoesNotReplaceWarmSnapshot()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.001"/>
+  <testcase name="freezeImmunityDoesNotSkipPlayerControl()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.0"/>
+  <testcase name="statusRemovalFailureStopsLaterControlAndHook()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.0"/>
+  <testcase name="rejectedDamageConsumesNothing()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.0"/>
+  <testcase name="warmthBlocksControlButNotDamageOrStatusConsumption()" classname="com.example.examplemod.magic.casting.FrostNovaHitModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

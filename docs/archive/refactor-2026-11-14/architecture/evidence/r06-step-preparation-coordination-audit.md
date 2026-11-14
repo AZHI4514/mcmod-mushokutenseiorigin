@@ -1,0 +1,2 @@
+
+IntermediateStepAdapter.prepareAndApply已承接原寿命检查与扫掠几何准备，载体tick保留super/removed、客户端轨迹，服务端只注入原命中Set和私有计数回调。保留原寿命表达式短路、体积尺寸、速度、区块/年龄/地形/流体/目标/终止顺序，未改变注册和保存格式。完整离线build通过63单测/463模块测试、15658旧断言、102定义/教材/资源/JAR；未新增测试，本批为世界适配迁移并运行原合同回归。证据r06-step-preparation-build.log及JUnit汇总/XML。用户明确全部重构完再统一实机测试；世界/Fabric/Mixin/Codec/视觉/联机/性能NOT_RUN。R06-intermediate-runtime仍IN_PROGRESS，下一核对载体保存及适配器单术分支归属，补结构退出清单后推进IntermediateSpells命中适配，不能称R06全部完成。不游戏、不Git。

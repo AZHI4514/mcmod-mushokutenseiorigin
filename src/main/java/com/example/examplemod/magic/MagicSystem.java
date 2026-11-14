@@ -1,17 +1,15 @@
 package com.example.examplemod.magic;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
+import com.example.examplemod.magic.feature.input.InputSessions;
+import com.example.examplemod.magic.feature.input.InputSessions.Session;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -21,111 +19,28 @@ import com.example.examplemod.ExampleMod;
 
 /** 所有状态变化发生在服务端线程；一次请求最多执行一次成功施法。 */
 public final class MagicSystem {
-	private static final Map<UUID, Session> SESSIONS = new HashMap<>();
-	public static final EntityType<WaterBallEntity> WATER_BALL = registerProjectile("water_ball");
-	public static final EntityType<WaterBallEntity> FIREBALL = registerProjectile("fireball");
-	public static final EntityType<WaterBallEntity> WIND_BALL = registerProjectile("wind_ball");
-	public static final EntityType<WaterBallEntity> ROCK_BULLET = registerProjectile("rock_bullet");
-	public static final EntityType<WaterBallEntity> WATER_ARROW = registerProjectile("water_arrow");
-	public static final EntityType<WaterBallEntity> ICE_SMASH = registerProjectile("ice_smash");
-	public static final EntityType<WaterBallEntity> ICE_BLADE = registerProjectile("ice_blade");
-	public static final EntityType<MagicAreaEntity> MAGIC_AREA = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-			ExampleMod.id("magic_area"), EntityType.Builder.<MagicAreaEntity>of(MagicAreaEntity::new, MobCategory.MISC)
-					.sized(0.1F, 0.1F).clientTrackingRange(6).updateInterval(1)
-					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("magic_area"))));
-	public static final EntityType<FlameSliceEntity> FLAME_SLICE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-			ExampleMod.id("flame_slice"), EntityType.Builder.<FlameSliceEntity>of(FlameSliceEntity::new, MobCategory.MISC)
-					.sized(1.5F, 0.25F).clientTrackingRange(4).updateInterval(1)
-					.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id("flame_slice"))));
+	public static final EntityType<WaterBallEntity> WATER_BALL = com.example.examplemod.bootstrap.MagicEntityTypes.WATER_BALL;
+	public static final EntityType<WaterBallEntity> FIREBALL = com.example.examplemod.bootstrap.MagicEntityTypes.FIREBALL;
+	public static final EntityType<WaterBallEntity> WIND_BALL = com.example.examplemod.bootstrap.MagicEntityTypes.WIND_BALL;
+	public static final EntityType<WaterBallEntity> ROCK_BULLET = com.example.examplemod.bootstrap.MagicEntityTypes.ROCK_BULLET;
+	public static final EntityType<WaterBallEntity> WATER_ARROW = com.example.examplemod.bootstrap.MagicEntityTypes.WATER_ARROW;
+	public static final EntityType<WaterBallEntity> ICE_SMASH = com.example.examplemod.bootstrap.MagicEntityTypes.ICE_SMASH;
+	public static final EntityType<WaterBallEntity> ICE_BLADE = com.example.examplemod.bootstrap.MagicEntityTypes.ICE_BLADE;
+	public static final EntityType<MagicAreaEntity> MAGIC_AREA = com.example.examplemod.bootstrap.MagicEntityTypes.MAGIC_AREA;
+	public static final EntityType<FlameSliceEntity> FLAME_SLICE = com.example.examplemod.bootstrap.MagicEntityTypes.FLAME_SLICE;
+	public static final EntityType<SweptSpellProjectile> WATER_CANNON = com.example.examplemod.bootstrap.MagicEntityTypes.WATER_CANNON;
+	public static final EntityType<SweptSpellProjectile> WATER_SPLASH = com.example.examplemod.bootstrap.MagicEntityTypes.WATER_SPLASH;
+	public static final EntityType<SweptSpellProjectile> ICICLE_FIELD = com.example.examplemod.bootstrap.MagicEntityTypes.ICICLE_FIELD;
+	public static final EntityType<SweptSpellProjectile> TORNADO_IMPACT = com.example.examplemod.bootstrap.MagicEntityTypes.TORNADO_IMPACT;
+	public static final EntityType<SweptSpellProjectile> EXODUS_FLAME = com.example.examplemod.bootstrap.MagicEntityTypes.EXODUS_FLAME;
+	public static final EntityType<SweptSpellProjectile> EX_FLAME = com.example.examplemod.bootstrap.MagicEntityTypes.EX_FLAME;
+	public static final EntityType<SweptSpellProjectile> SONIC_BOOM = com.example.examplemod.bootstrap.MagicEntityTypes.SONIC_BOOM;
+	public static final EntityType<SweptSpellProjectile> STONE_CANNON = com.example.examplemod.bootstrap.MagicEntityTypes.STONE_CANNON;
+	public static final EntityType<DirectionalSpellCarrier> PHASE_TWO = com.example.examplemod.bootstrap.MagicEntityTypes.PHASE_TWO;
+	public static EntityType<SweptSpellProjectile> intermediateType(SpellDefinition spell) { return com.example.examplemod.bootstrap.MagicEntityTypes.intermediateType(spell); }
+	static EntityType<WaterBallEntity> projectileType(SpellDefinition spell) { return com.example.examplemod.bootstrap.MagicEntityTypes.projectileType(spell); }
 
-	public static final EntityType<IntermediateProjectile> WATER_CANNON=registerIntermediate("water_cannon",0.25F);
-	public static final EntityType<IntermediateProjectile> WATER_SPLASH=registerIntermediate("water_splash",0.1F);
-	public static final EntityType<IntermediateProjectile> ICICLE_FIELD=registerIntermediate("icicle_field",0.1F);
-	public static final EntityType<IntermediateProjectile> EX_FLAME=registerIntermediate("ex_flame",2F);
-	public static final EntityType<IntermediateProjectile> SONIC_BOOM=registerIntermediate("sonic_boom",1F);
-	public static final EntityType<IntermediateProjectile> STONE_CANNON=registerIntermediate("stone_cannon",0.25F);
-	public static final EntityType<PhaseTwoEntity> PHASE_TWO=Registry.register(BuiltInRegistries.ENTITY_TYPE,ExampleMod.id("phase_two_spell"),EntityType.Builder.<PhaseTwoEntity>of(PhaseTwoEntity::new,MobCategory.MISC).sized(0.25F,0.25F).clientTrackingRange(8).updateInterval(1).build(ResourceKey.create(Registries.ENTITY_TYPE,ExampleMod.id("phase_two_spell"))));
-	private static EntityType<IntermediateProjectile> registerIntermediate(String id,float size) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE,ExampleMod.id(id),EntityType.Builder.<IntermediateProjectile>of(IntermediateProjectile::new,MobCategory.MISC)
-				.sized(size,size).clientTrackingRange(8).updateInterval(1).build(ResourceKey.create(Registries.ENTITY_TYPE,ExampleMod.id(id))));
-	}
-	static EntityType<IntermediateProjectile> intermediateType(SpellDefinition spell) {
-		return switch(spell.id()) {
-			case "water_cannon"->WATER_CANNON; case "water_splash"->WATER_SPLASH; case "icicle_field"->ICICLE_FIELD;
-			case "ex_flame"->EX_FLAME; case "sonic_boom"->SONIC_BOOM; case "stone_cannon"->STONE_CANNON;
-			default->throw new IllegalArgumentException("Unknown intermediate spell");
-		};
-	}
-	private static EntityType<WaterBallEntity> registerProjectile(String id) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, ExampleMod.id(id),
-				EntityType.Builder.<WaterBallEntity>of(WaterBallEntity::new, MobCategory.MISC)
-						.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(1)
-						.build(ResourceKey.create(Registries.ENTITY_TYPE, ExampleMod.id(id))));
-	}
-
-	static EntityType<WaterBallEntity> projectileType(SpellDefinition spell) {
-		return switch (spell.id()) {
-			case "water_ball" -> WATER_BALL;
-			case "fireball" -> FIREBALL;
-			case "wind_ball" -> WIND_BALL;
-			case "rock_bullet" -> ROCK_BULLET;
-			case "water_arrow" -> WATER_ARROW;
-			case "ice_smash" -> ICE_SMASH;
-			case "ice_blade" -> ICE_BLADE;
-			default -> throw new IllegalArgumentException("No spell executor: " + spell.id());
-		};
-	}
-
-	public static void initialize() {
-		SpellParticles.initialize();
-		MagicConfig.load();
-		MagicTerrain.initialize();
-		MagicEffects.initialize();
-		MagicAreas.initialize();
-		PhaseTwoRuntime.initialize();
-		MagicAttachments.initialize();
-		MagicCommands.initialize();
-		PayloadTypeRegistry.serverboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
-		PayloadTypeRegistry.clientboundPlay().register(ChantPayload.TYPE, ChantPayload.CODEC);
-		PayloadTypeRegistry.clientboundPlay().register(SpellVisualPayload.TYPE, SpellVisualPayload.CODEC);
-		ServerPlayNetworking.registerGlobalReceiver(ChantPayload.TYPE, (packet, context) -> ChantLessons.handle(context.player(), packet));
-		PayloadTypeRegistry.serverboundPlay().register(MagicActionPayload.TYPE, MagicActionPayload.CODEC);
-		ServerPlayNetworking.registerGlobalReceiver(MagicActionPayload.TYPE,
-				(packet, context) -> handle(context.player(), packet));
-		ServerPlayerEvents.JOIN.register(player -> {
-			SESSIONS.put(player.getUUID(), new Session());
-			ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
-			player.setAttached(MagicAttachments.STATE, state(player));
-		});
-		ServerPlayerEvents.LEAVE.register(player -> { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); SESSIONS.remove(player.getUUID()); MagicAreas.clear(player.getUUID()); });
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> { server.getPlayerList().getPlayers().forEach(player -> { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.clear(player); }); StoneCharge.clear(); SESSIONS.clear(); MagicAreas.clearAll(); });
-		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, player, alive) -> {
-			SESSIONS.put(player.getUUID(), new Session());
-			MagicAreas.clear(player.getUUID());
-			PhaseTwoRuntime.clear(oldPlayer);
-			ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
-			if (!alive) player.setAttached(MagicAttachments.STATE, state(player).refill());
-			player.setAttached(MagicAttachments.CAST_TICKS, 0);
-		});
-		ServerTickEvents.START_SERVER_TICK.register(server -> {
-			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-				Session session = SESSIONS.computeIfAbsent(player.getUUID(), id -> new Session());
-				session.age++;
-				if (session.dimension != null && !session.dimension.equals(player.level().dimension())) { MagicAreas.clear(player.getUUID()); PhaseTwoRuntime.clear(player); MagicPreparation.cancel(player); session.blocked=true; }
-				session.dimension = player.level().dimension();
-				if (player.isAlive()) player.setAttached(MagicAttachments.STATE, state(player).tick());
-				if (player.isUsingItem() || !player.isAlive()) { session.blocked = true; MagicPreparation.cancel(player); MagicAreas.breakMaintenance(player); PhaseTwoRuntime.breakMaintenance(player); }
-				if (!player.isAlive()) MagicAreas.clear(player.getUUID());
-				ChantLessons.tick(player);
-				MagicPreparation.tick(player);
-				if (StoneCharge.tick(player)) session.blocked=true;
-				if (PhaseTwoRuntime.tick(player)) session.blocked=true;
-				int pose = player.getAttachedOrElse(MagicAttachments.CAST_TICKS, 0);
-				if (pose > 0) player.setAttached(MagicAttachments.CAST_TICKS,
-						player.isUsingItem() ? 0 : pose - 1);
-			}
-		});
-	}
+	public static void initialize(){com.example.examplemod.bootstrap.MagicBootstrap.initialize();}
 
 	public static MagicState state(ServerPlayer player) {
 		return player.getAttachedOrCreate(MagicAttachments.STATE);
@@ -144,50 +59,6 @@ public final class MagicSystem {
 		player.setAttached(MagicAttachments.STATE, state(player).refill());
 	}
 
-	private static void handle(ServerPlayer player, MagicActionPayload packet) {
-		Session session = SESSIONS.computeIfAbsent(player.getUUID(), id -> new Session());
-		if (packet.sequence() <= session.lastSequence) return;
-		session.lastSequence = packet.sequence();
-		// Bound UI/network actions per tick, independently of the spell cooldown.
-		if (session.requestTick != session.age) { session.requestTick = session.age; session.requests = 0; }
-		if (++session.requests > 8) return;
-		if (packet.action().equals("release")) { MagicPreparation.cancel(player); StoneCharge.release(player,new MagicAim(packet.yaw(),packet.pitch())); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; return; }
-		if (packet.action().equals("stop")) { ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); MagicAreas.breakMaintenance(player); session.blocked = true; player.setAttached(MagicAttachments.CAST_TICKS, 0); return; }
-		if (packet.action().equals("arm")) {
-			if (!player.isUsingItem() && player.isAlive() && !player.isSpectator()) session.blocked = false;
-			return;
-		}
-		if (!player.isAlive() || player.isSpectator()) return;
-		MagicState before = state(player);
-		switch (packet.action()) {
-			case "learn" -> { /* Requires validated rhythm challenge. */ }
-			case "toggle" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).toggle(packet.spell())); }
-			case "select" -> { PhaseTwoRuntime.stop(player); PhaseTwoRuntime.breakMaintenance(player); ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player); player.setAttached(MagicAttachments.STATE, state(player).select(packet.spell())); }
-			case "cast" -> {
-				if (player.isUsingItem() || player.containerMenu != player.inventoryMenu || player.isSleeping()) {
-					ChantLessons.clear(player); MagicPreparation.cancel(player); StoneCharge.cancel(player);
-					PhaseTwoRuntime.stop(player);
-					session.blocked = true;
-					player.setAttached(MagicAttachments.CAST_TICKS, 0);
-					return;
-				}
-				if (session.blocked) return;
-				SpellDefinition spell = SpellDefinition.find(packet.spell());
-				MagicPreparation.request(player, spell, new MagicAim(packet.yaw(), packet.pitch()));
-			}
-			default -> { }
-		}
-	}
-
-	private static final class Session {
-		net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
-		int lastSequence = -1;
-		int age;
-		int lastHint = -20;
-		int requestTick = -1;
-		int requests;
-		boolean blocked = true;
-	}
 
 	private MagicSystem() {
 	}

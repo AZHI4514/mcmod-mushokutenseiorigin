@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.IcePillarRulesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T12:56:54.614Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="columnIsOneByThreeByOneAtNegativeAndPositiveBlockCorners()" classname="com.example.examplemod.magic.IcePillarRulesTest" time="0.001"/>
+  <testcase name="columnFacesAreNotRadialDamageAndTouchingFaceIsExcluded()" classname="com.example.examplemod.magic.IcePillarRulesTest" time="0.0"/>
+  <testcase name="strictFreezeThresholdKeepsWarmthAndImmunityExclusions()" classname="com.example.examplemod.magic.IcePillarRulesTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

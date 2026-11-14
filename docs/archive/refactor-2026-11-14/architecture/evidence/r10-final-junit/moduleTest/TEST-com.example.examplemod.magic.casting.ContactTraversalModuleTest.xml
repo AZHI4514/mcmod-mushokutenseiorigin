@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ContactTraversalModuleTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.086Z" hostname="AZHISLAPTOP" time="0.005">
+  <properties/>
+  <testcase name="laterContactsAreRecomputedAfterEarlierEffect()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.001"/>
+  <testcase name="effectFailureRetainsClaimAndPositionWithoutParticlesOrDiscard()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.001"/>
+  <testcase name="emptyInputDoesNotCallWorld()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.0"/>
+  <testcase name="nonpiercingPositionsTwiceThenDiscardsAndStops()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.001"/>
+  <testcase name="piercingRetainsOrderAndClaimsBeforeEffect()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.0"/>
+  <testcase name="particleFailureDoesNotDiscardOrVisitNextCandidate()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.001"/>
+  <testcase name="burstHistoryCanClaimLaterCandidateBeforeItsTurn()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.0"/>
+  <testcase name="skippedContactsNeverClaimOrApply()" classname="com.example.examplemod.magic.casting.ContactTraversalModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,6 +1,7 @@
 package com.example.examplemod.magic;
 
 import java.util.*;
+import com.example.examplemod.magic.spell.water.waterfall.ConnectedWater;
 import com.example.examplemod.ExampleMod;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,7 +14,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 
-/** Real vanilla water; persisted leases expire even after saving or unloading the source chunk. */
+/** Real vanilla water; new sources are permanent, while legacy finite leases retain expiry handling. */
 public final class MagicWaterSources extends SavedData {
 	private record Lease(BlockPos pos,long expiry) {
 		static final Codec<Lease> CODEC=RecordCodecBuilder.create(i->i.group(BlockPos.CODEC.fieldOf("pos").forGetter(Lease::pos),Codec.LONG.fieldOf("expiry").forGetter(Lease::expiry)).apply(i,Lease::new));
@@ -32,7 +33,7 @@ public final class MagicWaterSources extends SavedData {
 	}
 	public static boolean place(ServerPlayer owner,BlockPos pos) {
 		var level=(ServerLevel)owner.level();
-		if(!MagicTerrain.mayChange(owner,pos)||!level.getBlockState(pos).isAir()||level.environmentAttributes().getValue(net.minecraft.world.attribute.EnvironmentAttributes.WATER_EVAPORATES,pos))return false;
+		if(!com.example.examplemod.infrastructure.fabric.magic.TerrainPermissionAdapter.mayChange(owner,pos)||!level.getBlockState(pos).isAir()||level.environmentAttributes().getValue(net.minecraft.world.attribute.EnvironmentAttributes.WATER_EVAPORATES,pos))return false;
 		if(!level.setBlockAndUpdate(pos,Blocks.WATER.defaultBlockState()))return false;
 		var data=data(level);data.sources.put(pos.immutable(),Long.MAX_VALUE);data.setDirty();return true;
 	}
@@ -40,12 +41,12 @@ public final class MagicWaterSources extends SavedData {
 		var level=(ServerLevel)owner.level();var data=data(level);
 		if(!level.hasChunkAt(pos)||!level.getBlockState(pos).is(Blocks.WATER)||!level.getFluidState(pos).isSource())return false;
 		data.sources.put(pos,Long.MAX_VALUE);data.setDirty();
-		if(level.getGameTime()%10!=0)return true;
-		var connected=new HashSet<BlockPos>();var queue=new ArrayDeque<BlockPos>();queue.add(pos);connected.add(pos);
-		while(!queue.isEmpty()&&connected.size()<4096) {var at=queue.removeFirst();for(var dir:net.minecraft.core.Direction.values()) {
-			var next=at.relative(dir);if(Math.abs(next.getX()-pos.getX())>16||Math.abs(next.getZ()-pos.getZ())>16||Math.abs(next.getY()-pos.getY())>16||!level.hasChunkAt(next)||connected.contains(next))continue;
-			if(level.getBlockState(next).is(Blocks.WATER)){connected.add(next);queue.addLast(next);}
-		}}
+		if(!ConnectedWater.refreshDue(level.getGameTime()))return true;
+		var cells=ConnectedWater.find(new ConnectedWater.Cell(pos.getX(),pos.getY(),pos.getZ()),cell->{
+			var at=new BlockPos(cell.x(),cell.y(),cell.z());
+			return level.hasChunkAt(at)&&level.getBlockState(at).is(Blocks.WATER);
+		});
+		var connected=cells.stream().map(cell->new BlockPos(cell.x(),cell.y(),cell.z())).toList();
 		for(var e:level.getEntities(owner,new AABB(pos).inflate(16),e->e instanceof LivingEntity&&e.isInWater()&&connected.stream().anyMatch(p->new AABB(p).intersects(e.getBoundingBox())))) {
 			var living=(LivingEntity)e;if(MagicEffects.allowed(owner,living))living.addEffect(new MobEffectInstance(MagicEffects.WET,200,0),owner);
 		}

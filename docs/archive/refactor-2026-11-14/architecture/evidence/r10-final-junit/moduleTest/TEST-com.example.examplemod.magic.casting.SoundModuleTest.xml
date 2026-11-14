@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.SoundModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.655Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="coneRetainsNearZeroAndOuterRange()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.0"/>
+  <testcase name="refusedHowlDamageDoesNotControl()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.001"/>
+  <testcase name="failedSleepDoesNotSetImmunityOrActive()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.0"/>
+  <testcase name="hypnosisImmunityShortCircuitsPermissions()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.001"/>
+  <testcase name="hypnosisDurationsRemainPlayerSpecific()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.0"/>
+  <testcase name="acceptedSleepCommitsBeforeVisual()" classname="com.example.examplemod.magic.casting.SoundModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+{
+  "bootstrap/ProjectileComposition.java": "0e3daec39ecc0c2fc8bfeab0b6431b2f1f3c7a37635e0b77869867be8b52bb3f",
+  "magic/FlameSliceEntity.java": "a05f0367aa2f1da7b930fde2b01a47d999634a07aa5b9c930d784065234eba37",
+  "magic/FlameSliceFlight.java": "c01786695d07c5fdc6fbde686bb28bb3f1f390b385f7d5823e35ca7327e4eb7e",
+  "magic/FlameSliceVolume.java": "d15f549e6f9cc1edf544eccc1162621a78bffdae69de41743f8d4d449c735ef8",
+  "magic/MagicEffects.java": "2082d193bac7640310ee31f1445a7862f0c49689bfbff20f90d5b60bd6f2ae2e",
+  "magic/MagicFlight.java": "c823c120309732b0d425b4e0db94b9542f402b4ebee976b753810c2895b2fe69",
+  "magic/MagicPreparation.java": "ba3075d2f631b6aa570c8edcfc2a2f6f1be40d76589be87e7d3b44a9a02d6668",
+  "magic/SpellDefinition.java": "a699a2fab4d1970d36c3c6fea4be9ec2d18509a140db8b2ccbc25d1bbffbd6fc",
+  "infrastructure/fabric/magic/VanillaProjectileAdapter.java": "320d4e36f5a5973742d52b66b3cf43ad94d52327fa45b170899e637494b7581f"
+}

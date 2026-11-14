@@ -1,0 +1,9 @@
+# 风缚结构切片退出审计
+
+- MagicEffects注册wind_bound未变；WindBound将剩余时间交纯谓词，原版magic伤害源与1点伤害保留。
+- MagicFreezeMixin在服务端aiStep HEAD调用beforeFreeze；存活且具有WIND_BOUND才保持wind_bound_visual=true，变化时同步，死亡/效果移除后清理。实际Mixin加载和调度NOT_RUN。
+- WIND_BOUND_VISUAL仍为默认false、BOOL、all同步的非持久派生附件；不新建自定义存档，原版MobEffect保存负责效果。重载后服务端维护重建视觉状态；实际保存重载NOT_RUN。
+- MagicMovementMixin仍在move参数入口将定身目标速度/位移归零并重置摔落，不拦转头和攻击。与其他控制组合未改，实际客户端预测/联机NOT_RUN。
+- 客户端SpellVolumeEffects仍分别绘制本地玩家与附近生物的wind_bind环身模型，尺寸随bbox；颤抖render mixin和资源未改。视觉NOT_RUN。
+
+仅准备/释放/脉冲与适配职责结构切片SLICE_DONE；共享药水生命周期、移动和客户端职责留对应后续阶段，不代表全术集成或整个重构完成。

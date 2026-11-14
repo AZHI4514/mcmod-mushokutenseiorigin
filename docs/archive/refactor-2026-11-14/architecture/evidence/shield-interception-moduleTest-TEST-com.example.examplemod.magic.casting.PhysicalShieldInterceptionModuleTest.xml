@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-13T01:43:21.714Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="absorptionFailureDoesNotInventProjectileCleanup()" classname="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" time="0.001"/>
+  <testcase name="ordinaryProjectileAbsorbsBeforeDiscard()" classname="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" time="0.0"/>
+  <testcase name="typeIsReadAfterAbsorption()" classname="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" time="0.001"/>
+  <testcase name="terrainObstructionDoesNotComputeOrApplyDamage()" classname="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" time="0.0"/>
+  <testcase name="tridentReboundsAfterAbsorption()" classname="com.example.examplemod.magic.casting.PhysicalShieldInterceptionModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

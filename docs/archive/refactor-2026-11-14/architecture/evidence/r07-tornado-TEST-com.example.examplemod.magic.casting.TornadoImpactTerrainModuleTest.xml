@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-13T09:15:57.493Z" hostname="AZHISLAPTOP" time="0.001">
+  <properties/>
+  <testcase name="capStopsBeforeAttemptingSixtyFifthBlock()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.0"/>
+  <testcase name="fullyBrokenPathHasNoObstacle()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.0"/>
+  <testcase name="failedBreakIsFirstObstacleAndDoesNotConsumeBudget()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.0"/>
+  <testcase name="emptyPathDoesNotReadOrMutateBudget()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.001"/>
+  <testcase name="restoredCapNeverCallsWorldBreak()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.0"/>
+  <testcase name="breakExceptionKeepsEarlierCommittedCount()" classname="com.example.examplemod.magic.casting.TornadoImpactTerrainModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

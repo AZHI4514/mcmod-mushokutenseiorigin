@@ -1,4 +1,10 @@
 package com.example.examplemod.magic;
+import com.example.examplemod.infrastructure.fabric.magic.OceanFreezeRuntimeAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.HolyInstantAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.EarthHedgehogAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.EarthFortressAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.DivineJudgmentAdapter;
+import com.example.examplemod.infrastructure.fabric.magic.WindFieldRuntimeAdapter;
 
 import java.util.List;
 import com.mojang.serialization.JsonOps;
@@ -12,6 +18,57 @@ public final class MagicStateTest {
 	}
 
 	public static void main(String[] args) {
+		var center=net.minecraft.world.phys.Vec3.ZERO;
+		check(Math.abs(BarrierGeometry.sphere(center,3,false,new net.minecraft.world.phys.Vec3(-10,0,0),new net.minecraft.world.phys.Vec3(20,0,0))-.35)<1E-9,"Fast outside-to-outside motion hits shell");
+		check(!Double.isFinite(BarrierGeometry.sphere(center,3,false,new net.minecraft.world.phys.Vec3(-10,4,0),new net.minecraft.world.phys.Vec3(20,0,0))),"Movement missing sphere is unblocked");
+		check(Math.abs(BarrierGeometry.sphere(center,3,false,center,new net.minecraft.world.phys.Vec3(6,0,0))-.5)<1E-9,"Exit hits shell");
+		check(!Double.isFinite(BarrierGeometry.sphere(center,3,true,new net.minecraft.world.phys.Vec3(-10,-1,0),new net.minecraft.world.phys.Vec3(20,0,0))),"Hemisphere has no buried sphere wall");
+		check(Math.abs(BarrierGeometry.sphere(center,3,true,new net.minecraft.world.phys.Vec3(0,-2,0),new net.minecraft.world.phys.Vec3(0,4,0))-.5)<1E-9,"Hemisphere base catches vertical entry");
+		check(MagicControl.duration(60,true,100,0)==40,"Player control cap");
+		check(MagicControl.duration(60,false,100,80)==30,"Repeated control halves");
+		check(MagicControl.duration(60,false,140,80)==60,"Resistance expires at three seconds");
+		check(MagicControl.duration(6,false,100,80)==5,"Control minimum five ticks");
+		check(MagicFieldCadence.ready(100,90,10),"Field cadence permits exact boundary");
+		check(!MagicFieldCadence.ready(99,90,10),"Overlapping fields cannot double pulse");
+		check(!MagicFieldCadence.ready(100,90,0),"Invalid field cadence rejected");
+		check(SonicBlast.contains(new net.minecraft.world.phys.Vec3(0,0,16),new net.minecraft.world.phys.Vec3(0,0,1)),"Sonic cone reaches sixteen blocks");
+		check(!SonicBlast.contains(new net.minecraft.world.phys.Vec3(0,0,-1),new net.minecraft.world.phys.Vec3(0,0,1)),"Sonic cone excludes rear");
+		check(!SonicBlast.contains(new net.minecraft.world.phys.Vec3(12,0,12),new net.minecraft.world.phys.Vec3(0,0,1)),"Sonic cone excludes distant side");
+		for(int i=0;i<12;i++){check(EarthHedgehogAdapter.offset(i).horizontalDistance()<=6,"Hedgehog stays in radius");check(!EarthHedgehogAdapter.active(i*2-1,i)&&EarthHedgehogAdapter.active(i*2,i),"Hedgehog stagger boundary");}
+		check(EarthHedgehogAdapter.mayHit(0)&&EarthHedgehogAdapter.mayHit(1)&&!EarthHedgehogAdapter.mayHit(2),"Hedgehog two-cluster cap");
+		check(Quagmire.contains(new net.minecraft.world.phys.Vec3(6,0,0))&&!Quagmire.contains(new net.minecraft.world.phys.Vec3(6.01,0,0)),"Mud radius boundary");
+		check(!Quagmire.contains(new net.minecraft.world.phys.Vec3(0,2,0)),"Mud leaves airborne targets alone");
+		check(Quagmire.jumpVelocity(-.5)==-.5&&Quagmire.jumpVelocity(.42)==.115,"Mud caps ascent without pulling down");
+		double mudVelocity=Quagmire.jumpVelocity(.42),mudHeight=0;while(mudVelocity>0){mudHeight+=mudVelocity;mudVelocity=(mudVelocity-.08)*.98;}check(mudHeight<=.15,"Mud jump remains below fifteen centimeters under vanilla gravity");
+		check(com.example.examplemod.magic.spell.mixed.bora_blast.BoraBlastRules.contains(0,0,20,0,0,1),"Cold gust range boundary");
+		check(!com.example.examplemod.magic.spell.mixed.bora_blast.BoraBlastRules.contains(0,0,-1,0,0,1),"Thermal gust excludes rear");
+		check(MagicBooks.lessons(MagicCategory.MIXED,2).contains("blast"),"Blast belongs to mixed textbook");
+		float magmaTotal=0;for(int tick=0;tick<=180;tick++)magmaTotal+=MagmaGush.damageAt(tick);check(magmaTotal==26,"Magma total is ten plus eight times two");
+		check(MagmaGush.damageAt(160)==2&&MagmaGush.damageAt(161)==0,"Magma final pulse boundary");
+		check(WindFieldRuntimeAdapter.contains(new net.minecraft.world.phys.Vec3(5,20,0),5,20),"Tornado cylinder boundary");
+		check(!WindFieldRuntimeAdapter.contains(new net.minecraft.world.phys.Vec3(5.1,10,0),5,20),"Tornado excludes outside radius");
+		check(WindFieldRuntimeAdapter.impulse(new net.minecraft.world.phys.Vec3(1,0,0),new net.minecraft.world.phys.Vec3(0,.34,0),true,false,true).y==.35,"Tornado player ascent cap");
+		float flashResidual=0;for(int age=-1;age<=180;age++)flashResidual+=FlashOver.residual(age);check(flashResidual==24,"Flash has eight residual attempts");
+		check(FlashOver.contains(new net.minecraft.world.phys.Vec3(16,6,0))&&!FlashOver.contains(new net.minecraft.world.phys.Vec3(16.01,3,0)),"Flash cylinder boundary");
+		check(MagicBooks.lessons(MagicCategory.MIXED,3).contains("frost_nova"),"Frost Nova mixed lesson");
+		float infernoTotal=18;for(int age=0;age<=420;age++)infernoTotal+=Inferno.residual(age);check(infernoTotal==118,"Inferno initial plus twenty pulses");
+		check(Inferno.residual(0)==0&&Inferno.residual(400)==5&&Inferno.residual(401)==0,"Inferno final pulse boundary");
+		check(AbsoluteZero.contains(new net.minecraft.world.phys.Vec3(16,0,0))&&!AbsoluteZero.contains(new net.minecraft.world.phys.Vec3(16,1,0)),"Absolute zero spherical boundary");
+		var dome=EarthFortressAdapter.shell(net.minecraft.core.BlockPos.ZERO,new net.minecraft.world.phys.Vec3(0,0,1));
+		check(dome.size()<=200&&!dome.isEmpty(),"Fortress respects block cap");
+		check(!dome.contains(new net.minecraft.core.BlockPos(0,0,3))&&!dome.contains(new net.minecraft.core.BlockPos(0,1,3)),"Fortress has two-high doorway");
+		check(!dome.contains(net.minecraft.core.BlockPos.ZERO),"Fortress interior stays hollow");
+		check(MagicRules.strikeReady(40,40,1200),"Storm strike starts at scheduled tick");
+		check(!MagicRules.strikeReady(39,40,1200),"Storm cannot strike early");
+		check(!MagicRules.strikeReady(1200,1200,1200),"Storm cannot strike at expiry");
+		int blizzardPulses = 0;
+		for (int age = -1; age <= 80; age++) if (MagicRules.fieldPulse(age, 80, 10)) blizzardPulses++;
+		check(blizzardPulses == 8, "Blizzard has exactly eight pulses including release and excluding expiry");
+		check(!MagicRules.fieldPulse(0,80,0), "Invalid interval cannot pulse");
+		for (int rank = 5; rank <= 7; rank++) for (int seed = 0; seed < 3; seed++) {
+			int count = ChantScore.noteCount(rank, seed);
+			check(count >= (rank == 5 ? 8 : 10) && count <= (rank == 5 ? 10 : 12), "High rank section respects bounded packet");
+		}
 		// Contact aura, piercing-water policy and bounded wind propulsion regressions.
 		var body = new net.minecraft.world.phys.AABB(-.3, 0, -.3, .3, 1.8, .3);
 		check(MagicRules.touchesBody(body,new net.minecraft.world.phys.AABB(.35,.8,-.2,.8,1.5,.2)), "Body flame contacts the torso");
@@ -29,12 +86,12 @@ public final class MagicStateTest {
 			check(MagicRules.passesWater(constant,true,true),"Wet waterloggable block is passable: "+id);
 			check(!MagicRules.passesWater(constant,false,false),"Dry full solid block stops flight: "+id);
 		}
-		var recoil=PhaseTwoRules.windLaunchVelocity(new net.minecraft.world.phys.Vec3(0,0,-1));
+		var recoil=com.example.examplemod.magic.spell.wind.wind_blast.WindBlastRules.velocity(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(0,0,-1)));
 		check(recoil.z<0 && recoil.y>0,"Slime-like recoil lifts off and pushes opposite aim");
 		double travel=0,velocity=-recoil.z;for(int tick=0;tick<240;tick++){travel+=velocity;velocity*=.91;}
 		check(Math.abs(travel-10)<1.0E-7,"Nominal airborne horizontal recoil is ten blocks");
-		check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.windLaunchVelocity(new net.minecraft.world.phys.Vec3(0,1,0)).y)-10)<1.0E-7,"Upward recoil peak uses ten blocks");
-		check(PhaseTwoRules.WIND_SLOW_FALL_TICKS==100,"Slow falling lasts five seconds");
+		check(Math.abs(com.example.examplemod.magic.mechanic.projectile.LaunchBallistics.launchPeak(com.example.examplemod.magic.spell.wind.wind_blast.WindBlastRules.velocity(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(0,1,0))).y)-10)<1.0E-7,"Upward recoil peak uses ten blocks");
+		check(com.example.examplemod.magic.spell.wind.wind_blast.WindBlastRules.SLOW_FALL_TICKS==100,"Slow falling lasts five seconds");
 
 		var spell = SpellDefinition.WATER_BALL;
 		var state = MagicState.initial(100);
@@ -87,18 +144,18 @@ public final class MagicStateTest {
 
 		var four = MagicState.initial(100);
 		for (var definition : SpellDefinition.ALL) four = four.learn(definition.id());
-		check(four.learned().size() == 39 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
+		check(four.learned().size() == 102 && four.loaded().size() == 10, "All lessons known, wheel limited to ten");
 		check(four.selected().equals(spell.id()), "Later lessons preserve selection");
 		for (var definition : SpellDefinition.ALL) {
-			var ready = new MagicState(100, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
+			var ready = new MagicState(10000, 10000, 0, 0, four.learned(), List.of(definition.id()), definition.id());
 			var spent = ready.cast(definition);
-			check(spent.mana() == 100 - definition.manaCost(), "Exact cost: " + definition.id());
+			check(spent.mana() == 10000 - definition.manaCost(), "Exact cost: " + definition.id());
 			for (int i = 1; i < definition.cooldownTicks(); i++) {
 				spent = spent.tick();
 				check(!spent.canCast(definition), "No early cooldown: " + definition.id());
 			}
 			check(spent.tick().canCast(definition), "Cooldown ends exactly: " + definition.id());
-			var poor = new MagicState(definition.manaCost() - 1, 100, 0, 0, four.learned(), List.of(definition.id()), definition.id());
+			var poor = new MagicState(definition.manaCost() - 1, 10000, 0, 0, four.learned(), List.of(definition.id()), definition.id());
 			check(!poor.canCast(definition), "Reject insufficient mana: " + definition.id());
 			check(ready.learn(definition.id()).equals(ready), "No duplicate lesson: " + definition.id());
 			check(definition.prerequisitesMet(id -> false), "Basic spell has no external dependency");
@@ -138,43 +195,43 @@ public final class MagicStateTest {
 		check(MagicState.initial(100).learn("ice_blade").learned().isEmpty(), "Ice Blade requires Ice Smash");
 		check(MagicState.initial(100).learn("heat_island").learned().isEmpty(), "Heat Island requires Heat Hand");
 		check(SpellDefinition.ICE_BLADE.icy() && !SpellDefinition.WATER_ARROW.icy(), "Ice status separate from water status");
-		var wallGeometry = new MagicWallVolume(new net.minecraft.world.phys.Vec3(0,0,1),0);
+		var wallGeometry = new SpellSweep(new net.minecraft.world.phys.Vec3(0,0,1),3,2,.3);
 		var arrowBox = new net.minecraft.world.phys.AABB(-0.1,0.9,2,0.1,1.1,2.2);
 		check(Double.isFinite(wallGeometry.contact(arrowBox,new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),3)), "Water wall sweeps fast projectile");
 		check(!wallGeometry.intersects(new net.minecraft.world.phys.AABB(1.6,0.9,-0.1,1.8,1.1,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), "Outside water wall width does not block");
 		check(wallGeometry.intersects(new net.minecraft.world.phys.AABB(-0.1,1.8,-0.1,0.1,1.9,0.1),new net.minecraft.world.phys.Vec3(0,1,0)), "Upper half of two-block water wall contacts");
 		for (int yaw=-180; yaw<180; yaw+=45) {
 			var normal = net.minecraft.world.phys.Vec3.directionFromRotation(0,yaw);
-			var rotated = new MagicWallVolume(normal,yaw);
+			var rotated = new SpellSweep(normal,3,2,.3);
 			check(Math.abs(rotated.side.dot(normal)) < 1.0E-6 && rotated.up.y > 0.99, "Water wall orthonormal at yaw " + yaw);
 			var hitCenter = normal.scale(2).add(0,1,0);
 			var hitBox = new net.minecraft.world.phys.AABB(hitCenter.x-0.1,0.9,hitCenter.z-0.1,hitCenter.x+0.1,1.1,hitCenter.z+0.1);
 			check(Double.isFinite(rotated.contact(hitBox,new net.minecraft.world.phys.Vec3(0,1,0),normal,3)), "Water wall rotated sweep " + yaw);
 		}
 		check(SpellDefinition.WATER_CANNON.rank()==2 && SpellDefinition.EX_FLAME.statusTicks()==200,"Intermediate rank and status duration");
-		check(IntermediateRules.chargeDisplay(10)==10 && IntermediateRules.chargeDisplay(19)==19 && IntermediateRules.chargeDisplay(20)==20,"Charge UI displays actual paid mana");
+		check(com.example.examplemod.magic.mechanic.channel.ChargeCurve.display(10)==10 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.display(19)==19 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.display(20)==20,"Charge UI displays actual paid mana");
 		check(SpellDefinition.WATER_SPLASH.statusTicks()==2000,"Water Splash wetness lasts 100 seconds");
 		check(SpellDefinition.ICICLE_FIELD.damage()==5,"Icicle Field deals five damage");
 
-		check(IntermediateRules.chargeExtraAfterTicks(0)==0 && IntermediateRules.chargeExtraAfterTicks(20)==15 && IntermediateRules.chargeExtraAfterTicks(40)==40 && IntermediateRules.chargeExtraAfterTicks(60)==75,"Linear rate acceleration integrates to increasing per-second costs");
+		check(com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(0)==0 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(20)==15 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(40)==40 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(60)==75,"Linear rate acceleration integrates to increasing per-second costs");
 		long injected=0;
 		for(int t=1;t<=100;t++) {
-			long debit=IntermediateRules.chargeExtraAfterTicks(t)-IntermediateRules.chargeExtraAfterTicks(t-1);
+			long debit=com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(t)-com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(t-1);
 			check(debit>=0,"Injection never refunds mana during charging");
 			injected+=debit;
 		}
 		check(injected==175,"Fractional tick amounts carry forward without lost mana");
-		check(IntermediateRules.chargeExtraAfterTicks(Integer.MAX_VALUE)>Integer.MAX_VALUE,"Large charge duration uses safe long arithmetic");
-		check(IntermediateRules.stoneDamage(10)==10 && IntermediateRules.stoneDamage(19)==10 && IntermediateRules.stoneDamage(20)==11,"Stone damage counts full extra tens");
-		check(IntermediateRules.stoneDamage(1000000)==100009,"No arbitrary stone damage cap");
+		check(com.example.examplemod.magic.mechanic.channel.ChargeCurve.extraAfterTicks(Integer.MAX_VALUE)>Integer.MAX_VALUE,"Large charge duration uses safe long arithmetic");
+		check(com.example.examplemod.magic.mechanic.channel.ChargeCurve.stoneDamage(10)==10 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.stoneDamage(19)==10 && com.example.examplemod.magic.mechanic.channel.ChargeCurve.stoneDamage(20)==11,"Stone damage counts full extra tens");
+		check(com.example.examplemod.magic.mechanic.channel.ChargeCurve.stoneDamage(1000000)==100009,"No arbitrary stone damage cap");
 		var debited=four.spendMana(13);
 		check(debited.mana()==87&&debited.cooldown()==0,"Charge prepayment does not start cooldown");
 		check(debited.restoreMana(13).equals(four),"Charge refund preserves live state");
 		try { four.spendMana(101); throw new AssertionError("Charge overspend"); } catch(IllegalArgumentException expected) { assertions++; }
 		var anchor=new net.minecraft.core.BlockPos(5,5,5); var hitPoint=new net.minecraft.world.phys.Vec3(5,5,5);
-		check(IntermediateRules.blastBlocks(anchor,1,hitPoint).equals(List.of(anchor)),"Water blast exactly one block");
-		check(IntermediateRules.blastBlocks(anchor,2,hitPoint).size()==8&&IntermediateRules.blastBlocks(anchor,2,hitPoint).stream().distinct().count()==8,"Fire blast exactly eight distinct positions");
-		check(IntermediateRules.impactBounds(hitPoint).getXsize()==3&&IntermediateRules.impactBounds(hitPoint).getYsize()==3,"Blast damage volume side length three");
+		check(com.example.examplemod.infrastructure.fabric.geometry.BlockBurstGeometryAdapter.blastBlocks(anchor,1,hitPoint).equals(List.of(anchor)),"Water blast exactly one block");
+		check(com.example.examplemod.infrastructure.fabric.geometry.BlockBurstGeometryAdapter.blastBlocks(anchor,2,hitPoint).size()==8&&com.example.examplemod.infrastructure.fabric.geometry.BlockBurstGeometryAdapter.blastBlocks(anchor,2,hitPoint).stream().distinct().count()==8,"Fire blast exactly eight distinct positions");
+		check(com.example.examplemod.infrastructure.fabric.geometry.BlockBurstGeometryAdapter.impactBounds(hitPoint).getXsize()==3&&com.example.examplemod.infrastructure.fabric.geometry.BlockBurstGeometryAdapter.impactBounds(hitPoint).getYsize()==3,"Blast damage volume side length three");
 		var wide=new SpellSweep(new net.minecraft.world.phys.Vec3(0,0,1),3,1,0.25);
 		check(Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(1.3,0,3,1.7,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),"Wide sonic sweep catches side target");
 		check(!Double.isFinite(wide.contact(new net.minecraft.world.phys.AABB(2,0,3,2.5,2,3.5),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,0,1),5)),"Sonic sweep excludes outside width");
@@ -269,10 +326,15 @@ public final class MagicStateTest {
 		check(new MagicAim(1080, 0).direction().distanceTo(new MagicAim(0, 0).direction()) < 1.0E-5, "Repeated mouse turns normalize yaw");
 		check(!new MagicAim(Float.NaN, 0).valid() && !new MagicAim(0, Float.POSITIVE_INFINITY).valid(), "Reject non-finite network angles");
 		check(!new MagicAim(0, 91).valid() && !new MagicAim(0, -91).valid(), "Reject out-of-range network pitch before payment");
-		check(SpellDefinition.ALL.size()==39 && MagicBooks.LESSONS.size()==39,"Thirty-nine spells share both textbooks");
+		check(SpellDefinition.ALL.size()==102 && MagicBooks.LESSONS.size()==39,"Introductory primer retains its thirty-nine lessons");
 		check(MagicBooks.LESSONS.stream().distinct().count()==39,"No duplicated textbook lessons");
+		check(MagicBooks.ZENITH_LESSONS.equals(SpellDefinition.ALL.stream().map(SpellDefinition::id).toList()),"Zenith book includes every registered spell exactly once in catalog order");
+		var zenithStudent=MagicState.initial(100);
+		for(var id:MagicBooks.ZENITH_LESSONS.reversed())zenithStudent=zenithStudent.learnWithoutRequirements(id);
+		check(zenithStudent.learned().size()==SpellDefinition.ALL.size(),"Zenith buttons can learn all spells without prerequisites or chant lessons");
+		check(zenithStudent.loaded().size()==10,"Learning every Zenith lesson still respects the ten-slot wheel limit");
 		for(var definition:SpellDefinition.ALL) {
-			check(MagicBooks.LESSONS.contains(definition.id()),"Every registered spell is teachable");
+			check(MagicBooks.lessons(MagicCategory.of(definition),definition.rank()).contains(definition.id()),"Every registered spell has an authorized categorized textbook");
 			if(definition.execution()==SpellDefinition.Execution.PHASE_TWO) {
 				check(definition.rank()==2,"New spells retain intermediate status durations");
 				check(!MagicState.initial(100).learn(definition.id()).learned().contains(definition.id()),"New spell cannot bypass its learning prerequisites");
@@ -283,8 +345,8 @@ public final class MagicStateTest {
 		for(int rate:new int[]{4,6}) {
 			int debt=0, paidChannel=0;
 			for(int tick=1;tick<=1000;tick++) {
-				int debit=PhaseTwoRules.debit(debt,rate);
-				paidChannel+=debit; debt=PhaseTwoRules.remainder(debt,rate,debit);
+				int debit=com.example.examplemod.magic.mechanic.channel.ChannelCost.calculate(debt,rate).debit();
+				paidChannel+=debit; debt=com.example.examplemod.magic.mechanic.channel.ChannelCost.remainder(debt,rate,debit);
 				check(debt>=-19 && debt<=0,"Fractional channel debt stays inside persistent codec range");
 				check(paidChannel*20+debt==tick*rate,"Every channel tick is paid exactly, including fractional carry");
 				check(paidChannel==(tick*rate+19)/20,"Restart-safe prepayment never gives free fractional ticks");
@@ -293,21 +355,21 @@ public final class MagicStateTest {
 		}
 		int fractional=0, switchingCost=0, units=0;
 		for(int tick=0;tick<123;tick++) {
-			int rate=tick%2==0?4:6; int debit=PhaseTwoRules.debit(fractional,rate);
-			switchingCost+=debit;units+=rate;fractional=PhaseTwoRules.remainder(fractional,rate,debit);
+			int rate=tick%2==0?4:6; int debit=com.example.examplemod.magic.mechanic.channel.ChannelCost.calculate(fractional,rate).debit();
+			switchingCost+=debit;units+=rate;fractional=com.example.examplemod.magic.mechanic.channel.ChannelCost.remainder(fractional,rate,debit);
 		}
 		check(switchingCost==(units+19)/20,"Rapid channel switching preserves prepaid fractions");
-		var movement=PhaseTwoRules.boundMovement(new net.minecraft.world.phys.Vec3(4,-0.7,3));
+		var movement=com.example.examplemod.magic.MagicControl.boundMovement(new net.minecraft.world.phys.Vec3(4,-0.7,3));
 		check(movement.lengthSqr()==0,"Wind bind prevents all displacement");
-		check(PhaseTwoRules.boundMovement(new net.minecraft.world.phys.Vec3(0,0.42,0)).y==0,"Wind bind prevents jumping");
-		check(PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16),south,16),"Flame reaches sixteen blocks");
-		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,16.1),south,16),"Flame cannot exceed range");
-		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(3,0,1),south,16),"Flame excludes targets outside its half angle");
-		check(!PhaseTwoRules.inCone(new net.minecraft.world.phys.Vec3(0,0,-1),south,16),"Flame cannot hit behind the player");
-		int pulses=0;for(int t=100;t>0;t--)if(PhaseTwoRules.bindPulse(t))pulses++;
-		check(pulses==5&&!PhaseTwoRules.bindPulse(100),"Wind bind delays damage and pulses five times");
-		check(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),6).y>0,"Launch imparts upward velocity");
-		for(double height:new double[]{0.5,3,6})check(Math.abs(PhaseTwoRules.launchPeak(PhaseTwoRules.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),height).y)-height)<1.0E-7,"Vertical launch reaches requested height under vanilla gravity");
+		check(com.example.examplemod.magic.MagicControl.boundMovement(new net.minecraft.world.phys.Vec3(0,0.42,0)).y==0,"Wind bind prevents jumping");
+		check(com.example.examplemod.magic.spell.fire.flamethrower.FlamethrowerHit.inCone(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(0,0,16)),com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(south),16),"Flame reaches sixteen blocks");
+		check(!com.example.examplemod.magic.spell.fire.flamethrower.FlamethrowerHit.inCone(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(0,0,16.1)),com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(south),16),"Flame cannot exceed range");
+		check(!com.example.examplemod.magic.spell.fire.flamethrower.FlamethrowerHit.inCone(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(3,0,1)),com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(south),16),"Flame excludes targets outside its half angle");
+		check(!com.example.examplemod.magic.spell.fire.flamethrower.FlamethrowerHit.inCone(com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(new net.minecraft.world.phys.Vec3(0,0,-1)),com.example.examplemod.infrastructure.fabric.geometry.GeometryAdapter.vector(south),16),"Flame cannot hit behind the player");
+		int pulses=0;for(int t=100;t>0;t--)if(com.example.examplemod.magic.spell.wind.wind_bind.WindBindSpec.pulse(t))pulses++;
+		check(pulses==5&&!com.example.examplemod.magic.spell.wind.wind_bind.WindBindSpec.pulse(100),"Wind bind delays damage and pulses five times");
+		check(com.example.examplemod.infrastructure.fabric.geometry.LaunchImpulseAdapter.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),6).y>0,"Launch imparts upward velocity");
+		for(double height:new double[]{0.5,3,6})check(Math.abs(com.example.examplemod.magic.mechanic.projectile.LaunchBallistics.launchPeak(com.example.examplemod.infrastructure.fabric.geometry.LaunchImpulseAdapter.launchVelocity(new net.minecraft.world.phys.Vec3(0,1,0),height).y)-height)<1.0E-7,"Vertical launch reaches requested height under vanilla gravity");
 		var angledShield=new SpellSweep(new net.minecraft.world.phys.Vec3(1,0,1),3,3,0.2);
 		check(!angledShield.intersects(new net.minecraft.world.phys.AABB(0.8,0,0.8,0.9,0.1,0.9),net.minecraft.world.phys.Vec3.ZERO),"Angled shield does not block empty bounding-box corners");
 		check(Double.isFinite(angledShield.contact(new net.minecraft.world.phys.AABB(-2,0,-2,-1.9,0.1,-1.9),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(-1,0,-1).normalize(),4)),"Angled shield detects incoming movement");
@@ -315,18 +377,18 @@ public final class MagicStateTest {
 		check(Double.isFinite(ceilingShield.contact(new net.minecraft.world.phys.AABB(0,2,0,0.1,2.1,0.1),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,1,0),3)),"Vertical shield supports full pitch collision");
 
 		var plane=new net.minecraft.world.phys.Vec3(0,0,1);
-		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,-0.5),plane,0.2).lengthSqr()==0,"Overlapping creature cannot pass through shield");
-		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,0.5),plane,-0.2).lengthSqr()==0,"Shield blocks crossing from either side");
-		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,0.5),plane,0.2).z==0.5,"Overlapping creature can escape away from shield");
-		check(PhaseTwoRules.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,-0.5),plane,0.2).x==0.2,"Shield retains tangent movement");
+		check(com.example.examplemod.infrastructure.fabric.magic.PhysicalShieldCollisionAdapter.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,-0.5),plane,0.2).lengthSqr()==0,"Overlapping creature cannot pass through shield");
+		check(com.example.examplemod.infrastructure.fabric.magic.PhysicalShieldCollisionAdapter.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0,0,0.5),plane,-0.2).lengthSqr()==0,"Shield blocks crossing from either side");
+		check(com.example.examplemod.infrastructure.fabric.magic.PhysicalShieldCollisionAdapter.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,0.5),plane,0.2).z==0.5,"Overlapping creature can escape away from shield");
+		check(com.example.examplemod.infrastructure.fabric.magic.PhysicalShieldCollisionAdapter.shieldOverlapMotion(new net.minecraft.world.phys.Vec3(0.2,0,-0.5),plane,0.2).x==0.2,"Shield retains tangent movement");
 		check(SpellDefinition.WIND_BLAST.cooldownTicks()==10,"Intermediate recovery is 0.5 seconds");
 		check(SpellDefinition.EARTH_LANCE.cooldownTicks()==10&&SpellDefinition.ICICLE_BREAK.cooldownTicks()==10,"Earth lance and ice shot cooldowns are 0.5 seconds");
 
 		var casterFeet=new net.minecraft.core.BlockPos(5,64,-3);
-		check(PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,63,-3),casterFeet),"Earth lance builds dirt directly under caster");
-		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(6,63,-3),casterFeet),"Earth lance does not build dirt on nearby terrain");
-		check(!PhaseTwoRules.underfoot(new net.minecraft.core.BlockPos(5,60,-3),casterFeet),"Earth lance does not build dirt far below caster");
-		check(PhaseTwoRules.TNT_POWER==4F,"Explosion uses the vanilla single-TNT power");
+		check(com.example.examplemod.infrastructure.fabric.magic.EarthLanceAdapter.underfoot(new net.minecraft.core.BlockPos(5,63,-3),casterFeet),"Earth lance builds dirt directly under caster");
+		check(!com.example.examplemod.infrastructure.fabric.magic.EarthLanceAdapter.underfoot(new net.minecraft.core.BlockPos(6,63,-3),casterFeet),"Earth lance does not build dirt on nearby terrain");
+		check(!com.example.examplemod.infrastructure.fabric.magic.EarthLanceAdapter.underfoot(new net.minecraft.core.BlockPos(5,60,-3),casterFeet),"Earth lance does not build dirt far below caster");
+		check(com.example.examplemod.magic.spell.fire.explosion.ExplosionSpec.TNT_POWER==4F,"Explosion uses the vanilla single-TNT power");
 
 		int taught = 0;
 		for (var category : MagicCategory.values()) for (int rank = 1; rank <= 2; rank++) {
@@ -335,7 +397,20 @@ public final class MagicStateTest {
 				check(definition.rank() == rank && MagicCategory.of(definition) == category, "Each course has the correct category and rank");
 			}
 		}
-		check(taught == 39, "Fourteen textbook catalogs partition all existing spells");
+		check(HolyInstantAdapter.inColumn(new net.minecraft.world.phys.Vec3(2, 0, 15), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), "Holy ray includes cylinder boundary");
+		check(!HolyInstantAdapter.inColumn(new net.minecraft.world.phys.Vec3(2.01, 0, 15), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), "Holy ray excludes outside cylinder");
+		check(!HolyInstantAdapter.inColumn(new net.minecraft.world.phys.Vec3(0, 0, 15.01), new net.minecraft.world.phys.Vec3(0, 0, 1), 15), "Holy ray stops at wall");
+		check(SpellDefinition.GOD_PURGE.castingProfile().requiresCircle() && SpellDefinition.GOD_PURGE.manaCost() == 1800, "God Purge uses the divine circle and its own mana charge");
+		check(DivineCircle.withinRange(new net.minecraft.world.phys.Vec3(3.5, 65, .5), new net.minecraft.core.BlockPos(0,64,0)), "Circle accepts three-block boundary");
+		check(!DivineCircle.withinRange(new net.minecraft.world.phys.Vec3(3.51, 65, .5), new net.minecraft.core.BlockPos(0,64,0)), "Circle rejects movement outside boundary");
+		int runes = 0; for (int x=-3;x<=3;x++) for(int z=-3;z<=3;z++) if(DivineCircle.rune(x,z)) runes++;
+		check(runes == 8, "Circle has eight rune positions");
+		check(com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.wallContains(new net.minecraft.world.phys.Vec3(8,8,2),new net.minecraft.world.phys.Vec3(0,0,1)) && !com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.wallContains(new net.minecraft.world.phys.Vec3(8.01,8,2),new net.minecraft.world.phys.Vec3(0,0,1)), "Fire wall is sixteen by eight by four");
+		check(com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("apocalypse_flame",59)==-1 && com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("apocalypse_flame",60)==0 && com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("apocalypse_flame",360)==15, "Apocalypse warns three seconds then has fifteen residual pulses");
+		check(com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("terra_fall",19)==-1 && com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("terra_fall",20)==0 && com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("terra_fall",60)==1 && com.example.examplemod.infrastructure.fabric.magic.GroundFieldRuntimeAdapter.damagePulse("terra_fall",100)==2, "Three falling-earth waves each have a preceding warning");
+		check(OceanFreezeRuntimeAdapter.radius(0)==0 && OceanFreezeRuntimeAdapter.radius(20)==8 && OceanFreezeRuntimeAdapter.radius(160)==64 && OceanFreezeRuntimeAdapter.radius(99999)==64, "Ocean freezes at eight blocks per second with a bounded radius");
+		check(DivineJudgmentAdapter.pulseIndex(0) == 0 && DivineJudgmentAdapter.pulseIndex(19) == 0 && DivineJudgmentAdapter.pulseIndex(20) == 1 && DivineJudgmentAdapter.pulseIndex(40) == 2 && DivineJudgmentAdapter.pulseIndex(60) == -1, "Judgment has three one-second pulse windows");
+		check(taught == 47, "Beginner and intermediate catalogs include legacy spells, earth wall and blast");
 		for (int rank = 1; rank <= 7; rank++) check(CastingProfile.of(rank, CastingProfile.Mode.FULL).preparationTicks() > 0, "All full-chant tiers configured");
 		check(!CastingProfile.unlocked(CastingProfile.Mode.SILENT) && !CastingProfile.unlocked(CastingProfile.Mode.SHORTENED), "Future modes remain locked");
 		check(CastingProfile.of(7, CastingProfile.Mode.FULL).requiresCircle(), "Divine tier requires circle");
@@ -352,6 +427,24 @@ public final class MagicStateTest {
 			check(lesson.passed(), "All letters in sequence complete learning");
 			lesson.press(letters[0]);
 			check(lesson.index() == count, "Completed lesson is stable");
+		}
+		for (int rank = 1; rank <= 7; rank++) {
+			var profile = CastingProfile.of(rank, CastingProfile.Mode.FULL);
+			var special = new SpellDefinition("timing_test", 3000, 60, 0, 1, "fire", 0, 0, 0,
+					SpellDefinition.CastMode.INSTANT, List.of(), SpellDefinition.Execution.AREA, 0, 32, 1, List.of(), rank, false, profile);
+			check(special.officialRank() == 0 && special.rank() == rank, "Unknown official grade retains timing");
+			check(special.cooldownTicks() == profile.recoveryTicks(), "Explicit timing controls cooldown");
+			var sections = new java.util.ArrayList<int[]>();
+			for (int j = 0; j < SegmentedChantScore.sectionCount(rank); j++) sections.add(new int[rank >= 6 ? 10 : rank == 5 ? 8 : 2 + rank * 2]);
+			var progress = new SegmentedChantScore(rank, sections, 0);
+			progress.press(1); check(progress.currentIndex() == 0, "Wrong input preserves progress");
+			progress.press(0); progress.restartCurrentSection();
+			check(progress.currentIndex() == 0, "Incomplete section restarts");
+			for (int j = 0; j < sections.getFirst().length; j++) progress.press(0);
+			check(progress.completedSections() == 1, "Completed section checkpoint");
+			var resumed = new SegmentedChantScore(rank, sections, progress.completedSections());
+			for (int j = 1; j < sections.size(); j++) for (int key : sections.get(j)) resumed.press(key);
+			check(resumed.finished(), "Resume remaining sections");
 		}
 		System.out.println("MagicState: " + assertions + " behavior assertions passed.");
 	}

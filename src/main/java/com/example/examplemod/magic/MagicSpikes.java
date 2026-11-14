@@ -32,13 +32,16 @@ public final class MagicSpikes extends SavedData {
 	}
 	public static boolean raise(ServerPlayer owner,BlockPos feet) {
 		var level=(ServerLevel)owner.level();
-		for(int y=0;y<3;y++)if(!MagicTerrain.mayChange(owner,feet.above(y))||!level.getBlockState(feet.above(y)).isAir())return false;
-		var data=level.getDataStorage().computeIfAbsent(TYPE);
-		for(int y=0;y<3;y++) {
-			var pos=feet.above(y);var state=Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(PointedDripstoneBlock.TIP_DIRECTION,Direction.UP).setValue(PointedDripstoneBlock.THICKNESS,y==2?DripstoneThickness.TIP:y==1?DripstoneThickness.FRUSTUM:DripstoneThickness.BASE);
-			level.setBlock(pos,state,2);data.entries.add(new Entry(pos,level.getGameTime()+200,state));
-		}
-		data.setDirty();return true;
+		return com.example.examplemod.magic.spell.earth.earth_lance.EarthLanceSpikes.raise(new com.example.examplemod.magic.spell.earth.earth_lance.EarthLanceSpikes.Placement() {
+			private MagicSpikes data;
+			public boolean available(int y) { return com.example.examplemod.infrastructure.fabric.magic.TerrainPermissionAdapter.mayChange(owner,feet.above(y))&&level.getBlockState(feet.above(y)).isAir(); }
+			public void begin() { data=level.getDataStorage().computeIfAbsent(TYPE); }
+			public void place(int y,int duration) {
+				var pos=feet.above(y);var state=Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(PointedDripstoneBlock.TIP_DIRECTION,Direction.UP).setValue(PointedDripstoneBlock.THICKNESS,y==2?DripstoneThickness.TIP:y==1?DripstoneThickness.FRUSTUM:DripstoneThickness.BASE);
+				level.setBlock(pos,state,2);data.entries.add(new Entry(pos,level.getGameTime()+duration,state));
+			}
+			public void finish() { data.setDirty(); }
+		});
 	}
 	private MagicSpikes() { }
 }

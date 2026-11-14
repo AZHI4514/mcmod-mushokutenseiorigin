@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-13T07:12:23.698Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="unloadedAheadPausesBeforeExpiryAndAge()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="movingOrderAndRepeatedStationaryReads()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.001"/>
+  <testcase name="expiryExceptionDoesNotAdvanceAge()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="expiredDiscardsWithoutAgeOrDispatch()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="ownerlessStationaryPausesBeforeExpiry()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="shieldTakesPriorityOverStationary()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="worldFailureAfterAgeKeepsIncrement()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="stationarySkipsAheadAndRock()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="fallingDispatchOccursAfterAge()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="ownerlessMovingStillFlies()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="belowWorldDiscardsWithoutQueryingChunks()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <testcase name="unloadedCurrentDoesNotResolveOwner()" classname="com.example.examplemod.magic.casting.PhaseTwoServerTickModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,126 @@
+{
+  "kind": "SOURCE_AUDIT_ONLY",
+  "game_lifecycle": "NOT_RUN",
+  "entity_reload": "NOT_RUN",
+  "files": [
+    {
+      "path": "src/main/java/com/example/examplemod/magic/StoneCharge.java",
+      "sha256": "e25c8520786a18e125c666e7724ab50f4626b7c6e1a7740aceb5b18c6d19f14a",
+      "sites": [
+        {
+          "needle": "aim.valid()",
+          "lines": [
+            34,
+            39,
+            62
+          ]
+        },
+        {
+          "needle": "charge.dimension.equals",
+          "lines": [
+            45
+          ]
+        },
+        {
+          "needle": "payment(player).cancel()",
+          "lines": [
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/example/examplemod/magic/IntermediateProjectile.java",
+      "sha256": "3ae8a3368f00cd01e95ab7cc972e83ebcbf7335fce2fcb514a4d739ae00ec7f6",
+      "sites": [
+        {
+          "needle": "\"MagicAge\"",
+          "lines": [
+            52,
+            53
+          ]
+        },
+        {
+          "needle": "\"PaidMana\"",
+          "lines": [
+            52,
+            53
+          ]
+        },
+        {
+          "needle": "MagicFlight.loadHits",
+          "lines": [
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/example/examplemod/magic/MagicFlight.java",
+      "sha256": "260414d9a8e08f5620b5f423aaf37ef563df4e58206fbc187fc74270ecf0c5c0",
+      "sites": [
+        {
+          "needle": "\"MagicVictims\"",
+          "lines": [
+            30,
+            33
+          ]
+        },
+        {
+          "needle": "UUID.fromString",
+          "lines": [
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/example/examplemod/magic/MagicAttachments.java",
+      "sha256": "e3b6cb850446e5ff24f5b73e3c253c85af855e7b99e41b64534d93e036cfcf56",
+      "sites": [
+        {
+          "needle": "\"charge_mana\"",
+          "lines": [
+            39
+          ]
+        },
+        {
+          "needle": "\"charge_budget\"",
+          "lines": [
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/example/examplemod/magic/MagicSystem.java",
+      "sha256": "09bf4ca9566b31a84337272f8228fe3a956aa36c73cffc3baaddb569251d9018",
+      "sites": [
+        {
+          "needle": "ServerPlayerEvents.JOIN",
+          "lines": [
+            103
+          ]
+        },
+        {
+          "needle": "ServerPlayerEvents.LEAVE",
+          "lines": [
+            108
+          ]
+        },
+        {
+          "needle": "AFTER_RESPAWN",
+          "lines": [
+            110
+          ]
+        },
+        {
+          "needle": "StoneCharge.clear(server)",
+          "lines": [
+            109
+          ]
+        }
+      ]
+    }
+  ]
+}

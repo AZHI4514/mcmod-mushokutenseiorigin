@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.FluidContactScanModuleTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.341Z" hostname="AZHISLAPTOP" time="0.001">
+  <properties/>
+  <testcase name="worldExceptionStopsRemainingReads()" classname="com.example.examplemod.magic.casting.FluidContactScanModuleTest" time="0.0"/>
+  <testcase name="unloadedAndEmptyShortCircuitBeforeWaterChecks()" classname="com.example.examplemod.magic.casting.FluidContactScanModuleTest" time="0.0"/>
+  <testcase name="penetrationSkipsOnlyWaterAndStillHitsOtherFluids()" classname="com.example.examplemod.magic.casting.FluidContactScanModuleTest" time="0.001"/>
+  <testcase name="zeroContactDoesNotEndScanAndNaNPropagates()" classname="com.example.examplemod.magic.casting.FluidContactScanModuleTest" time="0.0"/>
+  <testcase name="nonpenetratingDoesNotQueryWaterTag()" classname="com.example.examplemod.magic.casting.FluidContactScanModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-13T02:52:18.170Z" hostname="AZHISLAPTOP" time="0.003">
+  <properties/>
+  <testcase name="failedBreaksContinueAndOnlySuccessfulBreaksCountToward128()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.001"/>
+  <testcase name="invisibleBlocksNeverReachPermissionAndBreakAdapter()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.0"/>
+  <testcase name="breakExceptionPreservesEarlierDestructionAndStops()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.0"/>
+  <testcase name="visibilityExceptionPreventsAllDestruction()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.0"/>
+  <testcase name="snapshotsVisibilityBeforeMutationAndRetainsInputOrder()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.001"/>
+  <testcase name="emptyCandidatesPerformNoWorldCalls()" classname="com.example.examplemod.magic.casting.SonicBlastTerrainModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

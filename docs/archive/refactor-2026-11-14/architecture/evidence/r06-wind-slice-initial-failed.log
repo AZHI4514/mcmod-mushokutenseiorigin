@@ -1,0 +1,75 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/AZHI/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :
+Fabric Loom: 1.15.5
+
+> Task :processResources UP-TO-DATE
+> Task :processClientResources NO-SOURCE
+> Task :processIncludeJars UP-TO-DATE
+> Task :magic-core:compileJava
+> Task :magic-core:processResources NO-SOURCE
+> Task :magic-core:classes
+> Task :magic-core:jar
+> Task :magic-core:compileTestFixturesJava UP-TO-DATE
+> Task :magic-core:processTestFixturesResources NO-SOURCE
+> Task :magic-core:testFixturesClasses UP-TO-DATE
+> Task :magic-core:testFixturesJar UP-TO-DATE
+> Task :magic-core:compileTestJava UP-TO-DATE
+> Task :magic-core:processTestResources NO-SOURCE
+> Task :magic-core:testClasses UP-TO-DATE
+> Task :sourcesJar
+> Task :magic-core:test
+
+> Task :magic-core:compileModuleTestJava FAILED
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:12: 错误: 程序包com.example.examplemod.magic.spell.fire.wind_slice不存在
+import com.example.examplemod.magic.spell.fire.wind_slice.WindSliceSpec;
+                                                         ^
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:20: 错误: 找不到符号
+		var spec=WindSliceSpec.PROJECTILE;
+		         ^
+  符号:   变量 WindSliceSpec
+  位置: 类 WindSliceModuleTest
+D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:24: 错误: 找不到符号
+		var player=new Player();var session=new CastingSession(WindSliceSpec.PREPARATION_TICKS);var calls=new int[2];
+		                                                       ^
+  符号:   变量 WindSliceSpec
+  位置: 类 WindSliceModuleTest
+3 个错误
+
+> Task :compileJava
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+
+
+[Incubating] Problems report is available at: file:///D:/Develop/project-mc-mod-mushoku-tensei/project-mc-mod-mushoku-tensei/build/reports/problems/problems-report.html
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':magic-core:compileModuleTestJava'.
+> Compilation failed; see the compiler output below.
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:20: 错误: 找不到符号
+  		var spec=WindSliceSpec.PROJECTILE;
+  		         ^
+    符号:   变量 WindSliceSpec
+    位置: 类 WindSliceModuleTest
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:24: 错误: 找不到符号
+  		var player=new Player();var session=new CastingSession(WindSliceSpec.PREPARATION_TICKS);var calls=new int[2];
+  		                                                       ^
+    符号:   变量 WindSliceSpec
+    位置: 类 WindSliceModuleTest
+  D:\Develop\project-mc-mod-mushoku-tensei\project-mc-mod-mushoku-tensei\magic-core\src\moduleTest\java\com\example\examplemod\magic\casting\WindSliceModuleTest.java:12: 错误: 程序包com.example.examplemod.magic.spell.fire.wind_slice不存在
+  import com.example.examplemod.magic.spell.fire.wind_slice.WindSliceSpec;
+                                                           ^
+  3 个错误
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 12s
+11 actionable tasks: 6 executed, 5 up-to-date

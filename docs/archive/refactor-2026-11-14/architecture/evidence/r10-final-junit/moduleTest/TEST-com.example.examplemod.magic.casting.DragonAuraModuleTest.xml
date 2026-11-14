@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.DragonAuraModuleTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T01:12:55.114Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="readinessAndFloatReductionAreExact()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.001"/>
+  <testcase name="inactiveEndOnlyRemovesModifier()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.0"/>
+  <testcase name="firstActiveTickMarksThenSchedulesAndPays()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.0"/>
+  <testcase name="offCadenceDoesNotPay()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.001"/>
+  <testcase name="normalEndClearsThenSetsRecoveryAndEnd()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.0"/>
+  <testcase name="insufficientManaEndsWithoutClearingActiveYet()" classname="com.example.examplemod.magic.casting.DragonAuraModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

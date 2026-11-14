@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-13T11:45:30.049Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="nuclearCommitsOnceBeforeTargetsAndTerrain()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <testcase name="warningDoesNotHitOrExcavate()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <testcase name="nuclearExceptionCannotReplayExplosion()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <testcase name="insufficientManaDiscardsWithoutRemovingState()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <testcase name="missingStateSkipsExpiry()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <testcase name="schedulePrecedesPaymentAndUpdate()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.001"/>
+  <testcase name="noPulseDoesNotReadMana()" classname="com.example.examplemod.magic.casting.MaintainedFieldModuleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

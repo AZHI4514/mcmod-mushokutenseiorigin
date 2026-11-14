@@ -1,0 +1,9 @@
+# 土枪生命周期源码审计（2026-11-12）
+
+ColumnRuntime由服务器overworld非持久附件持有，按玩家UUID分组。MagicSystem的LEAVE、AFTER_RESPAWN和跨维度检测调用PhaseTwoRuntime.clear移除该玩家待生长柱；SERVER_STOPPING清理在线玩家，服务器释放时非持久附件随实例释放。已放永久泥土不删除，未放柱任务不保存。ColumnGrowth到期200tick移除任务，每层重新检查权限/空气，遇占用等待，非可用层跳过。
+
+注意：死亡本身仅breakMaintenance，PhaseTwoRuntime.tick仍先tickColumns；死亡到重生之间待生长柱可能继续推进。保留既有行为，不能写死亡即时清除。是否应立即取消属于玩法语义决策，后续验收须明确。
+
+MagicSpikes独立SavedData magic_spikes保留pos/expiry/state；到期且区块已加载才清理，只有当前方块与记录状态相同才置空。断线/死亡不删除这些已放滴水石，存档重载保留expiry；实际Fabric事件、保存重载和地形权限均NOT_RUN。
+
+本轮组合合同验证付款后永久柱协调及滴水石预检失败完整退款；不覆盖真实Adapter射线选择或真实世界伤害。土枪保留IN_PROGRESS，仍需双分支选择及伤害/视觉顺序的更完整协调审计。

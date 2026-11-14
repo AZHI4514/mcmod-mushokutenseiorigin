@@ -3,21 +3,22 @@ package com.example.examplemod.magic;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-/** 火断直线飞行路程；生物命中或完全遮挡后消失，旧存档多余的 targets 字段被忽略。 */
+/** 火断存档兼容记录；穿透生物，完整截面遮挡才停止。旧targets字段忽略。 */
 public record FlameSliceFlight(double travelled) {
 	public static final Codec<FlameSliceFlight> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.DOUBLE.fieldOf("travelled").forGetter(FlameSliceFlight::travelled)
 	).apply(instance, FlameSliceFlight::new));
 
 	public FlameSliceFlight {
-		travelled = Double.isFinite(travelled) ? Math.max(0, travelled) : SpellDefinition.FLAME_SLICE.flightRange();
+		travelled = new com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceFlightState(travelled).travelled();
 	}
 
 	public FlameSliceFlight advance(double distance) {
-		return new FlameSliceFlight(travelled + Math.max(0, distance));
+		return new FlameSliceFlight(core().advance(distance).travelled());
 	}
 
-	public double remaining() { return Math.max(0, SpellDefinition.FLAME_SLICE.flightRange() - travelled); }
-	public boolean exhausted() { return remaining() <= 1.0E-6; }
+	public com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceFlightState core() { return new com.example.examplemod.magic.spell.fire.flame_slice.FlameSliceFlightState(travelled); }
+	public double remaining() { return core().remaining(); }
+	public boolean exhausted() { return core().exhausted(); }
 
 }

@@ -20,7 +20,7 @@ public final class MagicBookScreen extends Screen {
 	private String notes = "";
 	private long token, start, requested;
 	private boolean waiting, running;
-	private int completed;
+	private int completed, section;
 	private final boolean[] held = new boolean[26];
 	public MagicBookScreen(ItemStack book) {
 		super(book.getHoverName()); this.book = book.copy(); lessons = MagicBooks.lessons(book);
@@ -31,14 +31,14 @@ public final class MagicBookScreen extends Screen {
 	private void send(String action, int value) { ClientPlayNetworking.send(new ChantPayload(action, spell(), token, value, "")); }
 	@Override
 	protected void init() {
-		learn = addRenderableWidget(Button.builder(MagicScreens.text("learn"), b -> { waiting = !MagicBooks.isLegacy(book); requested = System.nanoTime(); send("start", 0); }).bounds(left() + 163, top() + 105, 116, 20).build());
+		learn = addRenderableWidget(Button.builder(MagicScreenStyle.text("learn"), b -> { waiting = !MagicBooks.isLegacy(book); requested = System.nanoTime(); send("start", 0); }).bounds(left() + 163, top() + 105, 116, 20).build());
 		back = addRenderableWidget(Button.builder(Component.literal("<"), b -> { if (page > 0) page--; }).bounds(left() + 18, top() + 183, 24, 20).build());
 		next = addRenderableWidget(Button.builder(Component.literal(">"), b -> { if (page < lessons.size()) page++; }).bounds(left() + 258, top() + 183, 24, 20).build());
 	}
 	public void receive(ChantPayload packet) {
 		if (!packet.spell().equals(spell())) return;
-		if (packet.action().equals("offer") && waiting) {
-			token = packet.token(); notes = packet.notes(); send("ready", 0);
+		if ((packet.action().equals("offer") && waiting || packet.action().equals("section") && running)) {
+			running = false; waiting = true; requested = System.nanoTime(); section = packet.value(); token = packet.token(); notes = packet.notes(); send("ready", 0);
 		} else if (packet.token() == token && packet.action().equals("go")) {
 			running = true; waiting = false; start = System.nanoTime();
 			completed = 0;
@@ -86,29 +86,30 @@ public final class MagicBookScreen extends Screen {
 		var definition = SpellDefinition.find(spell());
 		boolean known = MagicClient.state().learned().contains(spell());
 		learn.active = definition != null && !known && (MagicBooks.isLegacy(book) || definition.learningRequirementsMet(MagicClient.state().learned()));
-		learn.setMessage(MagicScreens.text(known ? "already_learned" : learn.active ? "learn" : "missing_knowledge"));
+		learn.setMessage(MagicScreenStyle.text(known ? "already_learned" : learn.active ? "learn" : "missing_knowledge"));
 		if (page == 0) {
 			paragraph(g, title, x + 20, y + 22, 3);
-			if (book.getItem() instanceof MagicTextbookItem textbook) paragraph(g, MagicScreens.text("category_intro_" + textbook.category().id()), x + 20, y + 58, 11);
-			else paragraph(g, MagicScreens.text("legacy_readonly"), x + 20, y + 60, 10);
-			g.text(font, MagicScreens.text("contents"), x + 163, y + 22, 0xFF49351F, false);
-			for (int i = 0; i < Math.min(13, lessons.size()); i++) g.text(font, MagicScreens.name(lessons.get(i)), x + 163, y + 42 + i * 10, 0xFF49351F, false);
+			if (book.getItem() instanceof MagicTextbookItem textbook) paragraph(g, MagicScreenStyle.text("category_intro_" + textbook.category().id()), x + 20, y + 58, 11);
+			else paragraph(g, MagicScreenStyle.text("legacy_readonly"), x + 20, y + 60, 10);
+			g.text(font, MagicScreenStyle.text("contents"), x + 163, y + 22, 0xFF49351F, false);
+			for (int i = 0; i < Math.min(13, lessons.size()); i++) g.text(font, MagicScreenStyle.name(lessons.get(i)), x + 163, y + 42 + i * 10, 0xFF49351F, false);
 		} else if (definition != null) {
-			g.text(font, MagicScreens.name(spell()), x + 20, y + 23, 0xFF49351F, false);
+			g.text(font, MagicScreenStyle.name(spell()), x + 20, y + 23, 0xFF49351F, false);
 			int introY = y + 42;
 			if (!MagicBooks.isLegacy(book) && !definition.learningRequirements().isEmpty()) {
-				String required = definition.learningRequirements().stream().map(MagicScreens::name).map(Component::getString).collect(java.util.stream.Collectors.joining("、"));
+				String required = definition.learningRequirements().stream().map(MagicScreenStyle::name).map(Component::getString).collect(java.util.stream.Collectors.joining("、"));
 				paragraph(g, Component.translatable("magic.mushokutenseiorigin.prerequisite", required), x + 20, introY, 2);
 				introY += 19;
 			}
-			paragraph(g, MagicScreens.text("lesson_intro_" + spell()), x + 20, introY, Math.max(3, (y + 116 - introY) / 10));
+			paragraph(g, MagicScreenStyle.text("lesson_intro_" + spell()), x + 20, introY, Math.max(3, (y + 116 - introY) / 10));
 			g.text(font, Component.translatable("magic.mushokutenseiorigin.cost", definition.manaCost()), x + 20, y + 119, 0xFF49351F, false);
 			paragraph(g, Component.translatable("magic.mushokutenseiorigin.cast_timing", definition.castingProfile().preparationTicks() / 20.0, definition.cooldownTicks() / 20.0), x + 20, y + 133, 2);
 			g.text(font, Component.translatable("magic.mushokutenseiorigin.damage", definition.damage()), x + 20, y + 158, 0xFF49351F, false);
-			if (!active) paragraph(g, MagicScreens.text(MagicBooks.isLegacy(book) ? "legacy_direct_learn" : "score_rules"), x + 163, y + 30, 7);
+			if (!active) paragraph(g, MagicScreenStyle.text(MagicBooks.isLegacy(book) ? "legacy_direct_learn" : "score_rules"), x + 163, y + 30, 7);
 		}
 		if (running) {
-			g.text(font, MagicScreens.text("score_title"), x + 163, y + 24, 0xFF49351F, false);
+			g.text(font, MagicScreenStyle.text("score_title"), x + 163, y + 24, 0xFF49351F, false);
+			if (definition != null && definition.rank() >= 5) g.text(font, (section + 1) + " / " + SegmentedChantScore.sectionCount(definition.rank()), x + 252, y + 24, 0xFF49351F, false);
 			for (int i = 0; i < notes.length(); i++) {
 				int code = notes.charAt(i);
 				if (code < 'a' || code > 'z') continue;
@@ -122,7 +123,7 @@ public final class MagicBookScreen extends Screen {
 						0, 0, (code % 16) * 8, (code / 16) * 8, 8, 8, 128, 128);
 				g.pose().popMatrix();
 			}
-			paragraph(g, MagicScreens.text("score_rules"), x + 163, y + 125, 5);
+			paragraph(g, MagicScreenStyle.text("score_rules"), x + 163, y + 125, 5);
 		}
 		g.centeredText(font, (page + 1) + " / " + (lessons.size() + 1), x + 150, y + 190, 0xFF49351F);
 		super.extractRenderState(g, mx, my, delta);

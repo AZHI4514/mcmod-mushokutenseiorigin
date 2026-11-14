@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-13T11:53:51.195Z" hostname="AZHISLAPTOP" time="0.002">
+  <properties/>
+  <testcase name="failedMaintenanceReleasesWithoutDrawing()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="playerCanNeverBeSealTarget()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="dryGraceEndsAtExactlyHundredTicks()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="successfulSupplyClearsDryThenRepairs()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="invalidCoreReleasesBeforeMaintenance()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="twentyPercentBoundaryAndTagRemainRequired()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.0"/>
+  <testcase name="absentStateSkipsCoreInspection()" classname="com.example.examplemod.magic.casting.PoweredBarrierModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

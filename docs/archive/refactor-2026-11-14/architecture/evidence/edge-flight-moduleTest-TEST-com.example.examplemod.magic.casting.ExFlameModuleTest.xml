@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.examplemod.magic.casting.ExFlameModuleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:05:29.072Z" hostname="AZHISLAPTOP" time="0.008">
+  <properties/>
+  <testcase name="cancellationAndExpiryDoNotCommit()" classname="com.example.examplemod.magic.casting.ExFlameModuleTest" time="0.001"/>
+  <testcase name="failedSpawnAndExceptionRestoreExactSnapshotWithoutNotification()" classname="com.example.examplemod.magic.casting.ExFlameModuleTest" time="0.002"/>
+  <testcase name="preparesAndReleasesExactlyOnceWithCorrectIdentityAndCost()" classname="com.example.examplemod.magic.casting.ExFlameModuleTest" time="0.001"/>
+  <testcase name="rejectsInsufficientManaUnknownKnowledgeAndInvalidAimBeforeSpawn()" classname="com.example.examplemod.magic.casting.ExFlameModuleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:undead",
+    {
+      "id": "#mushokutenseiorigin:ghosts",
+      "required": false
+    }
+  ]
+}

@@ -1,24 +1,33 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "com.example.examplemod.mixin",
-	"compatibilityLevel": "JAVA_25",
-	"mixins": [
-		"MagicSleepMixin",
-		"MagicFreezeMixin",
-		"MagicProjectileMixin",
-		"MagicArrowAccessor",
-		"MagicMovementMixin"
-	],
-	"client": [
-		"ExampleMixin",
-		"MagicRenderStateMixin",
-		"MagicExtractPoseMixin",
-		"MagicHumanoidMixin",
-		"MagicFirstPersonMixin",
-		"MagicWindBoundRenderMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.example.examplemod.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "MagicSleepMixin",
+    "MagicFreezeMixin",
+    "MagicProjectileMixin",
+    "MagicArrowAccessor",
+    "MagicMovementMixin",
+    "MagicSpawnMixin",
+    "MagicTargetingMixin",
+    "MagicSummonMixin",
+    "MagicProtectionMixin",
+    "MagicTerrainLeaseMixin"
+  ],
+  "client": [
+    "MagicRenderStateMixin",
+    "MagicExtractPoseMixin",
+    "MagicHumanoidMixin",
+    "MagicFirstPersonMixin",
+    "MagicWindBoundRenderMixin",
+    "MagicFogMixin",
+    "MagicIllusionRenderMixin",
+    "MagicIllusionBlocksMixin",
+    "MagicIllusionFluidMixin",
+    "MagicIllusionBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
