@@ -1,31 +1,19 @@
-# 文档入口：只从这里开始
+# 项目文档唯一入口
 
-当前有效 · 更新：2026-11-14。**R00—R10代码重构完成，102术已接入；游戏实际验收未运行。**
+先读[项目导览](START_HERE.md)：用一个水弹例子理解整个项目。
 
-## 你需要看什么
+| 层 | 回答什么 | 入口 | 不放什么 |
+|---|---|---|---|
+| intent | 为什么做、希望什么体验 | [项目目标](intent/PROJECT.md)、[魔法](intent/MAGIC.md)、[学习](intent/LEARNING.md) | 数值表、类名、进度 |
+| spec | 游戏必须如何表现 | [魔法目录](spec/magic/INDEX.md)、[系统合同](spec/README.md) | 开发日志、代码路径 |
+| impl | 代码怎样实现 | [实现入口](impl/README.md) | 新的玩法决定、进度 |
+| development | 每次怎样开发 | [标准流程](development/WORKFLOW.md)、[工程约束](development/ENGINEERING.md)、[模板](development/templates/SPELL.md) | 某一术的具体设计 |
+| status | 现在做到哪 | [STATUS](STATUS.md) | 长篇开发经过 |
+| logs | 过去发生过什么 | [开发记录](logs/README.md) | 当前规格 |
+| reference/archive | 来源、差异、旧证据 | [差异](reference/SPEC_DEVIATIONS.md)、[归档](archive/README.md) | 默认阅读任务 |
 
-| 想知道什么 | 唯一入口 |
-|---|---|
-| 做到哪里、还有什么未验收 | [当前开发状态](STATUS.md) |
-| 原39种魔法的数值和效果 | [原39术游戏设定](魔法-游戏设定.md) |
-| 扩展63种魔法、暂缓范围 | [扩展游戏设定](ALL_MAGIC_EXPANSION.md) |
-| 魔法书、学习与咏唱规则 | [学习与咏唱](TEXTBOOK_CHANT_SYSTEM.md) |
-| 动画、模型、纹理、粒子要求 | [视觉制作规范](PIXELFX_ANIMATION.md) |
+## AI最小阅读协议
 
-你不需要阅读任务卡和测试日志。以上文件全部当前有效；“原39术”与“扩展63术”是互补范围，不是新旧版本。
+根AGENTS→本页→STATUS→活动任务（如果存在）；按任务只读相关intent、系统合同、具体法术卡、impl与代码。新开发再读WORKFLOW/ENGINEERING。默认不读取全量102术、不扫描archive、不恢复旧任务卡。
 
-## AI固定阅读顺序
-
-1. 每次只先读根目录`AGENTS.md`、本页、[当前开发状态](STATUS.md)和[开发规范](MAGIC_DEVELOPMENT.md)。
-2. 按本次任务选读上表对应设定；修改架构、纯逻辑或模块边界时读[当前架构](ARCHITECTURE.md)；修改物品时读[物品规范](ADDING_ITEMS.md)。
-3. 只定位本次涉及的代码、测试和资源。需要定位时查[实际文件树](reference/ACTUAL_FILE_TREE.md)或[102术索引](reference/MIGRATION_LEDGER.md)。核查已知冲突时读[差异与未验收](reference/SPEC_DEVIATIONS.md)。
-4. **默认不读取`archive/`，不批量加载全部文档，不把历史IN_PROGRESS当待办。**只有追溯决策或检查指定证据时才打开归档中的精确文件。
-5. 中断恢复重新读取STATUS和本次相关规格；结束更新STATUS及受影响的正式规格。没有运行的测试必须写NOT_RUN。
-
-## 哪些是参考、哪些已经归档
-
-- [原作魔术设定](魔术设定.md)：原作参考，不能覆盖已确认的游戏数值。
-- `reference/`：当前有效的查询资料，不是每次必读。
-- [历史归档说明](archive/README.md)：旧架构提案、旧任务卡、旧状态指针、审查和测试证据。只供追溯，不作为当前规格或当前进度。
-
-规则优先级：用户最新明确决定 → 对应正式游戏规格最新有效修订 → 当前开发/架构规范。发现冲突先记录并核对，不用实现反向改写设计。当前状态只有STATUS一处；原始构建证据保留但不代表实际游戏通过。
+中断恢复用ACTIVE_TASK的决定、文件、证据和下一步；完成后只在STATUS更新当前结果、日志追加过程。规格只有规则改变时才改，禁止附加“本轮已完成/最新进度”。用户最新明确决定优先；冲突不得凭实现倒推设计。
